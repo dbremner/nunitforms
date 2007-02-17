@@ -1,0 +1,5 @@
+<namespaces>
+	<namespace name="NUnit.Extensions.Forms">
+	    The <b>NUnit.Extensions.Forms</b> namespace is the main namespace for NUnitForms.
+	</namespace>
+</namespaces>

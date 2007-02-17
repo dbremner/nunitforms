@@ -1,0 +1,103 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DAAB0423-50E1-4868-B5A7-07D47BF7CE45}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NUnitForms.Recorder</RootNamespace>
+    <AssemblyName>NUnitForms.Recorder</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>NUnitForms.Recorder.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>NUnitForms.Recorder.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Action.cs" />
+    <Compile Include="AppForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AppForm.Designer.cs">
+      <DependentUpon>AppForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ButtonRecorder.cs" />
+    <Compile Include="Censor.cs" />
+    <Compile Include="CheckBoxRecorder.cs" />
+    <Compile Include="CollapsingProcessor.cs" />
+    <Compile Include="ComboBoxRecorder.cs" />
+    <Compile Include="CompareControlCaptureAction.cs" />
+    <Compile Include="CompositeAction.cs" />
+    <Compile Include="ControlRecorder.cs" />
+    <Compile Include="Definition.cs" />
+    <Compile Include="EnterSelectTextCollapsingProcessor.cs" />
+    <Compile Include="EnterTextCollapsingProcessor.cs" />
+    <Compile Include="EventAction.cs" />
+    <Compile Include="FormFactory.cs" />
+    <Compile Include="FormRecorder.cs" />
+    <Compile Include="ICollapsingProcessor.cs" />
+    <Compile Include="IRecorder.cs" />
+    <Compile Include="LabelRecorder.cs" />
+    <Compile Include="LinkLabelRecorder.cs" />
+    <Compile Include="ListBoxRecorder.cs" />
+    <Compile Include="Listener.cs" />
+    <Compile Include="MenuItemRecorder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyAssertAction.cs" />
+    <Compile Include="RadioButtonRecorder.cs" />
+    <Compile Include="Recorder.cs" />
+    <Compile Include="RichTextBoxRecorder.cs" />
+    <Compile Include="SupportedEventsRegistry.cs" />
+    <Compile Include="TabControlRecorder.cs" />
+    <Compile Include="TestWriter.cs" />
+    <Compile Include="TextBoxRecorder.cs" />
+    <Compile Include="ToolStripButtonRecorder.cs" />
+    <Compile Include="ToolStripComboBoxRecorder.cs" />
+    <Compile Include="ToolStripDropDownButtonRecorder.cs" />
+    <Compile Include="ToolStripMenuItemRecorder.cs" />
+    <Compile Include="ToolStripRecorder.cs" />
+    <Compile Include="ToolStripSplitButtonRecorder.cs" />
+    <Compile Include="ToolStripTextBoxRecorder.cs" />
+    <Compile Include="TreeViewRecorder.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AppForm.resx">
+      <DependentUpon>AppForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NUnitForms.ScreenCapture\NUnitForms.ScreenCapture.csproj">
+      <Project>{51410454-C3F4-4444-941D-F718AF337A4B}</Project>
+      <Name>NUnitForms.ScreenCapture</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NUnitForms\NUnitForms.csproj">
+      <Project>{E579ACDA-8C4F-4E35-A18B-C001D9EECD2B}</Project>
+      <Name>NUnitForms</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

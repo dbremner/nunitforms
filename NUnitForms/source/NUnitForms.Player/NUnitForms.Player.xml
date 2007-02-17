@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NUnitForms.Player</name>
+    </assembly>
+    <members>
+        <member name="T:NUnit.Extensions.Forms.Player.AppForm">
+            <summary>
+            Summary description for AppForm.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.Player.AppForm.statusBar1">
+            <summary>
+            Public for testing purposes.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.Player.AppForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.Player.AppForm.Play">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>
