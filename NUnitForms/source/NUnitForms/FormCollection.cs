@@ -30,7 +30,7 @@
 
 #endregion
 
-using System.Collections;
+using System.Collections.ObjectModel;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
@@ -42,76 +42,18 @@ namespace NUnit.Extensions.Forms
     /// NUnitForms users should not have a need for this class.  When C# supports
     /// generics, this should be replaced.
     /// </remarks>
-    public class FormCollection
+    public class FormCollection: Collection<Form>
     {
-        private ArrayList list = new ArrayList();
-
-        /// <summary>
-        /// Add a Form to the collection.
-        /// </summary>
-        /// <remarks>
-        /// Will not add a duplicate form.  In this way, the collection acts like a Set.
-        /// </remarks>
-        /// <param name="form">The form to add.</param>
-        public void Add(Form form)
-        {
-            if(!Contains(form))
-            {
-                list.Add(form);
-            }
-        }
-
-        /// <summary>
-        /// Returns a boolean to indicate whether the supplied form exists in this collection.
-        /// </summary>
-        /// <param name="form">The form to check for existence.</param>
-        /// <returns>true if the form is in the collection, false otherwise.</returns>
-        public bool Contains(Form form)
-        {
-            return list.Contains(form);
-        }
-
         /// <summary>
         /// Add one FormCollection to another.  Combines them into one collection.
         /// </summary>
         /// <param name="collection">The collection to merge with this one.</param>
-        public void Add(FormCollection collection)
+        public void AddRange(FormCollection collection)
         {
             foreach(Form form in collection)
             {
                 Add(form);
             }
         }
-
-        /// <summary>
-        /// Returns the number of forms in this FormCollection.
-        /// </summary>
-        public int Count
-        {
-            get
-            {
-                return list.Count;
-            }
-        }
-
-        /// <summary>
-        /// Returns an IEnumerator of the Forms in this collection.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerator GetEnumerator()
-        {
-            return list.GetEnumerator();
-        }
-
-        /// <summary>
-        /// Returns a Form from this collection according to its index.
-        /// </summary>
-        public Form this[int i]
-        {
-            get
-            {
-                return (Form) list[i];
-            }
-        }
-    }
+  }
 }

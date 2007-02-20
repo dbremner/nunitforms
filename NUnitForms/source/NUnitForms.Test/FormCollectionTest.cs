@@ -95,7 +95,7 @@ namespace NUnit.Extensions.Forms.TestApplications
             collection2.Add(three);
             Add(one);
             Add(two);
-            collection.Add(collection2);
+            collection.AddRange(collection2);
             Enumerate();
         }
 

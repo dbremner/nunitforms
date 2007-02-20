@@ -32,7 +32,6 @@
 
 using System;
 using System.Collections;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
@@ -78,7 +77,7 @@ namespace NUnit.Extensions.Forms
 	/// appropriate type.
 	/// The ButtonTester class is a good place to look for an example (or cut and
 	/// paste starting point) if you are making your own tester.</remarks>
-	public class ControlTester : IEnumerable
+	public class ControlTester : ObjectTester, IEnumerable
 	{
 		private Form form;
 		private string formName;
@@ -155,19 +154,6 @@ namespace NUnit.Extensions.Forms
 		}
 
 		/// <summary>
-		/// Should call this method after editing something in order to trigger any
-		/// databinding done with the Databindings collection.  (ie text box to a data
-		/// set)
-		/// </summary>
-		public void EndCurrentEdit(string propertyName)
-		{
-			if (Control.DataBindings[propertyName] != null)
-			{
-				Control.DataBindings[propertyName].BindingManagerBase.EndCurrentEdit();
-			}
-		}
-
-		/// <summary>
 		/// Returns the number of controls associated with this tester.
 		/// </summary>
 		public int Count
@@ -235,6 +221,20 @@ namespace NUnit.Extensions.Forms
 		}
 
 		/// <summary>
+		/// Should call this method after editing something in order to trigger any
+		/// databinding done with the Databindings collection.  (ie text box to a data
+		/// set)
+		/// </summary>
+		public void EndCurrentEdit(string propertyName)
+		{
+			if (Control.DataBindings[propertyName] != null)
+			{
+				Control.DataBindings[propertyName].BindingManagerBase.EndCurrentEdit();
+			}
+		}
+
+
+		/// <summary>
 		/// Convenience method retrieves the Text property of the tested control.
 		/// </summary>
 		public virtual string Text
@@ -270,75 +270,6 @@ namespace NUnit.Extensions.Forms
 			this.formName = tester.formName;
 			this.name = tester.name;
 		}
-
-		#region EventFiring
-
-		/// <summary>
-		/// Simulates firing of an event by the control being tested.
-		/// </summary>
-		/// <param name="eventName">The name of the event to fire.</param>
-		/// <param name="args">The optional arguments required to construct the EventArgs for the specified event.</param>
-		public void FireEvent(string eventName, params object[] args)
-		{
-			EventHelper.RaiseEvent(Control, eventName, args);
-		}
-
-		/// <summary>
-		/// Simulates firing of an event by the control being tested.
-		/// </summary>
-		/// <param name="eventName">The name of the event to fire.</param>
-		/// <param name="arg">The EventArgs object to pass as a parameter on the event.</param>
-		public void FireEvent(string eventName, EventArgs arg)
-		{
-			EventHelper.RaiseEvent(Control, eventName, arg);
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <summary>
-		/// Convenience accessor / mutator for any nonsupported property on a control
-		/// to test.
-		/// </summary>
-		/// <example>
-		/// ControlTester t = new ControlTester("t");
-		/// t["Text"] = "a";
-		/// AssertEqual("a", t["Text"]);
-		/// </example>
-		/// 
-		public object this[string propertyName]
-		{
-			get { return GetPropertyInfo(propertyName).GetValue(Control, null); }
-			set
-			{
-				GetPropertyInfo(propertyName).SetValue(Control, value, null);
-				EndCurrentEdit(propertyName);
-			}
-		}
-
-		private PropertyInfo GetPropertyInfo(string propertyName)
-		{
-			return
-				Control.GetType().GetProperty(propertyName,
-				                              BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-		}
-
-		#endregion
-
-		#region Methods
-
-		/// <summary>
-		/// Convenience method invoker for any nonsupported method on a control to test
-		/// </summary>
-		/// <param name="methodName">the name of the method to invoke</param>
-		/// <param name="args">the arguments to pass into the method</param>
-		public object Invoke(string methodName, params object[] args)
-		{
-			return EventHelper.Call(Control, methodName, args);
-		}
-
-		#endregion
 
 		#region Mouse
 
@@ -390,6 +321,11 @@ namespace NUnit.Extensions.Forms
 			get { return GetControlFinder().Find(index); }
 		}
 
+		protected override object theObject
+		{
+			get { return Control; }
+		}
+
 		private ControlFinder GetControlFinder()
 		{
 			if (form != null)
@@ -405,6 +341,11 @@ namespace NUnit.Extensions.Forms
 			{
 				return new ControlFinder(name);
 			}
+		}
+
+		protected override void DoAfterSetProperty(string propertyName)
+		{
+			EndCurrentEdit(propertyName);
 		}
 	}
 }

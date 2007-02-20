@@ -33,7 +33,6 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
@@ -79,7 +78,7 @@ namespace NUnit.Extensions.Forms
     /// appropriate type.
     /// The ButtonTester class is a good place to look for an example (or cut and
     /// paste starting point) if you are making your own tester.</remarks>
-    public class ComponentTester : IEnumerable
+    public class ComponentTester : ObjectTester, IEnumerable
     {
         private Form form;
 
@@ -251,145 +250,13 @@ namespace NUnit.Extensions.Forms
             name = tester.name;
         }
 
-        #region EventFiring
-
-        /// <summary>
-        /// Simulates firing of an event by the Component being tested.
-        /// </summary>
-        /// <param name="eventName">The name of the event to fire.</param>
-        /// <param name="args">The optional arguments required to construct the EventArgs for the specified event.</param>
-        public void FireEvent(string eventName, params object[] args)
-        {
-            MethodInfo minfo =
-                    Component.GetType().GetMethod("On" + eventName,
-                                                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-            ParameterInfo[] param = minfo.GetParameters();
-            Type parameterType = param[0].ParameterType;
-            minfo.Invoke(Component, new object[] {Activator.CreateInstance(parameterType, args)});
-        }
-
-        /// <summary>
-        /// Simulates firing of an event by the Component being tested.
-        /// </summary>
-        /// <param name="eventName">The name of the event to fire.</param>
-        /// <param name="arg">The EventArgs object to pass as a parameter on the event.</param>
-        public void FireEvent(string eventName, EventArgs arg)
-        {
-            MethodInfo minfo =
-                    Component.GetType().GetMethod("On" + eventName,
-                                                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-            minfo.Invoke(Component, new object[] {arg});
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Convenience accessor / mutator for any nonsupported property on a Component
-        /// to test.
-        /// </summary>
-        /// <example>
-        /// ComponentTester t = new ComponentTester("t");
-        /// t["Text"] = "a";
-        /// AssertEqual("a", t["Text"]);
-        /// </example>
-        /// 
-        public object this[string componentName]
-        {
-            get
-            {
-                return GetPropertyInfo(componentName).GetValue(Component, null);
-            }
-            set
-            {
-                GetPropertyInfo(componentName).SetValue(Component, value, null);
-                EndCurrentEdit(componentName);
-            }
-        }
-
-        private PropertyInfo GetPropertyInfo(string propertyName)
-        {
-            return
-                    Component.GetType().GetProperty(propertyName,
-                                                  BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Convenience method invoker for any nonsupported method on a Component to test
-        /// </summary>
-        /// <param name="methodName">the name of the method to invoke</param>
-        /// <param name="args">the arguments to pass into the method</param>
-        public object Invoke(string methodName, params object[] args)
-        {
-            Type[] types = new Type[args.Length];
-            for(int i = 0; i < types.Length; i++)
-            {
-                types[i] = args[i].GetType();
-            }
-            MethodInfo minfo =
-                    Component.GetType().GetMethod(methodName,
-                                                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
-                                                null, types, null);
-            return minfo.Invoke(Component, args);
-        }
-
-        #endregion
-
-        //#region Mouse
-
-        ///// <summary>
-        /////   Returns a <see cref="NUnit.Extensions.Forms.MouseComponentler"/> that
-        /////   can be used with the <see cref="Component">Component under test</see>.
-        /////   
-        /////   It would be better to use the MouseComponentler on the base test class so
-        /////   that you don't have to worry about disposing it after your test.  I think
-        /////   this may be marked obsolete soon.
-        ///// </summary>
-        ///// <returns>
-        /////   A <see cref="NUnit.Extensions.Forms.MouseComponentler"/>.
-        ///// </returns>
-        ///// <remarks>
-        /////   <b>MouseComponentler</b> returns a new instance of a <see cref="NUnit.Extensions.Forms.MouseComponentler"/>
-        /////   that can be used with the <see cref="Component">Component under test</see>.
-        /////   All <see cref="NUnit.Extensions.Forms.MouseComponentler.Position">mouse positions</see> are relative
-        /////   the Component.
-        /////   <para>
-        /////   The returned <b>MouseComponentler</b> must be <see cref="NUnit.Extensions.Forms.MouseComponentler.Dispose">disposed</see>
-        /////   to restore the mouse settings prior to the testing; which can be accomplished with the <c>using</c>
-        /////   statement.
-        /////   </para>
-        ///// </remarks>
-        ///// <example>
-        ///// <code>
-        ///// TextBoxTester textBox = new TextBoxTester("myTextBox");
-        ///// using (MouseComponentler mouse = textBox.MouseComponentler())
-        ///// {
-        /////   mouse.Position = new PointF(1,1);
-        /////   mouse.Drag(30,1);
-        ///// }
-        ///// </code>
-        ///// </example>
-        //public MouseComponentler MouseComponentler()
-        //{
-        //    return new MouseComponentler(this);
-        //}
-
-        //#endregion
 
         /// <summary>
         /// The underlying Component for this tester.
         /// </summary>
         protected internal IComponent Component
         {
-            get
-            {
-                return GetComponentFinder().Find(index);
-            }
+            get { return GetComponentFinder().Find(index); }
         }
 
         private ComponentFinder GetComponentFinder()
@@ -408,5 +275,15 @@ namespace NUnit.Extensions.Forms
                 return new ComponentFinder(name);
             }
         }
+
+    	protected override object theObject
+    	{
+			get { return Component; }
+    	}
+
+    	protected override void DoAfterSetProperty(string propertyName)
+    	{
+			EndCurrentEdit(propertyName);
+    	}
     }
 }

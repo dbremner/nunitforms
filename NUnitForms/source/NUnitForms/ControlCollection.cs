@@ -45,7 +45,7 @@ namespace NUnit.Extensions.Forms
 		/// Add one ControlCollection to another.  Combines them into one collection.
 		/// </summary>
 		/// <param name="collection">The collection to merge with this one.</param>
-		public void Add(ICollection<Control> collection)
+		public void AddRange(ICollection<Control> collection)
 		{
 			foreach (Control control in collection)
 			{

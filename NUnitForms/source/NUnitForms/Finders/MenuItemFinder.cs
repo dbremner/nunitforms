@@ -98,9 +98,9 @@ namespace NUnit.Extensions.Forms
             {
                 if(form.Menu != null)
                 {
-                    found.Add(Find(name, form.Menu, form));
+                    found.AddRange(Find(name, form.Menu, form));
                 }
-                found.Add(Find(name, form));
+                found.AddRange(Find(name, form));
             }
 
             if(found.Count == 1)
@@ -123,10 +123,10 @@ namespace NUnit.Extensions.Forms
 
             foreach(Control c in control.Controls)
             {
-                results.Add(Find(name, c));
+                results.AddRange(Find(name, c));
                 if(c.ContextMenu != null)
                 {
-                    results.Add(Find(name, c.ContextMenu, c));
+                    results.AddRange(Find(name, c.ContextMenu, c));
                 }
             }
 
@@ -143,7 +143,7 @@ namespace NUnit.Extensions.Forms
             }
             foreach(MenuItem m in menu.MenuItems)
             {
-                results.Add(Find(name, m, sourceControl));
+                results.AddRange(Find(name, m, sourceControl));
             }
 
             return results;

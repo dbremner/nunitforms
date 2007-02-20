@@ -110,7 +110,7 @@ namespace NUnit.Extensions.Forms
             ControlCollection found = new ControlCollection();
             foreach(Form form in FormCollection)
             {
-                found.Add(Find(name, form));
+                found.AddRange(Find(name, form));
             }
             return found;
         }
@@ -155,7 +155,7 @@ namespace NUnit.Extensions.Forms
                 results.Add(control);
             }
 
-            results.Add(Find(name, control.Controls));
+            results.AddRange(Find(name, control.Controls));
 
             return results;
         }
@@ -172,17 +172,17 @@ namespace NUnit.Extensions.Forms
 
             foreach (Control c in collection)
             {
-                results.Add(Find(name, c));
+                results.AddRange(Find(name, c));
                 // If the control is a ToolStripContainer we need to search in it's 
                 // panels for controls matching the name we serching for.
                 if (c is ToolStripContainer)
                 {
                     ToolStripContainer container = (ToolStripContainer)c;
-                    results.Add(Find(name, container.TopToolStripPanel.Controls));
-                    results.Add(Find(name, container.LeftToolStripPanel.Controls));
-                    results.Add(Find(name, container.RightToolStripPanel.Controls));
-                    results.Add(Find(name, container.BottomToolStripPanel.Controls));
-                    results.Add(Find(name, container.ContentPanel.Controls));
+                    results.AddRange(Find(name, container.TopToolStripPanel.Controls));
+                    results.AddRange(Find(name, container.LeftToolStripPanel.Controls));
+                    results.AddRange(Find(name, container.RightToolStripPanel.Controls));
+                    results.AddRange(Find(name, container.BottomToolStripPanel.Controls));
+                    results.AddRange(Find(name, container.ContentPanel.Controls));
                 }
             }
             return results;

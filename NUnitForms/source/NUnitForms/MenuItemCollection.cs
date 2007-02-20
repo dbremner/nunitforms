@@ -30,7 +30,7 @@
 
 #endregion
 
-using System.Collections;
+using System.Collections.ObjectModel;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
@@ -42,65 +42,17 @@ namespace NUnit.Extensions.Forms
     /// NUnitForms users should not have a need for this class.  When C# supports
     /// generics, this should be replaced.
     /// </remarks>
-    public class MenuItemCollection
+    public class MenuItemCollection: Collection<MenuItem>
     {
-        private ArrayList list = new ArrayList();
-
-        /// <summary>
-        /// Add a MenuItem to the collection.
-        /// </summary>
-        /// <remarks>
-        /// Will not add a duplicate MenuItem.  In this way, the collection acts like a Set.
-        /// </remarks>
-        /// <param name="menuItem">The menu item to add.</param>
-        public void Add(MenuItem menuItem)
-        {
-            if(!list.Contains(menuItem))
-            {
-                list.Add(menuItem);
-            }
-        }
-
         /// <summary>
         /// Add one MenuItemCollection to another.  Combines them into one collection.
         /// </summary>
         /// <param name="collection">The collection to merge with this one.</param>
-        public void Add(MenuItemCollection collection)
+        public void AddRange(MenuItemCollection collection)
         {
             foreach(MenuItem menuItem in collection)
             {
                 Add(menuItem);
-            }
-        }
-
-        /// <summary>
-        /// Returns the number of Controls in this MenuItemCollection.
-        /// </summary>
-        public int Count
-        {
-            get
-            {
-                return list.Count;
-            }
-        }
-
-        /// <summary>
-        /// Returns an IEnumerator of the MenuItems in this collection.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerator GetEnumerator()
-        {
-            return list.GetEnumerator();
-        }
-
-        /// <summary>
-        /// Returns a MenuItem from this collection according to its index.
-        /// </summary>
-        public MenuItem this[int i]
-        {
-            get
-            {
-                return (MenuItem) list[i];
             }
         }
     }
