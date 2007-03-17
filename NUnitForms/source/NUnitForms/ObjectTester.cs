@@ -9,6 +9,9 @@ namespace NUnit.Extensions.Forms
 	///</summary>
 	public abstract class ObjectTester
 	{
+		/// <summary>
+		/// Derived testers must overtide this method to provide the object being tested.
+		/// </summary>
 		protected abstract object theObject { get; }
 
 		/// <summary>
@@ -45,6 +48,7 @@ namespace NUnit.Extensions.Forms
 				if (prop != null)
 				{
 					prop.SetValue(theObject, value, null);
+					DoAfterSetProperty(propertyName);
 				}
 				else
 				{
@@ -53,11 +57,14 @@ namespace NUnit.Extensions.Forms
 						field.SetValue(theObject, value);
 				}
 
-				DoAfterSetProperty(propertyName);
 			}
 		}
 
-		protected abstract void DoAfterSetProperty(string propertyName);
+		/// <summary>
+		/// Called after this[string] is used to set a property value.
+		/// Typically calls "EndCurrentEdit" on the object's data binding binding for that property.
+		/// </summary>
+		protected virtual void DoAfterSetProperty(string propertyName) {}
 
 		private FieldInfo GetFieldInfo(string fieldName)
 		{
@@ -93,6 +100,20 @@ namespace NUnit.Extensions.Forms
 			EventHelper.RaiseEvent(theObject, eventName, arg);
 		}
 
+		/// <summary>
+		/// Simulates firing of an event by the control being tested.
+		/// </summary>
+		/// <param name="eventName">The name of the event to fire.</param>
+		public void FireEvent(string eventName)
+		{
+			EventHelper.RaiseEvent(theObject, eventName);
+		}
+
+		///<summary>
+		/// Raises this object's Click event.
+		///</summary>
+		public virtual void Click() {}
+		
 		/// <summary>
 		/// Convenience method invoker for any nonsupported method on a control to test
 		/// </summary>

@@ -32,114 +32,107 @@
 
 namespace NUnit.Extensions.Forms
 {
-    public class ScriptPlayer : NUnitFormTest
-    {
-        public delegate void AfterExecuteHandler(int lineNumber, bool success, bool Assert, string message);
+	public class ScriptPlayer : NUnitFormTest
+	{
+		public delegate void AfterExecuteHandler(int lineNumber, bool success, bool Assert, string message);
 
-        public delegate void BeforeExecuteHandler(int lineNumber);
+		public delegate void BeforeExecuteHandler(int lineNumber);
 
-        public delegate void SuccessHandler(bool success);
+		public delegate void SuccessHandler(bool success);
 
-        public event BeforeExecuteHandler BeforeExecute;
+		public event BeforeExecuteHandler BeforeExecute;
 
-        public event AfterExecuteHandler AfterExecute;
+		public event AfterExecuteHandler AfterExecute;
 
-        public event SuccessHandler Success;
+		public event SuccessHandler Success;
 
-        private bool useHidden = true;
+		private bool useHidden = true;
 
-        private Speed speed = new Speed();
+		private Speed speed = new Speed();
 
-        public Speed Speed
-        {
-            get
-            {
-                return speed;
-            }
-        }
+		public Speed Speed
+		{
+			get { return speed; }
+		}
 
-        public void setHidden(bool val)
-        {
-            useHidden = val;
-        }
+		public void setHidden(bool val)
+		{
+			useHidden = val;
+		}
 
-        public override bool UseHidden
-        {
-            get
-            {
-                return useHidden;
-            }
-        }
+		public override bool UseHidden
+		{
+			get { return useHidden; }
+		}
 
-        public void Play(string scriptString)
-        {
-            init();
+		public void Play(string scriptString)
+		{
+			init();
 
-            try
-            {
-                Script script = new Parser().Parse(scriptString);
-                script.Player = this;
+			try
+			{
+				Script script = new Parser().Parse(scriptString);
+				script.Player = this;
 
-                RunScript(script);
-            }
-            finally
-            {
-                Verify();
-            }
-        }
+				RunScript(script);
+			}
+			finally
+			{
+				Verify();
+			}
+		}
 
-        private void RunScript(Script script)
-        {
-            bool failure = false;
+		private void RunScript(Script script)
+		{
+			bool failure = false;
 
-            foreach(ICommand command in script)
-            {
-                FireBefore(command.LineNumber);
+			foreach (ICommand command in script)
+			{
+				FireBefore(command.LineNumber);
 
-                try
-                {
-                    command.Execute(Speed);
-                    FireAfter(command.LineNumber, true, command is AssertCommand, "Success");
-                }
-                catch(FormsTestAssertionException ae)
-                {
-                    failure = true;
-                    FireAfter(command.LineNumber, false, command is AssertCommand, ae.Message);
-                }
-                catch(NoSuchControlException nsce)
-                {
-                    failure = true;
-                    FireAfter(command.LineNumber, false, command is AssertCommand,
-                              string.Format("Could not find control {0}", nsce.Message));
-                }
-            }
+				try
+				{
+					command.Execute(Speed);
+					FireAfter(command.LineNumber, true, command is AssertCommand, "Success");
+				}
+				catch (FormsTestAssertionException ae)
+				{
+					failure = true;
+					FireAfter(command.LineNumber, false, command is AssertCommand, ae.Message);
+				}
+				catch (NoSuchControlException nsce)
+				{
+					failure = true;
+					FireAfter(command.LineNumber, false, command is AssertCommand,
+					          string.Format("Could not find control {0}", nsce.Message));
+				}
+			}
 
-            FireSuccess(!failure);
-        }
+			FireSuccess(!failure);
+		}
 
-        private void FireBefore(int i)
-        {
-            if(BeforeExecute != null)
-            {
-                BeforeExecute(i);
-            }
-        }
+		private void FireBefore(int i)
+		{
+			if (BeforeExecute != null)
+			{
+				BeforeExecute(i);
+			}
+		}
 
-        private void FireSuccess(bool success)
-        {
-            if(Success != null)
-            {
-                Success(success);
-            }
-        }
+		private void FireSuccess(bool success)
+		{
+			if (Success != null)
+			{
+				Success(success);
+			}
+		}
 
-        private void FireAfter(int i, bool success, bool assert, string message)
-        {
-            if(AfterExecute != null)
-            {
-                AfterExecute(i, success, assert, message);
-                ;
-            }
-        }
-    }
+		private void FireAfter(int i, bool success, bool assert, string message)
+		{
+			if (AfterExecute != null)
+			{
+				AfterExecute(i, success, assert, message);
+			}
+		}
+	}
 }

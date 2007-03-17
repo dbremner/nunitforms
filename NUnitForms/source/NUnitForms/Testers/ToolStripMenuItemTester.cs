@@ -60,10 +60,7 @@ namespace NUnit.Extensions.Forms
     /// <value>The underlying control.</value>
     public ToolStripMenuItem Properties
     {
-      get
-      {
-        return (ToolStripMenuItem)Component;
-      }
+      get { return (ToolStripMenuItem)ToolStripItem; }
     }
   }
 }

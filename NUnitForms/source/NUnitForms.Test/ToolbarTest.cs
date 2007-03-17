@@ -41,7 +41,6 @@ namespace NUnit.Extensions.Forms.TestApplications
     public class ToolbarTest : NUnitFormTest
     {
         private LabelTester labelToolbarSelection;
-
         private ToolBarTester toolbarTest;
 
 

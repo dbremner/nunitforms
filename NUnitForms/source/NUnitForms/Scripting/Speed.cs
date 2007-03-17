@@ -35,42 +35,45 @@ using System.Threading;
 
 namespace NUnit.Extensions.Forms
 {
+	/// <summary>
+	/// This class respresents the speed at which a recorded test is played back.
+	/// </summary>
     public class Speed
     {
-        private int val;
+        private int _speed;
 
+		/// <summary>
+		/// Gets or sets the speed.
+		/// </summary>
         public int Value
         {
-            get
-            {
-                return val;
-            }
+            get { return _speed; }
             set
             {
-                int v = Math.Max(0, value);
-                v = Math.Min(100, v);
-                val = v;
+            	_speed = Math.Min(100, Math.Max(0, value));
             }
         }
 
+		/// <summary>
+		/// Gets whether this object is in "step mode".
+		/// </summary>
         public bool StepMode
         {
             get
             {
-                return val == 0;
+                return _speed == 0;
             }
         }
 
+		/// <summary>
+		/// Performs the delay.
+		/// </summary>
         public void Delay()
         {
             if(StepMode)
-            {
                 return;
-            }
-            else
-            {
-                Thread.Sleep(20*(100 - Value)); //speed of zero means 2 seconds sleep.
-            }
+
+			Thread.Sleep(20*(100 - Value)); //speed of zero means 2 seconds sleep.
         }
     }
 }

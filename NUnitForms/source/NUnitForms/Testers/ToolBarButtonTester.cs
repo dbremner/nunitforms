@@ -43,6 +43,8 @@ namespace NUnit.Extensions.Forms
         private ToolBarButton button;
 
 
+
+
         public ToolBarButtonTester(ToolBarButton button, ToolBarTester bar)
         {
             this.bar = bar;

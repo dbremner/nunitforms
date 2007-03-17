@@ -185,7 +185,7 @@ namespace NUnit.Extensions.Forms
 		/// <exception>
 		/// ControlNotVisibleException is thrown if the Control is not Visible.
 		/// </exception>
-		public virtual void Click()
+		public override void Click()
 		{
 			if (!Control.Visible)
 				throw new ControlNotVisibleException(name);
@@ -314,13 +314,16 @@ namespace NUnit.Extensions.Forms
 		#endregion
 
 		/// <summary>
-		/// The underlying control for this tester.
+		/// The underlying <see cref="Control"/> for this tester.
 		/// </summary>
 		protected internal Control Control
 		{
 			get { return GetControlFinder().Find(index); }
 		}
 
+		/// <summary>
+		/// The Control being tested.
+		/// </summary>
 		protected override object theObject
 		{
 			get { return Control; }
@@ -343,6 +346,10 @@ namespace NUnit.Extensions.Forms
 			}
 		}
 
+		/// <summary>
+		/// Calls EndCurrentEdit on this control's data binding for the given property.
+		/// </summary>
+		/// <param name="propertyName"></param>
 		protected override void DoAfterSetProperty(string propertyName)
 		{
 			EndCurrentEdit(propertyName);

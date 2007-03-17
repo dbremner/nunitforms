@@ -119,7 +119,7 @@ namespace NUnit.Extensions.Forms
     {
       get
       {
-        return (ToolStripDropDownButton)Component;
+        return (ToolStripDropDownButton)ToolStripItem;
       }
     }
 

@@ -118,7 +118,7 @@ namespace NUnit.Extensions.Forms
     {
       get
       {
-        return (ToolStripSplitButton)Component;
+        return (ToolStripSplitButton)ToolStripItem;
       }
     }
 

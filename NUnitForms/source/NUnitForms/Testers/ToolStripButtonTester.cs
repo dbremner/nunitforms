@@ -75,7 +75,7 @@ namespace NUnit.Extensions.Forms
 		/// <value>The underlying control.</value>
 		public ToolStripButton Properties
 		{
-			get { return (ToolStripButton) Component; }
+			get { return (ToolStripButton) ToolStripItem; }
 		}
 	}
 }

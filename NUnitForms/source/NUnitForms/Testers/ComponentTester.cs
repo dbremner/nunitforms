@@ -80,9 +80,8 @@ namespace NUnit.Extensions.Forms
     /// paste starting point) if you are making your own tester.</remarks>
     public class ComponentTester : ObjectTester, IEnumerable
     {
-        private Form form;
-
-        private string formName;
+    	protected Form form;
+    	protected string formName;
 
         /// <summary>
         /// The name of the underlying Component.
@@ -105,20 +104,6 @@ namespace NUnit.Extensions.Forms
         {
             this.formName = formName;
             this.name = name;
-        }
-
-        /// <summary>
-        /// Should call this method after editing something in order to trigger any
-        /// databinding done with the Databindings collection.  (ie text box to a data
-        /// set)
-        /// </summary>
-        public void EndCurrentEdit(string propertyName)
-        {
-            //TODO Waarschijnlijk niet nodig voor Component
-            //if(Component.DataBindings[propertyName] != null)
-            //{
-            //    Component.DataBindings[propertyName].BindingManagerBase.EndCurrentEdit();
-            //}
         }
 
         /// <summary>
@@ -179,7 +164,7 @@ namespace NUnit.Extensions.Forms
         {
             get
             {
-                return GetComponentFinder().Count;
+                return GetFinder().Count;
             }
         }
 
@@ -202,34 +187,11 @@ namespace NUnit.Extensions.Forms
         }
 
         /// <summary>
-        /// Convenience method "Clicks" on the Component being tested if it is visible.
-        /// </summary>
-        /// <exception>
-        /// ComponentNotVisibleException is thrown if the Component is not Visible.
-        /// </exception>
-        public virtual void Click()
-        {
-            //TODO Deze methode is waarschijnlijk niet nodig voor een Component.
-            throw new ApplicationException("Code is not complete, yet.");
-            //if(Component.Visible)
-            //{
-            //    FireEvent("Click");
-            //}
-            //else
-            //{
-            //    throw new ComponentNotVisibleException(name);
-            //}
-        }
-
-        /// <summary>
         /// Convenience method retrieves the Text property of the tested Component.
         /// </summary>
         public virtual string Text
         {
-            get
-            {
-                return Component.Site.Name;
-            }
+            get { return Component.Site.Name; }
         }
 
         ///<summary>
@@ -254,16 +216,15 @@ namespace NUnit.Extensions.Forms
         /// <summary>
         /// The underlying Component for this tester.
         /// </summary>
-        protected internal IComponent Component
+        protected internal virtual IComponent Component
         {
-            get { return GetComponentFinder().Find(index); }
+            get { return GetFinder().Find(index); }
         }
 
-        private ComponentFinder GetComponentFinder()
+        private ComponentFinder GetFinder()
         {
             if(form != null)
             {
-                //may have dynamically added Components.  I am not saving this.
                 return new ComponentFinder(name, form);
             }
             else if(formName != null)
@@ -279,11 +240,6 @@ namespace NUnit.Extensions.Forms
     	protected override object theObject
     	{
 			get { return Component; }
-    	}
-
-    	protected override void DoAfterSetProperty(string propertyName)
-    	{
-			EndCurrentEdit(propertyName);
     	}
     }
 }

@@ -97,7 +97,7 @@ namespace NUnit.Extensions.Forms
     {
       get
       {
-        return (ToolStripTextBox)Component;
+        return (ToolStripTextBox)ToolStripItem;
       }
     }
 

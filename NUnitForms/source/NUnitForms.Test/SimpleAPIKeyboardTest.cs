@@ -42,10 +42,7 @@ namespace NUnit.Extensions.Forms.TestApplications
     {
         public override bool DisplayHidden
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
 
         [Test]

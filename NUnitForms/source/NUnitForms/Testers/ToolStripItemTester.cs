@@ -33,6 +33,7 @@
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
@@ -40,81 +41,52 @@ namespace NUnit.Extensions.Forms
 	///<summary>
 	/// Base class fr Tool Strip Item testers.
 	///</summary>
-	public class ToolStripItemTester
+	public class ToolStripItemTester : ComponentTester
 	{
-		#region Private/Protected members
-
-		private Form form;
-
-		private string formName;
-
-		protected string name;
-
-		private int index = -1;
-
-		#endregion
-
 		#region Constructors
 
-		public ToolStripItemTester(string name, Form form)
-		{
-			this.form = form;
-			this.name = name;
-		}
-
-		public ToolStripItemTester(string name, string formName)
-		{
-			this.formName = formName;
-			this.name = name;
-		}
-
-		public ToolStripItemTester(string name)
-		{
-			this.name = name;
-		}
-
-		public ToolStripItemTester(ToolStripItemTester tester, int index)
-		{
-			if (index < 0)
-			{
-				throw new Exception("Should not have index < 0");
-			}
-			this.index = index;
-			form = tester.form;
-			formName = tester.formName;
-			name = tester.name;
-		}
+		public ToolStripItemTester(string name, Form form) : base(name, form) {}
+		public ToolStripItemTester(string name, string formName) : base(name, formName) {}
+		public ToolStripItemTester(string name) : base(name) {}
+		public ToolStripItemTester(ToolStripItemTester tester, int index) : base(tester, index) {}
 
 		#endregion
 
-		#region Accessors
-
-		protected ToolStripItem Component
+		protected internal override IComponent Component
 		{
-			get
+			get { return ToolStripItem; }
+		}
+
+		protected ToolStripItem ToolStripItem
+		{
+			get { return GetFinder().Find(); }
+		}
+
+		private ToolStripItemFinder GetFinder()
+		{
+			if (form != null)
 			{
-				if (form != null)
-				{
-					//may have dynamically added controls.  I am not saving this.
-					return new ToolStripItemFinder(name, form).Find();
-				}
-				else if (formName != null)
-				{
-					return new ToolStripItemFinder(name, new FormFinder().Find(formName)).Find();
-				}
-				else
-				{
-					return new ToolStripItemFinder(name).Find();
-				}
+				return new ToolStripItemFinder(name, form);
+			}
+			else if (formName != null)
+			{
+				return new ToolStripItemFinder(name, new FormFinder().Find(formName));
+			}
+			else
+			{
+				return new ToolStripItemFinder(name);
 			}
 		}
 
-		#endregion
+		public override string Text
+		{
+			get { return ToolStripItem.Text; }
+		}
 
 		/// <summary>
 		/// Clicks the MenuItem (activates it)
 		/// </summary>
-		public virtual void Click()
+		public override void Click()
 		{
 			FireEvent("Click");
 		}
@@ -126,42 +98,5 @@ namespace NUnit.Extensions.Forms
 		{
 			FireEvent("DoubleClick");
 		}
-
-		/// <summary>
-		/// Gets the text of this MenuItem.
-		/// </summary>
-		public string Text
-		{
-			get { return Component.Text; }
-		}
-
-		#region EventFiring
-
-		protected void FireEvent(string eventName)
-		{
-			EventHelper.RaiseEvent(Component, eventName);
-		}
-
-		/// <summary>
-		/// Simulates firing of an event by the control being tested.
-		/// </summary>
-		/// <param name="eventName">The name of the event to fire.</param>
-		/// <param name="args">The optional arguments required to construct the EventArgs for the specified event.</param>
-		public void FireEvent(string eventName, params object[] args)
-		{
-			EventHelper.RaiseEvent(Component, eventName, args);
-		}
-
-		/// <summary>
-		/// Simulates firing of an event by the control being tested.
-		/// </summary>
-		/// <param name="eventName">The name of the event to fire.</param>
-		/// <param name="arg">The EventArgs object to pass as a parameter on the event.</param>
-		public void FireEvent(string eventName, EventArgs arg)
-		{
-			EventHelper.RaiseEvent(Component, eventName, arg);
-		}
-
-		#endregion
 	}
 }
