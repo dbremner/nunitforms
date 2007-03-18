@@ -117,7 +117,7 @@
     <Compile Include="Testers\TextBoxTester.cs" />
     <Compile Include="Tobor.cs" />
     <Compile Include="Testers\ToolBarButtonTester.cs" />
-    <Compile Include="Testers\ToolbarTester2.cs" />
+    <Compile Include="Testers\ToolBarTester.cs" />
     <Compile Include="Testers\ToolStripButtonTester.cs" />
     <Compile Include="Testers\ToolStripComboBoxTester.cs" />
     <Compile Include="Testers\ToolStripDropDownButtonTester.cs" />
