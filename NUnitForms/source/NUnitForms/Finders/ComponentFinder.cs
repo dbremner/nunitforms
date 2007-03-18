@@ -45,9 +45,8 @@ namespace NUnit.Extensions.Forms
     /// the recorder application.
     public class ComponentFinder : Finder
     {
-        private string name;
-
-        private FormCollection forms = null;
+        private readonly string name;
+        private readonly FormCollection forms = null;
 
         /// <summary>
         /// Creates a ComponentFinder that will find Components on a specific Form according to their name.

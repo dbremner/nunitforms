@@ -32,23 +32,19 @@
 
 //Contributed by: Ian Cooper
 
-using System.Collections;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
 	/// <summary>
-	/// A ControlTester for testing List Views.  
+	/// A ControlTester for testing Toolbars.  
 	/// </summary>
-	/// <remarks>
-	/// It includes helper methods for selecting items from the list
-	/// and for clearing those selections.</remarks>
-	public class ListViewTester : ControlTester<ListView, ListViewTester>
+	public class ToolBarTester : ControlTester<ToolBar, ToolBarTester>
 	{
 		///<summary>
 		/// Default constructor for Generic support.
 		///</summary>
-		public ListViewTester() { }
+		public ToolBarTester() {}
 
 		/// <summary>
 		/// Creates a ControlTester from the control name and the form instance.
@@ -59,7 +55,7 @@ namespace NUnit.Extensions.Forms
 		/// </remarks>
 		/// <param name="name">The Control name.</param>
 		/// <param name="form">The Form instance.</param>
-		public ListViewTester(string name, Form form) : base(name, form) {}
+		public ToolBarTester(string name, Form form) : base(name, form) {}
 
 		/// <summary>
 		/// Creates a ControlTester from the control name and the form name.
@@ -70,7 +66,7 @@ namespace NUnit.Extensions.Forms
 		/// </remarks>
 		/// <param name="name">The Control name.</param>
 		/// <param name="formName">The Form name..</param>
-		public ListViewTester(string name, string formName) : base(name, formName) {}
+		public ToolBarTester(string name, string formName) : base(name, formName) {}
 
 		/// <summary>
 		/// Creates a ControlTester from the control name.
@@ -78,7 +74,7 @@ namespace NUnit.Extensions.Forms
 		/// <remarks>
 		/// This is the best constructor.</remarks>
 		/// <param name="name">The Control name.</param>
-		public ListViewTester(string name) : base(name) {}
+		public ToolBarTester(string name) : base(name) {}
 
 		/// <summary>
 		/// Creates a ControlTester from a ControlTester and an index where the
@@ -90,110 +86,51 @@ namespace NUnit.Extensions.Forms
 		/// </remarks>
 		/// <param name="tester">The ControlTester.</param>
 		/// <param name="index">The index to test.</param>
-		public ListViewTester(ControlTester tester, int index) : base(tester, index) {}
+		public ToolBarTester(ControlTester tester, int index) : base(tester, index) {}
 
 		/// <summary>
-		/// Helper method to return the List View's Items property
+		/// Allows you to find a ToolBarTester by index where the name is not unique.
 		/// </summary>
-		public ListView.ListViewItemCollection Items
+		/// <remarks>
+		/// This was added to support the ability to find controls where their name is
+		/// not unique.  If all of your controls are uniquely named (I recommend this) then
+		/// you will not need this.
+		/// </remarks>
+		/// <value>The ControlTester at the specified index.</value>
+		/// <param name="index">The index of the ListViewTester.</param>
+		new public ToolBarTester this[int index]
 		{
-			get { return Properties.Items; }
+			get { return new ToolBarTester(this, index); }
 		}
 
 		/// <summary>
-		/// Helper method to return the columns of the list view
+		/// Get the toolbar with the specified text
 		/// </summary>
-		public ListView.ColumnHeaderCollection Columns
+		/// <param name="buttonText">The text of the ToolBarButton</param>
+		/// <returns>A ToolBarButtonTester containing the matching ToolBarButton</returns>
+		public ToolBarButtonTester GetButton(string buttonText)
 		{
-			get { return Properties.Columns; }
-		}
-
-		/// <summary>
-		/// Clears the selections from the list box.
-		/// </summary>
-		public void ClearSelected()
-		{
-			foreach (ListViewItem item in Properties.Items)
+			for (int i = 0; i < Properties.Buttons.Count; ++i)
 			{
-				item.Selected = false;
-			}
-		}
-
-		/// <summary>
-		/// Selects an item in the ListBox according to its index.
-		/// </summary>
-		/// <param name="i">the index to select.</param>
-		public void Select(int i)
-		{
-			Properties.Items[i].Selected = true;
-			FireEvent("ItemActivate");
-		}
-
-		/// <summary>
-		/// Selects an item in the list according to its string value.
-		/// </summary>
-		/// <param name="text">The item to select.</param>
-		public void Select(string text)
-		{
-			int index = FindItemByString(text);
-
-			if (index != -1)
-			{
-				Select(index);
-			}
-		}
-
-		/// <summary>
-		/// Multiple selection of a range of items
-		/// </summary>
-		/// <param name="items"></param>
-		public void SelectItems(string[] items)
-		{
-			foreach (string item in items)
-			{
-				Select(item);
-			}
-		}
-
-		/// <summary>
-		/// Test that only the indicated items are selected
-		/// </summary>
-		/// <param name="matches"></param>
-		public bool SelectedItemsMatch(string[] matches)
-		{
-			ArrayList matchList = new ArrayList(matches);
-
-			if (matchList.Count != Properties.SelectedItems.Count)
-			{
-				return false;
-			}
-
-			foreach (ListViewItem item in Properties.SelectedItems)
-			{
-				if (!matchList.Contains(item.Text))
+				ToolBarButton button = Properties.Buttons[i];
+				if (button.Text == buttonText)
 				{
-					return false;
+					return GetButton(i);
 				}
 			}
 
-			return true;
+			return null;
 		}
 
-		#region Implementation
-
-		private int FindItemByString(string text)
+		/// <summary>
+		/// Get the toolbar at the index
+		/// </summary>
+		/// <param name="index">The index of the button within the toolbar</param>
+		/// <returns>A ToolBarButtonTester containing the matching ToolBarButton</returns>
+		/// <remarks>We cannot use this[int index] here as used for ControlTester</remarks>
+		public ToolBarButtonTester GetButton(int index)
 		{
-			for (int i = 0; i < Properties.Items.Count; i++)
-			{
-				if (Properties.Items[i].Text == text)
-				{
-					return i;
-				}
-			}
-
-			return -1;
+			return new ToolBarButtonTester(Properties.Buttons[index], this);
 		}
-
-		#endregion
 	}
 }

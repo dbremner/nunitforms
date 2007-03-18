@@ -57,8 +57,9 @@ namespace NUnit.Extensions.Forms
 		private class Handler
 		{
 			private bool invoked = false;
-			private bool expected = false;
-			private Delegate handler = null;
+
+			private readonly bool expected = false;
+			private readonly Delegate handler = null;
 
 			/// <summary>
 			/// Constructs a new <see cref="Handler"/>.
@@ -110,7 +111,7 @@ namespace NUnit.Extensions.Forms
 		/// <summary>
 		/// The mapping of form titles to event handlers.
 		/// </summary>
-		private Hashtable handlers = new Hashtable();
+		private readonly Hashtable handlers = new Hashtable();
 
 		/// <summary>
 		/// A token representing "any form".

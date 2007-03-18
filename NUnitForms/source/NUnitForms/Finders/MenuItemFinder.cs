@@ -42,9 +42,8 @@ namespace NUnit.Extensions.Forms
     /// </remarks>
     public class MenuItemFinder : Finder
     {
-        private string name;
-
-        private FormCollection forms;
+        private readonly string menuItemName;
+        private readonly FormCollection forms;
 
         /// <summary>
         /// Creates a MenuItemFinder that will find MenuItems according to their name
@@ -54,7 +53,7 @@ namespace NUnit.Extensions.Forms
         /// <param name="form">The form instance.</param>
         public MenuItemFinder(string name, Form form)
         {
-            this.name = name;
+            this.menuItemName = name;
             if(form != null)
             {
                 forms = new FormCollection();
@@ -68,7 +67,7 @@ namespace NUnit.Extensions.Forms
         /// <param name="name"></param>
         public MenuItemFinder(string name)
         {
-            this.name = name;
+            this.menuItemName = name;
         }
 
         private FormCollection FormCollection
@@ -98,9 +97,9 @@ namespace NUnit.Extensions.Forms
             {
                 if(form.Menu != null)
                 {
-                    found.AddRange(Find(name, form.Menu, form));
+                    found.AddRange(Find(menuItemName, form.Menu, form));
                 }
-                found.AddRange(Find(name, form));
+                found.AddRange(Find(menuItemName, form));
             }
 
             if(found.Count == 1)
@@ -109,11 +108,11 @@ namespace NUnit.Extensions.Forms
             }
             else if(found.Count == 0)
             {
-                throw new NoSuchControlException(name);
+                throw new NoSuchControlException(menuItemName);
             }
             else
             {
-                throw new AmbiguousNameException(name);
+                throw new AmbiguousNameException(menuItemName);
             }
         }
 

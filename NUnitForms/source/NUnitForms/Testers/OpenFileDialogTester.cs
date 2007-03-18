@@ -57,7 +57,7 @@ namespace NUnit.Extensions.Forms
 		public void OpenFile(string file)
 		{
 			_fileName = file;
-			Thread thr = new Thread(new ThreadStart(FileNameHandler));
+			Thread thr = new Thread(FileNameHandler);
 			thr.Start();
 		}
 	}

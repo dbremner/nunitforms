@@ -100,7 +100,7 @@ namespace NUnit.Extensions.Forms
 			Help = 9
 		}
 
-		private IntPtr handle = new IntPtr(0);
+		private readonly IntPtr handle = new IntPtr(0);
 
 		/// <summary>
 		/// Creates a MessageBoxTester with the specified handle.  NUnitForms

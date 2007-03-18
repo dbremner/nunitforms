@@ -8,62 +8,6 @@ namespace NUnit.Extensions.Forms
 	/// A strongly-typed <see cref="ControlTester"/> for the given control type.
 	///</summary>
 	///<typeparam name="TControl">The type of control to test.</typeparam>
-	public class ControlTester<TControl> : ControlTester
-		where TControl : Control
-	{
-		///<summary>
-		/// Constructs a new <see cref="ControlTester"/> from the given tester
-		/// for the control as the specified index.
-		///</summary>
-		public ControlTester(ControlTester tester, int index) : base(tester, index) {}
-
-		/// <summary>
-		/// Creates a ControlTester that will test controls with the specified name.
-		/// </summary>
-		/// <remarks>
-		/// If the name is unique, you can operate on the tester directly, otherwise
-		/// you should use the indexer or Enumerator properties to access each separate
-		/// control.</remarks>
-		/// <param name="name">The name of the control to test.</param>
-		public ControlTester(string name) : base(name) {}
-
-		/// <summary>
-		/// Creates a ControlTester that will test controls with the specified name
-		/// on the specified form.
-		/// </summary>
-		/// <remarks>
-		/// If the name is unique, you can operate on the tester directly, otherwise
-		/// you should use the indexer or Enumerator properties to access each separate
-		/// control.</remarks>
-		/// <param name="name">The name of the control to test.</param>
-		/// <param name="form">The form to test.</param>
-		public ControlTester(string name, Form form) : base(name, form) {}
-
-		/// <summary>
-		/// Creates a ControlTester that will test controls with the specified name
-		/// on a form with the specified name.
-		/// </summary>
-		/// <remarks>
-		/// If the name is unique, you can operate on the tester directly, otherwise
-		/// you should use the indexer or Enumerator properties to access each separate
-		/// control.</remarks>
-		/// <param name="name">The name of the control to test.</param>
-		/// <param name="formName">The name of the form to test.</param>
-		public ControlTester(string name, string formName) : base(name, formName) {}
-
-		///<summary>
-		/// Provides typed access to the underlying <typeparamref name="TControl"/> control.
-		///</summary>
-		public virtual TControl Properties
-		{
-			get { return (TControl) Control; }
-		}
-	}
-
-	///<summary>
-	/// A strongly-typed <see cref="ControlTester"/> for the given control type.
-	///</summary>
-	///<typeparam name="TControl">The type of control to test.</typeparam>
 	///<typeparam name="TThis">The type of control tester being defined.</typeparam>
 	public class ControlTester<TControl, TThis> : ControlTester, IEnumerable<TThis> 
 		where TControl : Control

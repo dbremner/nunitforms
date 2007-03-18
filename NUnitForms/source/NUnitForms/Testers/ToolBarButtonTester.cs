@@ -38,12 +38,8 @@ namespace NUnit.Extensions.Forms
 {
     public class ToolBarButtonTester
     {
-        private ToolBarTester bar;
-
-        private ToolBarButton button;
-
-
-
+        private readonly ToolBarTester bar;
+        private readonly ToolBarButton button;
 
         public ToolBarButtonTester(ToolBarButton button, ToolBarTester bar)
         {

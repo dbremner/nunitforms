@@ -53,7 +53,7 @@ namespace NUnit.Extensions.Forms
 		public void SaveFile(string file)
 		{
 			_fileName = file;
-			Thread thread = new Thread(new ThreadStart(FileNameHandler));
+			Thread thread = new Thread(FileNameHandler);
 			thread.Start();
 		}
 	}

@@ -39,8 +39,13 @@ namespace NUnit.Extensions.Forms
 	/// </summary>
 	/// <remarks>
 	/// There is a convenience method for selecting a specified tab.</remarks>
-	public class TabControlTester : ControlTester
+	public class TabControlTester : ControlTester<TabControl, TabControlTester>
 	{
+		///<summary>
+		/// Default constructor for Generic support.
+		///</summary>
+		public TabControlTester() {}
+
 		/// <summary>
 		/// Creates a ControlTester from the control name and the form instance.
 		/// </summary>
@@ -82,33 +87,6 @@ namespace NUnit.Extensions.Forms
 		/// <param name="tester">The ControlTester.</param>
 		/// <param name="index">The index to test.</param>
 		public TabControlTester(ControlTester tester, int index) : base(tester, index) {}
-
-		/// <summary>
-		/// Allows you to find a TabControlTester by index where the name is not unique.
-		/// </summary>
-		/// <remarks>
-		/// This was added to support the ability to find controls where their name is
-		/// not unique.  If all of your controls are uniquely named (I recommend this) then
-		/// you will not need this.
-		/// </remarks>
-		/// <value>The ControlTester at the specified index.</value>
-		/// <param name="index">The index of the TabControlTester.</param>
-		new public TabControlTester this[int index]
-		{
-			get { return new TabControlTester(this, index); }
-		}
-
-		/// <summary>
-		/// Provides access to all of the Properties of the TabControl.
-		/// </summary>
-		/// <remarks>
-		/// Allows typed access to all of the properties of the underlying control.
-		/// </remarks>
-		/// <value>The underlying control.</value>
-		public TabControl Properties
-		{
-			get { return (TabControl) Control; }
-		}
 
 		/// <summary>
 		/// Selects the tab at the specified index.

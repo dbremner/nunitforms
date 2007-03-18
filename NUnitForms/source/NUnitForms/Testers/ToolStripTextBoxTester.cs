@@ -30,88 +30,75 @@
 // Author: Anders Lillrank
 
 #endregion
+
 using System.Windows.Forms;
+
 namespace NUnit.Extensions.Forms
 {
-  public class ToolStripTextBoxTester : ToolStripItemTester
-  {
-    #region Constructors
+	public class ToolStripTextBoxTester : ToolStripItemTester
+	{
+		#region Constructors
 
-    public ToolStripTextBoxTester(string name, Form form)
-      : base(name, form)
-    {
-    }
+		public ToolStripTextBoxTester(string name, Form form)
+			: base(name, form) {}
 
-    public ToolStripTextBoxTester(string name, string formName)
-      : base(name, formName)
-    {
-    }
+		public ToolStripTextBoxTester(string name, string formName)
+			: base(name, formName) {}
 
-    public ToolStripTextBoxTester(string name)
-      : base(name)
-    {
-    }
+		public ToolStripTextBoxTester(string name)
+			: base(name) {}
 
-    /// <summary>
-    /// Creates a ToolStripItemTester from a ToolStripItemTester and an index where the
-    /// original tester's name is not unique.
-    /// </summary>
-    /// <remarks>
-    /// It is best to use the overloaded Constructor that requires just the name 
-    /// parameter if possible.
-    /// </remarks>
-    /// <param name="tester">The ToolStripItemTester.</param>
-    /// <param name="index">The index to test.</param>
-    public ToolStripTextBoxTester(ToolStripItemTester tester, int index)
-      : base(tester, index)
-    {
-    }
-    #endregion
+		/// <summary>
+		/// Creates a ToolStripItemTester from a ToolStripItemTester and an index where the
+		/// original tester's name is not unique.
+		/// </summary>
+		/// <remarks>
+		/// It is best to use the overloaded Constructor that requires just the name 
+		/// parameter if possible.
+		/// </remarks>
+		/// <param name="tester">The ToolStripItemTester.</param>
+		/// <param name="index">The index to test.</param>
+		public ToolStripTextBoxTester(ToolStripItemTester tester, int index)
+			: base(tester, index) {}
 
-    /// <summary>
-    /// Allows you to find a ToolStripTextBoxTester by index where the name is not unique.
-    /// </summary>
-    /// <remarks>
-    /// This was added to support the ability to find controls where their name is
-    /// not unique.  If all of your controls are uniquely named (I recommend this) then
-    /// you will not need this.
-    /// </remarks>
-    /// <value>The ToolStripTextBoxTester at the specified index.</value>
-    /// <param name="index">The index of the TextBoxTester.</param>
-    public ToolStripTextBoxTester this[int index]
-    {
-      get
-      {
-        return new ToolStripTextBoxTester(this, index);
-      }
-    }
+		#endregion
 
-    /// <summary>
-    /// Provides access to all of the Properties of the ToolStripTextBox.
-    /// </summary>
-    /// <remarks>
-    /// Allows typed access to all of the properties of the underlying control.
-    /// </remarks>
-    /// <value>The underlying control.</value>
-    public ToolStripTextBox Properties
-    {
-      get
-      {
-        return (ToolStripTextBox)ToolStripItem;
-      }
-    }
+		/// <summary>
+		/// Allows you to find a ToolStripTextBoxTester by index where the name is not unique.
+		/// </summary>
+		/// <remarks>
+		/// This was added to support the ability to find controls where their name is
+		/// not unique.  If all of your controls are uniquely named (I recommend this) then
+		/// you will not need this.
+		/// </remarks>
+		/// <value>The ToolStripTextBoxTester at the specified index.</value>
+		/// <param name="index">The index of the TextBoxTester.</param>
+		new public ToolStripTextBoxTester this[int index]
+		{
+			get { return new ToolStripTextBoxTester(this, index); }
+		}
 
-    /// <summary>
-    /// This method allows you to enter text into the text box.
-    /// TODO: This may not work with databindings. I don't know if it's possible
-    /// to bind a ToolStripTextBox to a datagrid or other data sources.
-    /// </summary>
-    /// <param name="text">The text to enter into the text box.</param>
-    public void Enter(string text)
-    {
-      FireEvent("Enter");
-      Properties.Text = text;
-      FireEvent("Leave");
-    }
-  }
+		/// <summary>
+		/// Provides access to all of the Properties of the ToolStripTextBox.
+		/// </summary>
+		/// <remarks>
+		/// Allows typed access to all of the properties of the underlying control.
+		/// </remarks>
+		/// <value>The underlying control.</value>
+		public ToolStripTextBox Properties
+		{
+			get { return (ToolStripTextBox) ToolStripItem; }
+		}
+
+		/// <summary>
+		/// This method allows you to enter text into the text box.
+		/// </summary>
+		/// <param name="text">The text to enter into the text box.</param>
+		public void Enter(string text)
+		{
+			FireEvent("Enter");
+			Properties.Text = text;
+			FireEvent("Leave");
+		}
+	}
 }

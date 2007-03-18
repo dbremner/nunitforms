@@ -111,7 +111,7 @@ namespace NUnit.Extensions.Forms
 		/// </summary>
 		public virtual void ClickCancel()
 		{
-			Thread thr = new Thread(new ThreadStart(ClickCancelHandler));
+			Thread thr = new Thread(ClickCancelHandler);
 			thr.Start();
 		}
 

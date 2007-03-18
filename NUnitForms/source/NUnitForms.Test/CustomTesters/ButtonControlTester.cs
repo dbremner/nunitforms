@@ -32,39 +32,31 @@
 
 using System.Windows.Forms;
 
-using NUnit.Extensions.Forms.TestApplications;
-
 namespace NUnit.Extensions.Forms.TestApplications
 {
-    public class ButtonControlTester : ControlTester
-    {
-        private Button InnerButton
-        {
-            get
-            {
-                return ((ButtonControl) Control).InnerButton;
-            }
-        }
+	///<summary>
+	/// A custom ControlTester for use in unit tests.
+	///</summary>
+	public class ButtonControlTester : ControlTester
+	{
+		private Button InnerButton
+		{
+			get { return ((ButtonControl) Control).InnerButton; }
+		}
 
-        public ButtonControlTester(string name, Form form) : base(name, form)
-        {
-        }
+		public ButtonControlTester() {}
 
-        public ButtonControlTester(string name, string formName) : base(name, formName)
-        {
-        }
+		public ButtonControlTester(string name, Form form) : base(name, form) {}
 
-        public ButtonControlTester(string name) : base(name)
-        {
-        }
+		public ButtonControlTester(string name, string formName) : base(name, formName) {}
 
-        public ButtonControlTester(ControlTester tester, int index) : base(tester, index)
-        {
-        }
+		public ButtonControlTester(string name) : base(name) {}
 
-        public void SuperClick()
-        {
-            InnerButton.PerformClick();
-        }
-    }
+		public ButtonControlTester(ControlTester tester, int index) : base(tester, index) {}
+
+		public void SuperClick()
+		{
+			InnerButton.PerformClick();
+		}
+	}
 }

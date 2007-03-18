@@ -43,9 +43,8 @@ namespace NUnit.Extensions.Forms
     /// the recorder application.
     public class ControlFinder : Finder
     {
-        private string name;
-
-        private FormCollection forms = null;
+        private readonly string controlName;
+        private readonly FormCollection forms = null;
 
         /// <summary>
         /// Creates a ControlFinder that will find controls on a specific Form according to their name.
@@ -54,7 +53,7 @@ namespace NUnit.Extensions.Forms
         /// <param name="form">The form to search for the control.</param>
         public ControlFinder(string name, Form form)
         {
-            this.name = name;
+            this.controlName = name;
             if(form != null)
             {
                 forms = new FormCollection();
@@ -68,7 +67,7 @@ namespace NUnit.Extensions.Forms
         /// <param name="name">The name of the Control to find.</param>
         public ControlFinder(string name)
         {
-            this.name = name;
+            this.controlName = name;
         }
 
         /// <summary>
@@ -110,7 +109,7 @@ namespace NUnit.Extensions.Forms
             ControlCollection found = new ControlCollection();
             foreach(Form form in FormCollection)
             {
-                found.AddRange(Find(name, form));
+                found.AddRange(Find(controlName, form));
             }
             return found;
         }
@@ -126,11 +125,11 @@ namespace NUnit.Extensions.Forms
                 }
                 else if(found.Count == 0)
                 {
-                    throw new NoSuchControlException(name);
+                    throw new NoSuchControlException(controlName);
                 }
                 else
                 {
-                    throw new AmbiguousNameException(name);
+                    throw new AmbiguousNameException(controlName);
                 }
             }
             else
@@ -141,7 +140,7 @@ namespace NUnit.Extensions.Forms
                 }
                 else
                 {
-                    throw new NoSuchControlException(name + "[" + index + "]");
+                    throw new NoSuchControlException(controlName + "[" + index + "]");
                 }
             }
         }

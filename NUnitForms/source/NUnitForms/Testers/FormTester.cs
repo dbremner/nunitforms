@@ -64,6 +64,12 @@ namespace NUnit.Extensions.Forms
 			get { return new FormFinder().Find(name); }
 		}
 
+		/// <summary>
+		/// Gets or sets the dialog result for the form.
+		/// </summary>
+		/// <returns>
+		/// A <c>System.Windows.Forms.DialogResult</c> that represents the result of the form when used as a dialog box.
+		/// </returns>
 		public DialogResult DialogResult
 		{
 			get { return Properties.DialogResult; }

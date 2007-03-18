@@ -43,19 +43,15 @@ namespace NUnit.Extensions.Forms
 	/// </summary>
 	public class ToolStripItemFinder : Finder
 	{
-		#region private members
-
 		/// <summary>
 		/// Name of the item to find.
 		/// </summary>
-		private string name = string.Empty;
+		private readonly string name;
 
 		/// <summary>
 		///  Forms we should search in.
 		/// </summary>
-		private FormCollection forms = null;
-
-		#endregion
+		private readonly FormCollection forms = null;
 
 		#region constructors
 

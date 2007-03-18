@@ -43,9 +43,8 @@ namespace NUnit.Forms.ExampleApplication
     {
         private Mock controller = null;
 
-        private string TestValue = "TestValue";
-
-        private string UpdatedValue = "UpdatedValue";
+        const string TestValue = "TestValue";
+        const string UpdatedValue = "UpdatedValue";
 
         public override void Setup()
         {

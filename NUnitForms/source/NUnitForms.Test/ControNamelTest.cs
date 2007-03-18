@@ -72,7 +72,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         public void UseAUserControlCustomTester()
         {
             LabelTester label = new LabelTester("mySecondLabel");
-            ButtonControlTester buttonControl = new ButtonControlTester((string) "myControl2");
+            ButtonControlTester buttonControl = new ButtonControlTester("myControl2");
             buttonControl.SuperClick();
             Assert.AreEqual("1", label.Text);
         }

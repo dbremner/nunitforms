@@ -43,9 +43,8 @@ namespace NUnit.Extensions.Forms
     /// It does not extend ControlTester because MenuItems are not Controls.  (sadly)</remarks>
     public class MenuItemTester
     {
-        private Form form;
-
-        private string formName;
+        private readonly Form form;
+        private readonly string formName;
 
         protected string name;
 

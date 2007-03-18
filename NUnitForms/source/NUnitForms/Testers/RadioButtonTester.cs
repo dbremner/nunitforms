@@ -34,88 +34,67 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-    /// <summary>
-    /// A ControlTester for testing RadioButtons.  
-    /// </summary>
-    /// <remarks>
-    /// This class provides a convenience property for determining
-    /// whether a RadioButton is checked.</remarks>
-    public class RadioButtonTester : ControlTester<RadioButton>
-    {
-        /// <summary>
-        /// Creates a ControlTester from the control name and the form instance.
-        /// </summary>
-        /// <remarks>
-        /// It is best to use the overloaded Constructor that requires just the name 
-        /// parameter if possible.
-        /// </remarks>
-        /// <param name="name">The Control name.</param>
-        /// <param name="form">The Form instance.</param>
-        public RadioButtonTester(string name, Form form) : base(name, form)
-        {
-        }
+	/// <summary>
+	/// A ControlTester for testing RadioButtons.  
+	/// </summary>
+	/// <remarks>
+	/// This class provides a convenience property for determining
+	/// whether a RadioButton is checked.</remarks>
+	public class RadioButtonTester : ControlTester<RadioButton, RadioButtonTester>
+	{
+		///<summary>
+		/// Default constructor for Generic support.
+		///</summary>
+		public RadioButtonTester() {}
 
-        /// <summary>
-        /// Creates a ControlTester from the control name and the form name.
-        /// </summary>
-        /// <remarks>
-        /// It is best to use the overloaded Constructor that requires just the name 
-        /// parameter if possible.
-        /// </remarks>
-        /// <param name="name">The Control name.</param>
-        /// <param name="formName">The Form name..</param>
-        public RadioButtonTester(string name, string formName) : base(name, formName)
-        {
-        }
+		/// <summary>
+		/// Creates a ControlTester from the control name and the form instance.
+		/// </summary>
+		/// <remarks>
+		/// It is best to use the overloaded Constructor that requires just the name 
+		/// parameter if possible.
+		/// </remarks>
+		/// <param name="name">The Control name.</param>
+		/// <param name="form">The Form instance.</param>
+		public RadioButtonTester(string name, Form form) : base(name, form) {}
 
-        /// <summary>
-        /// Creates a ControlTester from the control name.
-        /// </summary>
-        /// <remarks>
-        /// This is the best constructor.</remarks>
-        /// <param name="name">The Control name.</param>
-        public RadioButtonTester(string name) : base(name)
-        {
-        }
+		/// <summary>
+		/// Creates a ControlTester from the control name and the form name.
+		/// </summary>
+		/// <remarks>
+		/// It is best to use the overloaded Constructor that requires just the name 
+		/// parameter if possible.
+		/// </remarks>
+		/// <param name="name">The Control name.</param>
+		/// <param name="formName">The Form name..</param>
+		public RadioButtonTester(string name, string formName) : base(name, formName) {}
 
-        /// <summary>
-        /// Creates a ControlTester from a ControlTester and an index where the
-        /// original tester's name is not unique.
-        /// </summary>
-        /// <remarks>
-        /// It is best to use the overloaded Constructor that requires just the name 
-        /// parameter if possible.
-        /// </remarks>
-        /// <param name="tester">The ControlTester.</param>
-        /// <param name="index">The index to test.</param>
-        public RadioButtonTester(ControlTester tester, int index) : base(tester, index)
-        {
-        }
+		/// <summary>
+		/// Creates a ControlTester from the control name.
+		/// </summary>
+		/// <remarks>
+		/// This is the best constructor.</remarks>
+		/// <param name="name">The Control name.</param>
+		public RadioButtonTester(string name) : base(name) {}
 
-        /// <summary>
-        /// Allows you to find a RadioButtonTester by index where the name is not unique.
-        /// </summary>
-        /// <remarks>
-        /// This was added to support the ability to find controls where their name is
-        /// not unique.  If all of your controls are uniquely named (I recommend this) then
-        /// you will not need this.
-        /// </remarks>
-        /// <value>The ControlTester at the specified index.</value>
-        /// <param name="index">The index of the RadioButtonTester.</param>
-        public new RadioButtonTester this[int index]
-        {
-            get
-            {
-                return new RadioButtonTester(this, index);
-            }
-        }
+		/// <summary>
+		/// Creates a ControlTester from a ControlTester and an index where the
+		/// original tester's name is not unique.
+		/// </summary>
+		/// <remarks>
+		/// It is best to use the overloaded Constructor that requires just the name 
+		/// parameter if possible.
+		/// </remarks>
+		/// <param name="tester">The ControlTester.</param>
+		/// <param name="index">The index to test.</param>
+		public RadioButtonTester(ControlTester tester, int index) : base(tester, index) {}
 
-        ///<summary>
-        /// Gets the Checked property of the underlying radio button.
-        ///</summary>
-        public bool Checked
-        {
-            get { return Properties.Checked; }
-        }
-    }
+		///<summary>
+		/// Gets the Checked property of the underlying radio button.
+		///</summary>
+		public bool Checked
+		{
+			get { return Properties.Checked; }
+		}
+	}
 }
