@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\Code\NUnitForms\build\bin\Project1.nunit" total="237" failures="3" not-run="3" date="2006-12-18" time="23:31:35">
+  <environment nunit-version="2.2.9.0" clr-version="2.0.50727.42" os-version="Microsoft Windows NT 5.1.2600 Service Pack 2" platform="Win32NT" cwd="C:\Code\NUnitForms" machine-name="COMPY" user="Adam Vandenberg" user-domain="COMPY" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite name="C:\Code\NUnitForms\build\bin\Project1.nunit" success="False" time="17.328" asserts="0">
+    <results>
+      <test-suite name="C:\Code\NUnitForms\build\bin\NUnitForms.Example.exe" success="True" time="0.938" asserts="0">
+        <results>
+          <test-suite name="NUnit" success="True" time="0.938" asserts="0">
+            <results>
+              <test-suite name="Forms" success="True" time="0.938" asserts="0">
+                <results>
+                  <test-suite name="ExampleApplication" success="True" time="0.938" asserts="0">
+                    <results>
+                      <test-suite name="AppTest" success="True" time="0.688" asserts="0">
+                        <results>
+                          <test-case name="NUnit.Forms.ExampleApplication.AppTest.ButtonLabelShouldBeOneAfterClicked" executed="True" success="True" time="0.516" asserts="1" />
+                          <test-case name="NUnit.Forms.ExampleApplication.AppTest.ButtonLabelShouldBeTwoAfterClickedTwice" executed="True" success="True" time="0.063" asserts="1" />
+                          <test-case name="NUnit.Forms.ExampleApplication.AppTest.ButtonLabelShouldDefaultToZero" executed="True" success="True" time="0.031" asserts="1" />
+                          <test-case name="NUnit.Forms.ExampleApplication.AppTest.ShowModalButtonShouldShowModalDialog" executed="True" success="True" time="0.063" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite name="ControllerTest" success="True" time="0.063" asserts="0">
+                        <results>
+                          <test-case name="NUnit.Forms.ExampleApplication.ControllerTest.Count" executed="True" success="True" time="0.031" asserts="0" />
+                          <test-case name="NUnit.Forms.ExampleApplication.ControllerTest.Data" executed="True" success="True" time="0.000" asserts="1" />
+                          <test-case name="NUnit.Forms.ExampleApplication.ControllerTest.ShowModal" executed="True" success="True" time="0.016" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite name="FormTest" success="True" time="0.188" asserts="0">
+                        <results>
+                          <test-case name="NUnit.Forms.ExampleApplication.FormTest.ButtonLabelShouldBeControllerValue" executed="True" success="True" time="0.031" asserts="1" />
+                          <test-case name="NUnit.Forms.ExampleApplication.FormTest.ButtonLabelShouldUpdateAfterClick" executed="True" success="True" time="0.063" asserts="1" />
+                          <test-case name="NUnit.Forms.ExampleApplication.FormTest.CountButtonShouldInvokeControllerCount" executed="True" success="True" time="0.047" asserts="0" />
+                          <test-case name="NUnit.Forms.ExampleApplication.FormTest.ShowModalButtonShouldInvokeControllerShowModal" executed="True" success="True" time="0.047" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite name="ModelTest" success="True" time="0.000" asserts="0">
+                        <results>
+                          <test-case name="NUnit.Forms.ExampleApplication.ModelTest.BusinessLogic" executed="True" success="True" time="0.000" asserts="1" />
+                          <test-case name="NUnit.Forms.ExampleApplication.ModelTest.DefaultValue" executed="True" success="True" time="0.000" asserts="1" />
+                          <test-case name="NUnit.Forms.ExampleApplication.ModelTest.MultipleBusinessLogic" executed="True" success="True" time="0.000" asserts="1" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+      <test-suite name="C:\Code\NUnitForms\build\bin\NUnitForms.Test.dll" success="False" time="16.391" asserts="0">
+        <results>
+          <test-suite name="NUnit" success="False" time="16.391" asserts="0">
+            <results>
+              <test-suite name="Extensions" success="False" time="16.391" asserts="0">
+                <results>
+                  <test-suite name="Forms" success="False" time="16.391" asserts="0">
+                    <results>
+                      <test-suite name="Recorder" success="True" time="3.938" asserts="0">
+                        <results>
+                          <test-suite name="Test" success="True" time="3.938" asserts="0">
+                            <results>
+                              <test-suite name="CheckBoxRecorderTest" success="True" time="1.016" asserts="0">
+                                <categories>
+                                  <category name="Recorder" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.CheckBoxRecorderTest.CheckUnCheck" executed="True" success="True" time="1.016" asserts="2" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="ComboBoxRecorderTest" success="True" time="0.422" asserts="0">
+                                <categories>
+                                  <category name="Recorder" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.ComboBoxRecorderTest.ComboBoxEnter" executed="True" success="True" time="0.281" asserts="2" />
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.ComboBoxRecorderTest.ComboBoxEnterAndSelect" executed="True" success="True" time="0.078" asserts="2" />
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.ComboBoxRecorderTest.ComboBoxSelect" executed="True" success="True" time="0.063" asserts="2" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="DynamicControlsRecorderTest" success="True" time="0.063" asserts="0">
+                                <categories>
+                                  <category name="Recorder" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.DynamicControlsRecorderTest.DynamicControlRecorded" executed="True" success="True" time="0.063" asserts="2" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="EnterTextCollapsingProcessorTest" success="True" time="0.016" asserts="0">
+                                <categories>
+                                  <category name="Recorder" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.EnterTextCollapsingProcessorTest.CanCollapse" executed="True" success="True" time="0.000" asserts="2" />
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.EnterTextCollapsingProcessorTest.CanCollapseMoreComplex" executed="True" success="True" time="0.016" asserts="5" />
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.EnterTextCollapsingProcessorTest.DontCollapseDifferentControls" executed="True" success="True" time="0.000" asserts="1" />
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.EnterTextCollapsingProcessorTest.DontCollapseDifferentMethods" executed="True" success="True" time="0.000" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="LinkButtonRecorderTest" success="True" time="0.078" asserts="0">
+                                <categories>
+                                  <category name="Recorder" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.LinkButtonRecorderTest.Click" executed="True" success="True" time="0.078" asserts="2" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="ListBoxRecorderTest" success="True" time="0.266" asserts="0">
+                                <categories>
+                                  <category name="Recorder" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.ListBoxRecorderTest.MutlipleSelection" executed="True" success="True" time="0.125" asserts="2" />
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.ListBoxRecorderTest.SelectItem" executed="True" success="True" time="0.063" asserts="2" />
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.ListBoxRecorderTest.SingleSelectBox" executed="True" success="True" time="0.078" asserts="2" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="ListenerTest" success="True" time="0.109" asserts="0">
+                                <categories>
+                                  <category name="Recorder" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.ListenerTest.Listen" executed="True" success="True" time="0.109" asserts="4" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="MenuItemRecorderTest" success="True" time="0.063" asserts="0">
+                                <categories>
+                                  <category name="Recorder" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.MenuItemRecorderTest.MenuItemClick" executed="True" success="True" time="0.063" asserts="2" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="MultipleFormsTest" success="True" time="0.563" asserts="0">
+                                <categories>
+                                  <category name="Recorder" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.MultipleFormsTest.EventCausesAnother" executed="True" success="True" time="0.141" asserts="1" />
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.MultipleFormsTest.FormClose" executed="True" success="True" time="0.125" asserts="1" />
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.MultipleFormsTest.MultipleForms" executed="True" success="True" time="0.156" asserts="2" />
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.MultipleFormsTest.NamesShouldAdapt" executed="True" success="True" time="0.141" asserts="4" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="NameResolverTest" success="True" time="0.094" asserts="0">
+                                <categories>
+                                  <category name="Recorder" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.NameResolverTest.AmbiguousButton" executed="True" success="True" time="0.094" asserts="2" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="RadioButtonRecorderTest" success="True" time="0.188" asserts="0">
+                                <categories>
+                                  <category name="Recorder" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.RadioButtonRecorderTest.Click" executed="True" success="True" time="0.188" asserts="2" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="TabControlRecorderTest" success="True" time="0.172" asserts="0">
+                                <categories>
+                                  <category name="Recorder" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.TabControlRecorderTest.TabControlSelectIndex" executed="True" success="True" time="0.172" asserts="2" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="TestWriterTest" success="True" time="0.063" asserts="0">
+                                <categories>
+                                  <category name="Recorder" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.TestWriterTest.SimpleButton" executed="True" success="True" time="0.063" asserts="2" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="TextBoxRecorderTest" success="True" time="0.172" asserts="0">
+                                <categories>
+                                  <category name="Recorder" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.TextBoxRecorderTest.ProgrammaticallyChangeTextIsNotRecorded" executed="True" success="True" time="0.078" asserts="2" />
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.TextBoxRecorderTest.ProgrammaticallyChangeTextIsNotRecordedTwoBoxes" executed="True" success="True" time="0.031" asserts="2" />
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.TextBoxRecorderTest.TextBoxEnter" executed="True" success="True" time="0.063" asserts="2" />
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.TextBoxRecorderTest.TextBoxEnterMultiline" executed="False">
+                                    <reason>
+                                      <message><![CDATA[]]></message>
+                                    </reason>
+                                  </test-case>
+                                </results>
+                              </test-suite>
+                              <test-suite name="ToolStripComboBoxRecorderTest" success="True" time="0.500" asserts="0">
+                                <categories>
+                                  <category name="Recorder" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.ToolStripComboBoxRecorderTest.ToolStripComboBoxEnter" executed="True" success="True" time="0.313" asserts="2" />
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.ToolStripComboBoxRecorderTest.ToolStripComboBoxEnterAndSelect" executed="True" success="True" time="0.094" asserts="2" />
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.ToolStripComboBoxRecorderTest.ToolStripComboBoxSelect" executed="True" success="True" time="0.094" asserts="2" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="TreeViewRecorderTest" success="True" time="0.156" asserts="0">
+                                <categories>
+                                  <category name="Recorder" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Recorder.Test.TreeViewRecorderTest.TreeViewAfterSelect" executed="True" success="True" time="0.156" asserts="2" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite name="Scripting" success="True" time="0.688" asserts="0">
+                        <results>
+                          <test-suite name="Test" success="True" time="0.688" asserts="0">
+                            <results>
+                              <test-suite name="ScriptPlayerGuiTest" success="True" time="0.438" asserts="0">
+                                <categories>
+                                  <category name="Scripting" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Scripting.Test.ScriptPlayerGuiTest.GeneralPath" executed="True" success="True" time="0.438" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite name="ScriptPlayerTest" success="True" time="0.250" asserts="0">
+                                <categories>
+                                  <category name="Scripting" />
+                                </categories>
+                                <results>
+                                  <test-case name="NUnit.Extensions.Forms.Scripting.Test.ScriptPlayerTest.ScriptPlay" executed="True" success="True" time="0.094" asserts="7" />
+                                  <test-case name="NUnit.Extensions.Forms.Scripting.Test.ScriptPlayerTest.ScriptPlayAssertFail" executed="True" success="True" time="0.094" asserts="5" />
+                                  <test-case name="NUnit.Extensions.Forms.Scripting.Test.ScriptPlayerTest.ScriptPlayPropertyNumbers" executed="True" success="True" time="0.063" asserts="1" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite name="TestApplications" success="False" time="11.766" asserts="0">
+                        <results>
+                          <test-suite name="ButtonTest" success="True" time="0.203" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ButtonTest.ButtonClick" executed="True" success="True" time="0.063" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ButtonTest.ButtonText" executed="True" success="True" time="0.031" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ButtonTest.FireEvent" executed="True" success="True" time="0.047" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ButtonTest.FireEventWithArg" executed="True" success="True" time="0.063" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="CheckBoxTest" success="True" time="0.313" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.CheckBoxTest.Check" executed="True" success="True" time="0.078" asserts="3" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.CheckBoxTest.ToggleWithValue" executed="True" success="True" time="0.094" asserts="3" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.CheckBoxTest.UnCheck" executed="True" success="True" time="0.031" asserts="3" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.CheckBoxTest.UnCheck2" executed="True" success="True" time="0.109" asserts="3" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="CheckedListBoxTest" success="True" time="0.172" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.CheckedListBoxTest.CheckItem" executed="True" success="True" time="0.063" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.CheckedListBoxTest.CheckItems" executed="True" success="True" time="0.047" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.CheckedListBoxTest.ClearItems" executed="True" success="True" time="0.031" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.CheckedListBoxTest.HookupTestForm" executed="True" success="True" time="0.031" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ComboBoxTest" success="True" time="0.281" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ComboBoxTest.MethodInvokeOnControlTester" executed="True" success="True" time="0.063" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ComboBoxTest.Select" executed="True" success="True" time="0.047" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ComboBoxTest.SelectByBadText" executed="True" success="True" time="0.047" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ComboBoxTest.SelectByText" executed="True" success="True" time="0.063" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ComboBoxTest.TextBox" executed="True" success="True" time="0.063" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ContextMenuTest" success="True" time="0.375" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ContextMenuTest.AmbiguousNameBecauseInSubMenusButNotQualified" executed="True" success="True" time="0.031" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ContextMenuTest.AmbiguousNameBecauseInTwoMenus" executed="True" success="True" time="0.047" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ContextMenuTest.AmbiguousNameBecauseWeUseTextNotNameForMenuItems" executed="True" success="True" time="0.031" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ContextMenuTest.ContextMenuClick" executed="True" success="True" time="0.047" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ContextMenuTest.DontNeedToSpecifyWhichForm" executed="True" success="True" time="0.047" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ContextMenuTest.GeneratedTest" executed="True" success="True" time="0.047" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ContextMenuTest.NoSuchControlFinder" executed="True" success="True" time="0.031" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ContextMenuTest.NotAmbiguousNameBecauseInSubMenus" executed="True" success="True" time="0.047" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ContextMenuTest.NotAmbiguousNameBecauseInTwoMenusButQualified" executed="True" success="True" time="0.047" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ControlCollectionTest" success="True" time="0.016" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ControlCollectionTest.AddCollection" executed="True" success="True" time="0.016" asserts="7" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ControlCollectionTest.Count" executed="True" success="True" time="0.000" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ControlCollectionTest.GetEnumerator" executed="True" success="True" time="0.000" asserts="7" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ControlCollectionTest.Indexer" executed="True" success="True" time="0.000" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ControlNameTest" success="True" time="0.188" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ControlNameTest.AmbiguousName" executed="True" success="True" time="0.047" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ControlNameTest.FindNestedControl" executed="True" success="True" time="0.047" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ControlNameTest.NoSuchName" executed="True" success="True" time="0.047" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ControlNameTest.UseAUserControlCustomTester" executed="True" success="True" time="0.047" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ControlTest" success="True" time="0.234" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ControlTest.BadIndex" executed="True" success="True" time="0.031" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ControlTest.ControlClick" executed="True" success="True" time="0.031" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ControlTest.ControlTestersHaveFourConstructorsAndIndexer" executed="True" success="True" time="0.063" asserts="90" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ControlTest.ControlText" executed="True" success="True" time="0.031" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ControlTest.Property" executed="True" success="True" time="0.078" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="DatabindingTest" success="True" time="0.750" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.DatabindingTest.CheckBoxDataSetBinding" executed="True" success="True" time="0.500" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.DatabindingTest.DataSetBindingWithGenericPropertySetter" executed="True" success="True" time="0.141" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.DatabindingTest.TextBoxDataSetBinding" executed="True" success="True" time="0.109" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="DynamicControlsTest" success="True" time="0.516" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.DynamicControlsTest.DynamicButtonClick" executed="True" success="True" time="0.078" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.DynamicControlsTest.DynamicControlsWithDuplicateNameCount" executed="True" success="True" time="0.078" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.DynamicControlsTest.DynamicControlsWithDuplicateNameEnumerator" executed="True" success="True" time="0.109" asserts="3" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.DynamicControlsTest.DynamicControlsWithDuplicateNameIsAmbiguous" executed="True" success="True" time="0.063" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.DynamicControlsTest.DynamicControlsWithDuplicateNameNotFound" executed="True" success="True" time="0.094" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.DynamicControlsTest.DynamicControlsWithDuplicateNameWorksByIndex" executed="True" success="True" time="0.094" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="FactoryTest" success="True" time="0.000" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.FactoryTest.New" executed="True" success="True" time="0.000" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.FactoryTest.NewException" executed="True" success="True" time="0.000" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="FormCollectionTest" success="True" time="0.000" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.FormCollectionTest.AddCollection" executed="True" success="True" time="0.000" asserts="7" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.FormCollectionTest.Contains" executed="True" success="True" time="0.000" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.FormCollectionTest.Count" executed="True" success="True" time="0.000" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.FormCollectionTest.GetEnumerator" executed="True" success="True" time="0.000" asserts="7" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.FormCollectionTest.Indexer" executed="True" success="True" time="0.000" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="FormFinderTest" success="True" time="0.297" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.FormFinderTest.FindAll" executed="True" success="True" time="0.078" asserts="4" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.FormFinderTest.FinderWithBadObjectHasNoName" executed="True" success="True" time="0.016" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.FormFinderTest.FindOneForm" executed="True" success="True" time="0.016" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.FormFinderTest.FindOneFormOutOfTwo" executed="True" success="True" time="0.078" asserts="3" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.FormFinderTest.FindOneFormWhenThereAreNone" executed="True" success="True" time="0.016" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.FormFinderTest.FindOneFormWhenThereAreTwo" executed="True" success="True" time="0.047" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.FormFinderTest.FindTwoFormsWhenThereAreTwo" executed="True" success="True" time="0.047" asserts="3" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="FormTest" success="True" time="0.063" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.FormTest.Close" executed="True" success="True" time="0.063" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="LabelTest" success="True" time="0.078" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.LabelTest.LabelClick" executed="True" success="True" time="0.047" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.LabelTest.LabelText" executed="True" success="True" time="0.031" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="LinkLabelTest" success="True" time="0.063" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.LinkLabelTest.LinkLabelClick" executed="True" success="True" time="0.063" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ListBoxTest" success="True" time="0.453" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ListBoxTest.ListBoxMultiSelection" executed="True" success="True" time="0.141" asserts="5" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ListBoxTest.ListBoxPropertyAsserts" executed="True" success="True" time="0.047" asserts="3" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ListBoxTest.ListBoxSelection" executed="True" success="True" time="0.078" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ListBoxTest.ListBoxSelectionBad" executed="True" success="True" time="0.094" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ListBoxTest.SelectDoesNotExist" executed="True" success="True" time="0.094" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ListViewTest" success="True" time="0.250" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ListViewTest.AllowSingleSelectonly" executed="True" success="True" time="0.156" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ListViewTest.ColorSelectionTest" executed="True" success="True" time="0.063" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ListViewTest.ShowListViewForm" executed="True" success="True" time="0.031" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="MainMenuTest" success="True" time="0.594" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MainMenuTest.CantUseAmpsInName" executed="True" success="True" time="0.047" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MainMenuTest.CantUseDotInName" executed="True" success="True" time="0.031" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MainMenuTest.FormQualifiedMenuItem" executed="True" success="True" time="0.063" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MainMenuTest.FullyQualifiedMenuItem" executed="True" success="True" time="0.047" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MainMenuTest.ItemWithAltKey" executed="True" success="True" time="0.063" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MainMenuTest.ItemWithDot" executed="True" success="True" time="0.047" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MainMenuTest.MenuPopup" executed="True" success="True" time="0.063" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MainMenuTest.PartiallyQualifiedSubMenuItem" executed="True" success="True" time="0.063" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MainMenuTest.PlainMenu" executed="True" success="True" time="0.063" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MainMenuTest.QualifiedMenu" executed="True" success="True" time="0.063" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MainMenuTest.SubMenuItem" executed="True" success="True" time="0.047" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="MenuItemCollectionTest" success="True" time="0.000" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MenuItemCollectionTest.AddCollection" executed="True" success="True" time="0.000" asserts="7" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MenuItemCollectionTest.Count" executed="True" success="True" time="0.000" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MenuItemCollectionTest.GetEnumerator" executed="True" success="True" time="0.000" asserts="7" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MenuItemCollectionTest.Indexer" executed="True" success="True" time="0.000" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ModalDialogsTest" success="True" time="0.156" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ModalDialogsTest.NoModalFound" executed="True" success="True" time="0.031" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ModalDialogsTest.TestMessageBoxCancel" executed="True" success="True" time="0.031" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ModalDialogsTest.TestMessageBoxOK" executed="True" success="True" time="0.031" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ModalDialogsTest.TestOKCancelMessageBox" executed="True" success="True" time="0.016" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ModalDialogsTest.TestSimpleMessageBox" executed="True" success="True" time="0.031" asserts="3" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ModalDialogsTest.UnexpectedModalIsClosedAndFails" executed="True" success="True" time="0.016" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ModalDialogsTest.UnexpectedModalIsClosedAndFailsNoTitle" executed="True" success="True" time="0.000" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ModalFormsInServiceTest" success="True" time="0.172" asserts="0">
+                            <categories>
+                              <category name="UsesServiceWindowStation" />
+                            </categories>
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ModalFormsInServiceTest.ModalFormsTest.ModalFormDoesntShow" executed="True" success="True" time="0.016" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ModalFormsInServiceTest.ModalFormsTest.TestModalForm" executed="True" success="True" time="0.094" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ModalFormsInServiceTest.ModalFormsTest.TestModalFormByString" executed="True" success="True" time="0.063" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ModalFormsTest" success="True" time="0.172" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ModalFormsTest.ModalFormDoesntShow" executed="True" success="True" time="0.031" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ModalFormsTest.TestModalForm" executed="True" success="True" time="0.063" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ModalFormsTest.TestModalFormByString" executed="True" success="True" time="0.078" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ModalFormsTestWithoutBaseClassTest" success="True" time="0.031" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ModalFormsTestWithoutBaseClassTest.AnExampleOnAHiddenDesktopWithoutBaseClass" executed="True" success="True" time="0.016" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="MouseControllerTest" success="False" time="1.000" asserts="0">
+                            <categories>
+                              <category name="ControlsMouse" />
+                              <category name="DisplayHidden" />
+                            </categories>
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.ButtonEvents" executed="True" success="True" time="0.047" asserts="4" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.Buttons" executed="True" success="False" time="0.047" asserts="0">
+                                <failure>
+                                  <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object.]]></message>
+                                  <stack-trace><![CDATA[   at NUnit.Extensions.Forms.MouseController.set_Position(PointF value) in c:\Code\NUnitForms\source\NUnitForms\MouseController.cs:line 293
+   at NUnit.Extensions.Forms.MouseController.Press(MouseButtons buttons, PointF point) in c:\Code\NUnitForms\source\NUnitForms\MouseController.cs:line 638
+   at NUnit.Extensions.Forms.MouseController.Press(MouseButtons buttons) in c:\Code\NUnitForms\source\NUnitForms\MouseController.cs:line 548
+   at NUnit.Extensions.Forms.TestApplications.MouseControllerTest.Buttons() in c:\Code\NUnitForms\source\NUnitForms.Test\MouseContollerTest.cs:line 249
+]]></stack-trace>
+                                </failure>
+                              </test-case>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.Clicking" executed="True" success="True" time="0.047" asserts="3" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.Disposing" executed="True" success="False" time="0.031" asserts="0">
+                                <failure>
+                                  <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object.]]></message>
+                                  <stack-trace><![CDATA[   at NUnit.Extensions.Forms.MouseController.set_Position(PointF value) in c:\Code\NUnitForms\source\NUnitForms\MouseController.cs:line 293
+   at NUnit.Extensions.Forms.TestApplications.MouseControllerTest.Disposing() in c:\Code\NUnitForms\source\NUnitForms.Test\MouseContollerTest.cs:line 236
+]]></stack-trace>
+                                </failure>
+                              </test-case>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.DoubleClicking" executed="True" success="True" time="0.031" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.DragEmpty" executed="True" success="True" time="0.047" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.Dragging" executed="True" success="True" time="0.125" asserts="14" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.DragNull" executed="True" success="True" time="0.031" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.DragOdd" executed="True" success="True" time="0.031" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.Hovering" executed="True" success="False" time="0.031" asserts="0">
+                                <failure>
+                                  <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object.]]></message>
+                                  <stack-trace><![CDATA[   at NUnit.Extensions.Forms.MouseController.set_Position(PointF value) in c:\Code\NUnitForms\source\NUnitForms\MouseController.cs:line 293
+   at NUnit.Extensions.Forms.MouseController.Hover(PointF point) in c:\Code\NUnitForms\source\NUnitForms\MouseController.cs:line 416
+   at NUnit.Extensions.Forms.MouseController.Hover() in c:\Code\NUnitForms\source\NUnitForms\MouseController.cs:line 375
+   at NUnit.Extensions.Forms.TestApplications.MouseControllerTest.Hovering() in c:\Code\NUnitForms\source\NUnitForms.Test\MouseContollerTest.cs:line 212
+]]></stack-trace>
+                                </failure>
+                              </test-case>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.MissingControl" executed="True" success="True" time="0.031" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.Modifiers" executed="False">
+                                <reason>
+                                  <message><![CDATA[]]></message>
+                                </reason>
+                              </test-case>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.ModifiersInvalid1" executed="True" success="True" time="0.047" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.ModifiersInvalid2" executed="True" success="True" time="0.016" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.PositioningEvents" executed="True" success="True" time="0.047" asserts="9" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.PositioningInControl" executed="True" success="True" time="0.047" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.PositioningInForm" executed="True" success="True" time="0.063" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.PositioningUnits" executed="True" success="True" time="0.063" asserts="12" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.PositioningUnitsWorld" executed="True" success="True" time="0.047" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.XButtonEvents" executed="True" success="True" time="0.078" asserts="4" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MouseControllerTest.XButtons" executed="True" success="True" time="0.094" asserts="4" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="MultipleFormsTest" success="True" time="0.641" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MultipleFormsTest.AmbiguousNameWithMultipleForms" executed="True" success="True" time="0.063" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MultipleFormsTest.DontNeedToSpecifyForm" executed="True" success="True" time="0.125" asserts="4" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MultipleFormsTest.TestMultipleForms" executed="True" success="True" time="0.266" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.MultipleFormsTest.TestMultipleFormsShouldNotFindLastButton" executed="True" success="True" time="0.188" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="OpenFileDialogTest" success="True" time="0.516" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.CancelTest" executed="True" success="True" time="0.375" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.OpenTest" executed="True" success="True" time="0.141" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="RadioButtonTest" success="True" time="0.078" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.RadioButtonTest.SelectOption" executed="True" success="True" time="0.078" asserts="10" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="RichTextBoxTest" success="True" time="0.313" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.RichTextBoxTest.DataSetBinding" executed="True" success="True" time="0.125" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.RichTextBoxTest.DataSetBindingWithGenericPropertySetter" executed="True" success="True" time="0.109" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.RichTextBoxTest.RichTextBox" executed="True" success="True" time="0.078" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="SaveFileDialogTest" success="True" time="0.297" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SaveFileDialogTest.CancelTest" executed="True" success="True" time="0.141" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SaveFileDialogTest.SaveTest" executed="True" success="True" time="0.156" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ScreenCaptureTest" success="True" time="0.000" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ScreenCaptureTest.TestCapture" executed="False">
+                                <reason>
+                                  <message><![CDATA[Hangs NUnit]]></message>
+                                </reason>
+                              </test-case>
+                            </results>
+                          </test-suite>
+                          <test-suite name="SimpleAPIKeyboardTest" success="True" time="0.438" asserts="0">
+                            <categories>
+                              <category name="ControlsKeyboard" />
+                              <category name="DisplayHidden" />
+                            </categories>
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SimpleAPIKeyboardTest.ElaborateInputTest" executed="True" success="True" time="0.016" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SimpleAPIKeyboardTest.PressEnterClicksButton" executed="True" success="True" time="0.047" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SimpleAPIKeyboardTest.ReplaceOneWithDIGIT_1WhenNotInBraces" executed="True" success="True" time="0.047" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SimpleAPIKeyboardTest.TextBox" executed="True" success="True" time="0.078" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SimpleAPIKeyboardTest.ToUpper" executed="True" success="True" time="0.047" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SimpleAPIKeyboardTest.TypeShiftAB" executed="True" success="True" time="0.047" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SimpleAPIKeyboardTest.TypeShiftAGroup" executed="True" success="True" time="0.047" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SimpleAPIKeyboardTest.TypeSpecialKey" executed="True" success="True" time="0.094" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="SimpleAPIMouseTest" success="True" time="0.344" asserts="0">
+                            <categories>
+                              <category name="DisplayHidden" />
+                              <category name="ControlsMouse" />
+                            </categories>
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SimpleAPIMouseTest.CanClickMultipleControls" executed="True" success="True" time="0.125" asserts="4" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SimpleAPIMouseTest.CorrectMouseClicking" executed="True" success="True" time="0.063" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SimpleAPIMouseTest.IncorrectMouseClicking" executed="True" success="True" time="0.063" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SimpleAPIMouseTest.IncorrectMouseClickingSimplifiedAPI" executed="True" success="True" time="0.094" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="SupportCurrentFormPropertyTest" success="True" time="0.031" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SupportCurrentFormPropertyTest.ButtonClick" executed="True" success="True" time="0.031" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="SupportFormSpecificationTest" success="True" time="0.031" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SupportFormSpecificationTest.ButtonClick" executed="True" success="True" time="0.031" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="SupportFormTypeTest" success="True" time="0.063" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SupportFormTypeTest.ButtonClick" executed="True" success="True" time="0.063" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="SupportsAssertExtensionTest" success="True" time="0.047" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SupportsAssertExtensionTest.BaseClassAreEqual" executed="True" success="True" time="0.016" asserts="10" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SupportsAssertExtensionTest.BaseClassAreSame" executed="True" success="True" time="0.000" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SupportsAssertExtensionTest.BaseClassAssertFail" executed="True" success="True" time="0.016" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SupportsAssertExtensionTest.BaseClassAssertFailMessage" executed="True" success="True" time="0.016" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SupportsAssertExtensionTest.BaseClassIsFalse" executed="True" success="True" time="0.000" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SupportsAssertExtensionTest.BaseClassIsTrue" executed="True" success="True" time="0.000" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="SupportsAssertionExtensionTest" success="True" time="0.016" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SupportsAssertionExtensionTest.BaseClassAssert" executed="True" success="True" time="0.000" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SupportsAssertionExtensionTest.BaseClassAssertEquals" executed="True" success="True" time="0.016" asserts="8" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SupportsAssertionExtensionTest.BaseClassAssertFail" executed="True" success="True" time="0.000" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SupportsAssertionExtensionTest.BaseClassAssertFailMessage" executed="True" success="True" time="0.000" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.SupportsAssertionExtensionTest.BaseClassAssertSame" executed="True" success="True" time="0.000" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="TabControlTest" success="True" time="0.188" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.TabControlTest.ClickNonVisibleButton" executed="True" success="True" time="0.047" asserts="0" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.TabControlTest.ClickVisibleButton" executed="True" success="True" time="0.078" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.TabControlTest.TabControl" executed="True" success="True" time="0.063" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="TextBoxTest" success="True" time="0.328" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.TextBoxTest.DataSetBinding" executed="True" success="True" time="0.125" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.TextBoxTest.DataSetBindingWithGenericPropertySetter" executed="True" success="True" time="0.125" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.TextBoxTest.TextBox" executed="True" success="True" time="0.078" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ToolbarTest" success="True" time="0.344" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolbarTest.ClickToolbarButton" executed="True" success="True" time="0.109" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolbarTest.DropDownButtonTest" executed="True" success="True" time="0.109" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolbarTest.GetToolbar" executed="True" success="True" time="0.063" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolbarTest.ToggleButtonTest" executed="True" success="True" time="0.063" asserts="3" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ToolStripButtonTest" success="True" time="0.938" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolStripButtonTest.BottomContainerButton" executed="True" success="True" time="0.422" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolStripButtonTest.CenterContainerButton" executed="True" success="True" time="0.078" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolStripButtonTest.LeftContainerButton" executed="True" success="True" time="0.063" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolStripButtonTest.MainMenuButton" executed="True" success="True" time="0.078" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolStripButtonTest.PanelButton" executed="True" success="True" time="0.078" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolStripButtonTest.RightContainerButton" executed="True" success="True" time="0.063" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolStripButtonTest.StatusBarDropDownButton" executed="True" success="True" time="0.078" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolStripButtonTest.TopContainerButton" executed="True" success="True" time="0.078" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ToolStripComboBoxTest" success="True" time="0.094" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolStripComboBoxTest.MainToolbar" executed="True" success="True" time="0.094" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ToolStripDropDownButtonTest" success="True" time="0.156" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolStripDropDownButtonTest.ClickDropDownItem" executed="True" success="True" time="0.094" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolStripDropDownButtonTest.MainToolbar" executed="True" success="True" time="0.063" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ToolStripMenuTest" success="True" time="0.328" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolStripMenuTest.InContainerMenu" executed="True" success="True" time="0.078" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolStripMenuTest.InPanelMenu" executed="True" success="True" time="0.078" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolStripMenuTest.MainMenuSubItem" executed="True" success="True" time="0.094" asserts="1" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolStripMenuTest.PlainMenu" executed="True" success="True" time="0.078" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="ToolStripTextBoxTest" success="True" time="0.063" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxTest.ToolStripTextBoxOnToolBar" executed="True" success="True" time="0.063" asserts="3" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="TreeViewTest" success="True" time="0.125" asserts="0">
+                            <results>
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.TreeViewTest.AfterSelectNode" executed="True" success="True" time="0.063" asserts="2" />
+                              <test-case name="NUnit.Extensions.Forms.TestApplications.TreeViewTest.AfterSelectNodeSubNodes" executed="True" success="True" time="0.063" asserts="1" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NUnitForms.Example</name>
+    </assembly>
+    <members>
+        <member name="T:NUnit.Extensions.Forms.ExampleApplication.AlternateAppForm">
+            <summary>
+            Summary description for AlternateAppForm.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.ExampleApplication.AlternateAppForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.ExampleApplication.AlternateAppForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.ExampleApplication.AlternateAppForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.ExampleApplication.MainApp">
+            <summary>
+            Summary description for Class1.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.ExampleApplication.AppForm">
+            <summary>
+            Summary description for AppForm.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.ExampleApplication.AppForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.ExampleApplication.AppForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.ExampleApplication.AppForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+    </members>
+</doc>

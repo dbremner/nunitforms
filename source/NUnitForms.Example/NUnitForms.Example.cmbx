@@ -1,0 +1,16 @@
+<Combine fileversion="1.0" name="NUnitForms.Example" description="">
+  <StartMode startupentry="NUnitForms.Example" single="True">
+    <Execute entry="NUnitForms.Example" type="None" />
+  </StartMode>
+  <Entries>
+    <Entry filename=".\.\NUnitForms.Example.prjx" />
+  </Entries>
+  <Configurations active="Debug">
+    <Configuration name="Release">
+      <Entry name="NUnitForms.Example" configurationname="Debug" build="False" />
+    </Configuration>
+    <Configuration name="Debug">
+      <Entry name="NUnitForms.Example" configurationname="Debug" build="False" />
+    </Configuration>
+  </Configurations>
+</Combine>

@@ -1,0 +1,52 @@
+<Project name="NUnitForms.Example" standardNamespace="NUnitForms.Example" description="" newfilesearch="None" enableviewstate="True" version="1.1" projecttype="C#">
+  <Contents>
+    <File name=".\AssemblyInfo.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controller" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Model" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\View" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\FormMananger" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Main" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Tests" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controller\AppController.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Controller\IAppController.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\FormMananger\FormManager.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\FormMananger\IFormManager.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Main\MainApp.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Model\AppModel.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Model\IAppModel.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\View\AlternateAppForm.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\View\AppForm.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Tests\Story Tests" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Tests\Unit Tests" subtype="Directory" buildaction="Compile" dependson="" data="" />
+    <File name=".\Tests\Story Tests\AppTest.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Tests\Unit Tests\ControllerTest.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Tests\Unit Tests\FormTest.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\Tests\Unit Tests\ModelTest.cs" subtype="Code" buildaction="Compile" dependson="" data="" />
+    <File name=".\View\AlternateAppForm.resx" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+    <File name=".\View\AppForm.resx" subtype="Code" buildaction="EmbedAsResource" dependson="" data="" />
+  </Contents>
+  <References>
+    <Reference type="Assembly" refto="..\..\lib\NUnit2.2\nunit.framework.dll" localcopy="True" />
+    <Reference type="Assembly" refto="..\..\lib\NUnit2.2\nunit.core.dll" localcopy="True" />
+    <Reference type="Project" refto="NUnitForms" localcopy="True" />
+    <Reference type="Assembly" refto="..\..\lib\NMock\nmock.dll" localcopy="True" />
+  </References>
+  <DeploymentInformation target="" script="" strategy="File" />
+  <Configuration runwithwarnings="True" name="Debug">
+    <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="" warninglevel="4" nowarn="" includedebuginformation="True" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" target="Library" definesymbols="" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+    <Execution commandlineparameters="" consolepause="False" />
+    <Output directory="..\bin\Debug" assembly="NUnitForms.Example" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+  </Configuration>
+  <Configurations active="Debug">
+    <Configuration runwithwarnings="True" name="Debug">
+      <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="" warninglevel="4" nowarn="" includedebuginformation="True" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" target="Library" definesymbols="" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+      <Execution commandlineparameters="" consolepause="False" />
+      <Output directory="..\bin\Debug" assembly="NUnitForms.Example" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+    </Configuration>
+    <Configuration runwithwarnings="True" name="Release">
+      <CodeGeneration runtime="MsNet" compiler="Csc" compilerversion="" warninglevel="4" nowarn="" includedebuginformation="False" optimize="True" unsafecodeallowed="False" generateoverflowchecks="False" mainclass="" target="Library" definesymbols="" generatexmldocumentation="False" win32Icon="" noconfig="False" nostdlib="False" />
+      <Execution commandlineparameters="" consolepause="False" />
+      <Output directory="..\bin\Release" assembly="NUnitForms.Example" executeScript="" executeBeforeBuild="" executeAfterBuild="" executeBeforeBuildArguments="" executeAfterBuildArguments="" />
+    </Configuration>
+  </Configurations>
+</Project>
