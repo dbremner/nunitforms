@@ -41,22 +41,16 @@ namespace NUnit.Extensions.Forms.Recorder.Test
     [Category("Recorder")]
     public class DynamicControlsRecorderTest : NUnitFormTest
     {
-        public override Type FormType
-        {
-            get
-            {
-                return typeof(DynamicControlsTestForm);
-            }
-        }
-
         [Test]
         public void DynamicControlRecorded()
         {
-            TestWriter writer = new TestWriter(CurrentForm);
+            DynamicControlsTestForm form = new DynamicControlsTestForm();
+            form.Show();
+            TestWriter writer = new TestWriter(form);
             Assert.AreEqual("", writer.Test);
 
-            ButtonTester button = new ButtonTester("addButton", CurrentForm);
-            ButtonTester button0 = new ButtonTester("button0", CurrentForm);
+            ButtonTester button = new ButtonTester("addButton", form);
+            ButtonTester button0 = new ButtonTester("button0", form);
 
             button.Click();
             button0.Click();

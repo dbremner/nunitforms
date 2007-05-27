@@ -32,12 +32,14 @@
 
 using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
+using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
     [TestFixture]
     [Category("DisplayHidden")]
     [Category("ControlsKeyboard")]
+    [Ignore]
     public class SimpleAPIKeyboardTest : NUnitFormTest
     {
         public override bool DisplayHidden
@@ -48,9 +50,10 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test]
         public void PressEnterClicksButton()
         {
-            new ButtonTestForm().Show();
-            LabelTester label = new LabelTester("myLabel");
-            ButtonTester button = new ButtonTester("myButton");
+            Form form = new ButtonTestForm();
+            form.Show();
+            LabelTester label = new LabelTester("myLabel", form);
+            ButtonTester button = new ButtonTester("myButton", form);
 
             Assert.AreEqual("0", label.Text);
 
@@ -63,8 +66,10 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test]
         public void TextBox()
         {
-            new TextBoxTestForm().Show();
-            TextBoxTester box = new TextBoxTester("myTextBox");
+            Form form = new TextBoxTestForm();
+            form.Show();
+            
+            TextBoxTester box = new TextBoxTester("myTextBox", form);
             Assert.AreEqual("default", box.Text);
 
             Keyboard.UseOn(box);

@@ -1,8 +1,8 @@
-#region Copyright (c) 2003-2005, Luke T. Maxon
+#region Copyright (c) 2006-2007, Luke T. Maxon (Authored by Anders Lillrank)
 
 /********************************************************************************************************************
 '
-' Copyright (c) 2003-2005, Luke T. Maxon
+' Copyright (c) 2006-2007, Luke T. Maxon
 ' All rights reserved.
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -28,34 +28,25 @@
 '
 '*******************************************************************************************************************/
 
-// Author Anders Lillrank
-
 #endregion
 
 using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
+using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
   [TestFixture]
   public class ToolStripComboBoxTest : NUnitFormTest
   {
-    private LabelTester label1 = new LabelTester("label1");
-
-    [SetUp]
-    public void Init()
-    {
-      new ToolStripComboBoxTestForm().Show();
-    }
-
     [Test]
     public void MainToolbar()
     {
-      base.init();
-      ToolStripComboBoxTester tester = new ToolStripComboBoxTester("toolStripComboBox1");
+      Form form = new ToolStripComboBoxTestForm();
+      form.Show();
+      ToolStripComboBoxTester tester = new ToolStripComboBoxTester("toolStripComboBox1", form);
       tester.Select(1);
-      Assert.IsTrue(label1.Text == "two clicked");
-      base.Verify();
+      Assert.IsTrue(new LabelTester("label1", form).Text == "two clicked");
     }
   }
 }

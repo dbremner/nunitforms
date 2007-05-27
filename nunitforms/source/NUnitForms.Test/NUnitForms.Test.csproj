@@ -20,6 +20,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>NUnitForms.Test.xml</DocumentationFile>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,11 +30,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>NUnitForms.Test.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.2.9.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+    <Reference Include="nunit.framework, Version=2.4.1.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\NUnit-2.2.9\nunit.framework.dll</HintPath>
+      <HintPath>..\..\lib\NUnit-2.4.1\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -42,13 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ToolStripContainerTest.cs" />
     <Compile Include="DialogWithNoHandlerTest.cs" />
     <Compile Include="ButtonTest.cs" />
     <Compile Include="CheckBoxTest.cs" />
     <Compile Include="CheckedListBoxTest.cs" />
     <Compile Include="ComboBoxTest.cs" />
     <Compile Include="ContextMenuTest.cs" />
-    <Compile Include="ControlCollectionTest.cs" />
     <Compile Include="ControlTest.cs" />
     <Compile Include="ControNamelTest.cs" />
     <Compile Include="CustomTesters\ButtonControlRecorder.cs" />
@@ -56,7 +58,6 @@
     <Compile Include="DatabindingTest.cs" />
     <Compile Include="DynamicControlsTest.cs" />
     <Compile Include="Factory\FactoryTest.cs" />
-    <Compile Include="FormCollectionTest.cs" />
     <Compile Include="FormFinderTest.cs" />
     <Compile Include="FormTest.cs" />
     <Compile Include="LabelTest.cs" />
@@ -64,12 +65,11 @@
     <Compile Include="ListBoxTest.cs" />
     <Compile Include="ListViewTest.cs" />
     <Compile Include="MainMenuTest.cs" />
-    <Compile Include="MenuItemCollectionTest.cs" />
     <Compile Include="ModalDialogsTest.cs" />
     <Compile Include="ModalFormsInServiceTest.cs" />
     <Compile Include="ModalFormsTest.cs" />
     <Compile Include="ModalFormsTestWithoutBaseClassTest.cs" />
-    <Compile Include="MouseContollerTest.cs" />
+    <Compile Include="MouseControllerTest.cs" />
     <Compile Include="MultipleFormsTest.cs" />
     <Compile Include="OpenFileDialogTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,16 +92,11 @@
     <Compile Include="Recorder\TreeViewRecorderTest.cs" />
     <Compile Include="RichTextBoxTest.cs" />
     <Compile Include="SaveFileDialogTest.cs" />
-    <Compile Include="ScreenCaptureTest.cs" />
-    <Compile Include="Scripting\ScriptPlayerGuiTest.cs" />
-    <Compile Include="Scripting\ScriptPlayerTest.cs" />
     <Compile Include="SimpleAPIKeyboardTest.cs" />
     <Compile Include="SimpleAPIMouseTest.cs" />
     <Compile Include="SupportedAPI\SupportAssertExtensionTest.cs" />
     <Compile Include="SupportedAPI\SupportAssertionExtensionTest.cs" />
-    <Compile Include="SupportedAPI\SupportCurrentFormPropertyTest.cs" />
     <Compile Include="SupportedAPI\SupportFormSpecification.cs" />
-    <Compile Include="SupportedAPI\SupportFormTypeTest.cs" />
     <Compile Include="TabControlTest.cs" />
     <Compile Include="TestForms\AmbiguousNameForm.cs">
       <SubType>Form</SubType>
@@ -216,6 +211,12 @@
     </Compile>
     <Compile Include="TestForms\ToolStripComboBoxTestForm.Designer.cs">
       <DependentUpon>ToolStripComboBoxTestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestForms\ToolStripContainerTestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestForms\ToolStripContainerTestForm.Designer.cs">
+      <DependentUpon>ToolStripContainerTestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TestForms\ToolStripDropDownButtonTestForm.cs">
       <SubType>Form</SubType>
@@ -360,6 +361,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>ToolStripComboBoxTestForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TestForms\ToolStripContainerTestForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ToolStripContainerTestForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TestForms\ToolStripDropDownButtonTestForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ToolStripDropDownButtonTestForm.cs</DependentUpon>
@@ -381,10 +386,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NUnitForms.Player\NUnitForms.Player.csproj">
-      <Project>{1845C01D-7E9E-4748-9C42-9F881D3DB050}</Project>
-      <Name>NUnitForms.Player</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NUnitForms.Recorder\NUnitForms.Recorder.csproj">
       <Project>{DAAB0423-50E1-4868-B5A7-07D47BF7CE45}</Project>
       <Name>NUnitForms.Recorder</Name>

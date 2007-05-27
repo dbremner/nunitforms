@@ -41,22 +41,17 @@ namespace NUnit.Extensions.Forms.Recorder.Test
     [Category("Recorder")]
     public class NameResolverTest : NUnitFormTest
     {
-        public override Type FormType
-        {
-            get
-            {
-                return typeof(AmbiguousNameForm);
-            }
-        }
 
         [Test]
         public void AmbiguousButton()
         {
+            AmbiguousNameForm form = new AmbiguousNameForm();
+            form.Show();
             Censor.Add("NunitFormsTestApplicationsCustomTesters");
-            TestWriter writer = new TestWriter(CurrentForm);
+            TestWriter writer = new TestWriter(form);
             Assert.AreEqual("", writer.Test);
 
-            ButtonTester button = new ButtonTester("myControl2.myButton");
+            ButtonTester button = new ButtonTester("myControl2.myButton", form);
 
             button.Click();
             Assert.AreEqual(

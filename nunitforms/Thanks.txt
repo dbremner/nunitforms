@@ -26,7 +26,11 @@
 
 - Federico Spinazzi for an enhancement to ComboBoxTester.
 
-- Anders Lillrank for his Toolstrip support.
+- Bart De Boeck for the initial port to .NET 2.0 and several alpha releases on .NET 2.0
+
+- Anders Lillrank for Toolstrip support and several .NET 2.0 contributions.
+
+- Adam Vandenberg for work on .NET 2.0 support, code structure and refactoring.
 
 - Trevor Hall for his extensive feedback and constructive remarks.
 

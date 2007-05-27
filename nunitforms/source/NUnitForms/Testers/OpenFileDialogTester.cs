@@ -1,10 +1,9 @@
-#region Copyright (c) 2006, Luke T. Maxon
+#region Copyright (c) 2006-2007, Luke T. Maxon (Authored by Anders Lillrank)
 
 /********************************************************************************************************************
 '
-' Copyright (c) 2006, Luke T. Maxon
+' Copyright (c) 2006-2007, Luke T. Maxon
 ' All rights reserved.
-' Author: Anders Lillrank
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
 ' that the following conditions are met:
@@ -56,7 +55,7 @@ namespace NUnit.Extensions.Forms
 		///<param name="file"></param>
 		public void OpenFile(string file)
 		{
-			_fileName = file;
+			fileName = file;
 			Thread thr = new Thread(FileNameHandler);
 			thr.Start();
 		}

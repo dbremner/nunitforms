@@ -34,6 +34,7 @@ using System;
 
 using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
+using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder.Test
 {
@@ -41,21 +42,15 @@ namespace NUnit.Extensions.Forms.Recorder.Test
   [Category("Recorder")]
   public class ToolStripComboBoxRecorderTest : NUnitFormTest
   {
-    public override Type FormType
-    {
-      get
-      {
-        return typeof(ToolStripComboBoxTestForm);
-      }
-    }
-
     [Test]
     public void ToolStripComboBoxEnter()
     {
-      TestWriter writer = new TestWriter(CurrentForm);
+      Form form = new ToolStripComboBoxTestForm();
+      form.Show();
+      TestWriter writer = new TestWriter(form);
       Assert.AreEqual("", writer.Test);
 
-      ToolStripComboBoxTester comboBox = new ToolStripComboBoxTester("toolStripComboBox1");
+      ToolStripComboBoxTester comboBox = new ToolStripComboBoxTester("toolStripComboBox1", form);
       //doing 2 of these tests the collapsing processor.
       comboBox.Enter("abc");
       comboBox.Enter("abcd");
@@ -76,10 +71,13 @@ public void Test()
     [Test]
     public void ToolStripComboBoxSelect()
     {
-      TestWriter writer = new TestWriter(CurrentForm);
-      Assert.AreEqual("", writer.Test);
 
-      ToolStripComboBoxTester comboBox = new ToolStripComboBoxTester("toolStripComboBox1");
+        Form form = new ToolStripComboBoxTestForm();
+        form.Show();
+        TestWriter writer = new TestWriter(form);
+        Assert.AreEqual("", writer.Test);
+
+      ToolStripComboBoxTester comboBox = new ToolStripComboBoxTester("toolStripComboBox1", form);
       //doing 2 of these tests the collapsing processor.
       comboBox.Select(1);
       comboBox.Select(2);
@@ -101,10 +99,13 @@ public void Test()
     [Test]
     public void ToolStripComboBoxEnterAndSelect()
     {
-      TestWriter writer = new TestWriter(CurrentForm);
+        Form form = new ToolStripComboBoxTestForm();
+        form.Show();
+        TestWriter writer = new TestWriter(form);
+   
       Assert.AreEqual("", writer.Test);
 
-      ToolStripComboBoxTester comboBox = new ToolStripComboBoxTester("toolStripComboBox1");
+      ToolStripComboBoxTester comboBox = new ToolStripComboBoxTester("toolStripComboBox1", form);
       //doing 2 of these tests the collapsing processor.
       comboBox.Select(1);
       comboBox.Enter("abcd");

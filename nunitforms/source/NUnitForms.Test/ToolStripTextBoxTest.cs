@@ -1,8 +1,8 @@
-#region Copyright (c) 2003-2005, Luke T. Maxon
+#region Copyright (c) 2006-2007, Luke T. Maxon (Authored by Anders Lillrank)
 
 /********************************************************************************************************************
 '
-' Copyright (c) 2003-2005, Luke T. Maxon
+' Copyright (c) 2006-2007, Luke T. Maxon
 ' All rights reserved.
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -28,10 +28,7 @@
 '
 '*******************************************************************************************************************/
 
-// Author: Anders Lillrank
-
 #endregion
-
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications

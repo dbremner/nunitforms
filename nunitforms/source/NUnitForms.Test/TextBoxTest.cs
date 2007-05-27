@@ -42,7 +42,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         public void TextBox()
         {
             new TextBoxTestForm().Show();
-            TextBoxTester box = new TextBoxTester("myTextBox", CurrentForm);
+            TextBoxTester box = new TextBoxTester("myTextBox");
             Assert.AreEqual("default", box.Text);
             box.Enter("Text");
             Assert.AreEqual("Text", box.Text);

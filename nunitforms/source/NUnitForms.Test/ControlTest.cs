@@ -82,7 +82,6 @@ namespace NUnit.Extensions.Forms.TestApplications
 		/// </para>
 		/// <para>
 		/// Certain dialog tests have fewer constructors, and no check is made for
-		/// <see cref="ControlTester{T}"/>.
 		/// </para>
 		/// </remarks>
 		[Test]

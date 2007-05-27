@@ -37,3 +37,8 @@ Not just abstract classes, but any classes with subclasses.  (search for IsAbstr
 Generate tests with mocks (Constructor based dependency injection)
 
 Scripting - integrate speed with standard tests.  Make command pattern all over.  Add more scripting support.  Combine.
+
+Ability to capture screen image and compare to expected value in a file.
+
+Determine whether it is appropriate to set IsUserInteractive true when called from service like cruise control.
+

@@ -41,21 +41,16 @@ namespace NUnit.Extensions.Forms.Recorder.Test
     [Category("Recorder")]
     public class LinkButtonRecorderTest : NUnitFormTest
     {
-        public override Type FormType
-        {
-            get
-            {
-                return typeof(LinkLabelTestForm);
-            }
-        }
 
         [Test]
         public void Click()
         {
-            TestWriter writer = new TestWriter(CurrentForm);
+            LinkLabelTestForm form = new LinkLabelTestForm();
+            form.Show();
+            TestWriter writer = new TestWriter(form);
             Assert.AreEqual("", writer.Test);
 
-            LinkLabelTester count = new LinkLabelTester("myLinkLabel");
+            LinkLabelTester count = new LinkLabelTester("myLinkLabel", form);
 
             count.Click();
 

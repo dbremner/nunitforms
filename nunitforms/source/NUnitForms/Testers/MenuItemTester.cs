@@ -55,15 +55,15 @@ namespace NUnit.Extensions.Forms
                 if(form != null)
                 {
                     //may have dynamically added controls.  I am not saving this.
-                    return new MenuItemFinder(name, form).Find();
+                    return new Finder<MenuItem>(name, form).Find();
                 }
                 else if(formName != null)
                 {
-                    return new MenuItemFinder(name, new FormFinder().Find(formName)).Find();
+                    return new Finder<MenuItem>(name, new FormFinder().Find(formName)).Find();
                 }
                 else
                 {
-                    return new MenuItemFinder(name).Find();
+                    return new Finder<MenuItem>(name).Find();
                 }
             }
         }

@@ -43,63 +43,8 @@ namespace NUnit.Extensions.Forms
     /// Fully supported by the recorder application
     /// </para>
     /// </remarks>
-    public class ComboBoxTester : ControlTester<ComboBox, ComboBoxTester>
+    public partial class ComboBoxTester
     {
-		/// <summary>
-		/// Default constructor for generic support.
-		/// </summary>
-    	public ComboBoxTester() {}
-
-    	/// <summary>
-        /// Creates a ControlTester from the control name and the form instance.
-        /// </summary>
-        /// <remarks>
-        /// It is best to use the overloaded Constructor that requires just the name 
-        /// parameter if possible.
-        /// </remarks>
-        /// <param name="name">The Control name.</param>
-        /// <param name="form">The Form instance.</param>
-        public ComboBoxTester(string name, Form form) : base(name, form)
-        {
-        }
-
-        /// <summary>
-        /// Creates a ControlTester from the control name and the form name.
-        /// </summary>
-        /// <remarks>
-        /// It is best to use the overloaded Constructor that requires just the name 
-        /// parameter if possible.
-        /// </remarks>
-        /// <param name="name">The Control name.</param>
-        /// <param name="formName">The Form name..</param>
-        public ComboBoxTester(string name, string formName) : base(name, formName)
-        {
-        }
-
-        /// <summary>
-        /// Creates a ControlTester from the control name.
-        /// </summary>
-        /// <remarks>
-        /// This is the best constructor.</remarks>
-        /// <param name="name">The Control name.</param>
-        public ComboBoxTester(string name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a ControlTester from a ControlTester and an index where the
-        /// original tester's name is not unique.
-        /// </summary>
-        /// <remarks>
-        /// It is best to use the overloaded Constructor that requires just the name 
-        /// parameter if possible.
-        /// </remarks>
-        /// <param name="tester">The ControlTester.</param>
-        /// <param name="index">The index to test.</param>
-        public ComboBoxTester(ControlTester tester, int index) : base(tester, index)
-        {
-        }
-
         /// <summary>
         /// Sets the text property of the ComboBox to the specified value.
         /// </summary>

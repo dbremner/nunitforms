@@ -34,6 +34,7 @@ using System;
 using System.ComponentModel;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
@@ -290,11 +291,11 @@ namespace NUnit.Extensions.Forms.Recorder
 			ListenTo(e.Control);
 		}
 
-		private FormCollection formsIAmListeningTo = new FormCollection();
+		private List<Form> formsIAmListeningTo = new List<Form>();
 
 		private void CheckForNewForms()
 		{
-			FormCollection forms = new FormFinder().FindAll();
+			List<Form> forms = new FormFinder().FindAll();
 			foreach (Form form in forms)
 			{
 				if (!(form is AppForm))

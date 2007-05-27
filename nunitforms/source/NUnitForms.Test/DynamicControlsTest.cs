@@ -114,7 +114,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(NoSuchControlException), "duplicate[2]")]
+        [ExpectedException(typeof(NoSuchControlException), ExpectedMessage = "duplicate[2]")]
         public void DynamicControlsWithDuplicateNameNotFound()
         {
             ButtonTester addDuplicateButton = new ButtonTester("btnAddDuplicate");

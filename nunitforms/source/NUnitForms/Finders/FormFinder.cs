@@ -32,6 +32,7 @@
 
 using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace NUnit.Extensions.Forms
 {
@@ -43,7 +44,7 @@ namespace NUnit.Extensions.Forms
     /// It is also used by the recorder application.</remarks>
     public class FormFinder
     {
-        private FormCollection forms;
+        private List<Form> forms;
 
         private string name;
 
@@ -62,11 +63,11 @@ namespace NUnit.Extensions.Forms
         /// </summary>
         /// <param name="formName">The name of the form to search for.</param>
         /// <returns>the FormCollection of all found forms.</returns>
-        public FormCollection FindAll(string formName)
+        public List<Form> FindAll(string formName)
         {
             lock(this)
             {
-                forms = new FormCollection();
+                forms = new List<Form>();
                 this.name = formName;
                 IntPtr desktop = Win32.GetDesktopWindow();
                 Win32.EnumChildWindows(desktop, FindMatchingForms, IntPtr.Zero);
@@ -86,7 +87,7 @@ namespace NUnit.Extensions.Forms
         /// Thrown if there is more than one form with the specified name.</exception>
         public Form Find(string formName)
         {
-            FormCollection list = FindAll(formName);
+            List<Form> list = FindAll(formName);
             if(list.Count == 0)
             {
                 throw new NoSuchControlException("Could not find form with name '" + formName + "'");
@@ -102,7 +103,7 @@ namespace NUnit.Extensions.Forms
         /// Finds all of the forms.
         /// </summary>
         /// <returns>FormCollection with all of the forms regardless of name.</returns>
-        public FormCollection FindAll()
+        public List<Form> FindAll()
         {
             return FindAll(null);
         }

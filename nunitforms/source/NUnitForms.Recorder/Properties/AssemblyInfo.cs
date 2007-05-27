@@ -1,4 +1,4 @@
-#region Copyright (c) 2003-2006, Luke T. Maxon
+#region Copyright (c) 2003-2007, Luke T. Maxon
 
 /********************************************************************************************************************
 '
@@ -35,10 +35,8 @@ using System.Reflection;
 
 [assembly : AssemblyTitle("NUnitForms.Recorder")]
 [assembly : AssemblyProduct("NUnitForms.Recorder")]
-[assembly : AssemblyCopyright("Copyright ©  2003-2006, Luke T. Maxon")]
+[assembly : AssemblyCopyright("Copyright ©  2003-2007, Luke T. Maxon")]
 
 [assembly: AssemblyVersion("2.0.*")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyName("NUnitForms")]
 [assembly: CLSCompliant(true)]

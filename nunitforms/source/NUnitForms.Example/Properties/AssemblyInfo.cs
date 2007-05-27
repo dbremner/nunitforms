@@ -36,9 +36,8 @@ using System.Runtime.InteropServices;
 
 [assembly : AssemblyTitle("NUnitForms.Example")]
 [assembly : AssemblyProduct("NUnitForms.Example")]
-[assembly : AssemblyCopyright("Copyright ©  2003-2006, Luke T. Maxon")]
+[assembly : AssemblyCopyright("Copyright ©  2003-2007, Luke T. Maxon")]
 
 [assembly : AssemblyVersion("2.0.*")]
 [assembly : AssemblyFileVersion("1.0.0.0")]
-[assembly : AssemblyDelaySign( false )]
 [assembly : CLSCompliant( true )]

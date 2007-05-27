@@ -41,21 +41,15 @@ namespace NUnit.Extensions.Forms.Recorder.Test
     [Category("Recorder")]
     public class TreeViewRecorderTest : NUnitFormTest
     {
-        public override Type FormType
-        {
-            get
-            {
-                return typeof(TreeViewTestForm);
-            }
-        }
-
         [Test]
         public void TreeViewAfterSelect()
         {
-            TestWriter writer = new TestWriter(CurrentForm);
+            TreeViewTestForm form = new TreeViewTestForm();
+            form.Show();
+            TestWriter writer = new TestWriter(form);
             Assert.AreEqual("", writer.Test);
 
-            TreeViewTester tree = new TreeViewTester("myTree");
+            TreeViewTester tree = new TreeViewTester("myTree", form);
             tree.SelectNode(1, 0, 1);
 
             Assert.AreEqual(

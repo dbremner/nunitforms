@@ -118,11 +118,8 @@ namespace NUnit.Extensions.Forms
         }
 
         /// <summary>
-        ///   Creates and initialises a new instance of the class for the specified <see cref="ControlTester"/>.
+        ///   Creates and initialises a new instance of the class for the specified tester.
         /// </summary>
-        /// <param name="controlTester">
-        ///   A <see cref="ControlTester"/>.
-        /// </param>
         /// <remarks>
         ///   The <see cref="Position">mouse position</see> is relative to the <see cref="Control"/> managed by
         ///   the <paramref name="controlTester"/>.
@@ -140,7 +137,7 @@ namespace NUnit.Extensions.Forms
         /// }
         /// </code>
         /// </example>
-        public MouseController(ControlTester controlTester)
+        public MouseController(ReflectionTester controlTester)
         {
             UseOn(controlTester);
         }
@@ -148,10 +145,7 @@ namespace NUnit.Extensions.Forms
         /// <summary>
         /// Specify which control or form we should use for the relative position.
         /// </summary>
-        /// <param name="control">
-        ///   A <see cref="ControlTester"/>.
-        /// </param>
-        public void UseOn(ControlTester control)
+        public void UseOn(ReflectionTester control)
         {
             if(mouseControl == null)
             {
@@ -172,7 +166,6 @@ namespace NUnit.Extensions.Forms
             {
                 if(!Win32.BlockInput(true))
                 {
-                    //TODO Bart De Boeck : Waarom is dit nodig ? Zie ook in Dispose().
                     //throw new Win32Exception();
                 }
 
@@ -257,7 +250,6 @@ namespace NUnit.Extensions.Forms
                     {
                         if(!Win32.BlockInput(false))
                         {
-                            //TODO Bart De Boeck 
                             //throw new Win32Exception();
                         }
                         restoreUserInput = false;

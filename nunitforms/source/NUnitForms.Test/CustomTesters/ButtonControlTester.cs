@@ -41,7 +41,7 @@ namespace NUnit.Extensions.Forms.TestApplications
 	{
 		private Button InnerButton
 		{
-			get { return ((ButtonControl) Control).InnerButton; }
+			get { return ((ButtonControl) Properties).InnerButton; }
 		}
 
 		public ButtonControlTester() {}

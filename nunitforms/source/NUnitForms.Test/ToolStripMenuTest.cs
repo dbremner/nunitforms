@@ -1,8 +1,8 @@
-#region Copyright (c) 2003-2005, Luke T. Maxon
+#region Copyright (c) 2006-2007, Luke T. Maxon (Authored by Anders Lillrank)
 
 /********************************************************************************************************************
 '
-' Copyright (c) 2003-2005, Luke T. Maxon
+' Copyright (c) 2006-2007, Luke T. Maxon
 ' All rights reserved.
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -28,12 +28,11 @@
 '
 '*******************************************************************************************************************/
 
-// Author Anders Lillrank
-
 #endregion
 
 using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
+using System.Windows.Forms;
 
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -41,48 +40,42 @@ namespace NUnit.Extensions.Forms.TestApplications
   [TestFixture]
   public class ToolStripMenuTest : NUnitFormTest
   {
-    private LabelTester label1 = new LabelTester("label1");
+      private Form form = null;
+      private LabelTester label1 = null;
 
-    [SetUp]
-    public void Init()
+    public override void Setup()
     {
-      new ToolStripMenuTestForm().Show();
+      form = new ToolStripMenuTestForm();
+        form.Show();
+        label1 = new LabelTester("label1", form);
     }
+
     [Test]
     public void PlainMenu()
     {
-      this.init();
       new ToolStripMenuItemTester("itemToolStripMenuItem").Click();
       Assert.AreEqual("itemToolStripMenuItem clicked", label1.Text);
-      this.Verify();
     }
 
     [Test]
     public void MainMenuSubItem()
     {
-      this.init();
       new ToolStripMenuItemTester("subItemToolStripMenuItem").Click();
       Assert.AreEqual("subItemToolStripMenuItem clicked", label1.Text);
-      this.Verify();
-      
     }
 
     [Test]
     public void InContainerMenu()
     {
-      this.init();
       new ToolStripMenuItemTester("itemInContainerToolStripMenuItem").Click();
       Assert.AreEqual("itemInContainerToolStripMenuItem clicked", label1.Text);
-      this.Verify();
     }
 
     [Test]
     public void InPanelMenu()
     {
-      this.init();
       new ToolStripMenuItemTester("itemInPanelToolStripMenuItem").Click();
       Assert.AreEqual("itemInPanelToolStripMenuItem clicked", label1.Text);
-      this.Verify();
     }
 
   }

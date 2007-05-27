@@ -1,8 +1,8 @@
-#region Copyright (c) 2003-2005, Luke T. Maxon
+#region Copyright (c) 2006-2007, Luke T. Maxon (Authored by Anders Lillrank)
 
 /********************************************************************************************************************
 '
-' Copyright (c) 2003-2005, Luke T. Maxon
+' Copyright (c) 2006-2007, Luke T. Maxon
 ' All rights reserved.
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -28,8 +28,6 @@
 '
 '*******************************************************************************************************************/
 
-// Author: Anders Lillrank
-
 #endregion
 
 using System;
@@ -37,115 +35,32 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-
-  /// <summary>
-  /// A ToolStripItem tester for testing DropDownButtons.
-  /// </summary>
-  public class ToolStripDropDownButtonTester : ToolStripItemTester
-  {
-    #region Constructors
-
     /// <summary>
-    /// Creates a ToolStripDropDownButtonTester from the name and the form instance.
+    /// A ToolStripItem tester for testing DropDownButtons.
     /// </summary>
-    /// <param name="name"></param>
-    /// <param name="form"></param>
-    public ToolStripDropDownButtonTester(string name, Form form)
-      : base(name, form)
+    public partial class ToolStripDropDownButtonTester
     {
-    }
-
-    /// <summary>
-    /// Creates a ToolStripDropDownButtonTester from the name and the form name.
-    /// </summary>
-    /// <param name="name"></param>
-    /// <param name="formName"></param>
-    public ToolStripDropDownButtonTester(string name, string formName)
-      : base(name, formName)
-    {
-    }
-
-    /// <summary>
-    /// Creates a ToolStripDropDownButtonTester from the name.
-    /// </summary>
-    /// <param name="name"></param>
-    public ToolStripDropDownButtonTester(string name)
-      : base(name)
-    {
-    }
-
-    /// <summary>
-    /// Creates a ToolStripItemTester from a ToolStripItemTester and an index where the
-    /// original tester's name is not unique.
-    /// </summary>
-    /// <remarks>
-    /// It is best to use the overloaded Constructor that requires just the name 
-    /// parameter if possible.
-    /// </remarks>
-    /// <param name="tester">The ToolStripItemTester.</param>
-    /// <param name="index">The index to test.</param>
-    public ToolStripDropDownButtonTester(ToolStripItemTester tester, int index)
-      : base(tester, index)
-    {
-    }
-    #endregion
-
-    /// <summary>
-    /// Allows you to find a ToolStripDropDownButton by index where the name is not unique.
-    /// </summary>
-    /// <remarks>
-    /// This was added to support the ability to find components where their name is
-    /// not unique.  If all of your components are uniquely named (I recommend this) then
-    /// you will not need this.
-    /// </remarks>
-    /// <value>The ToolStripDropDownButtonTester at the specified index.</value>
-    /// <param name="index">The index of the ToolStripDropDownButtonTester.</param>
-    public ToolStripDropDownButtonTester this[int index]
-    {
-      get
-      {
-        return new ToolStripDropDownButtonTester(this, index);
-      }
-    }
-
-    /// <summary>
-    /// Provides access to all of the Properties of the ToolStripDropDownButton.
-    /// </summary>
-    /// <remarks>
-    /// Allows typed access to all of the properties of the underlying control.
-    /// </remarks>
-    /// <value>The underlying control.</value>
-    public ToolStripDropDownButton Properties
-    {
-      get
-      {
-        return (ToolStripDropDownButton)ToolStripItem;
-      }
-    }
-
-
-     /// <summary>
-    /// Clickes the DropDownItem with the given index.
-    /// </summary>
-    /// <param name="index"></param>
-    public void ClickDropDownItem(int index)
-    {
-      ToolStripDropDownButton button = Properties;
-
-      if (button.HasDropDownItems)
-      {
-        ToolStripItemCollection items = button.DropDownItems;
-        if (items.Count > index)
+        /// <summary>
+        /// Clickes the DropDownItem with the given index.
+        /// </summary>
+        /// <param name="index"></param>
+        public void ClickDropDownItem(int index)
         {
-          ToolStripItem item = items[index];
-          FireEvent("DropDownItemClicked", new ToolStripItemClickedEventArgs(item));
+            bool found = false;
+            ToolStripDropDownButton button = Properties;
 
+            if (button.HasDropDownItems)
+            {
+                ToolStripItemCollection items = button.DropDownItems;
+                if (items.Count > index)
+                {
+                    ToolStripItem item = items[index];
+                    FireEvent("DropDownItemClicked", new ToolStripItemClickedEventArgs(item));
+                    found = true;
+                }
+            }
+
+            FormsAssert.IsTrue(found, "No drop down item with correct index.");
         }
-      }
-      else
-      {
-        throw new NoSuchComponentException("ToolStripDropDownButton has no DropDownItems");
-      }
     }
-  }
 }

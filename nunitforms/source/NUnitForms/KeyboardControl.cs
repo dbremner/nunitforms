@@ -36,34 +36,19 @@ namespace NUnit.Extensions.Forms
 {
     internal class KeyboardControl
     {
-        private ControlTester controlTester;
+        private ReflectionTester tester;
 
-        internal KeyboardControl(ControlTester controlTester)
+        internal KeyboardControl(ReflectionTester tester)
         {
-            this.controlTester = controlTester;
+            this.tester = tester;
         }
 
         internal void Focus()
         {
-            Control.FindForm().Activate();
-            Control.Focus();
-        }
-
-        private Control Control
-        {
-            get
-            {
-                Control control = controlTester.Control;
-
-                //TODO: put this back in if I can duplicate the problem that made me put it here.  Write a test!!
-//				if (!control.IsHandleCreated)
-//				{
-//					Application.DoEvents();
-//				}
-
-                // TODO: throw if not visible.
-                return control;
-            }
+            Control c = tester.TheObject as Control;
+            FormsAssert.IsTrue(c != null, "Keyboard control requires tester of Control");
+            c.FindForm().Activate();
+            c.Focus();
         }
     }
 }

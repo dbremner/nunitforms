@@ -6,7 +6,7 @@
 	
 	<property name="source.dir" value="source" />
 	
-	<property name="nunit.dir" value="${path::get-full-path('lib\NUnit-2.2.9')}" />
+	<property name="nunit.dir" value="${path::get-full-path('lib\NUnit-2.4.1')}" />
 	<property name="nmock.dir" value="lib\NMock" />
 	<property name="ncover.dir" value="lib\NCover" />
 	
@@ -21,8 +21,6 @@
 	<property name="recorder.exe.path" value="${bin.dir}\NUnitForms.Recorder.exe" />
 	<property name="example.exe.path" value="${bin.dir}\NUnitForms.Example.exe" />
 	<property name="teamtest.example.exe.path" value="${bin.dir}\NUnitForms.TeamTest.Example.exe" />
-	<property name="player.dll.path" value="${bin.dir}\NUnitForms.Player.dll" />
-	<property name="player.exe.path" value="${bin.dir}\NUnitForms.Player.exe" />
 
 	<property name="sdk.path" value="C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Bin" />
 	
@@ -99,33 +97,7 @@
 		</csc>
 	</target>
 
-
-	<target name="compile_player_dll">
-		<csc target="library" output="${player.dll.path}" debug="${debug}">
-			<sources basedir="${source.dir}\NUnitForms.Player">
-				<include name="**\*.cs" />
-			</sources>
-			<references>
-				<include name="${nunit.dir}\*.dll" />
-				<include name="${dll.path}" />
-			</references>
-		</csc>
-	</target>
-	
-	<target name="compile_player_exe" depends="build_dir, compile_player_dll">
-		<csc target="exe" output="${player.exe.path}" debug="${debug}">
-			<sources basedir="${source.dir}\NUnitForms.Player.Application">
-				<include name="**\*.cs" />
-			</sources>
-			<references>
-				<include name="${nunit.dir}\*.dll" />
-				<include name="${dll.path}" />
-				<include name="${player.dll.path}" />
-			</references>
-		</csc>
-	</target>
-	
-	<target name="compile_test" depends="build_dir, compile, compile_recorder_dll, compile_player_dll">
+	<target name="compile_test" depends="build_dir, compile, compile_recorder_dll">
 		<csc target="library" output="${test.dll.path}" debug="${debug}">
 			<sources basedir="${source.dir}\NUnitForms.Test">
 				<include name="**\*.cs" />
@@ -137,7 +109,6 @@
 				<include name="${nunit.dir}\*.dll" />
 				<include name="${dll.path}" />
 				<include name="${recorder.dll.path}" />
-				<include name="${player.dll.path}" />
 			</references>
 		</csc>
 	</target>
@@ -173,11 +144,11 @@
 	<target name="test" depends="build" description="Test project">
 		<exec 
 			program="${ncover.dir}\NCover.Console.exe" 
-			commandline='/c "${nunit.dir}\nunit-console.exe" "NUnitForms.Test.dll NUnitForms.Example.exe /nologo /thread" /a NUnitForms /w ${bin.dir} /o ${bin.dir}\coverage.xml'/>
+			commandline='/c "${nunit.dir}\nunit-console.exe" "NUnitForms.Test.dll NUnitForms.Example.exe /nologo" /a NUnitForms /w ${bin.dir} /o ${bin.dir}\coverage.xml'/>
 	</target>
 
 	<target name="test-nocover" depends="build" description="Test project without code coverage.">
-		<exec program="${nunit.dir}\nunit-console.exe" commandline="${bin.dir}\NUnitForms.Test.dll ${bin.dir}\NUnitForms.Example.exe /nologo /thread"/>
+		<exec program="${nunit.dir}\nunit-console.exe" commandline="${bin.dir}\NUnitForms.Test.dll ${bin.dir}\NUnitForms.Example.exe /nologo"/>
 	</target>
 	
 	<target name="clean" description="Deletes all build files">
@@ -219,7 +190,7 @@
 			<property name="DocumentPrivates" value="False" />
 			<property name="DocumentEmptyNamespaces" value="False" />
 			<property name="IncludeAssemblyVersion" value="False" />
-			<property name="CopyrightText" value="Copyright (c) 2003-2004, Luke T. Maxon    - All rights reserved." />
+			<property name="CopyrightText" value="Copyright (c) 2003-2007, Luke T. Maxon    - All rights reserved." />
 			<property name="CopyrightHref" value="" />
 		     </documenter>
 		</documenters> 

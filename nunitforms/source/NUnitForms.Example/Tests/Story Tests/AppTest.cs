@@ -41,9 +41,9 @@ namespace NUnit.Forms.ExampleApplication
     [TestFixture]
     public class AppTest : NUnitFormTest
     {
-        public override Form ActivateForm()
+        public override void Setup()
         {
-            return new AppForm(new AppController(new AppModel(), new FormManager()));
+            new AppForm(new AppController(new AppModel(), new FormManager())).Show();
         }
 
         [Test]

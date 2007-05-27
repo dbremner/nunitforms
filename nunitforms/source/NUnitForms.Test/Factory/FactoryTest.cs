@@ -50,7 +50,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(Exception), "Your type is not a form!  -->System.String")]
+        [ExpectedException(typeof(Exception), ExpectedMessage= "Your type is not a form!  -->System.String")]
         public void NewException()
         {
             new FormFactory().New(typeof(string));

@@ -38,6 +38,7 @@ using System.Threading;
 using System.Windows.Forms;
 using NUnit.Framework;
 using NUnitForms.ScreenCapture;
+using System.Collections.Generic;
 
 namespace NUnit.Extensions.Forms
 {
@@ -68,14 +69,8 @@ namespace NUnit.Extensions.Forms
 		/// </remarks>
 		protected bool verified = false;
 
-		private Thread guiThread;
-
-		private Form formOnThread;
-
 		private static readonly FieldInfo isUserInteractive =
 			typeof (SystemInformation).GetField("isUserInteractive", BindingFlags.Static | BindingFlags.NonPublic);
-
-		private Form currentForm = null;
 
 		private MouseController mouse = null;
 
@@ -104,13 +99,6 @@ namespace NUnit.Extensions.Forms
 		/// Or you can set an environment variable called "UseHiddenDesktop" and set that to "false"  Either will
 		/// cause the tests to run on your original, standard desktop. 
 		/// </summary>
-		/// <remarks>
-		/// <list type="bullet">
-		/// <li>This method now defaults to <c>false</c>. When the problems with the separate desktop are solved, this
-		/// method will again return <c>true</c>.</li>
-		/// <li>An <c>else</c> branch to deal with <c>UseHiddenDesktop</c> is <c>TRUE</c>.</li>
-		/// </list>
-		/// </remarks>
 		public virtual bool UseHidden
 		{
 			get
@@ -120,26 +108,8 @@ namespace NUnit.Extensions.Forms
 				{
 					return false;
 				}
-				else if (useHiddenDesktop != null && useHiddenDesktop.ToUpper().Equals("TRUE"))
-				{
-					return true;
-				}
-
-				return false;
+				return true;
 			}
-		}
-
-		/// <summary>
-		/// It is used only in combination with the FormType property.
-		/// If you override the FormType property, then CurrentForm will be initialized (on setup) to
-		/// an instance of the form whose type you specify.  None of the testers require a reference
-		/// to the active form anymore, so this should not be necessary.
-		/// </summary>
-		[Obsolete()]
-		public Form CurrentForm
-		{
-			get { return currentForm; }
-			set { currentForm = value; }
 		}
 
 		/// <summary>
@@ -172,7 +142,8 @@ namespace NUnit.Extensions.Forms
 		public void init()
 		{
 			verified = false;
-			if (!SystemInformation.UserInteractive)
+		
+            if (!SystemInformation.UserInteractive)
 			{
 				isUserInteractive.SetValue(null, true);
 			}
@@ -183,16 +154,9 @@ namespace NUnit.Extensions.Forms
 			}
 
 			modal = new ModalFormTester();
-
-			BaseSetup();
-
 			mouse = new MouseController();
 			keyboard = new KeyboardController();
 
-			if (CurrentForm != null)
-			{
-				currentForm.Show();
-			}
 			Setup();
 		}
 
@@ -270,9 +234,7 @@ namespace NUnit.Extensions.Forms
 		/// <param name="expected">A boolean to indicate whether you expect this modal dialog to appear.</param>
 		protected void ExpectModal(string name, string handlerName, bool expected)
 		{
-			ExpectModal(name,
-			            (ModalFormActivated) Delegate.CreateDelegate(typeof (ModalFormActivated), this, handlerName),
-			            expected);
+			ExpectModal(name, (ModalFormActivated) Delegate.CreateDelegate(typeof (ModalFormActivated), this, handlerName), expected);
 		}
 
 		/// <summary>
@@ -288,90 +250,11 @@ namespace NUnit.Extensions.Forms
 			ExpectModal(name, handlerName, true);
 		}
 
-
-		/// <summary>
-		/// In your test class, you used to have the choice to override this
-		/// method, or implement the FormType property.  Now neither is necessary.  It is still
-		/// here for compatibility with tests written to use the CurrentForm property.
-		/// </summary>
-		[Obsolete()]
-		public virtual void BaseSetup()
-		{
-			CurrentForm = ActivateForm();
-		}
-
 		/// <summary>
 		/// Override this Setup method if you have custom behavior to execute before each test
 		/// in your fixture.
 		/// </summary>
 		public virtual void Setup() {}
-
-		/// <summary>
-		/// This method is called before each test in order
-		/// to set the CurrentForm property (also obsolete)  You can override this method as an
-		/// alternative to setting the FormType property if you want to test the old way.
-		/// </summary>
-		/// <returns></returns>
-		[Obsolete()]
-		public virtual Form ActivateForm()
-		{
-			if (FormType != null)
-			{
-				return (Form) Activator.CreateInstance(FormType);
-			}
-			return null;
-		}
-
-		/// <summary>
-		/// Compare the screen capture of a control with a stored screen capture of this control.
-		/// </summary>
-		/// <param name="filePath">
-		/// The path to the screen capture of a control. This file path has the following format :
-		/// <c>nameForm_number.png</c>. 
-		/// </param>
-		protected virtual void CompareControlCapture(string filePath)
-		{
-			const string screenCaptureLocation = @"g:\temp\cap.png";
-
-			string tempPath = Path.GetTempFileName();
-
-			string formName = Path.GetFileName(filePath);
-
-			formName = formName.Substring(0, formName.LastIndexOf('_'));
-			Form formUnderTest = new FormFinder().Find(formName);
-			Assert.AreEqual(formName, formUnderTest.Name);
-			Bitmap expectedCapture = new Bitmap(filePath);
-			ScreenCapture screenCapture = new ScreenCapture();
-
-			screenCapture.Capture(formUnderTest, @"NUnitFormsCapture\").Save(screenCaptureLocation);
-			Assert.IsTrue(FileAssert.AreBinaryEqual(filePath, screenCaptureLocation));
-		}
-
-		protected virtual void CompareCapture(Form form, string filePath)
-		{
-			formOnThread = form;
-			guiThread = new Thread(new ThreadStart(this.RunForm));
-			guiThread.Start();
-			Thread.Sleep(2000);
-			CompareControlCapture(filePath);
-		}
-
-		protected void RunForm()
-		{
-			Application.Run(formOnThread);
-		}
-
-
-		/// <summary>
-		/// This property specifies the type of form to instantiate
-		/// before each test.
-		/// </summary>
-		[Obsolete()]
-		public virtual Type FormType
-		{
-			get { return null; }
-		}
-
 
 		/// <summary>
 		/// This method is called by NUnit after each test runs.  If you have custom
@@ -388,7 +271,7 @@ namespace NUnit.Extensions.Forms
 			if (!verified)
 			{
 				verified = true;
-				FormCollection allForms = new FormFinder().FindAll();
+				List<Form> allForms = new FormFinder().FindAll();
 
 				foreach (Form form in allForms)
 				{
@@ -396,7 +279,7 @@ namespace NUnit.Extensions.Forms
 					{
 						form.Dispose();
 						form.Hide();
-					} //else branch not tested
+					}
 				}
 
 				bool modalVerify = modal.Verify();
@@ -418,12 +301,10 @@ namespace NUnit.Extensions.Forms
 			}
 		}
 
-		/// <summary>
-		/// This method is called after each test.  Put code here to clean up anything
-		/// you need to between tests.  NUnitForms cleans up most everything you need
-		/// related to the framework (closes extra windows, etc..) but you might need
-		/// custom behavior beyond this.  Put it here.
-		/// </summary>
+        /// <summary>
+        /// Override this TearDown method if you have custom behavior to execute after each test
+        /// in your fixture.
+        /// </summary>
 		public virtual void TearDown() {}
 	}
 }

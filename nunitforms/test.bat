@@ -1,2 +1,1 @@
-call paths.cmd
-nant test-nocover
+lib\nant-0.85\nant test-nocover
