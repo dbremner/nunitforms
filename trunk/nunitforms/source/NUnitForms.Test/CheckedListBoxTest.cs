@@ -74,7 +74,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(IndexOutOfRangeException), "Ultra-Violet not in list")]
+        [ExpectedException(typeof(IndexOutOfRangeException), ExpectedMessage="Ultra-Violet not in list")]
         public void CheckItem()
         {
             checkedListForm.Show();

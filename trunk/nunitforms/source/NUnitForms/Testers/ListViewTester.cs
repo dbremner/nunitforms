@@ -37,163 +37,112 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	/// <summary>
-	/// A ControlTester for testing List Views.  
-	/// </summary>
-	/// <remarks>
-	/// It includes helper methods for selecting items from the list
-	/// and for clearing those selections.</remarks>
-	public class ListViewTester : ControlTester<ListView, ListViewTester>
-	{
-		///<summary>
-		/// Default constructor for Generic support.
-		///</summary>
-		public ListViewTester() { }
+    /// <summary>
+    /// A ControlTester for testing List Views.  
+    /// </summary>
+    /// <remarks>
+    /// It includes helper methods for selecting items from the list
+    /// and for clearing those selections.</remarks>
+    public partial class ListViewTester
+    {
+        /// <summary>
+        /// Helper method to return the List View's Items property
+        /// </summary>
+        public ListView.ListViewItemCollection Items
+        {
+            get { return Properties.Items; }
+        }
 
-		/// <summary>
-		/// Creates a ControlTester from the control name and the form instance.
-		/// </summary>
-		/// <remarks>
-		/// It is best to use the overloaded Constructor that requires just the name 
-		/// parameter if possible.
-		/// </remarks>
-		/// <param name="name">The Control name.</param>
-		/// <param name="form">The Form instance.</param>
-		public ListViewTester(string name, Form form) : base(name, form) {}
+        /// <summary>
+        /// Helper method to return the columns of the list view
+        /// </summary>
+        public ListView.ColumnHeaderCollection Columns
+        {
+            get { return Properties.Columns; }
+        }
 
-		/// <summary>
-		/// Creates a ControlTester from the control name and the form name.
-		/// </summary>
-		/// <remarks>
-		/// It is best to use the overloaded Constructor that requires just the name 
-		/// parameter if possible.
-		/// </remarks>
-		/// <param name="name">The Control name.</param>
-		/// <param name="formName">The Form name..</param>
-		public ListViewTester(string name, string formName) : base(name, formName) {}
+        /// <summary>
+        /// Clears the selections from the list box.
+        /// </summary>
+        public void ClearSelected()
+        {
+            foreach (ListViewItem item in Properties.Items)
+            {
+                item.Selected = false;
+            }
+        }
 
-		/// <summary>
-		/// Creates a ControlTester from the control name.
-		/// </summary>
-		/// <remarks>
-		/// This is the best constructor.</remarks>
-		/// <param name="name">The Control name.</param>
-		public ListViewTester(string name) : base(name) {}
+        /// <summary>
+        /// Selects an item in the ListBox according to its index.
+        /// </summary>
+        /// <param name="i">the index to select.</param>
+        public void Select(int i)
+        {
+            Properties.Items[i].Selected = true;
+            FireEvent("ItemActivate");
+        }
 
-		/// <summary>
-		/// Creates a ControlTester from a ControlTester and an index where the
-		/// original tester's name is not unique.
-		/// </summary>
-		/// <remarks>
-		/// It is best to use the overloaded Constructor that requires just the name 
-		/// parameter if possible.
-		/// </remarks>
-		/// <param name="tester">The ControlTester.</param>
-		/// <param name="index">The index to test.</param>
-		public ListViewTester(ControlTester tester, int index) : base(tester, index) {}
+        /// <summary>
+        /// Selects an item in the list according to its string value.
+        /// </summary>
+        /// <param name="text">The item to select.</param>
+        public void Select(string text)
+        {
+            int index = FindItemByString(text);
 
-		/// <summary>
-		/// Helper method to return the List View's Items property
-		/// </summary>
-		public ListView.ListViewItemCollection Items
-		{
-			get { return Properties.Items; }
-		}
+            if (index != -1)
+            {
+                Select(index);
+            }
+        }
 
-		/// <summary>
-		/// Helper method to return the columns of the list view
-		/// </summary>
-		public ListView.ColumnHeaderCollection Columns
-		{
-			get { return Properties.Columns; }
-		}
+        /// <summary>
+        /// Multiple selection of a range of items
+        /// </summary>
+        /// <param name="items"></param>
+        public void SelectItems(string[] items)
+        {
+            foreach (string item in items)
+            {
+                Select(item);
+            }
+        }
 
-		/// <summary>
-		/// Clears the selections from the list box.
-		/// </summary>
-		public void ClearSelected()
-		{
-			foreach (ListViewItem item in Properties.Items)
-			{
-				item.Selected = false;
-			}
-		}
+        /// <summary>
+        /// Test that only the indicated items are selected
+        /// </summary>
+        /// <param name="matches"></param>
+        public bool SelectedItemsMatch(string[] matches)
+        {
+            ArrayList matchList = new ArrayList(matches);
 
-		/// <summary>
-		/// Selects an item in the ListBox according to its index.
-		/// </summary>
-		/// <param name="i">the index to select.</param>
-		public void Select(int i)
-		{
-			Properties.Items[i].Selected = true;
-			FireEvent("ItemActivate");
-		}
+            if (matchList.Count != Properties.SelectedItems.Count)
+            {
+                return false;
+            }
 
-		/// <summary>
-		/// Selects an item in the list according to its string value.
-		/// </summary>
-		/// <param name="text">The item to select.</param>
-		public void Select(string text)
-		{
-			int index = FindItemByString(text);
+            foreach (ListViewItem item in Properties.SelectedItems)
+            {
+                if (!matchList.Contains(item.Text))
+                {
+                    return false;
+                }
+            }
 
-			if (index != -1)
-			{
-				Select(index);
-			}
-		}
+            return true;
+        }
 
-		/// <summary>
-		/// Multiple selection of a range of items
-		/// </summary>
-		/// <param name="items"></param>
-		public void SelectItems(string[] items)
-		{
-			foreach (string item in items)
-			{
-				Select(item);
-			}
-		}
+        private int FindItemByString(string text)
+        {
+            for (int i = 0; i < Properties.Items.Count; i++)
+            {
+                if (Properties.Items[i].Text == text)
+                {
+                    return i;
+                }
+            }
 
-		/// <summary>
-		/// Test that only the indicated items are selected
-		/// </summary>
-		/// <param name="matches"></param>
-		public bool SelectedItemsMatch(string[] matches)
-		{
-			ArrayList matchList = new ArrayList(matches);
-
-			if (matchList.Count != Properties.SelectedItems.Count)
-			{
-				return false;
-			}
-
-			foreach (ListViewItem item in Properties.SelectedItems)
-			{
-				if (!matchList.Contains(item.Text))
-				{
-					return false;
-				}
-			}
-
-			return true;
-		}
-
-		#region Implementation
-
-		private int FindItemByString(string text)
-		{
-			for (int i = 0; i < Properties.Items.Count; i++)
-			{
-				if (Properties.Items[i].Text == text)
-				{
-					return i;
-				}
-			}
-
-			return -1;
-		}
-
-		#endregion
-	}
+            return -1;
+        }
+    }
 }

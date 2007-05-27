@@ -41,26 +41,20 @@ namespace NUnit.Extensions.Forms.Recorder.Test
     [Category("Recorder")]
     public class ListenerTest : NUnitFormTest
     {
-        public override Type FormType
-        {
-            get
-            {
-                return typeof(ButtonTestForm);
-            }
-        }
-
         private int FireCount = 0;
 
         [Test]
         public void Listen()
         {
+            ButtonTestForm form = new ButtonTestForm();
+            form.Show();
             FireCount = 0;
             Listener listener = new Listener();
-            listener.ListenTo(CurrentForm);
+            listener.ListenTo(form);
 
             listener.Event += new EventHappened(EventListener);
 
-            ButtonTester button = new ButtonTester("myButton", CurrentForm);
+            ButtonTester button = new ButtonTester("myButton", form);
             button.Click();
             Assert.AreEqual(1, FireCount);
             button.Click();

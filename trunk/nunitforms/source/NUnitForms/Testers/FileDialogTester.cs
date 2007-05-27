@@ -1,10 +1,9 @@
-#region Copyright (c) 2006, Luke T. Maxon
+#region Copyright (c) 2006-2007, Luke T. Maxon (Authored by Anders Lillrank)
 
 /********************************************************************************************************************
 '
-' Copyright (c) 2006, Luke T. Maxon
+' Copyright (c) 2006-2007, Luke T. Maxon
 ' All rights reserved.
-' Author: Anders Lillrank
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
 ' that the following conditions are met:
@@ -62,12 +61,12 @@ namespace NUnit.Extensions.Forms
 		/// <summary>
 		/// The filename to use when simulate an open file operation
 		/// </summary>
-		protected string _fileName = "";
+		protected string fileName = "";
 
 
-		protected IntPtr _handle = new IntPtr(0);
+		protected IntPtr handle = new IntPtr(0);
 
-		protected IntPtr _wParam;
+		protected IntPtr wParam;
 
 		/// <summary>
 		/// Name/title of the OpenFileDialog 
@@ -99,7 +98,7 @@ namespace NUnit.Extensions.Forms
 		/// </summary>
 		protected void FileNameHandler()
 		{
-			SetFileName(_fileName);
+			SetFileName(fileName);
 		}
 
 		/// <summary>
@@ -154,20 +153,20 @@ namespace NUnit.Extensions.Forms
 		/// <returns></returns>
 		protected IntPtr FindFileDialog()
 		{
-			if (_handle != new IntPtr(0))
+			if (handle != new IntPtr(0))
 			{
-				return _handle;
+				return handle;
 			}
 
 			lock (this)
 			{
 				IntPtr desktop = Win32.GetDesktopWindow();
 				Win32.EnumChildWindows(desktop, new Win32.WindowEnumProc(OnEnumWindow), IntPtr.Zero);
-				if (_wParam == IntPtr.Zero)
+				if (wParam == IntPtr.Zero)
 				{
 					throw new ControlNotVisibleException("Open File Dialog is not visible");
 				}
-				return _wParam;
+				return wParam;
 			}
 		}
 
@@ -177,7 +176,7 @@ namespace NUnit.Extensions.Forms
 			{
 				if (this.name == null || WindowHandle.GetCaption(hwnd) == this.name)
 				{
-					_wParam = hwnd;
+					wParam = hwnd;
 				}
 			}
 			return 1;

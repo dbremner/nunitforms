@@ -1,10 +1,9 @@
-#region Copyright (c) 2006, Luke T. Maxon
+#region Copyright (c) 2006-2007, Luke T. Maxon (Authored by Anders Lillrank)
 
 /********************************************************************************************************************
 '
-' Copyright (c) 2006, Luke T. Maxon
+' Copyright (c) 2006-2007, Luke T. Maxon
 ' All rights reserved.
-' Author: Anders Lillrank
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
 ' that the following conditions are met:
@@ -28,6 +27,7 @@
 ' IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 '
 '*******************************************************************************************************************/
+
 #endregion
 using System;
 using NUnit.Extensions.Forms.TestApplications;
@@ -36,14 +36,13 @@ using NUnit.Framework;
 namespace NUnit.Extensions.Forms.TestApplications
 {
   [TestFixture]
+  [Ignore]
   public class SaveFileDialogTest : NUnitFormTest
   {
     private LabelTester label1 = new LabelTester("lblFileName");
     private string _fileName = "";
     
-
-    [SetUp]
-    public void Init()
+    public override void Setup()
     {
       base.init();
      

@@ -69,7 +69,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test]
         public void ClickVisibleButton()
         {
-            LabelTester label = new LabelTester("label2", CurrentForm);
+            LabelTester label = new LabelTester("label2");
             myTabs.SelectTab(1);
             Assert.AreEqual("0", label.Text);
             button.Click();

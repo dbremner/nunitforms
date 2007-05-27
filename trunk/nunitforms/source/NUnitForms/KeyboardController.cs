@@ -94,7 +94,7 @@ namespace NUnit.Extensions.Forms
         /// the focus on the specified control.
         /// </summary>
         /// <param name="control">The ControlTester to use the keyboard on.</param>
-        public void UseOn(ControlTester control)
+        public void UseOn(ReflectionTester control)
         {
             if(control == null)
             {

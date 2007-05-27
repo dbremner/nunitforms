@@ -29,4 +29,3 @@ using System.Runtime.InteropServices;
 //
 [assembly : AssemblyVersion("1.10.*")]
 [assembly : AssemblyFileVersion("1.10.1.2006")]
-[assembly: AssemblyKeyName("NUnitForms")]

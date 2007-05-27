@@ -40,12 +40,9 @@ namespace NUnit.Extensions.Forms.TestApplications
     [TestFixture]
     public class RadioButtonTest : NUnitFormTest
     {
-        public override Type FormType
+        public override void Setup()
         {
-            get
-            {
-                return typeof(RadioButtonTestForm);
-            }
+            new RadioButtonTestForm().Show();
         }
 
         [Test]

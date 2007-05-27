@@ -99,7 +99,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(FormsTestAssertionException), "unexpected/expected modal was invoked/not invoked")]
+        [ExpectedException(typeof(FormsTestAssertionException), ExpectedMessage = "unexpected/expected modal was invoked/not invoked")]
         public void UnexpectedModalIsClosedAndFails()
         {
             MessageBox.Show("I didn't expect this!", "blah");
@@ -107,7 +107,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(FormsTestAssertionException), "unexpected/expected modal was invoked/not invoked")]
+        [ExpectedException(typeof(FormsTestAssertionException), ExpectedMessage = "unexpected/expected modal was invoked/not invoked")]
         public void UnexpectedModalIsClosedAndFailsNoTitle()
         {
             MessageBox.Show("I didn't expect this!"); // no title specified
@@ -115,7 +115,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(ControlNotVisibleException), "Message Box not visible")]
+        [ExpectedException(typeof(ControlNotVisibleException), ExpectedMessage = "Message Box not visible")]
         public void NoModalFound()
         {
             string text = new MessageBoxTester("NotFound").Text;

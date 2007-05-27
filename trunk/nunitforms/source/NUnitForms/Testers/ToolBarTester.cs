@@ -39,70 +39,8 @@ namespace NUnit.Extensions.Forms
 	/// <summary>
 	/// A ControlTester for testing Toolbars.  
 	/// </summary>
-	public class ToolBarTester : ControlTester<ToolBar, ToolBarTester>
-	{
-		///<summary>
-		/// Default constructor for Generic support.
-		///</summary>
-		public ToolBarTester() {}
-
-		/// <summary>
-		/// Creates a ControlTester from the control name and the form instance.
-		/// </summary>
-		/// <remarks>
-		/// It is best to use the overloaded Constructor that requires just the name 
-		/// parameter if possible.
-		/// </remarks>
-		/// <param name="name">The Control name.</param>
-		/// <param name="form">The Form instance.</param>
-		public ToolBarTester(string name, Form form) : base(name, form) {}
-
-		/// <summary>
-		/// Creates a ControlTester from the control name and the form name.
-		/// </summary>
-		/// <remarks>
-		/// It is best to use the overloaded Constructor that requires just the name 
-		/// parameter if possible.
-		/// </remarks>
-		/// <param name="name">The Control name.</param>
-		/// <param name="formName">The Form name..</param>
-		public ToolBarTester(string name, string formName) : base(name, formName) {}
-
-		/// <summary>
-		/// Creates a ControlTester from the control name.
-		/// </summary>
-		/// <remarks>
-		/// This is the best constructor.</remarks>
-		/// <param name="name">The Control name.</param>
-		public ToolBarTester(string name) : base(name) {}
-
-		/// <summary>
-		/// Creates a ControlTester from a ControlTester and an index where the
-		/// original tester's name is not unique.
-		/// </summary>
-		/// <remarks>
-		/// It is best to use the overloaded Constructor that requires just the name 
-		/// parameter if possible.
-		/// </remarks>
-		/// <param name="tester">The ControlTester.</param>
-		/// <param name="index">The index to test.</param>
-		public ToolBarTester(ControlTester tester, int index) : base(tester, index) {}
-
-		/// <summary>
-		/// Allows you to find a ToolBarTester by index where the name is not unique.
-		/// </summary>
-		/// <remarks>
-		/// This was added to support the ability to find controls where their name is
-		/// not unique.  If all of your controls are uniquely named (I recommend this) then
-		/// you will not need this.
-		/// </remarks>
-		/// <value>The ControlTester at the specified index.</value>
-		/// <param name="index">The index of the ListViewTester.</param>
-		new public ToolBarTester this[int index]
-		{
-			get { return new ToolBarTester(this, index); }
-		}
-
+	public partial class ToolBarTester 
+    {
 		/// <summary>
 		/// Get the toolbar with the specified text
 		/// </summary>

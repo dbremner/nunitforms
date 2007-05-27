@@ -42,16 +42,11 @@ namespace NUnit.Extensions.Forms.TestApplications
     [TestFixture]
     public class ListBoxTest : NUnitFormTest
     {
-        private string[] rainbowArray = new string[] {"Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"};
-
-        public override Type FormType
+        public override void Setup()
         {
-            get
-            {
-                return typeof(ListBoxTestForm);
-            }
+            new ListBoxTestForm().Show();
         }
-
+        private string[] rainbowArray = new string[] {"Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"};
         [Test]
         public void ListBoxPropertyAsserts()
         {
@@ -76,7 +71,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test]
         [
                 ExpectedException(typeof(FormsTestAssertionException),
-                        "Could not find text 'NotFound' in ComboBox 'myListBox'")]
+                        ExpectedMessage = "Could not find text 'NotFound' in ComboBox 'myListBox'")]
         public void ListBoxSelectionBad()
         {
             new ListBoxTester("myListBox").Select("NotFound");

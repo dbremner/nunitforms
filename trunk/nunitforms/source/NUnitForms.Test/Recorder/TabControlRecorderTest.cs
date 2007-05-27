@@ -41,21 +41,15 @@ namespace NUnit.Extensions.Forms.Recorder.Test
     [Category("Recorder")]
     public class TabControlRecorderTest : NUnitFormTest
     {
-        public override Type FormType
-        {
-            get
-            {
-                return typeof(TabControlTestForm);
-            }
-        }
-
         [Test]
         public void TabControlSelectIndex()
         {
-            TestWriter writer = new TestWriter(CurrentForm);
+            TabControlTestForm form = new TabControlTestForm();
+            form.Show();
+            TestWriter writer = new TestWriter(form);
             Assert.AreEqual("", writer.Test);
 
-            TabControlTester tabs = new TabControlTester("myTabs");
+            TabControlTester tabs = new TabControlTester("myTabs", form);
             tabs.SelectTab(1);
 
             Assert.AreEqual(

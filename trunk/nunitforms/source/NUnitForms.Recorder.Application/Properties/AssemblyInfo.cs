@@ -2,7 +2,7 @@
 
 /********************************************************************************************************************
 '
-' Copyright (c) 2003-2006, Luke T. Maxon
+' Copyright (c) 2003-2007, Luke T. Maxon
 ' All rights reserved.
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -35,10 +35,8 @@ using System.Reflection;
 
 [assembly : AssemblyTitle("NUnitForms.Recorder.Application")]
 [assembly : AssemblyProduct("NUnitForms.Recorder.Application")]
-[assembly : AssemblyCopyright("Copyright ©  2003-2006, Luke T. Maxon")]
+[assembly : AssemblyCopyright("Copyright ©  2003-2007, Luke T. Maxon")]
 
 [assembly : AssemblyVersion("2.0.*")]
 [assembly : AssemblyFileVersion("1.0.0.0")]
-[assembly : AssemblyDelaySign( false )]
-[assembly : AssemblyKeyName( "NUnitForms" )]
 [assembly : CLSCompliant( true )]

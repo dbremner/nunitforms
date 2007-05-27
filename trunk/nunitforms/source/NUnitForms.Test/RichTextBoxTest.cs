@@ -44,7 +44,7 @@ namespace NUnit.Extensions.Forms.TestApplications
 		public void RichTextBox()
 		{
 			new RichTextBoxTestForm().Show();
-			RichTextBoxTester box = new RichTextBoxTester("myTextBox", CurrentForm);
+			RichTextBoxTester box = new RichTextBoxTester("myTextBox");
 			Assert.AreEqual("default", box.Text);
 			box.Enter("Text");
 			Assert.AreEqual("Text", box.Text);
@@ -68,11 +68,11 @@ namespace NUnit.Extensions.Forms.TestApplications
 			ExpectModal("Old", "oldhandler");
 			ExpectModal("New", "newhandler");
 
-			new TextBoxDataSetBindingTestForm().Show();
+			new RichTextBoxDataSetBindingTestForm().Show();
 
 			new ButtonTester("btnView").Click();
 
-			new RichTextBoxTester("myTextBox")["Text"] = "New";
+            new RichTextBoxTester("myRichTextBox")["Text"] = "New";
 
 			new ButtonTester("btnView").Click();
 		}

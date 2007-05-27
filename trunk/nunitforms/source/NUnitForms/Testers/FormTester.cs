@@ -43,26 +43,12 @@ namespace NUnit.Extensions.Forms
 	/// <remarks>
 	/// This class does not have all of the constructors because they don't make
 	/// sense in this context.</remarks>
-	public class FormTester : ControlTester, IDisposable
+	public class FormTester : ControlTester<Form, FormTester>, IDisposable
 	{
-		private bool explicitlyClosed;
+        private bool explicitlyClosed;
 
-		/// <summary>
-		/// Creates a FormTester for the form with the given name.
-		/// </summary>
-		/// <param name="name">The name of the form to test.</param>
+        public FormTester() { }
 		public FormTester(string name) : base(name) {}
-
-		/// <summary>
-		/// Provides access to all of the Properties of the Form.
-		/// </summary>
-		/// <remarks>
-		/// Allows typed access to all of the properties of the underlying control.
-		/// </remarks>
-		public Form Properties
-		{
-			get { return new FormFinder().Find(name); }
-		}
 
 		/// <summary>
 		/// Gets or sets the dialog result for the form.

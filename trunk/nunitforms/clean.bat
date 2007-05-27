@@ -1,2 +1,1 @@
-call paths.cmd
-nant clean
+lib\nant-0.85\nant clean

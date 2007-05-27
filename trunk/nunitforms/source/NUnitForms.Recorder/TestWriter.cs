@@ -217,14 +217,14 @@ namespace NUnit.Extensions.Forms.Recorder
             MenuItem menuItem = null;
             try
             {
-                control = new ControlFinder(findName, form).Find();
+                control = new Finder<Control>(findName, form).Find();
             }
             catch(NoSuchControlException)
             {
             }
             try
             {
-                menuItem = new MenuItemFinder(findName, form).Find();
+                menuItem = new Finder<MenuItem>(findName, form).Find();
             }
             catch(NoSuchControlException)
             {
@@ -247,7 +247,7 @@ namespace NUnit.Extensions.Forms.Recorder
         /// </remarks>
         private static string GetName(object control, Form form)
         {
-            Finder finder = new Finder();
+            Finder<Control> finder = new Finder<Control>();
             bool foundGoodName = false;
             object parent = finder.Parent(control);
             string name = finder.Name(control);

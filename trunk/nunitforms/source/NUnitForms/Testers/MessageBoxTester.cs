@@ -51,8 +51,9 @@ namespace NUnit.Extensions.Forms
 	/// 	messageBox.SendCommand( MessageBoxTester.Command.OK );
 	/// }
 	/// </code>
-	public class MessageBoxTester : ControlTester
+	public class MessageBoxTester : Tester<MessageBox, MessageBoxTester>
 	{
+        public MessageBoxTester() { }
 		/// <summary>
 		/// Available commands you can send to the MessageBox.
 		/// </summary>
@@ -130,7 +131,7 @@ namespace NUnit.Extensions.Forms
 		/// <summary>
 		/// Returns the text of the message box we are testing.
 		/// </summary>
-		public override string Text
+		public string Text
 		{
 			get { return WindowHandle.GetText(FindMessageBox()); }
 		}

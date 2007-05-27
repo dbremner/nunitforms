@@ -39,55 +39,8 @@ namespace NUnit.Extensions.Forms
 	/// </summary>
 	/// <remarks>
 	/// There is a convenience method for selecting a specified tab.</remarks>
-	public class TabControlTester : ControlTester<TabControl, TabControlTester>
-	{
-		///<summary>
-		/// Default constructor for Generic support.
-		///</summary>
-		public TabControlTester() {}
-
-		/// <summary>
-		/// Creates a ControlTester from the control name and the form instance.
-		/// </summary>
-		/// <remarks>
-		/// It is best to use the overloaded Constructor that requires just the name 
-		/// parameter if possible.
-		/// </remarks>
-		/// <param name="name">The Control name.</param>
-		/// <param name="form">The Form instance.</param>
-		public TabControlTester(string name, Form form) : base(name, form) {}
-
-		/// <summary>
-		/// Creates a ControlTester from the control name and the form name.
-		/// </summary>
-		/// <remarks>
-		/// It is best to use the overloaded Constructor that requires just the name 
-		/// parameter if possible.
-		/// </remarks>
-		/// <param name="name">The Control name.</param>
-		/// <param name="formName">The Form name..</param>
-		public TabControlTester(string name, string formName) : base(name, formName) {}
-
-		/// <summary>
-		/// Creates a ControlTester from the control name.
-		/// </summary>
-		/// <remarks>
-		/// This is the best constructor.</remarks>
-		/// <param name="name">The Control name.</param>
-		public TabControlTester(string name) : base(name) {}
-
-		/// <summary>
-		/// Creates a ControlTester from a ControlTester and an index where the
-		/// original tester's name is not unique.
-		/// </summary>
-		/// <remarks>
-		/// It is best to use the overloaded Constructor that requires just the name 
-		/// parameter if possible.
-		/// </remarks>
-		/// <param name="tester">The ControlTester.</param>
-		/// <param name="index">The index to test.</param>
-		public TabControlTester(ControlTester tester, int index) : base(tester, index) {}
-
+	public partial class TabControlTester
+    {
 		/// <summary>
 		/// Selects the tab at the specified index.
 		/// </summary>

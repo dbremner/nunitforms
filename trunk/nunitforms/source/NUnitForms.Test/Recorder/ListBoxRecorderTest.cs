@@ -34,6 +34,7 @@ using System;
 
 using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
+using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder.Test
 {
@@ -41,21 +42,15 @@ namespace NUnit.Extensions.Forms.Recorder.Test
     [Category("Recorder")]
     public class ListBoxRecorderTest : NUnitFormTest
     {
-        public override Type FormType
-        {
-            get
-            {
-                return typeof(ListBoxTestForm);
-            }
-        }
-
         [Test]
         public void SelectItem()
         {
-            TestWriter writer = new TestWriter(CurrentForm);
+            Form form = new ListBoxTestForm();
+            form.Show();
+            TestWriter writer = new TestWriter(form);
             Assert.AreEqual("", writer.Test);
 
-            ListBoxTester myListBox = new ListBoxTester("myListBox");
+            ListBoxTester myListBox = new ListBoxTester("myListBox", form);
 
             myListBox.Select(0);
 
@@ -76,10 +71,12 @@ public void Test()
         [Test]
         public void MutlipleSelection()
         {
-            TestWriter writer = new TestWriter(CurrentForm);
+            Form form = new ListBoxTestForm();
+            form.Show();
+            TestWriter writer = new TestWriter(form);
             Assert.AreEqual("", writer.Test);
 
-            ListBoxTester myListBox = new ListBoxTester("myListBox");
+            ListBoxTester myListBox = new ListBoxTester("myListBox", form);
 
             myListBox.ClearSelected();
             myListBox.SetSelected(0, true); //Red
@@ -116,10 +113,12 @@ public void Test()
         [Test]
         public void SingleSelectBox()
         {
-            TestWriter writer = new TestWriter(CurrentForm);
+            Form form = new ListBoxTestForm();
+            form.Show();
+            TestWriter writer = new TestWriter(form);
             Assert.AreEqual("", writer.Test);
 
-            ListBoxTester myListBox = new ListBoxTester("mySingleSelectBox");
+            ListBoxTester myListBox = new ListBoxTester("mySingleSelectBox", form);
 
             myListBox.ClearSelected();
             myListBox.SetSelected(0, true); //Red

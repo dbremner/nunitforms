@@ -1,8 +1,8 @@
-#region Copyright (c) 2003-2005, Luke T. Maxon
+#region Copyright (c) 2006-2007, Luke T. Maxon (Authored by Anders Lillrank)
 
 /********************************************************************************************************************
 '
-' Copyright (c) 2003-2005, Luke T. Maxon
+' Copyright (c) 2006-2007, Luke T. Maxon
 ' All rights reserved.
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -27,7 +27,6 @@
 ' IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 '
 '*******************************************************************************************************************/
-// Author: Anders Lillrank
 
 #endregion
 
@@ -38,62 +37,9 @@ namespace NUnit.Extensions.Forms
 	/// <summary>
 	/// A Component tester for testing ToolStripComboBoxes.
 	/// </summary>
-	public class ToolStripComboBoxTester : ToolStripItemTester
-	{
-		#region Constructors
-
-		/// <summary>
-		/// Constructs a ToolStripComboBox from the name of the ToolStripComboBox
-		/// to test contained in a given form instance. If there are more than one 
-		/// with the same name an AmbiguousNameException will be thrown.
-		/// </summary>
-		public ToolStripComboBoxTester(string name, Form form) : base(name, form) {}
-
-		/// <summary>
-		/// Constructs a ToolStripComboBox from the name of the ToolStripComboBox
-		/// to test contained in a form with the given form name. If there are more than one with the same name 
-		/// an AmbiguousNameException will be thrown.
-		/// </summary>
-		public ToolStripComboBoxTester(string name, string formName)
-			: base(name, formName) {}
-
-		/// <summary>
-		/// Constructs a ToolStripComboBox from the name of the ToolStripComboBox
-		/// to test. If there are more than one with the same name 
-		/// an AmbiguousNameException will be thrown.
-		/// </summary>
-		/// <param name="name"></param>
-		public ToolStripComboBoxTester(string name)
-			: base(name) {}
-
-		/// <summary>
-		/// Creates a ToolStripComboBoxTester from a ToolStripComboBoxTester and an index where the
-		/// original tester's name is not unique.
-		/// </summary>
-		/// <remarks>
-		/// It is best to use the overloaded Constructor that requires just the name 
-		/// parameter if possible.
-		/// </remarks>
-		/// <param name="tester">The ToolStripComboBoxTester.</param>
-		/// <param name="index">The index to test.</param>
-		public ToolStripComboBoxTester(ToolStripComboBoxTester tester, int index)
-			: base(tester, index) {}
-
-		#endregion
-
-		/// <summary>
-		/// Provides access to all of the Properties of the CombBox.
-		/// </summary>
-		/// <remarks>
-		/// Allows typed access to all of the properties of the underlying control.
-		/// </remarks>
-		/// <value>The underlying control.</value>
-		public ToolStripComboBox Properties
-		{
-			get { return (ToolStripComboBox) ToolStripItem; }
-		}
-
-		public void Select(int index)
+	public partial class ToolStripComboBoxTester 
+    {
+        public void Select(int index)
 		{
 			Properties.SelectedIndex = index;
 		}

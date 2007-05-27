@@ -38,11 +38,11 @@ namespace NUnit.Extensions.Forms
 {
     internal class MouseControl
     {
-        private ControlTester controlTester;
+        private ReflectionTester tester;
 
-        internal MouseControl(ControlTester controlTester)
+        internal MouseControl(ReflectionTester tester)
         {
-            this.controlTester = controlTester;
+            this.tester = tester;
         }
 
         internal void Focus()
@@ -92,14 +92,12 @@ namespace NUnit.Extensions.Forms
         {
             get
             {
-                Control control = controlTester.Control;
-
+                Control control = tester.TheObject as Control;
+                FormsAssert.IsTrue(control != null, "Mouse control requires control based tester.");
                 if(!control.IsHandleCreated)
                 {
                     Application.DoEvents();
                 }
-
-                // TODO: throw if not visible.
                 return control;
             }
         }

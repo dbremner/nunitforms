@@ -34,58 +34,8 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	/// <summary>
-	/// A ControlTester for testing LinkLabels.
-	/// </summary>
-	public class LinkLabelTester : ControlTester<LinkLabel, LinkLabelTester>
+	public partial class LinkLabelTester
 	{
-		/// <summary>
-		/// Default constructor for generic support.
-		/// </summary>
-		public LinkLabelTester() {}
-
-		/// <summary>
-		/// Creates a ControlTester from the control name and the form instance.
-		/// </summary>
-		/// <remarks>
-		/// It is best to use the overloaded Constructor that requires just the name 
-		/// parameter if possible.
-		/// </remarks>
-		/// <param name="name">The Control name.</param>
-		/// <param name="form">The Form instance.</param>
-		public LinkLabelTester(string name, Form form) : base(name, form) {}
-
-		/// <summary>
-		/// Creates a ControlTester from the control name and the form name.
-		/// </summary>
-		/// <remarks>
-		/// It is best to use the overloaded Constructor that requires just the name 
-		/// parameter if possible.
-		/// </remarks>
-		/// <param name="name">The Control name.</param>
-		/// <param name="formName">The Form name..</param>
-		public LinkLabelTester(string name, string formName) : base(name, formName) {}
-
-		/// <summary>
-		/// Creates a ControlTester from the control name.
-		/// </summary>
-		/// <remarks>
-		/// This is the best constructor.</remarks>
-		/// <param name="name">The Control name.</param>
-		public LinkLabelTester(string name) : base(name) {}
-
-		/// <summary>
-		/// Creates a ControlTester from a ControlTester and an index where the
-		/// original tester's name is not unique.
-		/// </summary>
-		/// <remarks>
-		/// It is best to use the overloaded Constructor that requires just the name 
-		/// parameter if possible.
-		/// </remarks>
-		/// <param name="tester">The ControlTester.</param>
-		/// <param name="index">The index to test.</param>
-		public LinkLabelTester(ControlTester tester, int index) : base(tester, index) {}
-
 		///<summary>
 		/// Clicks the LinkLabel.
 		/// NOTE: Should this do "LinkClick" instead?

@@ -89,7 +89,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test]
         public void NotAmbiguousNameBecauseInSubMenus()
         {
-            MenuItemTester myMenuItem = new MenuItemTester("Test 1.Not Ambiguous", CurrentForm);
+            MenuItemTester myMenuItem = new MenuItemTester("Test 1.Not Ambiguous");
             myMenuItem.Click();
         }
 

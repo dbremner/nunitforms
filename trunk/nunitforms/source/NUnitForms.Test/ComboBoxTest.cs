@@ -71,7 +71,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test]
         [
                 ExpectedException(typeof(FormsTestAssertionException),
-                        "Could not find text 'not-in-the-box' in ComboBox 'myComboBox'")]
+                        ExpectedMessage = "Could not find text 'not-in-the-box' in ComboBox 'myComboBox'")]
         public void SelectByBadText()
         {
             box.Select("not-in-the-box");

@@ -41,21 +41,15 @@ namespace NUnit.Extensions.Forms.Recorder.Test
     [Category("Recorder")]
     public class CheckBoxRecorderTest : NUnitFormTest
     {
-        public override Type FormType
-        {
-            get
-            {
-                return typeof(CheckBoxTestForm);
-            }
-        }
-
         [Test]
         public void CheckUnCheck()
         {
-            TestWriter writer = new TestWriter(CurrentForm);
+            CheckBoxTestForm form = new CheckBoxTestForm();
+            form.Show();
+            TestWriter writer = new TestWriter(form);
             Assert.AreEqual("", writer.Test);
 
-            CheckBoxTester checkBox = new CheckBoxTester("myCheckBox");
+            CheckBoxTester checkBox = new CheckBoxTester("myCheckBox", form);
             checkBox.Click();
             checkBox.Click();
 

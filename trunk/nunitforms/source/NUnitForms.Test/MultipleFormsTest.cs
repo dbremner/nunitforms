@@ -59,7 +59,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(NoSuchControlException), "Could not find form with name 'Form-1'")]
+        [ExpectedException(typeof(NoSuchControlException),ExpectedMessage= "Could not find form with name 'Form-1'")]
         public void TestMultipleFormsShouldNotFindLastButton()
         {
             MultiForm form = new MultiForm();

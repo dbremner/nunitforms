@@ -34,6 +34,7 @@ using System;
 using System.Windows.Forms;
 
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
@@ -82,7 +83,7 @@ namespace NUnit.Extensions.Forms.TestApplications
             Form one = ShowNewForm("form");
             Form two = ShowNewForm("form2");
             Form three = ShowNewForm("form3");
-            FormCollection found = finder.FindAll();
+            List<Form> found = finder.FindAll();
             Assert.AreEqual(3, found.Count);
             Assert.IsTrue(found.Contains(one));
             Assert.IsTrue(found.Contains(two));
@@ -90,7 +91,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(AmbiguousNameException), "Found too many forms with the name 'form'")]
+        [ExpectedException(typeof(AmbiguousNameException), ExpectedMessage="Found too many forms with the name 'form'")]
         public void FindOneFormWhenThereAreTwo()
         {
             ShowNewForm("form");
@@ -99,7 +100,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(NoSuchControlException), "Could not find form with name 'form'")]
+        [ExpectedException(typeof(NoSuchControlException), ExpectedMessage = "Could not find form with name 'form'")]
         public void FindOneFormWhenThereAreNone()
         {
             finder.Find("form");
@@ -110,17 +111,17 @@ namespace NUnit.Extensions.Forms.TestApplications
         {
             Form one = ShowNewForm("form");
             Form two = ShowNewForm("form");
-            FormCollection found = finder.FindAll("form");
+            List<Form> found = finder.FindAll("form");
             Assert.AreEqual(2, found.Count);
             Assert.IsTrue(found.Contains(one));
             Assert.IsTrue(found.Contains(two));
         }
 
         [Test]
-        [ExpectedException(typeof(Exception), "Object name not defined")]
+        [ExpectedException(typeof(Exception), ExpectedMessage = "Object name not defined")]
         public void FinderWithBadObjectHasNoName()
         {
-            new Finder().Name("a");
+            new Finder<Control>().Name("a");
         }
     }
 }

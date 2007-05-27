@@ -33,6 +33,7 @@
 using System;
 using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
+using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder.Test
 {
@@ -43,21 +44,18 @@ namespace NUnit.Extensions.Forms.Recorder.Test
 	[Category("Recorder")]
 	public class TextBoxRecorderTest : NUnitFormTest
 	{
-		public override Type FormType
-		{
-			get { return typeof (TextBoxTestForm); }
-		}
-
 		///<summary>
 		/// Tests text entry events.
 		///</summary>
 		[Test]
 		public void TextBoxEnter()
 		{
-			TestWriter writer = new TestWriter(CurrentForm);
+            Form form = new TextBoxTestForm();
+            form.Show();
+			TestWriter writer = new TestWriter(form);
 			Assert.AreEqual("", writer.Test);
 
-			TextBoxTester textBox = new TextBoxTester("myTextBox");
+			TextBoxTester textBox = new TextBoxTester("myTextBox", form);
 			//doing 2 of these tests the collapsing processor.
 			textBox.Enter("abc");
 			textBox.Enter("abcd");
@@ -82,10 +80,12 @@ public void Test()
 		[Ignore]
 		public void TextBoxEnterMultiline()
 		{
-			TestWriter writer = new TestWriter(CurrentForm);
+            Form form = new TextBoxTestForm();
+            form.Show();
+			TestWriter writer = new TestWriter(form);
 			Assert.AreEqual("", writer.Test);
 
-			TextBoxTester textBox = new TextBoxTester("myTextBox");
+			TextBoxTester textBox = new TextBoxTester("myTextBox", form);
 			textBox.Properties.Multiline = true;
 
 			textBox.Enter("abc\nabcd\nabcde");
@@ -106,10 +106,12 @@ public void Test()
 		[Test]
 		public void ProgrammaticallyChangeTextIsNotRecorded()
 		{
-			TestWriter writer = new TestWriter(CurrentForm);
+            Form form = new TextBoxTestForm();
+            form.Show();
+			TestWriter writer = new TestWriter(form);
 			Assert.AreEqual("", writer.Test);
 
-			TextBoxTester textBox = new TextBoxTester("myTextBox");
+			TextBoxTester textBox = new TextBoxTester("myTextBox", form);
 			textBox.Properties.Text = "abc";
 
 			Assert.AreEqual(@"", writer.Test);
@@ -118,13 +120,15 @@ public void Test()
 		[Test]
 		public void ProgrammaticallyChangeTextIsNotRecordedTwoBoxes()
 		{
-			TestWriter writer = new TestWriter(CurrentForm);
+            Form form = new TextBoxTestForm();
+            form.Show();
+			TestWriter writer = new TestWriter(form);
 			Assert.AreEqual("", writer.Test);
 
-			TextBoxTester anotherBox = new TextBoxTester("anotherTextBox");
+			TextBoxTester anotherBox = new TextBoxTester("anotherTextBox", form);
 			anotherBox.FireEvent("Enter");
 
-			TextBoxTester textBox = new TextBoxTester("myTextBox");
+			TextBoxTester textBox = new TextBoxTester("myTextBox", form);
 			textBox.Properties.Text = "abc";
 
 			anotherBox.FireEvent("Leave");

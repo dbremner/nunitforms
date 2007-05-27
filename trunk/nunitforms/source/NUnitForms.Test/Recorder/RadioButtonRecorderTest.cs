@@ -41,22 +41,16 @@ namespace NUnit.Extensions.Forms.Recorder.Test
     [Category("Recorder")]
     public class RadioButtonRecorderTest : NUnitFormTest
     {
-        public override Type FormType
-        {
-            get
-            {
-                return typeof(RadioButtonTestForm);
-            }
-        }
-
         [Test]
         public void Click()
         {
-            TestWriter writer = new TestWriter(CurrentForm);
+            RadioButtonTestForm form = new RadioButtonTestForm();
+            form.Show();
+            TestWriter writer = new TestWriter(form);
             Assert.AreEqual("", writer.Test);
 
-            RadioButtonTester red = new RadioButtonTester("rbRed");
-            RadioButtonTester orange = new RadioButtonTester("rbOrange");
+            RadioButtonTester red = new RadioButtonTester("rbRed", form);
+            RadioButtonTester orange = new RadioButtonTester("rbOrange", form);
             red.Click();
             orange.Click();
 

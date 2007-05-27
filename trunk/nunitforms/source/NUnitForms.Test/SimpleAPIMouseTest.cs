@@ -40,6 +40,7 @@ namespace NUnit.Extensions.Forms.TestApplications
     [TestFixture]
     [Category("DisplayHidden")]
     [Category("ControlsMouse")]
+    [Ignore]
     public class SimpleAPIMouseTest : NUnitFormTest
     {
         public override bool DisplayHidden

@@ -41,21 +41,15 @@ namespace NUnit.Extensions.Forms.Recorder.Test
     [Category("Recorder")]
     public class TestWriterTest : NUnitFormTest
     {
-        public override Type FormType
-        {
-            get
-            {
-                return typeof(ButtonTestForm);
-            }
-        }
-
         [Test]
         public void SimpleButton()
         {
-            TestWriter writer = new TestWriter(CurrentForm);
+            ButtonTestForm form = new ButtonTestForm();
+            form.Show();
+            TestWriter writer = new TestWriter(form);
             Assert.AreEqual("", writer.Test);
 
-            ButtonTester button = new ButtonTester("myButton");
+            ButtonTester button = new ButtonTester("myButton", form);
             button.Click();
 
             Assert.AreEqual(
