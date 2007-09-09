@@ -30,7 +30,6 @@
 
 #endregion
 
-using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {

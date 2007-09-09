@@ -30,7 +30,6 @@
 
 #endregion
 
-using System;
 using System.Collections.ObjectModel;
 
 namespace NUnit.Extensions.Forms

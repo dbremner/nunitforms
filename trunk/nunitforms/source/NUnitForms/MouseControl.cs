@@ -38,7 +38,7 @@ namespace NUnit.Extensions.Forms
 {
     internal class MouseControl
     {
-        private ReflectionTester tester;
+        private readonly ReflectionTester tester;
 
         internal MouseControl(ReflectionTester tester)
         {

@@ -30,7 +30,6 @@
 
 #endregion
 
-using System;
 using System.Threading;
 
 namespace NUnit.Extensions.Forms

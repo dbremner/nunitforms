@@ -30,9 +30,8 @@
 
 #endregion
 
-using System;
-using System.Reflection;
 using System.Windows.Forms;
+
 namespace NUnit.Extensions.Forms
 {
     /// <summary>
