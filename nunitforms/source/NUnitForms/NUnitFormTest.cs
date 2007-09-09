@@ -31,13 +31,9 @@
 #endregion
 
 using System;
-using System.Drawing;
-using System.IO;
 using System.Reflection;
-using System.Threading;
 using System.Windows.Forms;
 using NUnit.Framework;
-using NUnitForms.ScreenCapture;
 using System.Collections.Generic;
 
 namespace NUnit.Extensions.Forms

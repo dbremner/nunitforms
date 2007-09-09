@@ -31,7 +31,6 @@
 //Initially authored by Adam Vandenberg
 #endregion
 
-using System;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms

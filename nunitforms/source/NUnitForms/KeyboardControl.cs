@@ -36,7 +36,7 @@ namespace NUnit.Extensions.Forms
 {
     internal class KeyboardControl
     {
-        private ReflectionTester tester;
+        private readonly ReflectionTester tester;
 
         internal KeyboardControl(ReflectionTester tester)
         {
