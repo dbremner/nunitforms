@@ -63,6 +63,14 @@ namespace NUnit.Extensions.Forms.TestApplications
             Assert.AreEqual("button1", button.Text);
         }
 
+		[Test]
+		[ExpectedException(typeof(ControlNotVisibleException))]
+		public void Click_ThrowsException_IfNotVisible()
+		{
+			button.Properties.Visible = false;
+			button.Click();
+		}
+
         [Test]
         public void FireEvent()
         {
