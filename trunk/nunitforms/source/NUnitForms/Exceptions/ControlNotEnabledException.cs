@@ -31,69 +31,18 @@
 #endregion
 
 using System;
-using NUnit.Extensions.Forms.Exceptions;
-using NUnit.Framework;
 
-namespace NUnit.Extensions.Forms.TestApplications
+namespace NUnit.Extensions.Forms.Exceptions
 {
-    [TestFixture]
-    public class ButtonTest : NUnitFormTest
-    {
-        private LabelTester label;
-
-        private ButtonTester button;
-
-        public override void Setup()
+	/// <summary>
+	/// Exception is thrown when you attempt an action on a Control that is not
+	/// enabled.
+	/// </summary>
+	public class ControlNotEnabledException : Exception
+	{
+		public ControlNotEnabledException(string message)
+			: base(message)
         {
-            new ButtonTestForm().Show();
-            button = new ButtonTester("myButton");
-            label = new LabelTester("myLabel");
         }
-
-        [Test]
-        public void ButtonClick()
-        {
-            Assert.AreEqual("0", label.Text);
-            button.Click();
-            Assert.AreEqual("1", label.Text);
-        }
-
-        [Test]
-        public void ButtonText()
-        {
-            Assert.AreEqual("button1", button.Text);
-        }
-
-		[Test]
-		[ExpectedException(typeof(ControlNotVisibleException))]
-		public void Click_ThrowsException_IfNotVisible()
-		{
-			button.Properties.Visible = false;
-			button.Click();
-		}
-
-		[Test]
-		[ExpectedException(typeof(ControlNotEnabledException))]
-		public void Click_ThrowsException_IfNotEnabled()
-		{
-			button.Properties.Enabled = false;
-			button.Click();
-		}
-
-        [Test]
-        public void FireEvent()
-        {
-            Assert.AreEqual("0", label.Text);
-            button.FireEvent("Click");
-            Assert.AreEqual("1", label.Text);
-        }
-
-        [Test]
-        public void FireEventWithArg()
-        {
-            Assert.AreEqual("0", label.Text);
-            button.FireEvent("Click", new EventArgs());
-            Assert.AreEqual("1", label.Text);            
-        }
-    }
+	}
 }

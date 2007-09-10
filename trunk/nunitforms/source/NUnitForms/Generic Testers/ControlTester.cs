@@ -31,6 +31,7 @@
 #endregion
 
 using System.Windows.Forms;
+using NUnit.Extensions.Forms.Exceptions;
 
 namespace NUnit.Extensions.Forms
 {
@@ -54,13 +55,14 @@ namespace NUnit.Extensions.Forms
 			{
 				throw new ControlNotVisibleException(name);
 			}
-			if (Properties.Enabled)
+			if (!Properties.Enabled)
 			{
-				FireEvent("Click");
+				throw new ControlNotEnabledException(name);
 			}
+			FireEvent("Click");
 		}
 
-		/// <summary>
+    	/// <summary>
 		/// Convenience method "DoubleClicks" on the control being tested if it is visible.
 		/// </summary>
 		/// <exception>

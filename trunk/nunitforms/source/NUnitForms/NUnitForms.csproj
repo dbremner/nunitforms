@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\ControlNotEnabledException.cs" />
     <Compile Include="Generated Testers\ListBoxTester.cs" />
     <Compile Include="Generated Testers\ListViewTester.cs" />
     <Compile Include="Generated Testers\RadioButtonTester.cs" />
