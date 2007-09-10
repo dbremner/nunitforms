@@ -30,8 +30,6 @@
 
 #endregion
 
-using System;
-using System.Collections;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
@@ -47,12 +45,19 @@ namespace NUnit.Extensions.Forms
         public ControlTester(ControlTester<T, TThis> tester, int index) : base(tester, index) { }
         
 		/// <summary>
-		/// Convenience method "Clicks" on the control being tested if it is visible.
+		/// Convenience method "Clicks" on the control being tested if it is visible
+		/// and enabled.
 		/// </summary>
 		public virtual void Click()
 		{
-			if (!Properties.Visible) throw new ControlNotVisibleException(name);
-            FireEvent("Click");
+			if (!Properties.Visible)
+			{
+				throw new ControlNotVisibleException(name);
+			}
+			if (Properties.Enabled)
+			{
+				FireEvent("Click");
+			}
 		}
 
 		/// <summary>
