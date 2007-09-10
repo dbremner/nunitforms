@@ -71,6 +71,15 @@ namespace NUnit.Extensions.Forms.TestApplications
 			button.Click();
 		}
 
+		[Test]
+		public void Click_DoesNothing_IfNotEnabled()
+		{
+			button.Properties.Enabled = false;
+			Assert.AreEqual("0", label.Text);
+			button.Click();
+			Assert.AreEqual("0", label.Text);
+		}
+
         [Test]
         public void FireEvent()
         {
