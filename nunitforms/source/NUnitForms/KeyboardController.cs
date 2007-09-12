@@ -48,26 +48,8 @@ namespace NUnit.Extensions.Forms
     /// KeyboardController lets you send key presses to your application.  You can
     /// click, press, or release any key.  The UseOn() method allows you to assert
     /// focus on a specific control before sending the keys.  It also initializes
-    /// the Keyboard controller for use by blocking user input.</remarks>
-    /// <code>
-    ///  [Test]
-    ///	 public void TextBox()
-    ///  {
-    ///	   new TextBoxTestForm().Show();
-    ///	   TextBoxTester box = new TextBoxTester( "myTextBox", CurrentForm );
-    /// 	  Assert.AreEqual( "default", box.Text );
-    ///
-    /// 	  Keyboard.UseOn( box );
-    ///
-    ///	   Keyboard.Click( Key.A );
-    ///	   Keyboard.Click( Key.B );
-    ///	   Keyboard.Press( Key.SHIFT );
-    ///	   Keyboard.Click( Key.C );
-    ///	   Keyboard.Release( Key.SHIFT );
-    ///
-    ///	   Assert.AreEqual( "abC", box.Text );
-    ///  }
-    /// </code>
+    /// the Keyboard controller for use by blocking user input.
+    /// </remarks>
     public class KeyboardController : IDisposable
     {
         private bool restoreUserInput = false;

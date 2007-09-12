@@ -66,7 +66,9 @@ namespace NUnit.Extensions.Forms
         public static string LEFT = "{LEFT}";
 
 		public static string UP = "{UP}";
+
 		public static string DOWN = "{DOWN}";
+
 		public static string PAGE_DOWN = "{PGDN}";
 
         public static string RIGHT = "{RIGHT}";
@@ -82,6 +84,26 @@ namespace NUnit.Extensions.Forms
         public static string DELETE = "{DEL}";
 
         public static string HELP = "{HELP}";
+
+        public static string OEM_SEMICOLON = ";";
+
+        public static string OEM_COMMA = ",";
+
+        public static string OEM_PERIOD = ".";
+
+        public static string OEM_QUESTION = "?";
+
+        public static string OEM_TILDE = "{~}";
+
+        public static string OEM_OPEN_BRACKETS = "{[}";
+
+        public static string OEM_PIPE = "|";
+
+        public static string OEM_CLOSE_BRACKETS = "{]}";
+
+        public static string OEM_QUOTES = "'";
+
+        public static string OEM_BACKSLASH = "\\";
 
         public static string DIGIT_0 = "0";
 
@@ -284,7 +306,5 @@ namespace NUnit.Extensions.Forms
         public static string LAUNCH_APP1 = "{LAUNCH_APP1}";
 
         public static string LAUNCH_APP2 = "{LAUNCH_APP2}";
-
-
     }
 }
