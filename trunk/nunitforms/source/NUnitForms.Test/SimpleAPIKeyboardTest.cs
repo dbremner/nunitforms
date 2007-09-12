@@ -30,132 +30,156 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
-using NUnit.Framework;
+using System;
 using System.Windows.Forms;
+using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-    [TestFixture]
-    [Category("DisplayHidden")]
-    [Category("ControlsKeyboard")]
-    [Ignore]
-    public class SimpleAPIKeyboardTest : NUnitFormTest
-    {
-        public override bool DisplayHidden
-        {
-            get { return true; }
-        }
+	[TestFixture]
+	[Category("DisplayHidden")]
+	[Category("ControlsKeyboard")]
+	public class SimpleAPIKeyboardTest : NUnitFormTest
+	{
+		public override bool DisplayHidden
+		{
+			get { return true; }
+		}
 
-        [Test]
-        public void PressEnterClicksButton()
-        {
-            Form form = new ButtonTestForm();
-            form.Show();
-            LabelTester label = new LabelTester("myLabel", form);
-            ButtonTester button = new ButtonTester("myButton", form);
+		[Test]
+		public void PressEnterClicksButton()
+		{
+			Form form = new ButtonTestForm();
+			form.Show();
+			LabelTester label = new LabelTester("myLabel", form);
+			ButtonTester button = new ButtonTester("myButton", form);
 
-            Assert.AreEqual("0", label.Text);
+			Assert.AreEqual("0", label.Text);
 
-            Keyboard.UseOn(button);
-            Keyboard.Click(Key.RETURN);
+			Keyboard.UseOn(button);
+			Keyboard.Click(Key.RETURN);
 
-            Assert.AreEqual("1", label.Text);
-        }
+			Assert.AreEqual("1", label.Text);
+		}
 
-        [Test]
-        public void TextBox()
-        {
-            Form form = new TextBoxTestForm();
-            form.Show();
-            
-            TextBoxTester box = new TextBoxTester("myTextBox", form);
-            Assert.AreEqual("default", box.Text);
+		[Test]
+		public void TextBox()
+		{
+			Form form = new TextBoxTestForm();
+			form.Show();
 
-            Keyboard.UseOn(box);
+			TextBoxTester box = new TextBoxTester("myTextBox", form);
+			Assert.AreEqual("default", box.Text);
 
-            Keyboard.Click(Key.A);
-            Keyboard.Click(Key.B);
-            Keyboard.Click("+(c)");
-            Keyboard.Click("C");
+			Keyboard.UseOn(box);
 
-            Assert.AreEqual("abCC", box.Text);
-        }
+			Keyboard.Click(Key.A);
+			Keyboard.Click(Key.B);
+			Keyboard.Click("+(c)");
+			Keyboard.Click("C");
 
-        [Test]
-        public void TypeShiftAB()
-        {
-            new TextBoxTestForm().Show();
-            TextBoxTester box = new TextBoxTester("myTextBox");
-            Assert.AreEqual("default", box.Text);
+			Assert.AreEqual("abCC", box.Text);
+		}
 
-            Keyboard.UseOn(box);
+		[Test]
+		public void TypeShiftAB()
+		{
+			new TextBoxTestForm().Show();
+			TextBoxTester box = new TextBoxTester("myTextBox");
+			Assert.AreEqual("default", box.Text);
 
-            Keyboard.Type("+ab");
+			Keyboard.UseOn(box);
 
-            Assert.AreEqual("Ab", box.Text);
-        }
+			Keyboard.Type("+ab");
 
-        [Test]
-        public void TypeSpecialKey()
-        {
-            new TextBoxTestForm().Show();
-            TextBoxTester box = new TextBoxTester("myTextBox");
-            Assert.AreEqual("default", box.Text);
+			Assert.AreEqual("Ab", box.Text);
+		}
 
-            Keyboard.UseOn(box);
+		[Test]
+		public void TypeSpecialKey()
+		{
+			new TextBoxTestForm().Show();
+			TextBoxTester box = new TextBoxTester("myTextBox");
+			Assert.AreEqual("default", box.Text);
 
-            //Keyboard.Type("ABC{DIGIT_1}DEF{SPACE}GHI");
-            Keyboard.Type("abc1def ghi");
+			Keyboard.UseOn(box);
 
-            Assert.AreEqual("abc1def ghi", box.Text);
-        }
+			//Keyboard.Type("ABC{DIGIT_1}DEF{SPACE}GHI");
+			Keyboard.Type("abc1def ghi");
 
-        [Test]
-        public void ReplaceOneWithDIGIT_1WhenNotInBraces()
-        {
-            new TextBoxTestForm().Show();
-            TextBoxTester box = new TextBoxTester("myTextBox");
-            Assert.AreEqual("default", box.Text);
+			Assert.AreEqual("abc1def ghi", box.Text);
+		}
 
-            Keyboard.UseOn(box);
+		[Test]
+		public void ReplaceOneWithDIGIT_1WhenNotInBraces()
+		{
+			new TextBoxTestForm().Show();
+			TextBoxTester box = new TextBoxTester("myTextBox");
+			Assert.AreEqual("default", box.Text);
 
-            Keyboard.Type("1231");
+			Keyboard.UseOn(box);
 
-            Assert.AreEqual("1231", box.Text);
-        }
+			Keyboard.Type("1231");
 
-        [Test]
-        public void ToUpper()
-        {
-            new TextBoxTestForm().Show();
-            TextBoxTester box = new TextBoxTester("myTextBox");
-            Assert.AreEqual("default", box.Text);
+			Assert.AreEqual("1231", box.Text);
+		}
 
-            Keyboard.UseOn(box);
+		[Test]
+		public void ToUpper()
+		{
+			new TextBoxTestForm().Show();
+			TextBoxTester box = new TextBoxTester("myTextBox");
+			Assert.AreEqual("default", box.Text);
 
-            Keyboard.Type("a");
+			Keyboard.UseOn(box);
 
-            Assert.AreEqual("a", box.Text);
-        }
+			Keyboard.Type("a");
 
-        [Test]
-        public void TypeShiftAGroup()
-        {
-            new TextBoxTestForm().Show();
-            TextBoxTester box = new TextBoxTester("myTextBox");
-            Assert.AreEqual("default", box.Text);
+			Assert.AreEqual("a", box.Text);
+		}
 
-            Keyboard.UseOn(box);
+		[Test]
+		public void TypeShiftAGroup()
+		{
+			new TextBoxTestForm().Show();
+			TextBoxTester box = new TextBoxTester("myTextBox");
+			Assert.AreEqual("default", box.Text);
 
-            Keyboard.Type("q+(ABC)d");
+			Keyboard.UseOn(box);
 
-            Assert.AreEqual("qABCd", box.Text);
-        }
+			Keyboard.Type("q+(ABC)d");
 
-        [Test]
-        public void ElaborateInputTest()
-        {
-        }
-    }
+			Assert.AreEqual("qABCd", box.Text);
+		}
+
+		[Test]
+		[Ignore("This test leaves keyboard controller in a shift state affecting following test.")]
+		[ExpectedException(typeof (ArgumentException))]
+		public void UnbalancedGroupDelimitersThrowsException()
+		{
+			new TextBoxTestForm().Show();
+			TextBoxTester box = new TextBoxTester("myTextBox");
+			Assert.AreEqual("default", box.Text);
+
+			Keyboard.UseOn(box);
+
+			Keyboard.Click(Key.A);
+			Keyboard.Press(Key.SHIFT);
+		}
+
+		[Test]
+		public void KeyDefinitions_ShiftAndRelease()
+		{
+			new TextBoxTestForm().Show();
+			TextBoxTester box = new TextBoxTester("myTextBox");
+
+			Keyboard.UseOn(box);
+
+			Keyboard.Click(Key.A);
+			Keyboard.Click(Key.B);
+			Keyboard.Press(Key.SHIFT + Key.C + Key.SHIFT_RELEASE);
+
+			Assert.AreEqual("abC", box.Text);
+		}
+	}
 }
