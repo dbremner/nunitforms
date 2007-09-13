@@ -32,7 +32,6 @@
 
 using System;
 using System.Collections;
-using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
@@ -167,47 +166,6 @@ namespace NUnit.Extensions.Forms
         public void Type(string keyString)
         {
             Press(keyString);
-            //string[] commands = ParseKeys(keyString.ToUpper());
-            //for (int i = 0; i < commands.Length; i++)
-            //{
-            //    string command = commands[i];
-            //    if (command == "PRESS")
-            //    {
-            //        Press(GetKey(commands[++i]));
-            //    }
-            //    else if (command == "RELEASE")
-            //    {
-            //        Release(GetKey(commands[++i]));
-            //    }
-            //    else
-            //    {
-            //        Click(GetKey(command));
-            //    }
-
-            //}
-        }
-
-        //private short GetKey(string key)
-        //{
-        //    FieldInfo field = typeof (Key).GetField(key, BindingFlags.Static | BindingFlags.Public);
-        //    return (short) field.GetValue("");
-        //}
-
-        private string GetKey(string key)
-        {
-            string result = key;
-            try
-            {
-                FieldInfo field = typeof(Key).GetField(key, BindingFlags.Static | BindingFlags.Public);
-                if(field != null)
-                {
-                    result = (string) field.GetValue("");
-                }
-            }
-            catch(TargetInvocationException)
-            {
-            }
-            return result;
         }
 
         private string[] ParseKeys(string keys)
@@ -268,7 +226,7 @@ namespace NUnit.Extensions.Forms
         //
         //		}
 
-        private static Hashtable modifiers = new Hashtable();
+        private readonly static Hashtable modifiers = new Hashtable();
 
         static KeyboardController()
         {
