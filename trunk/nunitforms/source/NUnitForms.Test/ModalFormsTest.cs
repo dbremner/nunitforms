@@ -64,7 +64,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(FormsTestAssertionException), ExpectedMessage="unexpected/expected modal was invoked/not invoked")]
+        [ExpectedException(typeof(FormsTestAssertionException), ExpectedMessage="expected 1 invocations of modal, but was invoked 0 times (Form Caption = Form-0)")]
         public void ModalFormDoesntShow()
         {
             new ModalMultiForm().Show();
