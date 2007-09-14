@@ -34,15 +34,15 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	public partial class LinkLabelTester
-	{
-		///<summary>
-		/// Clicks the LinkLabel.
-		/// NOTE: Should this do "LinkClick" instead?
-		///</summary>
-		public override void Click()
-		{
-			((IButtonControl) Properties).PerformClick();
-		}
-	}
+    public partial class LinkLabelTester
+    {
+        ///<summary>
+        /// Clicks the LinkLabel.
+        /// NOTE: Should this do "LinkClick" instead?
+        ///</summary>
+        public override void Click()
+        {
+            ((IButtonControl) Properties).PerformClick();
+        }
+    }
 }

@@ -34,12 +34,26 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	public partial class ButtonTester : ControlTester<Button, ButtonTester>
-	{
-		public ButtonTester() {}
-		public ButtonTester(string name, Form form) : base(name, form) {}
-		public ButtonTester(string name, string formName) : base(name, formName) {}
-		public ButtonTester(string name) : base(name) {}
-        public ButtonTester(ButtonTester tester, int index) : base(tester, index) { }
-	}
+    public partial class ButtonTester : ControlTester<Button, ButtonTester>
+    {
+        public ButtonTester()
+        {
+        }
+
+        public ButtonTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public ButtonTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public ButtonTester(string name) : base(name)
+        {
+        }
+
+        public ButtonTester(ButtonTester tester, int index) : base(tester, index)
+        {
+        }
+    }
 }

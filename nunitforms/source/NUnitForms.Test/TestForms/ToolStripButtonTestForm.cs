@@ -29,61 +29,57 @@
 '*******************************************************************************************************************/
 
 #endregion
+
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-  public partial class ToolStripButtonTestForm : Form
-  {
-    public ToolStripButtonTestForm()
+    public partial class ToolStripButtonTestForm : Form
     {
-      InitializeComponent();
-    }
+        public ToolStripButtonTestForm()
+        {
+            InitializeComponent();
+        }
 
-    private void toolStripButtonOnMain_Click(object sender, EventArgs e)
-    {
-      label1.Text = "toolStripButtonOnMain clicked";
-    }
+        private void toolStripButtonOnMain_Click(object sender, EventArgs e)
+        {
+            label1.Text = "toolStripButtonOnMain clicked";
+        }
 
-    private void toolStripButtonInPanel_Click(object sender, EventArgs e)
-    {
-      label1.Text = "toolStripButtonInPanel clicked";
-    }
+        private void toolStripButtonInPanel_Click(object sender, EventArgs e)
+        {
+            label1.Text = "toolStripButtonInPanel clicked";
+        }
 
-    private void toolStripButtonTopInContainer_Click(object sender, EventArgs e)
-    {
-      label1.Text = "toolStripButtonTopInContainer clicked";
-    }
+        private void toolStripButtonTopInContainer_Click(object sender, EventArgs e)
+        {
+            label1.Text = "toolStripButtonTopInContainer clicked";
+        }
 
-    private void toolStripButtonLeftInContainer_Click(object sender, EventArgs e)
-    {
-      label1.Text = "toolStripButtonLeftInContainer clicked";
-    }
+        private void toolStripButtonLeftInContainer_Click(object sender, EventArgs e)
+        {
+            label1.Text = "toolStripButtonLeftInContainer clicked";
+        }
 
-    private void toolStripButtonCenterInContainer_Click(object sender, EventArgs e)
-    {
-      label1.Text = "toolStripButtonCenterInContainer clicked";
-    }
+        private void toolStripButtonCenterInContainer_Click(object sender, EventArgs e)
+        {
+            label1.Text = "toolStripButtonCenterInContainer clicked";
+        }
 
-    private void toolStripButtonRightInContainer_Click(object sender, EventArgs e)
-    {
-      label1.Text = "toolStripButtonRightInContainer clicked";
-    }
+        private void toolStripButtonRightInContainer_Click(object sender, EventArgs e)
+        {
+            label1.Text = "toolStripButtonRightInContainer clicked";
+        }
 
-    private void toolStripButtonBottomInContainer_Click(object sender, EventArgs e)
-    {
-      label1.Text = "toolStripButtonBottomInContainer clicked";
-    }
+        private void toolStripButtonBottomInContainer_Click(object sender, EventArgs e)
+        {
+            label1.Text = "toolStripButtonBottomInContainer clicked";
+        }
 
-    private void toolStripDropDownButtonOnStatusStrip_Click(object sender, EventArgs e)
-    {
-      label1.Text = "toolStripDropDownButtonOnStatusStrip clicked";
+        private void toolStripDropDownButtonOnStatusStrip_Click(object sender, EventArgs e)
+        {
+            label1.Text = "toolStripDropDownButtonOnStatusStrip clicked";
+        }
     }
-  }
 }

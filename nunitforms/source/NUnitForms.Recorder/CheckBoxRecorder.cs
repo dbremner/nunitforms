@@ -35,35 +35,37 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
-	public class CheckBoxRecorder : ControlRecorder
-	{
-		public override Type RecorderType
-		{
-			get { return typeof (CheckBox); }
-		}
+    public class CheckBoxRecorder : ControlRecorder
+    {
+        public CheckBoxRecorder(Listener listener) : base(listener)
+        {
+        }
 
-		public override Type TesterType
-		{
-			get { return typeof (CheckBoxTester); }
-		}
+        public override Type RecorderType
+        {
+            get { return typeof (CheckBox); }
+        }
 
-		public void Click(object sender, EventArgs args)
-		{
-			CheckBox checkBox = sender as CheckBox;
-			if (checkBox == null)
-			{
-				return;
-			}
-			if (checkBox.Checked)
-			{
-				Listener.FireEvent(TesterType, sender, "Check");
-			}
-			else
-			{
-				Listener.FireEvent(TesterType, sender, "UnCheck");
-			}
-		}
+        public override Type TesterType
+        {
+            get { return typeof (CheckBoxTester); }
+        }
 
-		public CheckBoxRecorder(Listener listener) : base(listener) {}
-	}
+        public void Click(object sender, EventArgs args)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            if (checkBox == null)
+            {
+                return;
+            }
+            if (checkBox.Checked)
+            {
+                Listener.FireEvent(TesterType, sender, "Check");
+            }
+            else
+            {
+                Listener.FireEvent(TesterType, sender, "UnCheck");
+            }
+        }
+    }
 }

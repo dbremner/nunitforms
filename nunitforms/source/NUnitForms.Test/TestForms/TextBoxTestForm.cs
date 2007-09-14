@@ -41,14 +41,14 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// </summary>
     public class TextBoxTestForm : Form
     {
-        private TextBox myTextBox;
-
         private TextBox anotherTextBox;
 
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
+
+        private TextBox myTextBox;
 
         public TextBoxTestForm()
         {
@@ -67,9 +67,9 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }

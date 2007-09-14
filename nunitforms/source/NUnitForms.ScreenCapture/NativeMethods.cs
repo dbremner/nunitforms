@@ -29,14 +29,15 @@
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Security;
 
 namespace ASFTBase
 {
     /// <summary>
     /// Helper class which maps some WIN32 values
     /// </summary>
-    [System.Security.SuppressUnmanagedCodeSecurity()]
-    [System.Runtime.InteropServices.ComVisible(false)]
+    [SuppressUnmanagedCodeSecurity()]
+    [ComVisible(false)]
     internal sealed class NativeMethods
     {
         private NativeMethods()
@@ -48,13 +49,11 @@ namespace ASFTBase
         [StructLayout(LayoutKind.Sequential)]
         internal struct RECT
         {
+            public int bottom;
             public int left;
 
-            public int top;
-
             public int right;
-
-            public int bottom;
+            public int top;
 
             public RECT(int left, int top, int right, int bottom)
             {
@@ -66,10 +65,7 @@ namespace ASFTBase
 
             public Rectangle Rect
             {
-                get
-                {
-                    return new Rectangle(left, top, right - left, bottom - top);
-                }
+                get { return new Rectangle(left, top, right - left, bottom - top); }
             }
 
             public static RECT FromXYWH(int x, int y, int width, int height)

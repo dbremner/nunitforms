@@ -30,7 +30,6 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -47,11 +46,10 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        public void TextBox()
+        public void MethodInvokeOnControlTester()
         {
-            Assert.AreEqual("None", box.Text);
-            box.Enter("Text");
-            Assert.AreEqual("Text", box.Text);
+            object foundIndex = box.Invoke("FindStringExact", "three");
+            Assert.AreEqual(2, foundIndex);
         }
 
         [Test]
@@ -62,6 +60,15 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
+        [
+            ExpectedException(typeof (FormsTestAssertionException),
+                ExpectedMessage = "Could not find text 'not-in-the-box' in ComboBox 'myComboBox'")]
+        public void SelectByBadText()
+        {
+            box.Select("not-in-the-box");
+        }
+
+        [Test]
         public void SelectByText()
         {
             box.Select("three");
@@ -69,19 +76,11 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [
-                ExpectedException(typeof(FormsTestAssertionException),
-                        ExpectedMessage = "Could not find text 'not-in-the-box' in ComboBox 'myComboBox'")]
-        public void SelectByBadText()
+        public void TextBox()
         {
-            box.Select("not-in-the-box");
-        }
-
-        [Test]
-        public void MethodInvokeOnControlTester()
-        {
-            object foundIndex = box.Invoke("FindStringExact", "three");
-            Assert.AreEqual(2, foundIndex);
+            Assert.AreEqual("None", box.Text);
+            box.Enter("Text");
+            Assert.AreEqual("Text", box.Text);
         }
     }
 }

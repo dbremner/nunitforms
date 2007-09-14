@@ -34,12 +34,26 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	public partial class RadioButtonTester : ControlTester<RadioButton, RadioButtonTester>
-	{
-		public RadioButtonTester() {}
-		public RadioButtonTester(string name, Form form) : base(name, form) {}
-		public RadioButtonTester(string name, string formName) : base(name, formName) {}
-		public RadioButtonTester(string name) : base(name) {}
-		public RadioButtonTester(RadioButtonTester tester, int index) : base(tester, index) {}
-	}
+    public partial class RadioButtonTester : ControlTester<RadioButton, RadioButtonTester>
+    {
+        public RadioButtonTester()
+        {
+        }
+
+        public RadioButtonTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public RadioButtonTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public RadioButtonTester(string name) : base(name)
+        {
+        }
+
+        public RadioButtonTester(RadioButtonTester tester, int index) : base(tester, index)
+        {
+        }
+    }
 }

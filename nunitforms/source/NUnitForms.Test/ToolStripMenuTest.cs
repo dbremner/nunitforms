@@ -30,53 +30,50 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
-using NUnit.Framework;
 using System.Windows.Forms;
-
+using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-  [TestFixture]
-  public class ToolStripMenuTest : NUnitFormTest
-  {
-      private Form form = null;
-      private LabelTester label1 = null;
-
-    public override void Setup()
+    [TestFixture]
+    public class ToolStripMenuTest : NUnitFormTest
     {
-      form = new ToolStripMenuTestForm();
-        form.Show();
-        label1 = new LabelTester("label1", form);
-    }
+        private Form form = null;
+        private LabelTester label1 = null;
 
-    [Test]
-    public void PlainMenu()
-    {
-      new ToolStripMenuItemTester("itemToolStripMenuItem").Click();
-      Assert.AreEqual("itemToolStripMenuItem clicked", label1.Text);
-    }
+        public override void Setup()
+        {
+            form = new ToolStripMenuTestForm();
+            form.Show();
+            label1 = new LabelTester("label1", form);
+        }
 
-    [Test]
-    public void MainMenuSubItem()
-    {
-      new ToolStripMenuItemTester("subItemToolStripMenuItem").Click();
-      Assert.AreEqual("subItemToolStripMenuItem clicked", label1.Text);
-    }
+        [Test]
+        public void InContainerMenu()
+        {
+            new ToolStripMenuItemTester("itemInContainerToolStripMenuItem").Click();
+            Assert.AreEqual("itemInContainerToolStripMenuItem clicked", label1.Text);
+        }
 
-    [Test]
-    public void InContainerMenu()
-    {
-      new ToolStripMenuItemTester("itemInContainerToolStripMenuItem").Click();
-      Assert.AreEqual("itemInContainerToolStripMenuItem clicked", label1.Text);
-    }
+        [Test]
+        public void InPanelMenu()
+        {
+            new ToolStripMenuItemTester("itemInPanelToolStripMenuItem").Click();
+            Assert.AreEqual("itemInPanelToolStripMenuItem clicked", label1.Text);
+        }
 
-    [Test]
-    public void InPanelMenu()
-    {
-      new ToolStripMenuItemTester("itemInPanelToolStripMenuItem").Click();
-      Assert.AreEqual("itemInPanelToolStripMenuItem clicked", label1.Text);
-    }
+        [Test]
+        public void MainMenuSubItem()
+        {
+            new ToolStripMenuItemTester("subItemToolStripMenuItem").Click();
+            Assert.AreEqual("subItemToolStripMenuItem clicked", label1.Text);
+        }
 
-  }
+        [Test]
+        public void PlainMenu()
+        {
+            new ToolStripMenuItemTester("itemToolStripMenuItem").Click();
+            Assert.AreEqual("itemToolStripMenuItem clicked", label1.Text);
+        }
+    }
 }

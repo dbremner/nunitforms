@@ -30,8 +30,6 @@
 
 #endregion
 
-using System;
-using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -39,10 +37,24 @@ namespace NUnit.Extensions.Forms
 {
     public partial class ComponentTester : Tester<Component, ComponentTester>
     {
-        public ComponentTester() { }
-        public ComponentTester(string name, string formName) : base(name, formName){}
-        public ComponentTester(string name, Form form) : base(name, form){}
-        public ComponentTester(string name) : base(name){}
-        public ComponentTester(ComponentTester tester, int index) : base(tester, index) { }
+        public ComponentTester()
+        {
+        }
+
+        public ComponentTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public ComponentTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public ComponentTester(string name) : base(name)
+        {
+        }
+
+        public ComponentTester(ComponentTester tester, int index) : base(tester, index)
+        {
+        }
     }
 }

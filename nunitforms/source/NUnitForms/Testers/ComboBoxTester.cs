@@ -30,7 +30,6 @@
 
 #endregion
 
-
 namespace NUnit.Extensions.Forms
 {
     /// <summary>
@@ -80,7 +79,7 @@ namespace NUnit.Extensions.Forms
         public void Select(string text)
         {
             int index;
-            if((index = Properties.FindStringExact(text)) == -1)
+            if ((index = Properties.FindStringExact(text)) == -1)
             {
                 throw new FormsTestAssertionException("Could not find text '" + text + "' in ComboBox '" + name + "'");
             }

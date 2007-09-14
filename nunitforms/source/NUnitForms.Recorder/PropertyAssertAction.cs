@@ -49,11 +49,11 @@ namespace NUnit.Extensions.Forms.Recorder
         public override string ToString()
         {
             string expected;
-            if(val is bool)
+            if (val is bool)
             {
                 expected = val.ToString().ToLower();
             }
-            else if(val is String)
+            else if (val is String)
             {
                 expected = "\"" + val + "\"";
             }

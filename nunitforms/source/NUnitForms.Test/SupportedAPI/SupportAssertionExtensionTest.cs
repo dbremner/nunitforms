@@ -31,7 +31,6 @@
 #endregion
 
 using System;
-
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -46,6 +45,12 @@ namespace NUnit.Extensions.Forms.TestApplications
     [TestFixture]
     public class SupportsAssertionExtensionTest : NUnitFormsAssertionTest
     {
+        public void BaseClassAssertNotNull()
+        {
+            AssertNotNull("test");
+            AssertNotNull("message", "test");
+        }
+
         [Test]
         public void BaseClassAssert()
         {
@@ -66,10 +71,18 @@ namespace NUnit.Extensions.Forms.TestApplications
             AssertEquals("message", 1, 1);
         }
 
-        public void BaseClassAssertNotNull()
+        [Test]
+        [ExpectedException(typeof (AssertionException))]
+        public void BaseClassAssertFail()
         {
-            AssertNotNull("test");
-            AssertNotNull("message", "test");
+            Fail();
+        }
+
+        [Test]
+        [ExpectedException(typeof (AssertionException))]
+        public void BaseClassAssertFailMessage()
+        {
+            Fail("message");
         }
 
         [Test]
@@ -77,20 +90,6 @@ namespace NUnit.Extensions.Forms.TestApplications
         {
             AssertSame("test", "test");
             AssertSame("message", "test", "test");
-        }
-
-        [Test]
-        [ExpectedException(typeof(AssertionException))]
-        public void BaseClassAssertFail()
-        {
-            Fail();
-        }
-
-        [Test]
-        [ExpectedException(typeof(AssertionException))]
-        public void BaseClassAssertFailMessage()
-        {
-            Fail("message");
         }
     }
 }

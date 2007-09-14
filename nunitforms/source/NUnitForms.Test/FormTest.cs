@@ -34,35 +34,37 @@ using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-	///<summary>
-	/// Test Fixture for the <see cref="FormTester"/> class.
-	///</summary>
-	[TestFixture]
-	public class FormTest : NUnitFormTest
-	{
-		///<summary>
-		/// Tests that closing the form tester closes the underlying form.
-		///</summary>
-		[Test]
-		public void Close()
-		{
-			using (MultiForm formMultiForm = new MultiForm())
-			{
-				formMultiForm.Show();
-				ButtonTester myButton = new ButtonTester("myButton");
-				using (FormTester form = new FormTester("Form"))
-				{
-					Assert.IsTrue(myButton.Properties.Visible);
-					form.Close();
+    ///<summary>
+    /// Test Fixture for the <see cref="FormTester"/> class.
+    ///</summary>
+    [TestFixture]
+    public class FormTest : NUnitFormTest
+    {
+        ///<summary>
+        /// Tests that closing the form tester closes the underlying form.
+        ///</summary>
+        [Test]
+        public void Close()
+        {
+            using (MultiForm formMultiForm = new MultiForm())
+            {
+                formMultiForm.Show();
+                ButtonTester myButton = new ButtonTester("myButton");
+                using (FormTester form = new FormTester("Form"))
+                {
+                    Assert.IsTrue(myButton.Properties.Visible);
+                    form.Close();
 
-					try
-					{
-						bool shouldNotGetMe = myButton.Properties.Visible;
-						Assert.Fail("found control after closing form");
-					}
-					catch (NoSuchControlException) {}
-				}
-			}
-		}
-	}
+                    try
+                    {
+                        bool shouldNotGetMe = myButton.Properties.Visible;
+                        Assert.Fail("found control after closing form");
+                    }
+                    catch (NoSuchControlException)
+                    {
+                    }
+                }
+            }
+        }
+    }
 }

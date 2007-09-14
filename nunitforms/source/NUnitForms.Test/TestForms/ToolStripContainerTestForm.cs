@@ -1,9 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Test.TestForms
@@ -24,6 +19,5 @@ namespace NUnit.Extensions.Forms.Test.TestForms
         {
             tsl.Text = "Clicked";
         }
-
     }
 }

@@ -29,16 +29,31 @@
 '*******************************************************************************************************************/
 
 #endregion
+
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
     public partial class ToolStripMenuItemTester : ToolStripItemTester<ToolStripMenuItem, ToolStripMenuItemTester>
     {
-        public ToolStripMenuItemTester() { }
-        public ToolStripMenuItemTester(string name, Form form) : base(name, form) { }
-        public ToolStripMenuItemTester(string name, string formName) : base(name, formName) { }
-        public ToolStripMenuItemTester(string name) : base(name) { }
-        public ToolStripMenuItemTester(ToolStripMenuItemTester tester, int index) : base(tester, index) { }
+        public ToolStripMenuItemTester()
+        {
+        }
+
+        public ToolStripMenuItemTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public ToolStripMenuItemTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public ToolStripMenuItemTester(string name) : base(name)
+        {
+        }
+
+        public ToolStripMenuItemTester(ToolStripMenuItemTester tester, int index) : base(tester, index)
+        {
+        }
     }
 }

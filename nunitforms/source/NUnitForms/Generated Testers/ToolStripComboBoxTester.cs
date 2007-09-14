@@ -34,15 +34,29 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	/// <summary>
-	/// A Component tester for testing ToolStripComboBoxes.
-	/// </summary>
-	public partial class ToolStripComboBoxTester : ToolStripItemTester<ToolStripComboBox, ToolStripComboBoxTester>
-	{
-        public ToolStripComboBoxTester() { }
-		public ToolStripComboBoxTester(string name, Form form) : base(name, form) {}
-		public ToolStripComboBoxTester(string name, string formName): base(name, formName) {}
-		public ToolStripComboBoxTester(string name): base(name) {}
-		public ToolStripComboBoxTester(ToolStripComboBoxTester tester, int index): base(tester, index) {}
-	}
+    /// <summary>
+    /// A Component tester for testing ToolStripComboBoxes.
+    /// </summary>
+    public partial class ToolStripComboBoxTester : ToolStripItemTester<ToolStripComboBox, ToolStripComboBoxTester>
+    {
+        public ToolStripComboBoxTester()
+        {
+        }
+
+        public ToolStripComboBoxTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public ToolStripComboBoxTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public ToolStripComboBoxTester(string name) : base(name)
+        {
+        }
+
+        public ToolStripComboBoxTester(ToolStripComboBoxTester tester, int index) : base(tester, index)
+        {
+        }
+    }
 }

@@ -30,7 +30,6 @@
 
 #endregion
 
-
 using System.Collections;
 using System.Text;
 
@@ -57,7 +56,7 @@ namespace NUnit.Extensions.Forms.Recorder
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            foreach(Action action in actions)
+            foreach (Action action in actions)
             {
                 action.Definition = Definition;
                 sb.Append(action.ToString());

@@ -30,48 +30,48 @@
 
 #endregion
 
-
 namespace NUnit.Extensions.Forms
 {
-	/// <summary>
-	/// A Component tester for testing ToolStripComboBoxes.
-	/// </summary>
-	public partial class ToolStripComboBoxTester 
+    /// <summary>
+    /// A Component tester for testing ToolStripComboBoxes.
+    /// </summary>
+    public partial class ToolStripComboBoxTester
     {
         public void Select(int index)
-		{
-			Properties.SelectedIndex = index;
-		}
+        {
+            Properties.SelectedIndex = index;
+        }
 
-		/// <summary>
-		/// Sets the text property of the ToolStripComboBox to the specified value.
-		/// </summary>
-		/// <remarks>
-		/// TODO: Also calls EndCurrentEdit() so that databinding will happen.
-		/// </remarks>
-		/// <param name="text">The specified value for the text property.</param>
-		public void Enter(string text)
-		{
-			Properties.Text = text;
-			// EndCurrentEdit("Text");
-		}
+        /// <summary>
+        /// Sets the text property of the ToolStripComboBox to the specified value.
+        /// </summary>
+        /// <remarks>
+        /// TODO: Also calls EndCurrentEdit() so that databinding will happen.
+        /// </remarks>
+        /// <param name="text">The specified value for the text property.</param>
+        public void Enter(string text)
+        {
+            Properties.Text = text;
+            // EndCurrentEdit("Text");
+        }
 
-		/// <summary>
-		/// Selects an entry in the ToolStripComboBox according to its string value.
-		/// </summary>
-		/// <remarks>
-		/// Sets the Selected Index property on the underlying control after calling
-		/// FindStringExact
-		/// </remarks>
-		/// <param name="text">The string value of the entry to select.</param>
-		public void Select(string text)
-		{
-			int index;
-			if ((index = Properties.FindStringExact(text)) == -1)
-			{
-				throw new FormsTestAssertionException("Could not find text '" + text + "' in ToolStripComboBox '" + name + "'");
-			}
-			Select(index);
-		}
-	}
+        /// <summary>
+        /// Selects an entry in the ToolStripComboBox according to its string value.
+        /// </summary>
+        /// <remarks>
+        /// Sets the Selected Index property on the underlying control after calling
+        /// FindStringExact
+        /// </remarks>
+        /// <param name="text">The string value of the entry to select.</param>
+        public void Select(string text)
+        {
+            int index;
+            if ((index = Properties.FindStringExact(text)) == -1)
+            {
+                throw new FormsTestAssertionException("Could not find text '" + text + "' in ToolStripComboBox '" + name +
+                                                      "'");
+            }
+            Select(index);
+        }
+    }
 }

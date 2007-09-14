@@ -31,57 +31,58 @@
 #endregion
 
 using System;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	///<summary>
-	/// A form tester for the <see cref="FileDialog"/>.
-	///</summary>
-	public class FileDialogTester
-	{
-		#region Private/Protected attributes.
+    ///<summary>
+    /// A form tester for the <see cref="FileDialog"/>.
+    ///</summary>
+    public class FileDialogTester
+    {
+        #region Private/Protected attributes.
 
-		/// <summary>
-		/// Control ID for the Open or Save button.
-		/// </summary>
-		protected const int OpenButton = 1;
+        /// <summary>
+        /// Control ID for the Cancel button.
+        /// </summary>
+        protected const int CancelButton = 2;
 
-		/// <summary>
-		/// Control ID for the Cancel button.
-		/// </summary>
-		protected const int CancelButton = 2;
+        /// <summary>
+        /// Control ID for the file name checkbox.
+        /// </summary>
+        protected const int FileNameCheckBox = 1148;
 
-		/// <summary>
-		/// Control ID for the file name checkbox.
-		/// </summary>
-		protected const int FileNameCheckBox = 1148;
+        /// <summary>
+        /// Control ID for the Open or Save button.
+        /// </summary>
+        protected const int OpenButton = 1;
 
-		/// <summary>
-		/// The filename to use when simulate an open file operation
-		/// </summary>
-		protected string fileName = "";
+        /// <summary>
+        /// The filename to use when simulate an open file operation
+        /// </summary>
+        protected string fileName = "";
 
 
-		protected IntPtr handle = new IntPtr(0);
+        protected IntPtr handle = new IntPtr(0);
 
-		protected IntPtr wParam;
+        /// <summary>
+        /// Name/title of the OpenFileDialog 
+        /// </summary>
+        protected string name = "Open";
 
-		/// <summary>
-		/// Name/title of the OpenFileDialog 
-		/// </summary>
-		protected string name = "Open";
+        protected IntPtr wParam;
 
-		#endregion
+        #endregion
 
-		/// <summary>
-		/// Default constructor...
-		/// </summary>
-		public FileDialogTester(string title)
-		{
-			name = title;
-		}
+        /// <summary>
+        /// Default constructor...
+        /// </summary>
+        public FileDialogTester(string title)
+        {
+            name = title;
+        }
 
 /*
     public void OpenSaveFile(string file)
@@ -92,94 +93,108 @@ namespace NUnit.Extensions.Forms
     }
     */
 
-		/// <summary>
-		/// This handler will be called when the OpenFileDialog is shown and the 
-		/// user have choose to open a file.
-		/// </summary>
-		protected void FileNameHandler()
-		{
-			SetFileName(fileName);
-		}
+        /// <summary>
+        /// This handler will be called when the OpenFileDialog is shown and the 
+        /// user have choose to open a file.
+        /// </summary>
+        protected void FileNameHandler()
+        {
+            SetFileName(fileName);
+        }
 
-		/// <summary>
-		/// Simulates a click on  cancel.
-		/// For some reason we need to spawn a new thread because the FileDialog Caption
-		/// will not change to correct name if we just posts the message.
-		/// If we Calls the ClickCancelHandler directly we need to set the title
-		/// of the FileDialog to "Open". (Strange)
-		/// </summary>
-		public virtual void ClickCancel()
-		{
-			Thread thr = new Thread(ClickCancelHandler);
-			thr.Start();
-		}
+        /// <summary>
+        /// Simulates a click on  cancel.
+        /// For some reason we need to spawn a new thread because the FileDialog Caption
+        /// will not change to correct name if we just posts the message.
+        /// If we Calls the ClickCancelHandler directly we need to set the title
+        /// of the FileDialog to "Open". (Strange)
+        /// </summary>
+        public virtual void ClickCancel()
+        {
+            Thread thr = new Thread(ClickCancelHandler);
+            thr.Start();
+        }
 
-		/// <summary>
-		/// Clicks the cancel button of a OpenFiledialog.
-		/// </summary>
-		public void ClickCancelHandler()
-		{
-			IntPtr box = FindFileDialog();
-			IntPtr cancel_btn = Win32.GetDlgItem(box, CancelButton);
-			Win32.PostMessage(cancel_btn, Win32.BM_CLICK, (IntPtr) 0, IntPtr.Zero);
-		}
+        /// <summary>
+        /// Clicks the cancel button of a OpenFiledialog.
+        /// </summary>
+        public void ClickCancelHandler()
+        {
+            IntPtr box = FindFileDialog();
+            IntPtr cancel_btn = Win32.GetDlgItem(box, CancelButton);
+            Win32.PostMessage(cancel_btn, Win32.BM_CLICK, (IntPtr) 0, IntPtr.Zero);
+        }
 
-		/// <summary>
-		/// Click the first button, usually "Open" or "Save".
-		/// </summary>
-		protected void ClickOpenSaveButton()
-		{
-			IntPtr box = FindFileDialog();
-			IntPtr open_btn = Win32.GetDlgItem(box, OpenButton);
-			Win32.PostMessage(open_btn, Win32.BM_CLICK, (IntPtr) 0, IntPtr.Zero);
-		}
+        /// <summary>
+        /// Click the first button, usually "Open" or "Save".
+        /// </summary>
+        protected void ClickOpenSaveButton()
+        {
+            IntPtr box = FindFileDialog();
+            IntPtr open_btn = Win32.GetDlgItem(box, OpenButton);
+            Win32.PostMessage(open_btn, Win32.BM_CLICK, (IntPtr) 0, IntPtr.Zero);
+        }
 
-		/// <summary>
-		/// Sets the filename in the filename ComboBox and presses the OpenSave button.
-		/// </summary>
-		/// <param name="file_name"></param>
-		protected void SetFileName(string file_name)
-		{
-			IntPtr box = FindFileDialog();
-			Win32.SetDlgItemText(box, FileNameCheckBox, file_name);
-			IntPtr open_btn = Win32.GetDlgItem(box, OpenButton);
-			Win32.PostMessage(open_btn, Win32.BM_CLICK, (IntPtr) 0, IntPtr.Zero);
-		}
+        /// <summary>
+        /// Sets the filename in the filename ComboBox and presses the OpenSave button.
+        /// </summary>
+        /// <param name="file_name"></param>
+        protected void SetFileName(string file_name)
+        {
+            IntPtr box = FindFileDialog();
+            StringBuilder setFileName = new StringBuilder(file_name.Length);
+
+            int timeout = 1000000;
+
+            while (!Win32.IsWindowVisible(box) || timeout == 0)
+            {
+                --timeout;
+            }
+
+            while (setFileName.ToString() != file_name)
+            {
+                Win32.SetDlgItemText(box, FileNameCheckBox, file_name);
+                Win32.GetDlgItemText(box, FileNameCheckBox, setFileName, file_name.Length + 1);
+            }
+
+            IntPtr open_btn = Win32.GetDlgItem(box, OpenButton);
+            Win32.PostMessage(open_btn, Win32.BM_CLICK, (IntPtr) 0, IntPtr.Zero);
+        }
 
 
-		/// <summary>
-		/// Finds the OpenFileDialog.
-		/// </summary>
-		/// <returns></returns>
-		protected IntPtr FindFileDialog()
-		{
-			if (handle != new IntPtr(0))
-			{
-				return handle;
-			}
+        /// <summary>
+        /// Finds the OpenFileDialog.
+        /// </summary>
+        /// <returns></returns>
+        protected IntPtr FindFileDialog()
+        {
+            if (handle != new IntPtr(0))
+            {
+                return handle;
+            }
 
-			lock (this)
-			{
-				IntPtr desktop = Win32.GetDesktopWindow();
-				Win32.EnumChildWindows(desktop, OnEnumWindow, IntPtr.Zero);
-				if (wParam == IntPtr.Zero)
-				{
-					throw new ControlNotVisibleException("Open File Dialog is not visible");
-				}
-				return wParam;
-			}
-		}
+            lock (this)
+            {
+                IntPtr desktop = Win32.GetDesktopWindow();
+                Win32.EnumChildWindows(desktop, OnEnumWindow, IntPtr.Zero);
+                if (wParam == IntPtr.Zero)
+                {
+                    throw new ControlNotVisibleException("Open File Dialog is not visible");
+                }
+                return wParam;
+            }
+        }
 
-		private int OnEnumWindow(IntPtr hwnd, IntPtr lParam)
-		{
-			if (WindowHandle.IsDialog(hwnd))
-			{
-				if (this.name == null || WindowHandle.GetCaption(hwnd) == this.name)
-				{
-					wParam = hwnd;
-				}
-			}
-			return 1;
-		}
-	}
+        private int OnEnumWindow(IntPtr hwnd, IntPtr lParam)
+        {
+            if (WindowHandle.IsDialog(hwnd))
+            {
+                if (name == null || WindowHandle.GetCaption(hwnd) == name)
+                {
+                    wParam = hwnd;
+                }
+            }
+            return 1;
+        }
+    }
 }

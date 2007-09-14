@@ -30,7 +30,6 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -38,14 +37,18 @@ namespace NUnit.Extensions.Forms.TestApplications
     [TestFixture]
     public class TextBoxTest : NUnitFormTest
     {
-        [Test]
-        public void TextBox()
+        public void oldhandler()
         {
-            new TextBoxTestForm().Show();
-            TextBoxTester box = new TextBoxTester("myTextBox");
-            Assert.AreEqual("default", box.Text);
-            box.Enter("Text");
-            Assert.AreEqual("Text", box.Text);
+            MessageBoxTester mb = new MessageBoxTester("Old");
+            Assert.AreEqual("Old", mb.Text);
+            mb.ClickOk();
+        }
+
+        public void newhandler()
+        {
+            MessageBoxTester mb = new MessageBoxTester("New");
+            Assert.AreEqual("New", mb.Text);
+            mb.ClickOk();
         }
 
         [Test]
@@ -78,18 +81,14 @@ namespace NUnit.Extensions.Forms.TestApplications
             new ButtonTester("btnView").Click();
         }
 
-        public void oldhandler()
+        [Test]
+        public void TextBox()
         {
-            MessageBoxTester mb = new MessageBoxTester("Old");
-            Assert.AreEqual("Old", mb.Text);
-            mb.ClickOk();
-        }
-
-        public void newhandler()
-        {
-            MessageBoxTester mb = new MessageBoxTester("New");
-            Assert.AreEqual("New", mb.Text);
-            mb.ClickOk();
+            new TextBoxTestForm().Show();
+            TextBoxTester box = new TextBoxTester("myTextBox");
+            Assert.AreEqual("default", box.Text);
+            box.Enter("Text");
+            Assert.AreEqual("Text", box.Text);
         }
     }
 }

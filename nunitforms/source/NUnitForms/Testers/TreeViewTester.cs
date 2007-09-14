@@ -34,32 +34,32 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	/// <summary>
-	/// A ControlTester for testing TreeViews.
-	/// </summary>
-	/// <remarks>
-	/// There is a convenience method for selecting a node in the tree.</remarks>
-	public partial class TreeViewTester
+    /// <summary>
+    /// A ControlTester for testing TreeViews.
+    /// </summary>
+    /// <remarks>
+    /// There is a convenience method for selecting a node in the tree.</remarks>
+    public partial class TreeViewTester
     {
-		/// <summary>
-		/// Selects a node in the tree.
-		/// </summary>
-		/// <param name="indices">an array of the indexes of the node to select</param>
-		public void SelectNode(params int[] indices)
-		{
-			TreeNode currentNode = null;
-			foreach (int index in indices)
-			{
-				if (currentNode == null)
-				{
-					currentNode = Properties.Nodes[index];
-				}
-				else
-				{
-					currentNode = currentNode.Nodes[index];
-				}
-			}
-			Properties.SelectedNode = currentNode;
-		}
-	}
+        /// <summary>
+        /// Selects a node in the tree.
+        /// </summary>
+        /// <param name="indices">an array of the indexes of the node to select</param>
+        public void SelectNode(params int[] indices)
+        {
+            TreeNode currentNode = null;
+            foreach (int index in indices)
+            {
+                if (currentNode == null)
+                {
+                    currentNode = Properties.Nodes[index];
+                }
+                else
+                {
+                    currentNode = currentNode.Nodes[index];
+                }
+            }
+            Properties.SelectedNode = currentNode;
+        }
+    }
 }

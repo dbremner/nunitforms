@@ -35,165 +35,175 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	/// <summary>
-	/// A ControlTester for MessageBoxes.  
-	/// Allows you to handle and test MessageBoxes by pressing any of the
-	/// buttons that ordinarily appear on them.
-	/// </summary>
-	/// <remarks>
-	/// It does not extend ControlTester because MessageBoxes are not controls.</remarks>
-	/// <code>
-	/// public void MessageBoxHandler
-	/// {
-	/// 	MessageBoxTester messageBox = new MessageBoxTester( "MessageBoxName" );
-	/// 	Assert.AreEqual( "MessageBoxText", messageBox.Text );
-	///   Assert.AreEqual( "MessageBoxTitle", messageBox.Title );
-	/// 	messageBox.SendCommand( MessageBoxTester.Command.OK );
-	/// }
-	/// </code>
-	public class MessageBoxTester : Tester<MessageBox, MessageBoxTester>
-	{
-        public MessageBoxTester() { }
-		/// <summary>
-		/// Available commands you can send to the MessageBox.
-		/// </summary>
-		/// <remarks>
-		/// There are convenience methods for OK and Cancel, so you should not need 
-		/// those.
-		/// </remarks>
-		public enum Command : int
-		{
-			/// <summary>
-			/// Represents an OK button on a <see cref="MessageBox"/>.
-			/// </summary>
-			OK = 1,
-			/// <summary>
-			/// Represents a Cancel button on a <see cref="MessageBox"/>.
-			/// </summary>
-			Cancel = 2,
-			/// <summary>
-			/// Represents an Abort button on a <see cref="MessageBox"/>.
-			/// </summary>
-			Abort = 3,
-			/// <summary>
-			/// Represents a Retry button on a <see cref="MessageBox"/>.
-			/// </summary>
-			Retry = 4,
-			/// <summary>
-			/// Represents an Ignore button on a <see cref="MessageBox"/>.
-			/// </summary>
-			Ignore = 5,
-			/// <summary>
-			/// Represents a Yes button on a <see cref="MessageBox"/>.
-			/// </summary>
-			Yes = 6,
-			/// <summary>
-			/// Represents a No button on a <see cref="MessageBox"/>.
-			/// </summary>
-			No = 7,
-			/// <summary>
-			/// Represents a Close button on a <see cref="MessageBox"/>.
-			/// </summary>
-			Close = 8,
-			/// <summary>
-			/// Represents a Close button on a <see cref="MessageBox"/>.
-			/// </summary>
-			Help = 9
-		}
+    /// <summary>
+    /// A ControlTester for MessageBoxes.  
+    /// Allows you to handle and test MessageBoxes by pressing any of the
+    /// buttons that ordinarily appear on them.
+    /// </summary>
+    /// <remarks>
+    /// It does not extend ControlTester because MessageBoxes are not controls.</remarks>
+    /// <code>
+    /// public void MessageBoxHandler
+    /// {
+    /// 	MessageBoxTester messageBox = new MessageBoxTester( "MessageBoxName" );
+    /// 	Assert.AreEqual( "MessageBoxText", messageBox.Text );
+    ///   Assert.AreEqual( "MessageBoxTitle", messageBox.Title );
+    /// 	messageBox.SendCommand( MessageBoxTester.Command.OK );
+    /// }
+    /// </code>
+    public class MessageBoxTester : Tester<MessageBox, MessageBoxTester>
+    {
+        #region Command enum
 
-		private readonly IntPtr handle = new IntPtr(0);
+        /// <summary>
+        /// Available commands you can send to the MessageBox.
+        /// </summary>
+        /// <remarks>
+        /// There are convenience methods for OK and Cancel, so you should not need 
+        /// those.
+        /// </remarks>
+        public enum Command : int
+        {
+            /// <summary>
+            /// Represents an OK button on a <see cref="MessageBox"/>.
+            /// </summary>
+            OK = 1,
+            /// <summary>
+            /// Represents a Cancel button on a <see cref="MessageBox"/>.
+            /// </summary>
+            Cancel = 2,
+            /// <summary>
+            /// Represents an Abort button on a <see cref="MessageBox"/>.
+            /// </summary>
+            Abort = 3,
+            /// <summary>
+            /// Represents a Retry button on a <see cref="MessageBox"/>.
+            /// </summary>
+            Retry = 4,
+            /// <summary>
+            /// Represents an Ignore button on a <see cref="MessageBox"/>.
+            /// </summary>
+            Ignore = 5,
+            /// <summary>
+            /// Represents a Yes button on a <see cref="MessageBox"/>.
+            /// </summary>
+            Yes = 6,
+            /// <summary>
+            /// Represents a No button on a <see cref="MessageBox"/>.
+            /// </summary>
+            No = 7,
+            /// <summary>
+            /// Represents a Close button on a <see cref="MessageBox"/>.
+            /// </summary>
+            Close = 8,
+            /// <summary>
+            /// Represents a Close button on a <see cref="MessageBox"/>.
+            /// </summary>
+            Help = 9
+        }
 
-		/// <summary>
-		/// Creates a MessageBoxTester with the specified handle.  NUnitForms
-		/// users probably won't use this directly.  Use the other constructor.
-		/// </summary>
-		/// <param name="handle">The handle of the MessageBox to test.</param>
-		public MessageBoxTester(IntPtr handle) : base(null)
-		{
-			this.handle = handle;
-		}
+        #endregion
 
-		/// <summary>
-		/// Creates a MessageBoxTester that finds MessageBoxes with the
-		/// specified name.
-		/// </summary>
-		/// <param name="name">The name of the MessageBox to test.</param>
-		public MessageBoxTester(string name) : base(name) {}
+        private readonly IntPtr handle = new IntPtr(0);
 
-		/// <summary>
-		/// Returns the caption on the message box we are testing.
-		/// </summary>
-		public string Title
-		{
-			get { return WindowHandle.GetCaption(FindMessageBox()); }
-		}
+        public MessageBoxTester()
+        {
+        }
 
-		/// <summary>
-		/// Returns the text of the message box we are testing.
-		/// </summary>
-		public string Text
-		{
-			get { return WindowHandle.GetText(FindMessageBox()); }
-		}
+        /// <summary>
+        /// Creates a MessageBoxTester with the specified handle.  NUnitForms
+        /// users probably won't use this directly.  Use the other constructor.
+        /// </summary>
+        /// <param name="handle">The handle of the MessageBox to test.</param>
+        public MessageBoxTester(IntPtr handle) : base(null)
+        {
+            this.handle = handle;
+        }
 
-		/// <summary>
-		/// Sends a command to the MessageBox.
-		/// </summary>
-		/// <param name="cmd">The <see cref="Command"/> to send to this <see cref="MessageBox"/>.</param>
-		public void SendCommand(Command cmd)
-		{
-			IntPtr box = FindMessageBox();
-			Win32.SendMessage(box, (int) Win32.WindowMessages.WM_COMMAND, (UIntPtr) ((uint) cmd), IntPtr.Zero);
-		}
+        /// <summary>
+        /// Creates a MessageBoxTester that finds MessageBoxes with the
+        /// specified name.
+        /// </summary>
+        /// <param name="name">The name of the MessageBox to test.</param>
+        public MessageBoxTester(string name) : base(name)
+        {
+        }
 
-		/// <summary>
-		/// Clicks the Ok button of a MessageBox.
-		/// </summary>
-		public void ClickOk()
-		{
-			SendCommand(Command.OK);
-		}
+        /// <summary>
+        /// Returns the caption on the message box we are testing.
+        /// </summary>
+        public string Title
+        {
+            get { return WindowHandle.GetCaption(FindMessageBox()); }
+        }
 
-		/// <summary>
-		/// Clicks the cancel button of a MessageBox.
-		/// </summary>
-		public void ClickCancel()
-		{
-			SendCommand(Command.Cancel);
-		}
+        /// <summary>
+        /// Returns the text of the message box we are testing.
+        /// </summary>
+        public string Text
+        {
+            get { return WindowHandle.GetText(FindMessageBox()); }
+        }
 
-		private IntPtr FindMessageBox()
-		{
-			IntPtr foundWindowHandle = IntPtr.Zero;
+        /// <summary>
+        /// Sends a command to the MessageBox.
+        /// </summary>
+        /// <param name="cmd">The <see cref="Command"/> to send to this <see cref="MessageBox"/>.</param>
+        public void SendCommand(Command cmd)
+        {
+            IntPtr box = FindMessageBox();
+            Win32.SendMessage(box, (int) Win32.WindowMessages.WM_COMMAND, (UIntPtr) ((uint) cmd), IntPtr.Zero);
+        }
 
-			if (handle != new IntPtr(0))
-			{
-				return handle;
-			}
+        /// <summary>
+        /// Clicks the Ok button of a MessageBox.
+        /// </summary>
+        public void ClickOk()
+        {
+            SendCommand(Command.OK);
+        }
 
-			lock (this)
-			{
-				IntPtr desktop = Win32.GetDesktopWindow();
-				Win32.EnumChildWindows(
-					desktop,
-					delegate(IntPtr hwnd, IntPtr lParam) {
-						if (WindowHandle.IsDialog(hwnd))
-						{
-							if (name == null || WindowHandle.GetCaption(hwnd) == name)
-							{
-								foundWindowHandle = hwnd;
-							}
-						}
-						return 1;
-					},
-					IntPtr.Zero);
+        /// <summary>
+        /// Clicks the cancel button of a MessageBox.
+        /// </summary>
+        public void ClickCancel()
+        {
+            SendCommand(Command.Cancel);
+        }
 
-				if (foundWindowHandle == IntPtr.Zero)
-				{
-					throw new ControlNotVisibleException("Message Box not visible");
-				}
-				return foundWindowHandle;
-			}
-		}
-	}
+        private IntPtr FindMessageBox()
+        {
+            IntPtr foundWindowHandle = IntPtr.Zero;
+
+            if (handle != new IntPtr(0))
+            {
+                return handle;
+            }
+
+            lock (this)
+            {
+                IntPtr desktop = Win32.GetDesktopWindow();
+                Win32.EnumChildWindows(
+                    desktop,
+                    delegate(IntPtr hwnd, IntPtr lParam)
+                        {
+                            if (WindowHandle.IsDialog(hwnd))
+                            {
+                                if (name == null || WindowHandle.GetCaption(hwnd) == name)
+                                {
+                                    foundWindowHandle = hwnd;
+                                }
+                            }
+                            return 1;
+                        },
+                    IntPtr.Zero);
+
+                if (foundWindowHandle == IntPtr.Zero)
+                {
+                    throw new ControlNotVisibleException("Message Box not visible");
+                }
+                return foundWindowHandle;
+            }
+        }
+    }
 }

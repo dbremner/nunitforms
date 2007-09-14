@@ -35,23 +35,25 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
-	public class MenuItemRecorder : ControlRecorder
-	{
-		public override Type RecorderType
-		{
-			get { return typeof (MenuItem); }
-		}
+    public class MenuItemRecorder : ControlRecorder
+    {
+        public MenuItemRecorder(Listener listener) : base(listener)
+        {
+        }
 
-		public override Type TesterType
-		{
-			get { return typeof (MenuItemTester); }
-		}
+        public override Type RecorderType
+        {
+            get { return typeof (MenuItem); }
+        }
 
-		public void Click(object sender, EventArgs args)
-		{
-			Listener.FireEvent(TesterType, sender, "Click");
-		}
+        public override Type TesterType
+        {
+            get { return typeof (MenuItemTester); }
+        }
 
-		public MenuItemRecorder(Listener listener) : base(listener) {}
-	}
+        public void Click(object sender, EventArgs args)
+        {
+            Listener.FireEvent(TesterType, sender, "Click");
+        }
+    }
 }

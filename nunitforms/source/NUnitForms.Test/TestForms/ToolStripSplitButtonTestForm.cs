@@ -31,25 +31,20 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-  public partial class ToolStripSplitButtonTestForm : Form
-  {
-    public ToolStripSplitButtonTestForm()
+    public partial class ToolStripSplitButtonTestForm : Form
     {
-      InitializeComponent();
-    }
+        public ToolStripSplitButtonTestForm()
+        {
+            InitializeComponent();
+        }
 
-    private void toolStripSplitButton1_Click(object sender, EventArgs e)
-    {
-      label1.Text = "toolStripSplitButton1 clicked";
+        private void toolStripSplitButton1_Click(object sender, EventArgs e)
+        {
+            label1.Text = "toolStripSplitButton1 clicked";
+        }
     }
-  }
 }

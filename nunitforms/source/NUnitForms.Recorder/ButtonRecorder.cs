@@ -35,23 +35,25 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
-	public class ButtonRecorder : ControlRecorder
-	{
-		public override Type RecorderType
-		{
-			get { return typeof (Button); }
-		}
+    public class ButtonRecorder : ControlRecorder
+    {
+        public ButtonRecorder(Listener listener) : base(listener)
+        {
+        }
 
-		public override Type TesterType
-		{
-			get { return typeof (ButtonTester); }
-		}
+        public override Type RecorderType
+        {
+            get { return typeof (Button); }
+        }
 
-		public void Click(object sender, EventArgs args)
-		{
-			Listener.FireEvent(TesterType, sender, "Click");
-		}
+        public override Type TesterType
+        {
+            get { return typeof (ButtonTester); }
+        }
 
-		public ButtonRecorder(Listener listener) : base(listener) {}
-	}
+        public void Click(object sender, EventArgs args)
+        {
+            Listener.FireEvent(TesterType, sender, "Click");
+        }
+    }
 }

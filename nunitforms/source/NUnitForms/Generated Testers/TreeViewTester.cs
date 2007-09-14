@@ -34,12 +34,26 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	public partial class TreeViewTester : ControlTester<TreeView, TreeViewTester>
-	{
-		public TreeViewTester() {}
-		public TreeViewTester(string name, Form form) : base(name, form) {}
-		public TreeViewTester(string name, string formName) : base(name, formName) {}
-		public TreeViewTester(string name) : base(name) {}
-		public TreeViewTester(TreeViewTester tester, int index) : base(tester, index) {}
-	}
+    public partial class TreeViewTester : ControlTester<TreeView, TreeViewTester>
+    {
+        public TreeViewTester()
+        {
+        }
+
+        public TreeViewTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public TreeViewTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public TreeViewTester(string name) : base(name)
+        {
+        }
+
+        public TreeViewTester(TreeViewTester tester, int index) : base(tester, index)
+        {
+        }
+    }
 }

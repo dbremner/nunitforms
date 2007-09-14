@@ -31,8 +31,6 @@
 #endregion
 
 using System;
-
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -45,10 +43,7 @@ namespace NUnit.Extensions.Forms.TestApplications
     {
         public override bool DisplayHidden
         {
-            get
-            {
-                return true;
-            }
+            get { return true; }
         }
 
         private int click;
@@ -60,22 +55,6 @@ namespace NUnit.Extensions.Forms.TestApplications
 
         //this is correct.  we are testing a text box here.  does it fire events
         //when it is supposed to?
-        [Test]
-        public void CorrectMouseClicking()
-        {
-            new TextBoxTestForm().Show();
-
-            TextBoxTester textBox = new TextBoxTester("myTextBox");
-
-            textBox.Properties.Click += new EventHandler(OnClick);
-
-            click = 0;
-
-            Mouse.UseOn(textBox);
-            Mouse.Click(1, 3);
-
-            Assert.AreEqual(1, click);
-        }
 
         private int click2;
 
@@ -108,6 +87,23 @@ namespace NUnit.Extensions.Forms.TestApplications
 
             Assert.AreEqual(1, click);
             Assert.AreEqual(1, click2);
+        }
+
+        [Test]
+        public void CorrectMouseClicking()
+        {
+            new TextBoxTestForm().Show();
+
+            TextBoxTester textBox = new TextBoxTester("myTextBox");
+
+            textBox.Properties.Click += new EventHandler(OnClick);
+
+            click = 0;
+
+            Mouse.UseOn(textBox);
+            Mouse.Click(1, 3);
+
+            Assert.AreEqual(1, click);
         }
 
         //this is incorrect.  we are testing the form here.  we should use regular 

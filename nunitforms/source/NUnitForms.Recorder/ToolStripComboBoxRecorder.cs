@@ -35,31 +35,33 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
-	public class ToolStripComboBoxRecorder : ToolStripRecorder
-	{
-		public override Type RecorderType
-		{
-			get { return typeof (ToolStripComboBox); }
-		}
+    public class ToolStripComboBoxRecorder : ToolStripRecorder
+    {
+        public ToolStripComboBoxRecorder(Listener listener)
+            : base(listener)
+        {
+        }
 
-		public override Type TesterType
-		{
-			get { return typeof (ToolStripComboBoxTester); }
-		}
+        public override Type RecorderType
+        {
+            get { return typeof (ToolStripComboBox); }
+        }
 
-		public ToolStripComboBoxRecorder(Listener listener)
-			: base(listener) {}
+        public override Type TesterType
+        {
+            get { return typeof (ToolStripComboBoxTester); }
+        }
 
-		public void TextChanged(object sender, EventArgs e)
-		{
-			Listener.FireEvent(TesterType, sender, "Enter", ((ToolStripComboBox) sender).Text);
-		}
+        public void TextChanged(object sender, EventArgs e)
+        {
+            Listener.FireEvent(TesterType, sender, "Enter", ((ToolStripComboBox) sender).Text);
+        }
 
-		public void SelectedIndexChanged(object sender, EventArgs e)
-		{
-			EventAction action = new EventAction("Select", ((ToolStripComboBox) sender).SelectedIndex);
-			action.Comment = ((ToolStripComboBox) sender).Text;
-			Listener.FireEvent(TesterType, sender, action);
-		}
-	}
+        public void SelectedIndexChanged(object sender, EventArgs e)
+        {
+            EventAction action = new EventAction("Select", ((ToolStripComboBox) sender).SelectedIndex);
+            action.Comment = ((ToolStripComboBox) sender).Text;
+            Listener.FireEvent(TesterType, sender, action);
+        }
+    }
 }

@@ -34,12 +34,26 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	public partial class TextBoxTester : ControlTester<TextBox, TextBoxTester>
-	{
-		public TextBoxTester() {}
-		public TextBoxTester(string name, Form form) : base(name, form) {}
-		public TextBoxTester(string name, string formName) : base(name, formName) {}
-		public TextBoxTester(string name) : base(name) {}
-		public TextBoxTester(TextBoxTester tester, int index) : base(tester, index) {}
-	}
+    public partial class TextBoxTester : ControlTester<TextBox, TextBoxTester>
+    {
+        public TextBoxTester()
+        {
+        }
+
+        public TextBoxTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public TextBoxTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public TextBoxTester(string name) : base(name)
+        {
+        }
+
+        public TextBoxTester(TextBoxTester tester, int index) : base(tester, index)
+        {
+        }
+    }
 }

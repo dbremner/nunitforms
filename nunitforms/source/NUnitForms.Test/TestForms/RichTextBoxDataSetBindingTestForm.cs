@@ -31,36 +31,32 @@
 #endregion
 
 using System;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Globalization;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-  public partial class RichTextBoxDataSetBindingTestForm : Form
-  {
-    
-    public RichTextBoxDataSetBindingTestForm()
+    public partial class RichTextBoxDataSetBindingTestForm : Form
     {
-      InitializeComponent();
-    }
+        public RichTextBoxDataSetBindingTestForm()
+        {
+            InitializeComponent();
+        }
 
-    private void btnView_Click(object sender, EventArgs e)
-    {
-      MessageBox.Show(myDataSet.Tables[0].Rows[0].ItemArray[0].ToString(), myRichTextBox.Text);
-    }
+        private void btnView_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(myDataSet.Tables[0].Rows[0].ItemArray[0].ToString(), myRichTextBox.Text);
+        }
 
-    private void RichTextBoxtDataSetBindingTestForm_Load(object sender, EventArgs e)
-    {
-      myDataSet.Tables.Add("TableName");
-      myDataSet.Tables[0].Columns.Add("ColumnName");
-      DataRow row = myDataSet.Tables[0].NewRow();
-      myDataSet.Tables[0].Rows.Add(row);
-      myDataSet.Tables[0].Rows[0]["ColumnName"] = "Old";
+        private void RichTextBoxtDataSetBindingTestForm_Load(object sender, EventArgs e)
+        {
+            myDataSet.Tables.Add("TableName");
+            myDataSet.Tables[0].Columns.Add("ColumnName");
+            DataRow row = myDataSet.Tables[0].NewRow();
+            myDataSet.Tables[0].Rows.Add(row);
+            myDataSet.Tables[0].Rows[0]["ColumnName"] = "Old";
 
-      myRichTextBox.DataBindings.Add(new Binding("Text", myDataSet, "TableName.ColumnName"));
+            myRichTextBox.DataBindings.Add(new Binding("Text", myDataSet, "TableName.ColumnName"));
+        }
     }
-  }
 }

@@ -42,18 +42,17 @@ namespace NUnit.Extensions.Forms.ExampleApplication
     /// </summary>
     public class AlternateAppForm : Form
     {
-        private IAppController controller;
-
-        private Button showModalButton;
-
-        private Button countButton;
-
-        private Label countLabel;
-
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
+
+        private IAppController controller;
+
+        private Button countButton;
+
+        private Label countLabel;
+        private Button showModalButton;
 
         public AlternateAppForm(IAppController controller)
         {
@@ -79,14 +78,25 @@ namespace NUnit.Extensions.Forms.ExampleApplication
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void showModalButton_Click(object sender, EventArgs e)
+        {
+            controller.ShowModal();
+        }
+
+        private void countButton_Click(object sender, EventArgs e)
+        {
+            controller.Count();
+            UpdateDisplay();
         }
 
         #region Windows Form Designer generated code
@@ -138,16 +148,5 @@ namespace NUnit.Extensions.Forms.ExampleApplication
         }
 
         #endregion
-
-        private void showModalButton_Click(object sender, EventArgs e)
-        {
-            controller.ShowModal();
-        }
-
-        private void countButton_Click(object sender, EventArgs e)
-        {
-            controller.Count();
-            UpdateDisplay();
-        }
     }
 }

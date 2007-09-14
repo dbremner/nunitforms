@@ -30,7 +30,6 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -50,16 +49,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        public void TabControl()
-        {
-            myTabs.SelectTab(1);
-            Assert.AreEqual(1, myTabs.Properties.SelectedIndex);
-            myTabs.SelectTab(0);
-            Assert.AreEqual(0, myTabs.Properties.SelectedIndex);
-        }
-
-        [Test]
-        [ExpectedException(typeof(ControlNotVisibleException))]
+        [ExpectedException(typeof (ControlNotVisibleException))]
         public void ClickNonVisibleButton()
         {
             myTabs.SelectTab(0);
@@ -74,6 +64,15 @@ namespace NUnit.Extensions.Forms.TestApplications
             Assert.AreEqual("0", label.Text);
             button.Click();
             Assert.AreEqual("1", label.Text);
+        }
+
+        [Test]
+        public void TabControl()
+        {
+            myTabs.SelectTab(1);
+            Assert.AreEqual(1, myTabs.Properties.SelectedIndex);
+            myTabs.SelectTab(0);
+            Assert.AreEqual(0, myTabs.Properties.SelectedIndex);
         }
     }
 }

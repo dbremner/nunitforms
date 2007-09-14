@@ -30,14 +30,13 @@
 
 #endregion
 
-
 namespace NUnit.Extensions.Forms
 {
-	/// <summary>
-	/// A ControlTester for testing CheckBoxes.
-	/// </summary>
+    /// <summary>
+    /// A ControlTester for testing CheckBoxes.
+    /// </summary>
     public partial class CheckBoxTester
-	{
+    {
         /// <summary>
         /// Retrieves the Checked property of the CheckBox
         /// </summary>
@@ -46,34 +45,34 @@ namespace NUnit.Extensions.Forms
             get { return Properties.Checked; }
         }
 
-		/// <summary>
-		/// Sets the shouldCheck property to the specified value.
-		/// </summary>
-		public void Check(bool shouldCheck)
-		{
-			EditChecked(shouldCheck);
-		}
+        /// <summary>
+        /// Sets the shouldCheck property to the specified value.
+        /// </summary>
+        public void Check(bool shouldCheck)
+        {
+            EditChecked(shouldCheck);
+        }
 
-		/// <summary>
-		/// Sets the Checked property of the CheckBox to true
-		/// </summary>
-		public void Check()
-		{
-			EditChecked(true);
-		}
+        /// <summary>
+        /// Sets the Checked property of the CheckBox to true
+        /// </summary>
+        public void Check()
+        {
+            EditChecked(true);
+        }
 
-		/// <summary>
-		/// Sets the Checked property of the CheckBox to false
-		/// </summary>
-		public void UnCheck()
-		{
-			EditChecked(false);
-		}
+        /// <summary>
+        /// Sets the Checked property of the CheckBox to false
+        /// </summary>
+        public void UnCheck()
+        {
+            EditChecked(false);
+        }
 
-		private void EditChecked(bool shouldCheck)
-		{
-			Properties.Checked = shouldCheck;
-			EndCurrentEdit("Checked");
-		}
-	}
+        private void EditChecked(bool shouldCheck)
+        {
+            Properties.Checked = shouldCheck;
+            EndCurrentEdit("Checked");
+        }
+    }
 }

@@ -34,12 +34,26 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	public partial class ToolBarTester : ControlTester<ToolBar, ToolBarTester>
-	{
-		public ToolBarTester() {}
-		public ToolBarTester(string name, Form form) : base(name, form) {}
-		public ToolBarTester(string name, string formName) : base(name, formName) {}
-		public ToolBarTester(string name) : base(name) {}
-		public ToolBarTester(ToolBarTester tester, int index) : base(tester, index) {}
-	}
+    public partial class ToolBarTester : ControlTester<ToolBar, ToolBarTester>
+    {
+        public ToolBarTester()
+        {
+        }
+
+        public ToolBarTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public ToolBarTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public ToolBarTester(string name) : base(name)
+        {
+        }
+
+        public ToolBarTester(ToolBarTester tester, int index) : base(tester, index)
+        {
+        }
+    }
 }

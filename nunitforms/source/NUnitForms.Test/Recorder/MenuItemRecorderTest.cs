@@ -30,33 +30,32 @@
 
 #endregion
 
-using System;
 using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.Recorder.Test
 {
-	///<summary>
-	/// Test fixture for the <see cref="MenuItemRecorder"/>.
-	///</summary>
-	[TestFixture]
-	[Category("Recorder")]
-	public class MenuItemRecorderTest : NUnitFormTest
-	{
-		[Test]
-		public void MenuItemClick()
-		{
-			ContextMenuTestForm form = new ContextMenuTestForm();
-			form.Show();
+    ///<summary>
+    /// Test fixture for the <see cref="MenuItemRecorder"/>.
+    ///</summary>
+    [TestFixture]
+    [Category("Recorder")]
+    public class MenuItemRecorderTest : NUnitFormTest
+    {
+        [Test]
+        public void MenuItemClick()
+        {
+            ContextMenuTestForm form = new ContextMenuTestForm();
+            form.Show();
 
-			TestWriter writer = new TestWriter(form);
-			Assert.AreEqual("", writer.Test);
+            TestWriter writer = new TestWriter(form);
+            Assert.AreEqual("", writer.Test);
 
-			MenuItemTester menuItem = new MenuItemTester("Click To Count");
-			menuItem.Click();
+            MenuItemTester menuItem = new MenuItemTester("Click To Count");
+            menuItem.Click();
 
-			Assert.AreEqual(
-				@"[Test]
+            Assert.AreEqual(
+                @"[Test]
 public void Test()
 {
 
@@ -65,7 +64,7 @@ public void Test()
 	ClickToCount.Click();
 
 }",
-				writer.Test);
-		}
-	}
+                writer.Test);
+        }
+    }
 }

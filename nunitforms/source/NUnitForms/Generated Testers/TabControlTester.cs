@@ -34,12 +34,26 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	public partial class TabControlTester : ControlTester<TabControl, TabControlTester>
-	{
-		public TabControlTester() {}
-		public TabControlTester(string name, Form form) : base(name, form) {}
-		public TabControlTester(string name, string formName) : base(name, formName) {}
-		public TabControlTester(string name) : base(name) {}
-		public TabControlTester(TabControlTester tester, int index) : base(tester, index) {}
-	}
+    public partial class TabControlTester : ControlTester<TabControl, TabControlTester>
+    {
+        public TabControlTester()
+        {
+        }
+
+        public TabControlTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public TabControlTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public TabControlTester(string name) : base(name)
+        {
+        }
+
+        public TabControlTester(TabControlTester tester, int index) : base(tester, index)
+        {
+        }
+    }
 }

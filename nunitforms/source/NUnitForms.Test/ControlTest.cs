@@ -38,159 +38,162 @@ using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-	///<summary>
-	/// Basic tests for the <see cref="ControlTester"/> class.
-	///</summary>
-	[TestFixture]
-	public class ControlTest : NUnitFormTest
-	{
-		private ControlTester label;
+    ///<summary>
+    /// Basic tests for the <see cref="ControlTester"/> class.
+    ///</summary>
+    [TestFixture]
+    public class ControlTest : NUnitFormTest
+    {
+        private ControlTester label;
 
-		public override void Setup()
-		{
-			new LabelTestForm().Show();
-			label = new ControlTester("myLabel");
-		}
+        public override void Setup()
+        {
+            new LabelTestForm().Show();
+            label = new ControlTester("myLabel");
+        }
 
-		[Test]
-		public void ControlText()
-		{
-			Assert.AreEqual("myValue", label.Text);
-		}
+        /// <summary>
+        /// Verify that the given type has an int indexer.
+        /// </summary>
+        /// <param name="testerType">The <see cref="Type"/> to test.</param>
+        private static bool HasIntIndexer(Type testerType)
+        {
+            PropertyInfo propIndexer = testerType.GetProperty("Item", testerType);
+            if (propIndexer != null)
+            {
+                ParameterInfo[] indexParams = propIndexer.GetIndexParameters();
 
-		[Test]
-		public void ControlClick()
-		{
-			Assert.AreEqual("myValue", label.Text);
-		}
+                if (indexParams.Length == 1 && indexParams[0].ParameterType == typeof (int))
+                {
+                    propIndexer.GetGetMethod().Invoke(
+                        Activator.CreateInstance(testerType, new object[] {"string"}),
+                        new object[] {0});
+                    return true;
+                }
+            }
+            return false;
+        }
 
-		[Test]
-		public void Property()
-		{
-			Assert.AreEqual("myValue", label["Text"]);
-			label["Text"] = "try to change it";
-			Assert.AreEqual("try to change it", label["Text"]);
-		}
+        private static void VerifyAllConstructors(string typeName, ConstructorInfo[] constructors)
+        {
+            bool argString = false;
+            bool argStringString = false;
+            bool argStringForm = false;
+            bool argControltesterInt = false;
 
-		///<summary>
-		/// Verifies that all control testers have the expected constructors.
-		///</summary>
-		/// <remarks>
-		/// <para>
-		/// Control testers should usually be defined with the 4 standard constructors
-		/// so that tests can be scripted propertly.
-		/// </para>
-		/// <para>
-		/// Certain dialog tests have fewer constructors, and no check is made for
-		/// </para>
-		/// </remarks>
-		[Test]
-		public void ControlTestersHaveFourConstructorsAndIndexer()
-		{
-			IList<Type> typesToSkip = new Type[]{typeof(MessageBoxTester),typeof(FormTester)};
+            foreach (ConstructorInfo constructor in constructors)
+            {
+                argString = argString || CheckMatches(constructor, "string");
+                argStringString = argString || CheckMatches(constructor, "string", "string");
+                argStringForm = argString || CheckMatches(constructor, "string", new Form());
+                argControltesterInt = argString || CheckMatches(constructor, new ControlTester("string"), 1);
+            }
+            Assert.IsTrue(argString, typeName + " missing constructor 1");
+            Assert.IsTrue(argStringString, typeName + " missing constructor 2");
+            Assert.IsTrue(argStringForm, typeName + " missing constructor 3");
+            Assert.IsTrue(argControltesterInt, typeName + " missing constructor 4");
+        }
 
-			Type[] types = typeof (ControlTester).Assembly.GetTypes();
-			foreach (Type type in types)
-			{
-				if (typeof(ControlTester).IsAssignableFrom(type))
-				{
-					// Skip tests for generic classes (for now.)
-					if (type.IsGenericType)
-						continue;
+        private static bool CheckMatches(ConstructorInfo constructor, params object[] args)
+        {
+            ParameterInfo[] parameters = constructor.GetParameters();
 
-					// Explicitly skip tests for these types.
-					if (typesToSkip.Contains(type))
-						continue;
+            if (parameters.Length != args.Length)
+            {
+                return false;
+            }
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (parameters[i].ParameterType != args[i].GetType())
+                {
+                    return false;
+                }
+            }
 
-					ConstructorInfo[] constructors = type.GetConstructors();
+            constructor.Invoke(args); //test it
 
-					// OpenFileDialogTester only has one construtor.
-					if (type == typeof (OpenFileDialogTester))
-					{
-						Assert.AreEqual(1, constructors.Length, string.Format("{0}has incorrect constructor count.", type.Name));
-						continue;
-					}
-					
-					Assert.IsTrue(4 <= constructors.Length,  string.Format("{0}has incorrect constructor count.", type.Name));
+            return true;
+        }
 
-					VerifyAllConstructors(type.Name, constructors);
-					Assert.IsTrue(HasIntIndexer(type), string.Format("Type {0} does not have an int indexer.", type.Name));
-				}
-			}
-		}
+        ///<summary>
+        /// Test finding a control with an invalid index.
+        ///</summary>
+        [Test]
+        [ExpectedException(typeof (ArgumentOutOfRangeException))]
+        public void BadIndex()
+        {
+            object o = new ControlTester("s")[-1];
+            Assert.Fail("Should not find: " + o);
+        }
 
-		/// <summary>
-		/// Verify that the given type has an int indexer.
-		/// </summary>
-		/// <param name="testerType">The <see cref="Type"/> to test.</param>
-		private static bool HasIntIndexer(Type testerType)
-		{
-			PropertyInfo propIndexer = testerType.GetProperty("Item", testerType);
-			if (propIndexer != null)
-			{
-				ParameterInfo[] indexParams = propIndexer.GetIndexParameters();
+        [Test]
+        public void ControlClick()
+        {
+            Assert.AreEqual("myValue", label.Text);
+        }
 
-				if (indexParams.Length == 1 && indexParams[0].ParameterType == typeof (int))
-				{
-					propIndexer.GetGetMethod().Invoke(
-						Activator.CreateInstance(testerType, new object[] {"string"}),
-						new object[] {0});
-					return true;
-				}
-			}
-			return false;
-		}
+        ///<summary>
+        /// Verifies that all control testers have the expected constructors.
+        ///</summary>
+        /// <remarks>
+        /// <para>
+        /// Control testers should usually be defined with the 4 standard constructors
+        /// so that tests can be scripted propertly.
+        /// </para>
+        /// <para>
+        /// Certain dialog tests have fewer constructors, and no check is made for
+        /// </para>
+        /// </remarks>
+        [Test]
+        public void ControlTestersHaveFourConstructorsAndIndexer()
+        {
+            IList<Type> typesToSkip = new Type[] {typeof (MessageBoxTester), typeof (FormTester)};
 
-		private static void VerifyAllConstructors(string typeName, ConstructorInfo[] constructors)
-		{
-			bool argString = false;
-			bool argStringString = false;
-			bool argStringForm = false;
-			bool argControltesterInt = false;
+            Type[] types = typeof (ControlTester).Assembly.GetTypes();
+            foreach (Type type in types)
+            {
+                if (typeof (ControlTester).IsAssignableFrom(type))
+                {
+                    // Skip tests for generic classes (for now.)
+                    if (type.IsGenericType)
+                        continue;
 
-			foreach (ConstructorInfo constructor in constructors)
-			{
-				argString = argString || CheckMatches(constructor, "string");
-				argStringString = argString || CheckMatches(constructor, "string", "string");
-				argStringForm = argString || CheckMatches(constructor, "string", new Form());
-				argControltesterInt = argString || CheckMatches(constructor, new ControlTester("string"), 1);
-			}
-			Assert.IsTrue(argString, typeName + " missing constructor 1");
-			Assert.IsTrue(argStringString, typeName + " missing constructor 2");
-			Assert.IsTrue(argStringForm, typeName + " missing constructor 3");
-			Assert.IsTrue(argControltesterInt, typeName + " missing constructor 4");
-		}
+                    // Explicitly skip tests for these types.
+                    if (typesToSkip.Contains(type))
+                        continue;
 
-		private static bool CheckMatches(ConstructorInfo constructor, params object[] args)
-		{
-			ParameterInfo[] parameters = constructor.GetParameters();
+                    ConstructorInfo[] constructors = type.GetConstructors();
 
-			if (parameters.Length != args.Length)
-			{
-				return false;
-			}
-			for (int i = 0; i < args.Length; i++)
-			{
-				if (parameters[i].ParameterType != args[i].GetType())
-				{
-					return false;
-				}
-			}
+                    // OpenFileDialogTester only has one construtor.
+                    if (type == typeof (OpenFileDialogTester))
+                    {
+                        Assert.AreEqual(1, constructors.Length,
+                                        string.Format("{0}has incorrect constructor count.", type.Name));
+                        continue;
+                    }
 
-			constructor.Invoke(args); //test it
+                    Assert.IsTrue(4 <= constructors.Length,
+                                  string.Format("{0}has incorrect constructor count.", type.Name));
 
-			return true;
-		}
+                    VerifyAllConstructors(type.Name, constructors);
+                    Assert.IsTrue(HasIntIndexer(type),
+                                  string.Format("Type {0} does not have an int indexer.", type.Name));
+                }
+            }
+        }
 
-		///<summary>
-		/// Test finding a control with an invalid index.
-		///</summary>
-		[Test]
-		[ExpectedException(typeof (ArgumentOutOfRangeException))]
-		public void BadIndex()
-		{
-			object o = new ControlTester("s")[-1];
-			Assert.Fail("Should not find: " + o);
-		}
-	}
+        [Test]
+        public void ControlText()
+        {
+            Assert.AreEqual("myValue", label.Text);
+        }
+
+        [Test]
+        public void Property()
+        {
+            Assert.AreEqual("myValue", label["Text"]);
+            label["Text"] = "try to change it";
+            Assert.AreEqual("try to change it", label["Text"]);
+        }
+    }
 }

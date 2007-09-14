@@ -35,11 +35,25 @@ using System.Windows.Forms;
 namespace NUnit.Extensions.Forms
 {
     public partial class ComboBoxTester : ControlTester<ComboBox, ComboBoxTester>
-	{
-		public ComboBoxTester() {}
-		public ComboBoxTester(string name, Form form) : base(name, form) {}
-		public ComboBoxTester(string name, string formName) : base(name, formName) {}
-		public ComboBoxTester(string name) : base(name) {}
-        public ComboBoxTester(ComboBoxTester tester, int index) : base(tester, index) { }
-	}
+    {
+        public ComboBoxTester()
+        {
+        }
+
+        public ComboBoxTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public ComboBoxTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public ComboBoxTester(string name) : base(name)
+        {
+        }
+
+        public ComboBoxTester(ComboBoxTester tester, int index) : base(tester, index)
+        {
+        }
+    }
 }

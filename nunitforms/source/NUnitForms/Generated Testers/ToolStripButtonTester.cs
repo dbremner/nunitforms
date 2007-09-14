@@ -34,12 +34,26 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	public partial class ToolStripButtonTester : ToolStripItemTester<ToolStripButton, ToolStripButtonTester>
-	{
-        public ToolStripButtonTester() { }
-		public ToolStripButtonTester(string name, Form form) : base(name, form) {}
-		public ToolStripButtonTester(string name, string formName) : base(name, formName) { }
-		public ToolStripButtonTester(string name): base(name) {}
-        public ToolStripButtonTester(ToolStripButtonTester tester, int index) : base(tester, index) { }
-	}
+    public partial class ToolStripButtonTester : ToolStripItemTester<ToolStripButton, ToolStripButtonTester>
+    {
+        public ToolStripButtonTester()
+        {
+        }
+
+        public ToolStripButtonTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public ToolStripButtonTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public ToolStripButtonTester(string name) : base(name)
+        {
+        }
+
+        public ToolStripButtonTester(ToolStripButtonTester tester, int index) : base(tester, index)
+        {
+        }
+    }
 }

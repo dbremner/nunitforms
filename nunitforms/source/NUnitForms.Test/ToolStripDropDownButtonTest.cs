@@ -30,36 +30,34 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
-using NUnit.Framework;
 using System.Windows.Forms;
+using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-  [TestFixture]
-  public class ToolStripDropDownButtonTest : NUnitFormTest
-  {
- 
-    [Test]
-    public void MainToolbar()
-    { 
-      Form form = new ToolStripDropDownButtonTestForm();
-      form.Show();
-      TextBoxTester textbox = new TextBoxTester("textBox1", form);
-      ToolStripDropDownButtonTester tester = new ToolStripDropDownButtonTester("toolStripDropDownButton1", form);
-      tester.Click();
-      Assert.IsTrue(textbox.Text == "toolStripDropDownButton1 clicked");
-    }
-
-    [Test]
-    public void ClickDropDownItem()
+    [TestFixture]
+    public class ToolStripDropDownButtonTest : NUnitFormTest
     {
-      Form form = new ToolStripDropDownButtonTestForm();
-      form.Show();
-      TextBoxTester textbox = new TextBoxTester("textBox1", form);
-      ToolStripDropDownButtonTester tester = new ToolStripDropDownButtonTester("toolStripDropDownButton1", form);
-      tester.ClickDropDownItem(1);
-      Assert.IsTrue(textbox.Text == "twoToolStripMenuItem clicked");
+        [Test]
+        public void ClickDropDownItem()
+        {
+            Form form = new ToolStripDropDownButtonTestForm();
+            form.Show();
+            TextBoxTester textbox = new TextBoxTester("textBox1", form);
+            ToolStripDropDownButtonTester tester = new ToolStripDropDownButtonTester("toolStripDropDownButton1", form);
+            tester.ClickDropDownItem(1);
+            Assert.IsTrue(textbox.Text == "twoToolStripMenuItem clicked");
+        }
+
+        [Test]
+        public void MainToolbar()
+        {
+            Form form = new ToolStripDropDownButtonTestForm();
+            form.Show();
+            TextBoxTester textbox = new TextBoxTester("textBox1", form);
+            ToolStripDropDownButtonTester tester = new ToolStripDropDownButtonTester("toolStripDropDownButton1", form);
+            tester.Click();
+            Assert.IsTrue(textbox.Text == "toolStripDropDownButton1 clicked");
+        }
     }
-  }
 }

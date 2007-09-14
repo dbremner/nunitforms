@@ -35,23 +35,25 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
-	public class TabControlRecorder : ControlRecorder
-	{
-		public override Type RecorderType
-		{
-			get { return typeof (TabControl); }
-		}
+    public class TabControlRecorder : ControlRecorder
+    {
+        public TabControlRecorder(Listener listener) : base(listener)
+        {
+        }
 
-		public override Type TesterType
-		{
-			get { return typeof (TabControlTester); }
-		}
+        public override Type RecorderType
+        {
+            get { return typeof (TabControl); }
+        }
 
-		public TabControlRecorder(Listener listener) : base(listener) {}
+        public override Type TesterType
+        {
+            get { return typeof (TabControlTester); }
+        }
 
-		public void SelectedIndexChanged(object sender, EventArgs args)
-		{
-			Listener.FireEvent(TesterType, sender, new EventAction("SelectTab", ((TabControl) sender).SelectedIndex));
-		}
-	}
+        public void SelectedIndexChanged(object sender, EventArgs args)
+        {
+            Listener.FireEvent(TesterType, sender, new EventAction("SelectTab", ((TabControl) sender).SelectedIndex));
+        }
+    }
 }

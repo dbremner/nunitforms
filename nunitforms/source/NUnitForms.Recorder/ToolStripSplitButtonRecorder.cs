@@ -35,33 +35,35 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
-	///<summary>
-	/// A recorder for <see cref="ToolStripSplitButton"/> controls.
-	///</summary>
-	public class ToolStripSplitButtonRecorder : ToolStripRecorder
-	{
-		public override Type RecorderType
-		{
-			get { return typeof (ToolStripSplitButton); }
-		}
+    ///<summary>
+    /// A recorder for <see cref="ToolStripSplitButton"/> controls.
+    ///</summary>
+    public class ToolStripSplitButtonRecorder : ToolStripRecorder
+    {
+        ///<summary>
+        /// Constructs a new <see cref="ToolStripSplitButtonRecorder"/>.
+        ///</summary>
+        public ToolStripSplitButtonRecorder(Listener listener)
+            : base(listener)
+        {
+        }
 
-		public override Type TesterType
-		{
-			get { return typeof (ToolStripSplitButtonTester); }
-		}
+        public override Type RecorderType
+        {
+            get { return typeof (ToolStripSplitButton); }
+        }
 
-		///<summary>
-		/// Raises the Click event for this control.
-		///</summary>
-		public void Click(object sender, EventArgs args)
-		{
-			Listener.FireEvent(TesterType, sender, "Click");
-		}
+        public override Type TesterType
+        {
+            get { return typeof (ToolStripSplitButtonTester); }
+        }
 
-		///<summary>
-		/// Constructs a new <see cref="ToolStripSplitButtonRecorder"/>.
-		///</summary>
-		public ToolStripSplitButtonRecorder(Listener listener)
-			: base(listener) {}
-	}
+        ///<summary>
+        /// Raises the Click event for this control.
+        ///</summary>
+        public void Click(object sender, EventArgs args)
+        {
+            Listener.FireEvent(TesterType, sender, "Click");
+        }
+    }
 }

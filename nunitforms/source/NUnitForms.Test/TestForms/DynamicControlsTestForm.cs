@@ -51,6 +51,8 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         private Container components = null;
 
+        private int i = 0;
+
         public DynamicControlsTestForm()
         {
             //
@@ -68,14 +70,42 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            Button b = new Button();
+            b.Text = "0";
+            b.Name = "button" + i.ToString();
+            b.Location = new Point(250, 25*i + 20);
+            Controls.Add(b);
+            b.Click += new EventHandler(b_Click);
+            i++;
+        }
+
+        private void b_Click(object sender, EventArgs e)
+        {
+            int i = int.Parse(((Button) sender).Text) + 1;
+            ((Button) sender).Text = i.ToString();
+        }
+
+        private void btnAddDuplicate_Click(object sender, EventArgs e)
+        {
+            Button b = new Button();
+            b.Text = "0";
+            b.Name = "duplicate";
+            b.Location = new Point(250, 25*i + 20);
+            Controls.Add(b);
+            b.Click += new EventHandler(b_Click);
+            i++;
         }
 
         #region Windows Form Designer generated code
@@ -119,35 +149,5 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         #endregion
-
-        private int i = 0;
-
-        private void addButton_Click(object sender, EventArgs e)
-        {
-            Button b = new Button();
-            b.Text = "0";
-            b.Name = "button" + i.ToString();
-            b.Location = new Point(250, 25*i + 20);
-            Controls.Add(b);
-            b.Click += new EventHandler(b_Click);
-            i++;
-        }
-
-        private void b_Click(object sender, EventArgs e)
-        {
-            int i = int.Parse(((Button) sender).Text) + 1;
-            ((Button) sender).Text = i.ToString();
-        }
-
-        private void btnAddDuplicate_Click(object sender, EventArgs e)
-        {
-            Button b = new Button();
-            b.Text = "0";
-            b.Name = "duplicate";
-            b.Location = new Point(250, 25*i + 20);
-            Controls.Add(b);
-            b.Click += new EventHandler(b_Click);
-            i++;
-        }
     }
 }

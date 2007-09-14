@@ -29,41 +29,37 @@
 '*******************************************************************************************************************/
 
 #endregion
+
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-  public partial class ToolStripMenuTestForm : Form
-  {
-    public ToolStripMenuTestForm()
+    public partial class ToolStripMenuTestForm : Form
     {
-      InitializeComponent();
-    }
+        public ToolStripMenuTestForm()
+        {
+            InitializeComponent();
+        }
 
-    private void itemToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-      label1.Text = "itemToolStripMenuItem clicked";
-    }
+        private void itemToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            label1.Text = "itemToolStripMenuItem clicked";
+        }
 
-    private void itemInContainerToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-      label1.Text = "itemInContainerToolStripMenuItem clicked";
-    }
+        private void itemInContainerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            label1.Text = "itemInContainerToolStripMenuItem clicked";
+        }
 
-    private void itemInPanelToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-      label1.Text = "itemInPanelToolStripMenuItem clicked";
-    }
+        private void itemInPanelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            label1.Text = "itemInPanelToolStripMenuItem clicked";
+        }
 
-    private void subItemToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-      label1.Text = "subItemToolStripMenuItem clicked";
+        private void subItemToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            label1.Text = "subItemToolStripMenuItem clicked";
+        }
     }
-  }
 }

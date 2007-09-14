@@ -31,8 +31,8 @@
 #endregion
 
 using System;
-using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
@@ -50,12 +50,12 @@ namespace NUnit.Extensions.Forms
 
         private int FindMatchingForms(IntPtr hwnd, IntPtr lParam)
         {
-			Form theForm = Form.FromHandle(hwnd) as Form;
-        	if (theForm != null && (name == null || theForm.Name == name))
-        	{
-        		forms.Add(theForm);
-        	}
-        	return 1;
+            Form theForm = Form.FromHandle(hwnd) as Form;
+            if (theForm != null && (name == null || theForm.Name == name))
+            {
+                forms.Add(theForm);
+            }
+            return 1;
         }
 
         /// <summary>
@@ -65,10 +65,10 @@ namespace NUnit.Extensions.Forms
         /// <returns>the FormCollection of all found forms.</returns>
         public List<Form> FindAll(string formName)
         {
-            lock(this)
+            lock (this)
             {
                 forms = new List<Form>();
-                this.name = formName;
+                name = formName;
                 IntPtr desktop = Win32.GetDesktopWindow();
                 Win32.EnumChildWindows(desktop, FindMatchingForms, IntPtr.Zero);
                 return forms;
@@ -88,11 +88,11 @@ namespace NUnit.Extensions.Forms
         public Form Find(string formName)
         {
             List<Form> list = FindAll(formName);
-            if(list.Count == 0)
+            if (list.Count == 0)
             {
                 throw new NoSuchControlException("Could not find form with name '" + formName + "'");
             }
-            if(list.Count > 1)
+            if (list.Count > 1)
             {
                 throw new AmbiguousNameException("Found too many forms with the name '" + formName + "'");
             }

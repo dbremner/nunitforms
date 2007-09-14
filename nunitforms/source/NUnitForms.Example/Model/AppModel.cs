@@ -41,6 +41,8 @@ namespace NUnit.Extensions.Forms.ExampleApplication
             data = 0;
         }
 
+        #region IAppModel Members
+
         public void BusinessLogic()
         {
             data += 1;
@@ -50,5 +52,7 @@ namespace NUnit.Extensions.Forms.ExampleApplication
         {
             return data;
         }
+
+        #endregion
     }
 }

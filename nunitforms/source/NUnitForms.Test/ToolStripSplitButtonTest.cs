@@ -30,24 +30,24 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
-using NUnit.Framework;
 using System.Windows.Forms;
+using NUnit.Framework;
+
 namespace NUnit.Extensions.Forms.TestApplications
 {
-  [TestFixture]
-  public class ToolStripSplitButtonTest : NUnitFormTest
-  {
-    [Test]
-    public void MainToolbar()
+    [TestFixture]
+    public class ToolStripSplitButtonTest : NUnitFormTest
     {
-        Form form = new ToolStripSplitButtonTestForm();
-        form.Show();
-        LabelTester label = new LabelTester("label1", form);
+        [Test]
+        public void MainToolbar()
+        {
+            Form form = new ToolStripSplitButtonTestForm();
+            form.Show();
+            LabelTester label = new LabelTester("label1", form);
 
-      ToolStripSplitButtonTester tester = new ToolStripSplitButtonTester("toolStripSplitButton1", form);
-      tester.Click();
-      Assert.IsTrue(label.Text == "toolStripSplitButton1 clicked");
+            ToolStripSplitButtonTester tester = new ToolStripSplitButtonTester("toolStripSplitButton1", form);
+            tester.Click();
+            Assert.IsTrue(label.Text == "toolStripSplitButton1 clicked");
+        }
     }
-  }
 }

@@ -37,6 +37,10 @@ namespace NUnit.Extensions.Forms.Recorder
     /// </summary>
     public class CompareControlCaptureAction : Action
     {
+        private string name;
+
+        private object val;
+
         /// <summary>
         /// Initialize this action.
         /// </summary>
@@ -53,11 +57,9 @@ namespace NUnit.Extensions.Forms.Recorder
 
         public override string ToString()
         {
-            return string.Format("CompareCapture({0},{1});","Please replace with a reference of your form", "@\"" + name + "\"");
+            return
+                string.Format("CompareCapture({0},{1});", "Please replace with a reference of your form",
+                              "@\"" + name + "\"");
         }
-
-        private string name;
-
-        private object val;
     }
 }

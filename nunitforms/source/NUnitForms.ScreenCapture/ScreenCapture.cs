@@ -1,8 +1,8 @@
-ï»¿/*----------------------------------------------------------------------------------------
+/*----------------------------------------------------------------------------------------
 
-	A-Soft IngenieurbÃ¼ro
+	A-Soft Ingenieurbüro
 
-	Copyright Â© 1994 - 2007. All Rights reserved.
+	Copyright © 1994 - 2007. All Rights reserved.
 
 	Related Copyrights :
 
@@ -50,6 +50,61 @@ namespace NUnitForms.ScreenCapture
     /// </summary>
     public class ScreenCapture
     {
+        #region CaptureType enum
+
+        /// <summary>
+        /// Define the type of screen capture.
+        /// </summary>
+        public enum CaptureType
+        {
+            /// <summary>
+            /// Capture the complete virtual screen (on multi monitor applications all screens).
+            /// </summary>
+            VirtualScreen,
+
+            /// <summary>
+            /// Capture the complete primary screen, including the taskbar.
+            /// </summary>
+            PrimaryScreen,
+
+            /// <summary>
+            /// Capture only the working area of the primary screen, this excludes the taskbar.
+            /// </summary>
+            WorkingArea,
+
+            /// <summary>
+            /// On a multi monitor system capture all screens in different images.
+            /// </summary>
+            AllScreens
+        } ;
+
+        #endregion
+
+        /// <summary>
+        /// Used for printing the captured object
+        /// </summary>
+        private PrintDocument doc = new PrintDocument();
+
+        /// <summary>
+        /// Handler for the different graphic formats
+        /// </summary>
+        private ImageFormatHandler formatHandler = null;
+
+        /// <summary>
+        /// The actual image used in printing
+        /// </summary>
+        private Bitmap image;
+
+        /// <summary>
+        /// These are all captured images.
+        /// </summary>
+        private Bitmap[] images = null;
+
+        /// <summary>
+        /// The reference to the file path of the last captured screen shot.
+        /// </summary>
+        private string lastCapture;
+
         /// <summary>
         /// Creator
         /// </summary>
@@ -75,12 +130,35 @@ namespace NUnitForms.ScreenCapture
         /// </summary>
         public ImageFormatHandler FormatHandler
         {
-            set
+            set { formatHandler = value; }
+        }
+
+        /// <summary>
+        /// Gets the file path of the last captured screen shot.
+        /// </summary>
+        /// <value>
+        /// The path and file name of the last captured screen shot.
+        /// </value>
+        /// <exception cref=" ArgumentException">
+        /// This exception is thrown if the value is not effective.
+        /// </exception>
+        public string LastCapture
+        {
+            get { return lastCapture; }
+            protected
+                set
             {
-                formatHandler = value;
+                if (value != null)
+                {
+                    lastCapture = value;
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
             }
         }
-        
+
         /// <summary>
         /// Capture a screen shot of a <see cref="Form"/>.
         /// </summary>
@@ -93,38 +171,10 @@ namespace NUnitForms.ScreenCapture
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(screenShotPath));
             }
-            return Capture(form, GenerateUniqueName(form.Name, screenShotPath), ImageFormatHandler.ImageFormatTypes.imgPNG);
+            return
+                Capture(form, GenerateUniqueName(form.Name, screenShotPath), ImageFormatHandler.ImageFormatTypes.imgPNG);
         }
-        
-        /// <summary>
-        /// Gets the file path of the last captured screen shot.
-        /// </summary>
-        /// <value>
-        /// The path and file name of the last captured screen shot.
-        /// </value>
-        /// <exception cref=" ArgumentException">
-        /// This exception is thrown if the value is not effective.
-        /// </exception>
-        public string LastCapture
-        {
-            get
-            {
-                return lastCapture;
-            }
-            protected
-                    set
-            {
-                if (value != null)
-                {
-                    lastCapture = value;
-                }
-                else
-                {
-                    throw new ArgumentException();
-                }
-            }
-        }
-        
+
         /// <summary>
         /// Generate a unique name for a <c>PNG</c> file.
         /// </summary>
@@ -140,12 +190,12 @@ namespace NUnitForms.ScreenCapture
         private string GenerateUniqueName(string formName, string path)
         {
             int counter = 1;
-            while(File.Exists(path + formName + "_" + counter + ".png"))
+            while (File.Exists(path + formName + "_" + counter + ".png"))
             {
                 counter++;
             }
             LastCapture = path + formName + "_" + counter + ".png";
-            return LastCapture;            
+            return LastCapture;
         }
 
         /// <summary>
@@ -236,7 +286,7 @@ namespace NUnitForms.ScreenCapture
         /// <returns>The image which has been captured.</returns>
         public virtual Bitmap Capture(Form window, bool onlyClient)
         {
-            if(!onlyClient)
+            if (!onlyClient)
             {
                 return Capture(window);
             }
@@ -270,21 +320,22 @@ namespace NUnitForms.ScreenCapture
             try
             {
                 // Create new graphics object using handle to window.
-                using(Graphics graphics = window.CreateGraphics())
+                using (Graphics graphics = window.CreateGraphics())
                 {
                     memoryImage = new Bitmap(rc.Width, rc.Height, graphics);
 
-                    using(Graphics memoryGrahics = Graphics.FromImage(memoryImage))
+                    using (Graphics memoryGrahics = Graphics.FromImage(memoryImage))
                     {
                         memoryGrahics.CopyFromScreen(rc.X, rc.Y, 0, 0, rc.Size, CopyPixelOperation.SourceCopy);
                     }
                 }
             }
-            catch(ObjectDisposedException)
+            catch (ObjectDisposedException)
             {
-                MessageBox.Show("Please re-open your form.", "Capture failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Please re-open your form.", "Capture failed", MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Capture failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -331,22 +382,22 @@ namespace NUnitForms.ScreenCapture
             try
             {
                 // Create new graphics object using handle to window.
-                using(Graphics graphics = Graphics.FromHwnd(handle))
+                using (Graphics graphics = Graphics.FromHwnd(handle))
                 {
                     Rectangle rc = NativeMethods.GetWindowRect(handle);
 
-                    if((int) graphics.VisibleClipBounds.Width > 0 && (int) graphics.VisibleClipBounds.Height > 0)
+                    if ((int) graphics.VisibleClipBounds.Width > 0 && (int) graphics.VisibleClipBounds.Height > 0)
                     {
                         memoryImage = new Bitmap(rc.Width, rc.Height, graphics);
 
-                        using(Graphics memoryGrahics = Graphics.FromImage(memoryImage))
+                        using (Graphics memoryGrahics = Graphics.FromImage(memoryImage))
                         {
                             memoryGrahics.CopyFromScreen(rc.X, rc.Y, 0, 0, rc.Size, CopyPixelOperation.SourceCopy);
                         }
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Capture failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -379,13 +430,13 @@ namespace NUnitForms.ScreenCapture
         /// <returns>An array of images captured.</returns>
         public virtual Bitmap[] Capture(CaptureType typeOfCapture)
         {
-        	int count = 1;
+            int count = 1;
 
             try
             {
                 Screen[] screens = Screen.AllScreens;
                 Rectangle rc;
-                switch(typeOfCapture)
+                switch (typeOfCapture)
                 {
                     case CaptureType.PrimaryScreen:
                         rc = Screen.PrimaryScreen.Bounds;
@@ -398,7 +449,7 @@ namespace NUnitForms.ScreenCapture
                         break;
                     case CaptureType.AllScreens:
                         count = screens.Length;
-                		rc = screens[0].WorkingArea;
+                        rc = screens[0].WorkingArea;
                         break;
                     default:
                         rc = SystemInformation.VirtualScreen;
@@ -406,23 +457,23 @@ namespace NUnitForms.ScreenCapture
                 }
                 images = new Bitmap[count];
 
-                for(int index = 0; index < count; index++)
+                for (int index = 0; index < count; index++)
                 {
-                    if(index > 0)
+                    if (index > 0)
                     {
                         rc = screens[index].WorkingArea;
                     }
 
-                	Bitmap memoryImage = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppArgb);
+                    Bitmap memoryImage = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppArgb);
 
-                    using(Graphics memoryGrahics = Graphics.FromImage(memoryImage))
+                    using (Graphics memoryGrahics = Graphics.FromImage(memoryImage))
                     {
                         memoryGrahics.CopyFromScreen(rc.X, rc.Y, 0, 0, rc.Size, CopyPixelOperation.SourceCopy);
                     }
                     images[index] = memoryImage;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Capture failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -434,18 +485,18 @@ namespace NUnitForms.ScreenCapture
         /// </summary>
         public virtual void Print()
         {
-            if(images != null)
+            if (images != null)
             {
                 try
                 {
-                    for(int i = 0; i < images.Length; i++)
+                    for (int i = 0; i < images.Length; i++)
                     {
                         image = images[i];
                         doc.DefaultPageSettings.Landscape = (image.Width > image.Height);
                         doc.Print();
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString(), "Capture failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -468,7 +519,7 @@ namespace NUnitForms.ScreenCapture
             rc.Width = rc.Width - doc.DefaultPageSettings.Margins.Left - doc.DefaultPageSettings.Margins.Right;
             rc.X = rc.X + doc.DefaultPageSettings.Margins.Left;
 
-            if(rc.Height/rc.Width > ratio)
+            if (rc.Height/rc.Width > ratio)
             {
                 rc.Height = rc.Width*ratio;
             }
@@ -495,7 +546,7 @@ namespace NUnitForms.ScreenCapture
 
             ext = formatHandler.GetDefaultFilenameExtension(format);
 
-            if(ext.Length == 0)
+            if (ext.Length == 0)
             {
                 format = ImageFormatHandler.ImageFormatTypes.imgPNG;
                 ext = "png";
@@ -506,9 +557,9 @@ namespace NUnitForms.ScreenCapture
                 ImageCodecInfo info;
                 EncoderParameters parameters = formatHandler.GetEncoderParameters(format, out info);
 
-                for(int i = 0; i < images.Length; i++)
+                for (int i = 0; i < images.Length; i++)
                 {
-                    if(images.Length > 1)
+                    if (images.Length > 1)
                     {
                         filename = String.Format("{0}\\{1}.{2:D2}.{3}", directory, name, i + 1, ext);
                     }
@@ -518,7 +569,7 @@ namespace NUnitForms.ScreenCapture
                     }
                     image = images[i];
 
-                    if(parameters != null)
+                    if (parameters != null)
                     {
                         image.Save(filename, info, parameters);
                     }
@@ -528,63 +579,12 @@ namespace NUnitForms.ScreenCapture
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string s =
-                        string.Format("Saving image to [{0}] in format [{1}].\n{2}", filename, format,ex);
+                    string.Format("Saving image to [{0}] in format [{1}].\n{2}", filename, format, ex);
                 MessageBox.Show(s, "Capture failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
-        /// <summary>
-        /// Define the type of screen capture.
-        /// </summary>
-        public enum CaptureType
-        {
-            /// <summary>
-            /// Capture the complete virtual screen (on multi monitor applications all screens).
-            /// </summary>
-            VirtualScreen,
-
-            /// <summary>
-            /// Capture the complete primary screen, including the taskbar.
-            /// </summary>
-            PrimaryScreen,
-
-            /// <summary>
-            /// Capture only the working area of the primary screen, this excludes the taskbar.
-            /// </summary>
-            WorkingArea,
-
-            /// <summary>
-            /// On a multi monitor system capture all screens in different images.
-            /// </summary>
-            AllScreens
-        } ;
-
-        /// <summary>
-        /// The actual image used in printing
-        /// </summary>
-        private Bitmap image;
-
-        /// <summary>
-        /// These are all captured images.
-        /// </summary>
-        private Bitmap[] images = null;
-
-        /// <summary>
-        /// Used for printing the captured object
-        /// </summary>
-        private PrintDocument doc = new PrintDocument();
-
-        /// <summary>
-        /// Handler for the different graphic formats
-        /// </summary>
-        private ImageFormatHandler formatHandler = null;
-
-        /// <summary>
-        /// The reference to the file path of the last captured screen shot.
-        /// </summary>
-        private string lastCapture;
     }
 }

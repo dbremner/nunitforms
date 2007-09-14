@@ -35,23 +35,25 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
-	public class LinkLabelRecorder : ControlRecorder
-	{
-		public override Type RecorderType
-		{
-			get { return typeof (LinkLabel); }
-		}
+    public class LinkLabelRecorder : ControlRecorder
+    {
+        public LinkLabelRecorder(Listener listener) : base(listener)
+        {
+        }
 
-		public override Type TesterType
-		{
-			get { return typeof (LinkLabelTester); }
-		}
+        public override Type RecorderType
+        {
+            get { return typeof (LinkLabel); }
+        }
 
-		public void LinkClicked(object sender, LinkLabelLinkClickedEventArgs args)
-		{
-			Listener.FireEvent(TesterType, sender, "Click");
-		}
+        public override Type TesterType
+        {
+            get { return typeof (LinkLabelTester); }
+        }
 
-		public LinkLabelRecorder(Listener listener) : base(listener) {}
-	}
+        public void LinkClicked(object sender, LinkLabelLinkClickedEventArgs args)
+        {
+            Listener.FireEvent(TesterType, sender, "Click");
+        }
+    }
 }

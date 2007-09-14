@@ -34,15 +34,15 @@ using System;
 
 namespace NUnit.Extensions.Forms.Exceptions
 {
-	/// <summary>
-	/// Exception is thrown when you attempt an action on a Control that is not
-	/// enabled.
-	/// </summary>
-	public class ControlNotEnabledException : Exception
-	{
-		public ControlNotEnabledException(string message)
-			: base(message)
+    /// <summary>
+    /// Exception is thrown when you attempt an action on a Control that is not
+    /// enabled.
+    /// </summary>
+    public class ControlNotEnabledException : Exception
+    {
+        public ControlNotEnabledException(string message)
+            : base(message)
         {
         }
-	}
+    }
 }

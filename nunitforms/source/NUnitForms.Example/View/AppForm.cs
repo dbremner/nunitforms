@@ -42,16 +42,16 @@ namespace NUnit.Extensions.Forms.ExampleApplication
     /// </summary>
     public class AppForm : Form
     {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
+
         private IAppController controller;
 
         private Button countButton;
 
         private Button showModalButton;
-
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private Container components = null;
 
         public AppForm(IAppController controller)
         {
@@ -77,14 +77,30 @@ namespace NUnit.Extensions.Forms.ExampleApplication
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void countButton_Click(object sender, EventArgs e)
+        {
+            controller.Count();
+            UpdateDisplay();
+        }
+
+        private void showModalButton_Click(object sender, EventArgs e)
+        {
+            controller.ShowModal();
+        }
+
+        private void AppForm_Load(object sender, EventArgs e)
+        {
+            UpdateDisplay();
         }
 
         #region Windows Form Designer generated code
@@ -128,21 +144,5 @@ namespace NUnit.Extensions.Forms.ExampleApplication
         }
 
         #endregion
-
-        private void countButton_Click(object sender, EventArgs e)
-        {
-            controller.Count();
-            UpdateDisplay();
-        }
-
-        private void showModalButton_Click(object sender, EventArgs e)
-        {
-            controller.ShowModal();
-        }
-
-        private void AppForm_Load(object sender, EventArgs e)
-        {
-            UpdateDisplay();
-        }
     }
 }

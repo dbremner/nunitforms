@@ -33,8 +33,6 @@
 //Contributed by: Ian Cooper
 
 using System.Windows.Forms;
-
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -53,21 +51,16 @@ namespace NUnit.Extensions.Forms.TestApplications
             listViewDetails = new ListViewTester("listViewDetails", listViewForm);
         }
 
-        [Test]
-        public void ShowListViewForm()
+        private ListViewItem[] ColorList()
         {
             listViewForm.Show();
-            Assert.IsTrue(listViewDetails.Properties.Visible);
-        }
-
-        [Test]
-        public void ColorSelectionTest()
-        {
-            listViewForm.Show();
-            listViewDetails.Items.AddRange(ColorList());
-            string[] selectedColors = new string[] {"Red", "Violet"};
-            listViewDetails.SelectItems(selectedColors);
-            Assert.IsTrue(listViewDetails.SelectedItemsMatch(selectedColors));
+            return
+                new ListViewItem[]
+                    {
+                        new ListViewItem("Red"), new ListViewItem("Orange"), new ListViewItem("Yellow"),
+                        new ListViewItem("Green"), new ListViewItem("Blue"), new ListViewItem("Indigo"),
+                        new ListViewItem("Violet")
+                    };
         }
 
         [Test]
@@ -86,16 +79,21 @@ namespace NUnit.Extensions.Forms.TestApplications
             Assert.IsFalse(listViewDetails.SelectedItemsMatch(selectedColors));
         }
 
-        private ListViewItem[] ColorList()
+        [Test]
+        public void ColorSelectionTest()
         {
             listViewForm.Show();
-            return
-                    new ListViewItem[]
-                            {
-                                    new ListViewItem("Red"), new ListViewItem("Orange"), new ListViewItem("Yellow"),
-                                    new ListViewItem("Green"), new ListViewItem("Blue"), new ListViewItem("Indigo"),
-                                    new ListViewItem("Violet")
-                            };
+            listViewDetails.Items.AddRange(ColorList());
+            string[] selectedColors = new string[] {"Red", "Violet"};
+            listViewDetails.SelectItems(selectedColors);
+            Assert.IsTrue(listViewDetails.SelectedItemsMatch(selectedColors));
+        }
+
+        [Test]
+        public void ShowListViewForm()
+        {
+            listViewForm.Show();
+            Assert.IsTrue(listViewDetails.Properties.Visible);
         }
     }
 }

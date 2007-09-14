@@ -35,30 +35,32 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
-	public class ComboBoxRecorder : ControlRecorder
-	{
-		public override Type RecorderType
-		{
-			get { return typeof (ComboBox); }
-		}
+    public class ComboBoxRecorder : ControlRecorder
+    {
+        public ComboBoxRecorder(Listener listener) : base(listener)
+        {
+        }
 
-		public override Type TesterType
-		{
-			get { return typeof (ComboBoxTester); }
-		}
+        public override Type RecorderType
+        {
+            get { return typeof (ComboBox); }
+        }
 
-		public ComboBoxRecorder(Listener listener) : base(listener) {}
+        public override Type TesterType
+        {
+            get { return typeof (ComboBoxTester); }
+        }
 
-		public void TextChanged(object sender, EventArgs e)
-		{
-			Listener.FireEvent(TesterType, sender, "Enter", ((ComboBox) sender).Text);
-		}
+        public void TextChanged(object sender, EventArgs e)
+        {
+            Listener.FireEvent(TesterType, sender, "Enter", ((ComboBox) sender).Text);
+        }
 
-		public void SelectedIndexChanged(object sender, EventArgs e)
-		{
-			EventAction action = new EventAction("Select", ((ComboBox) sender).SelectedIndex);
-			action.Comment = ((ComboBox) sender).Text;
-			Listener.FireEvent(TesterType, sender, action);
-		}
-	}
+        public void SelectedIndexChanged(object sender, EventArgs e)
+        {
+            EventAction action = new EventAction("Select", ((ComboBox) sender).SelectedIndex);
+            action.Comment = ((ComboBox) sender).Text;
+            Listener.FireEvent(TesterType, sender, action);
+        }
+    }
 }

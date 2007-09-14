@@ -35,10 +35,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
-
 using NUnit.Framework;
-
-using CategoryAttribute=NUnit.Framework.CategoryAttribute;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
@@ -54,7 +51,7 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// assigning a service (hidden) WindowStation to the process.
     /// </remarks>
     [TestFixture]
-    [CategoryAttribute("UsesServiceWindowStation")]
+    [Framework.Category("UsesServiceWindowStation")]
     public class ModalFormsInServiceTest : ModalFormsTest
     {
         private const int GENERIC_ALL = 0x10000000;
@@ -79,18 +76,18 @@ namespace NUnit.Extensions.Forms.TestApplications
         public void PreInit()
         {
             originalWinStation = GetProcessWindowStation();
-            if(originalWinStation == IntPtr.Zero)
+            if (originalWinStation == IntPtr.Zero)
             {
                 throw new Win32Exception();
             }
 
             serviceWinStation = CreateWindowStation(null, 0, GENERIC_ALL, IntPtr.Zero);
-            if(serviceWinStation == IntPtr.Zero)
+            if (serviceWinStation == IntPtr.Zero)
             {
                 throw new Win32Exception();
             }
 
-            if(!SetProcessWindowStation(serviceWinStation))
+            if (!SetProcessWindowStation(serviceWinStation))
             {
                 throw new Win32Exception();
             }
@@ -99,7 +96,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         [TestFixtureTearDown()]
         public void PostVerify()
         {
-            if(originalWinStation == IntPtr.Zero)
+            if (originalWinStation == IntPtr.Zero)
             {
                 return;
             }

@@ -35,30 +35,30 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-	///<summary>
-	/// Test form for the OpenFileDialogTester
-	///</summary>
-	public partial class OpenFileDialogTestForm : Form
-	{
-		/// <summary>
-		/// Constructes a new OpenFileDialogTestForm.
-		/// </summary>
-		public OpenFileDialogTestForm()
-		{
-			InitializeComponent();
-		}
+    ///<summary>
+    /// Test form for the OpenFileDialogTester
+    ///</summary>
+    public partial class OpenFileDialogTestForm : Form
+    {
+        /// <summary>
+        /// Constructes a new OpenFileDialogTestForm.
+        /// </summary>
+        public OpenFileDialogTestForm()
+        {
+            InitializeComponent();
+        }
 
-		private void btOpenFile_Click(object sender, EventArgs e)
-		{
-			OpenFileDialog open_dlg = new OpenFileDialog();
-			if (open_dlg.ShowDialog() == DialogResult.OK)
-			{
-				lblFileName.Text = open_dlg.FileName;
-			}
-			else
-			{
-				lblFileName.Text = "cancel pressed";
-			}
-		}
-	}
+        private void btOpenFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog open_dlg = new OpenFileDialog();
+            if (open_dlg.ShowDialog() == DialogResult.OK)
+            {
+                lblFileName.Text = open_dlg.FileName;
+            }
+            else
+            {
+                lblFileName.Text = "cancel pressed";
+            }
+        }
+    }
 }

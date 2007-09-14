@@ -30,7 +30,6 @@
 
 #endregion
 
-using System.Collections;
 using System.Collections.Generic;
 
 namespace NUnit.Extensions.Forms.Recorder
@@ -40,20 +39,22 @@ namespace NUnit.Extensions.Forms.Recorder
     ///</summary>
     public abstract class CollapsingProcessor : ICollapsingProcessor
     {
-		/// <summary>
-		/// Process the given actions, possibly collapsing adjacent ones.
-		/// </summary>
-		/// <param name="actions">The list of actions to process.</param>
-		/// <returns>The collapsed list of actions.</returns>
-		public ICollection<Action> Process(ICollection<Action> actions)
+        #region ICollapsingProcessor Members
+
+        /// <summary>
+        /// Process the given actions, possibly collapsing adjacent ones.
+        /// </summary>
+        /// <param name="actions">The list of actions to process.</param>
+        /// <returns>The collapsed list of actions.</returns>
+        public ICollection<Action> Process(ICollection<Action> actions)
         {
-			List<Action> list = new List<Action>();
+            List<Action> list = new List<Action>();
 
             Action lastAdded = null;
 
-            foreach(Action action in actions)
+            foreach (Action action in actions)
             {
-                if(Collapse(lastAdded, action))
+                if (Collapse(lastAdded, action))
                 {
                     list.RemoveAt(list.Count - 1);
                 }
@@ -65,28 +66,29 @@ namespace NUnit.Extensions.Forms.Recorder
             return list;
         }
 
-    	/// <summary>
-    	/// Returns true if the given actions can be collapsed.
-    	/// </summary>
-    	/// <param name="action1">The earlier event to test.</param>
-    	/// <param name="action2">The latter event to test.</param>
-    	/// <returns>True if these events can be collapsed; else false.</returns>
-    	public abstract bool CanCollapse(EventAction action1, EventAction action2);
+        /// <summary>
+        /// Returns true if the given actions can be collapsed.
+        /// </summary>
+        /// <param name="action1">The earlier event to test.</param>
+        /// <param name="action2">The latter event to test.</param>
+        /// <returns>True if these events can be collapsed; else false.</returns>
+        public abstract bool CanCollapse(EventAction action1, EventAction action2);
 
-    	private bool Collapse(object action1, object action2)
+        #endregion
+
+        private bool Collapse(object action1, object action2)
         {
             EventAction first = action1 as EventAction;
             EventAction second = action2 as EventAction;
-            if(first == null)
+            if (first == null)
             {
                 return false;
             }
-            if(second == null)
+            if (second == null)
             {
                 return false;
             }
             return CanCollapse(first, second);
         }
-
     }
 }

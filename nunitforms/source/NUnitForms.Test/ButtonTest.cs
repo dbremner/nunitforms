@@ -64,21 +64,21 @@ namespace NUnit.Extensions.Forms.TestApplications
             Assert.AreEqual("button1", button.Text);
         }
 
-		[Test]
-		[ExpectedException(typeof(ControlNotVisibleException))]
-		public void Click_ThrowsException_IfNotVisible()
-		{
-			button.Properties.Visible = false;
-			button.Click();
-		}
+        [Test]
+        [ExpectedException(typeof (ControlNotEnabledException))]
+        public void Click_ThrowsException_IfNotEnabled()
+        {
+            button.Properties.Enabled = false;
+            button.Click();
+        }
 
-		[Test]
-		[ExpectedException(typeof(ControlNotEnabledException))]
-		public void Click_ThrowsException_IfNotEnabled()
-		{
-			button.Properties.Enabled = false;
-			button.Click();
-		}
+        [Test]
+        [ExpectedException(typeof (ControlNotVisibleException))]
+        public void Click_ThrowsException_IfNotVisible()
+        {
+            button.Properties.Visible = false;
+            button.Click();
+        }
 
         [Test]
         public void FireEvent()
@@ -93,7 +93,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         {
             Assert.AreEqual("0", label.Text);
             button.FireEvent("Click", new EventArgs());
-            Assert.AreEqual("1", label.Text);            
+            Assert.AreEqual("1", label.Text);
         }
     }
 }

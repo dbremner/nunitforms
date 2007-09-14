@@ -42,13 +42,10 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// </summary>
     public class ContextMenuTestForm : Form
     {
-        private Label myLabel;
-
-        private Label myCounterLabel;
-
-        private ContextMenu myLabelContextMenu;
-
-        private MenuItem myFirstMenuItem;
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
 
         private MenuItem menuItem1;
 
@@ -62,16 +59,14 @@ namespace NUnit.Extensions.Forms.TestApplications
 
         private MenuItem menuItem6;
 
-        private ContextMenu secondMenu;
-
         private MenuItem menuItem7;
 
         private MenuItem menuItem8;
-
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private Container components = null;
+        private Label myCounterLabel;
+        private MenuItem myFirstMenuItem;
+        private Label myLabel;
+        private ContextMenu myLabelContextMenu;
+        private ContextMenu secondMenu;
 
         public ContextMenuTestForm()
         {
@@ -90,14 +85,20 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void myFirstMenuItem_Click(object sender, EventArgs e)
+        {
+            int i = int.Parse(myCounterLabel.Text) + 1;
+            myCounterLabel.Text = i.ToString();
         }
 
         #region Windows Form Designer generated code
@@ -135,8 +136,8 @@ namespace NUnit.Extensions.Forms.TestApplications
             // myLabelContextMenu
             // 
             this.myLabelContextMenu.MenuItems.AddRange(
-                    new MenuItem[]
-                            {this.myFirstMenuItem, this.menuItem1, this.menuItem2, this.menuItem3, this.menuItem4});
+                new MenuItem[]
+                    {this.myFirstMenuItem, this.menuItem1, this.menuItem2, this.menuItem3, this.menuItem4});
             // 
             // myFirstMenuItem
             // 
@@ -211,11 +212,5 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         #endregion
-
-        private void myFirstMenuItem_Click(object sender, EventArgs e)
-        {
-            int i = int.Parse(myCounterLabel.Text) + 1;
-            myCounterLabel.Text = i.ToString();
-        }
     }
 }

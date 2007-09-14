@@ -34,78 +34,79 @@ using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-	[TestFixture]
-	public class ToolStripButtonTest : NUnitFormTest
-	{
-		private LabelTester label1 = new LabelTester("label1");
+    [TestFixture]
+    public class ToolStripButtonTest : NUnitFormTest
+    {
+        private LabelTester label1 = new LabelTester("label1");
 
-		public override void Setup()
-		{
-			new ToolStripButtonTestForm().Show();
-		}
+        public override void Setup()
+        {
+            new ToolStripButtonTestForm().Show();
+        }
 
-		[Test]
-		public void MainMenuButton()
-		{
-			ToolStripButtonTester tester = new ToolStripButtonTester("toolStripButtonOnMain");
-			tester.Click();
-			Assert.AreEqual(label1.Text, "toolStripButtonOnMain clicked");
-		}
+        [Test]
+        public void BottomContainerButton()
+        {
+            ToolStripButtonTester tester = new ToolStripButtonTester("toolStripButtonBottomInContainer");
+            tester.Click();
+            Assert.AreEqual(label1.Text, "toolStripButtonBottomInContainer clicked");
+        }
 
-		[Test]
-		public void PanelButton()
-		{
-			ToolStripButtonTester tester = new ToolStripButtonTester("toolStripButtonInPanel");
-			tester.Click();
-			Assert.AreEqual(label1.Text, "toolStripButtonInPanel clicked");
-		}
+        [Test]
+        public void CenterContainerButton()
+        {
+            ToolStripButtonTester tester = new ToolStripButtonTester("toolStripButtonCenterInContainer");
+            tester.Click();
+            Assert.AreEqual(label1.Text, "toolStripButtonCenterInContainer clicked");
+        }
 
-		[Test]
-		public void TopContainerButton()
-		{
-			ToolStripButtonTester tester = new ToolStripButtonTester("toolStripButtonTopInContainer");
-			tester.Click();
-			Assert.AreEqual(label1.Text, "toolStripButtonTopInContainer clicked");
-		}
+        [Test]
+        public void LeftContainerButton()
+        {
+            ToolStripButtonTester tester = new ToolStripButtonTester("toolStripButtonLeftInContainer");
+            tester.Click();
+            Assert.AreEqual(label1.Text, "toolStripButtonLeftInContainer clicked");
+        }
 
-		[Test]
-		public void LeftContainerButton()
-		{
-			ToolStripButtonTester tester = new ToolStripButtonTester("toolStripButtonLeftInContainer");
-			tester.Click();
-			Assert.AreEqual(label1.Text, "toolStripButtonLeftInContainer clicked");
-		}
+        [Test]
+        public void MainMenuButton()
+        {
+            ToolStripButtonTester tester = new ToolStripButtonTester("toolStripButtonOnMain");
+            tester.Click();
+            Assert.AreEqual(label1.Text, "toolStripButtonOnMain clicked");
+        }
 
-		[Test]
-		public void CenterContainerButton()
-		{
-			ToolStripButtonTester tester = new ToolStripButtonTester("toolStripButtonCenterInContainer");
-			tester.Click();
-			Assert.AreEqual(label1.Text, "toolStripButtonCenterInContainer clicked");
-		}
+        [Test]
+        public void PanelButton()
+        {
+            ToolStripButtonTester tester = new ToolStripButtonTester("toolStripButtonInPanel");
+            tester.Click();
+            Assert.AreEqual(label1.Text, "toolStripButtonInPanel clicked");
+        }
 
-		[Test]
-		public void RightContainerButton()
-		{
-			ToolStripButtonTester tester = new ToolStripButtonTester("toolStripButtonRightInContainer");
-			tester.Click();
-			Assert.AreEqual(label1.Text, "toolStripButtonRightInContainer clicked");
-		}
+        [Test]
+        public void RightContainerButton()
+        {
+            ToolStripButtonTester tester = new ToolStripButtonTester("toolStripButtonRightInContainer");
+            tester.Click();
+            Assert.AreEqual(label1.Text, "toolStripButtonRightInContainer clicked");
+        }
 
-		[Test]
-		public void BottomContainerButton()
-		{
-			ToolStripButtonTester tester = new ToolStripButtonTester("toolStripButtonBottomInContainer");
-			tester.Click();
-			Assert.AreEqual(label1.Text, "toolStripButtonBottomInContainer clicked");
-		}
+        [Test]
+        public void StatusBarDropDownButton()
+        {
+            ToolStripDropDownButtonTester tester =
+                new ToolStripDropDownButtonTester("toolStripDropDownButtonOnStatusStrip");
+            tester.Click();
+            Assert.AreEqual(label1.Text, "toolStripDropDownButtonOnStatusStrip clicked");
+        }
 
-		[Test]
-		public void StatusBarDropDownButton()
-		{
-            ToolStripDropDownButtonTester tester = new ToolStripDropDownButtonTester("toolStripDropDownButtonOnStatusStrip");
-			tester.Click();
-			Assert.AreEqual(label1.Text, "toolStripDropDownButtonOnStatusStrip clicked");
-		}
-	}
+        [Test]
+        public void TopContainerButton()
+        {
+            ToolStripButtonTester tester = new ToolStripButtonTester("toolStripButtonTopInContainer");
+            tester.Click();
+            Assert.AreEqual(label1.Text, "toolStripButtonTopInContainer clicked");
+        }
+    }
 }

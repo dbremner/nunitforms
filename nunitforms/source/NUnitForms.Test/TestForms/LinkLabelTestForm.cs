@@ -41,14 +41,14 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// </summary>
     public class LinkLabelTestForm : Form
     {
-        private Label myLabel;
-
-        private LinkLabel myLinkLabel;
-
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
+
+        private Label myLabel;
+
+        private LinkLabel myLinkLabel;
 
         public LinkLabelTestForm()
         {
@@ -67,14 +67,20 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void myLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            int i = int.Parse(myLabel.Text) + 1;
+            myLabel.Text = i.ToString();
         }
 
         #region Windows Form Designer generated code
@@ -117,11 +123,5 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         #endregion
-
-        private void myLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            int i = int.Parse(myLabel.Text) + 1;
-            myLabel.Text = i.ToString();
-        }
     }
 }

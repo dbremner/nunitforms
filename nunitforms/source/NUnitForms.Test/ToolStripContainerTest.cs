@@ -30,21 +30,19 @@
 
 #endregion
 
-using System;
-using NUnit.Framework;
 using NUnit.Extensions.Forms.Test.TestForms;
+using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
     [TestFixture]
     public class ToolStripContainerTest : NUnitFormTest
     {
- 
         private ButtonTester button;
         private TextBoxTester box;
         private ToolStripItemTester tsb;
         private ToolStripItemTester tsl;
-        
+
         public override void Setup()
         {
             new ToolStripContainerTestForm().Show();

@@ -30,7 +30,6 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -38,21 +37,6 @@ namespace NUnit.Extensions.Forms.TestApplications
     [TestFixture]
     public class DatabindingTest : NUnitFormTest
     {
-        [Test]
-        public void CheckBoxDataSetBinding()
-        {
-            ExpectModal("False", "falsehandler");
-            ExpectModal("True", "truehandler");
-
-            new CheckBoxDataSetBindingTestForm().Show();
-
-            new ButtonTester("btnView").Click();
-
-            new CheckBoxTester("myCheckBox").Check();
-
-            new ButtonTester("btnView").Click();
-        }
-
         public void falsehandler()
         {
             MessageBoxTester mb = new MessageBoxTester("False");
@@ -67,17 +51,31 @@ namespace NUnit.Extensions.Forms.TestApplications
             mb.ClickOk();
         }
 
-        [Test]
-        public void TextBoxDataSetBinding()
+        public void oldhandler()
         {
-            ExpectModal("Old", "oldhandler");
-            ExpectModal("New", "newhandler");
+            MessageBoxTester mb = new MessageBoxTester("Old");
+            Assert.AreEqual("Old", mb.Text);
+            mb.ClickOk();
+        }
 
-            new TextBoxDataSetBindingTestForm().Show();
+        public void newhandler()
+        {
+            MessageBoxTester mb = new MessageBoxTester("New");
+            Assert.AreEqual("New", mb.Text);
+            mb.ClickOk();
+        }
+
+        [Test]
+        public void CheckBoxDataSetBinding()
+        {
+            ExpectModal("False", "falsehandler");
+            ExpectModal("True", "truehandler");
+
+            new CheckBoxDataSetBindingTestForm().Show();
 
             new ButtonTester("btnView").Click();
 
-            new TextBoxTester("myTextBox").Enter("New");
+            new CheckBoxTester("myCheckBox").Check();
 
             new ButtonTester("btnView").Click();
         }
@@ -97,18 +95,19 @@ namespace NUnit.Extensions.Forms.TestApplications
             new ButtonTester("btnView").Click();
         }
 
-        public void oldhandler()
+        [Test]
+        public void TextBoxDataSetBinding()
         {
-            MessageBoxTester mb = new MessageBoxTester("Old");
-            Assert.AreEqual("Old", mb.Text);
-            mb.ClickOk();
-        }
+            ExpectModal("Old", "oldhandler");
+            ExpectModal("New", "newhandler");
 
-        public void newhandler()
-        {
-            MessageBoxTester mb = new MessageBoxTester("New");
-            Assert.AreEqual("New", mb.Text);
-            mb.ClickOk();
+            new TextBoxDataSetBindingTestForm().Show();
+
+            new ButtonTester("btnView").Click();
+
+            new TextBoxTester("myTextBox").Enter("New");
+
+            new ButtonTester("btnView").Click();
         }
     }
 }

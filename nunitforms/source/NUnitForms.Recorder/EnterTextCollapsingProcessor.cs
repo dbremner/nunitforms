@@ -39,9 +39,9 @@ namespace NUnit.Extensions.Forms.Recorder
         public override bool CanCollapse(EventAction action1, EventAction action2)
         {
             return
-                    action1.Control == action2.Control &&
-					action1.MethodName == action2.MethodName &&
-                    action1.MethodName == Enter;
+                action1.Control == action2.Control &&
+                action1.MethodName == action2.MethodName &&
+                action1.MethodName == Enter;
         }
     }
 }

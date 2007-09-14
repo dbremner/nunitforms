@@ -32,13 +32,16 @@
 
 //Contributed by: Ian Cooper
 
+using System.ComponentModel;
+using System.Windows.Forms;
+
 namespace NUnit.Extensions.Forms.TestApplications
 {
-    public class CheckedListBoxTestForm : System.Windows.Forms.Form
+    public class CheckedListBoxTestForm : Form
     {
-        private System.Windows.Forms.CheckedListBox checkedListBox;
+        private CheckedListBox checkedListBox;
 
-        private System.ComponentModel.Container components = null;
+        private Container components = null;
 
         public CheckedListBoxTestForm()
         {
@@ -47,9 +50,9 @@ namespace NUnit.Extensions.Forms.TestApplications
 
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }

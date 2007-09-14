@@ -30,23 +30,22 @@
 
 #endregion
 
-
 namespace NUnit.Extensions.Forms
 {
-	/// <summary>
-	/// A ControlTester for testing TabControls.
-	/// </summary>
-	/// <remarks>
-	/// There is a convenience method for selecting a specified tab.</remarks>
-	public partial class TabControlTester
+    /// <summary>
+    /// A ControlTester for testing TabControls.
+    /// </summary>
+    /// <remarks>
+    /// There is a convenience method for selecting a specified tab.</remarks>
+    public partial class TabControlTester
     {
-		/// <summary>
-		/// Selects the tab at the specified index.
-		/// </summary>
-		/// <param name="index">The tab to select.</param>
-		public void SelectTab(int index)
-		{
-			Properties.SelectedIndex = index;
-		}
-	}
+        /// <summary>
+        /// Selects the tab at the specified index.
+        /// </summary>
+        /// <param name="index">The tab to select.</param>
+        public void SelectTab(int index)
+        {
+            Properties.SelectedIndex = index;
+        }
+    }
 }

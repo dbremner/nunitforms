@@ -90,17 +90,15 @@ namespace NUnit.Extensions.Forms
     /// </example>
     public class MouseController : IDisposable
     {
-        private GraphicsUnit positionUnit;
-
+        private static readonly int hoverTime;
         private MouseControl mouseControl = null;
 
         private Win32.Point originalPosition;
+        private GraphicsUnit positionUnit;
 
         private bool restoreUserInput = false;
 
         private PointF scale;
-
-        private static readonly int hoverTime;
 
         #region Contstructors
 
@@ -147,12 +145,12 @@ namespace NUnit.Extensions.Forms
         /// </summary>
         public void UseOn(ReflectionTester control)
         {
-            if(mouseControl == null)
+            if (mouseControl == null)
             {
                 Win32.GetCursorPos(out originalPosition);
             }
 
-            if(control == null)
+            if (control == null)
             {
                 throw new ArgumentNullException("control");
             }
@@ -162,9 +160,9 @@ namespace NUnit.Extensions.Forms
             PositionUnit = GraphicsUnit.Pixel;
 
             // Block any user input while we are active.
-            if(!restoreUserInput)
+            if (!restoreUserInput)
             {
-                if(!Win32.BlockInput(true))
+                if (!Win32.BlockInput(true))
                 {
                     //throw new Win32Exception();
                 }
@@ -215,29 +213,29 @@ namespace NUnit.Extensions.Forms
         /// </remarks>
         public void Dispose()
         {
-            if(mouseControl != null)
+            if (mouseControl != null)
             {
                 // If we do not have a control, then an exception will be thrown.
                 try
                 {
                     // Release any pressed mouse buttons.
                     MouseButtons pressedButtons = Control.MouseButtons;
-                    if(pressedButtons != MouseButtons.None)
+                    if (pressedButtons != MouseButtons.None)
                     {
                         Release(pressedButtons);
                     }
 
                     // Release any modifier keys.
                     Keys keys = Control.ModifierKeys;
-                    if(keys != Keys.None)
+                    if (keys != Keys.None)
                     {
                         Release(keys);
                     }
                 }
-                catch(AmbiguousNameException)
+                catch (AmbiguousNameException)
                 {
                 }
-                catch(NoSuchControlException)
+                catch (NoSuchControlException)
                 {
                 }
                 finally
@@ -246,9 +244,9 @@ namespace NUnit.Extensions.Forms
                     Win32.SetCursorPos(originalPosition.x, originalPosition.y);
 
                     // Enable user input.
-                    if(restoreUserInput)
+                    if (restoreUserInput)
                     {
-                        if(!Win32.BlockInput(false))
+                        if (!Win32.BlockInput(false))
                         {
                             //throw new Win32Exception();
                         }
@@ -257,8 +255,6 @@ namespace NUnit.Extensions.Forms
                 }
             }
         }
-
-        #endregion
 
         #region Properties
 
@@ -308,13 +304,10 @@ namespace NUnit.Extensions.Forms
         /// </exception>
         public GraphicsUnit PositionUnit
         {
-            get
-            {
-                return positionUnit;
-            }
+            get { return positionUnit; }
             set
             {
-                if(value == GraphicsUnit.Pixel)
+                if (value == GraphicsUnit.Pixel)
                 {
                     scale = new PointF(1, 1);
                 }
@@ -322,7 +315,7 @@ namespace NUnit.Extensions.Forms
                 {
                     PointF resolution = mouseControl.Resolution;
 
-                    switch(value)
+                    switch (value)
                     {
                         case GraphicsUnit.Inch:
                             scale = new PointF(resolution.X, resolution.Y);
@@ -344,7 +337,7 @@ namespace NUnit.Extensions.Forms
                             throw new NotSupportedException("World units not supported.");
 
                         default:
-                            throw new InvalidEnumArgumentException("value", (int) value, typeof(GraphicsUnit));
+                            throw new InvalidEnumArgumentException("value", (int) value, typeof (GraphicsUnit));
                     }
                 }
                 positionUnit = value;
@@ -594,21 +587,21 @@ namespace NUnit.Extensions.Forms
         public void Press(MouseButtons buttons, PointF point)
         {
             Win32.MOUSEINPUT mi = new Win32.MOUSEINPUT(0);
-            if((buttons & MouseButtons.Left) != 0)
+            if ((buttons & MouseButtons.Left) != 0)
             {
                 mi.dwFlags |= Win32.MOUSEEVENTF_LEFTDOWN;
             }
-            if((buttons & MouseButtons.Right) != 0)
+            if ((buttons & MouseButtons.Right) != 0)
             {
                 mi.dwFlags |= Win32.MOUSEEVENTF_RIGHTDOWN;
             }
-            if((buttons & MouseButtons.Middle) != 0)
+            if ((buttons & MouseButtons.Middle) != 0)
             {
                 mi.dwFlags |= Win32.MOUSEEVENTF_MIDDLEDOWN;
             }
-            if((buttons & MouseButtons.XButton1) != 0)
+            if ((buttons & MouseButtons.XButton1) != 0)
             {
-                if(SystemInformation.MouseButtons < 4)
+                if (SystemInformation.MouseButtons < 4)
                 {
                     throw new NotSupportedException("A mouse with at least 4 buttons is required.");
                 }
@@ -616,9 +609,9 @@ namespace NUnit.Extensions.Forms
                 mi.mouseData |= Win32.XBUTTON1;
                 //mi.mouseData = Win32.XBUTTON1;
             }
-            if((buttons & MouseButtons.XButton2) != 0)
+            if ((buttons & MouseButtons.XButton2) != 0)
             {
-                if(SystemInformation.MouseButtons < 5)
+                if (SystemInformation.MouseButtons < 5)
                 {
                     throw new NotSupportedException("A mouse with at least 5 buttons is required.");
                 }
@@ -628,9 +621,9 @@ namespace NUnit.Extensions.Forms
             }
 
             Position = point;
-            if(mi.dwFlags != 0)
+            if (mi.dwFlags != 0)
             {
-                if(0 == Win32.SendMouseInput(1, ref mi, Marshal.SizeOf(mi)))
+                if (0 == Win32.SendMouseInput(1, ref mi, Marshal.SizeOf(mi)))
                 {
                     throw new Win32Exception();
                 }
@@ -685,7 +678,7 @@ namespace NUnit.Extensions.Forms
         /// </example>
         public void Press(Keys keys)
         {
-            if((keys & ~(Keys.Alt | Keys.Shift | Keys.Control)) != 0)
+            if ((keys & ~(Keys.Alt | Keys.Shift | Keys.Control)) != 0)
             {
                 throw new ArgumentOutOfRangeException("keys", "Only Alt, Shift and Control is allowed.");
             }
@@ -697,26 +690,26 @@ namespace NUnit.Extensions.Forms
             ki.time = 0;
             ki.wScan = 0;
 
-            if((keys & Keys.Alt) == Keys.Alt)
+            if ((keys & Keys.Alt) == Keys.Alt)
             {
                 ki.wVk = Win32.VK_MENU;
-                if(0 == Win32.SendKeyboardInput(1, ref ki, Marshal.SizeOf(ki)))
+                if (0 == Win32.SendKeyboardInput(1, ref ki, Marshal.SizeOf(ki)))
                 {
                     throw new Win32Exception();
                 }
             }
-            if((keys & Keys.Control) == Keys.Control)
+            if ((keys & Keys.Control) == Keys.Control)
             {
                 ki.wVk = Win32.VK_CONTROL;
-                if(0 == Win32.SendKeyboardInput(1, ref ki, Marshal.SizeOf(ki)))
+                if (0 == Win32.SendKeyboardInput(1, ref ki, Marshal.SizeOf(ki)))
                 {
                     throw new Win32Exception();
                 }
             }
-            if((keys & Keys.Shift) == Keys.Shift)
+            if ((keys & Keys.Shift) == Keys.Shift)
             {
                 ki.wVk = Win32.VK_SHIFT;
-                if(0 == Win32.SendKeyboardInput(1, ref ki, Marshal.SizeOf(ki)))
+                if (0 == Win32.SendKeyboardInput(1, ref ki, Marshal.SizeOf(ki)))
                 {
                     throw new Win32Exception();
                 }
@@ -799,30 +792,30 @@ namespace NUnit.Extensions.Forms
         public void Release(MouseButtons buttons, PointF point)
         {
             Win32.MOUSEINPUT mi = new Win32.MOUSEINPUT(0);
-            if((buttons & MouseButtons.Left) != 0)
+            if ((buttons & MouseButtons.Left) != 0)
             {
                 mi.dwFlags |= Win32.MOUSEEVENTF_LEFTUP;
             }
-            if((buttons & MouseButtons.Right) != 0)
+            if ((buttons & MouseButtons.Right) != 0)
             {
                 mi.dwFlags |= Win32.MOUSEEVENTF_RIGHTUP;
             }
-            if((buttons & MouseButtons.Middle) != 0)
+            if ((buttons & MouseButtons.Middle) != 0)
             {
                 mi.dwFlags |= Win32.MOUSEEVENTF_MIDDLEUP;
             }
-            if((buttons & MouseButtons.XButton1) != 0)
+            if ((buttons & MouseButtons.XButton1) != 0)
             {
-                if(SystemInformation.MouseButtons < 4)
+                if (SystemInformation.MouseButtons < 4)
                 {
                     throw new NotSupportedException("A mouse with at least 4 buttons is required.");
                 }
                 mi.dwFlags |= Win32.MOUSEEVENTF_XUP;
                 mi.mouseData = Win32.XBUTTON1;
             }
-            if((buttons & MouseButtons.XButton2) != 0)
+            if ((buttons & MouseButtons.XButton2) != 0)
             {
-                if(SystemInformation.MouseButtons < 5)
+                if (SystemInformation.MouseButtons < 5)
                 {
                     throw new NotSupportedException("A mouse with at least 5 buttons is required.");
                 }
@@ -830,10 +823,10 @@ namespace NUnit.Extensions.Forms
                 mi.mouseData = Win32.XBUTTON2;
             }
 
-            if(mi.dwFlags != 0)
+            if (mi.dwFlags != 0)
             {
                 Position = point;
-                if(0 == Win32.SendMouseInput(1, ref mi, Marshal.SizeOf(mi)))
+                if (0 == Win32.SendMouseInput(1, ref mi, Marshal.SizeOf(mi)))
                 {
                     throw new Win32Exception();
                 }
@@ -888,7 +881,7 @@ namespace NUnit.Extensions.Forms
         /// </example>
         public void Release(Keys keys)
         {
-            if((keys & ~(Keys.Alt | Keys.Shift | Keys.Control)) != 0)
+            if ((keys & ~(Keys.Alt | Keys.Shift | Keys.Control)) != 0)
             {
                 throw new ArgumentOutOfRangeException("keys", "Only Alt, Shift and Control is allowed.");
             }
@@ -900,26 +893,26 @@ namespace NUnit.Extensions.Forms
             ki.time = 0;
             ki.wScan = 0;
 
-            if((keys & Keys.Alt) == Keys.Alt)
+            if ((keys & Keys.Alt) == Keys.Alt)
             {
                 ki.wVk = Win32.VK_MENU;
-                if(0 == Win32.SendKeyboardInput(1, ref ki, Marshal.SizeOf(ki)))
+                if (0 == Win32.SendKeyboardInput(1, ref ki, Marshal.SizeOf(ki)))
                 {
                     throw new Win32Exception();
                 }
             }
-            if((keys & Keys.Control) == Keys.Control)
+            if ((keys & Keys.Control) == Keys.Control)
             {
                 ki.wVk = Win32.VK_CONTROL;
-                if(0 == Win32.SendKeyboardInput(1, ref ki, Marshal.SizeOf(ki)))
+                if (0 == Win32.SendKeyboardInput(1, ref ki, Marshal.SizeOf(ki)))
                 {
                     throw new Win32Exception();
                 }
             }
-            if((keys & Keys.Shift) == Keys.Shift)
+            if ((keys & Keys.Shift) == Keys.Shift)
             {
                 ki.wVk = Win32.VK_SHIFT;
-                if(0 == Win32.SendKeyboardInput(1, ref ki, Marshal.SizeOf(ki)))
+                if (0 == Win32.SendKeyboardInput(1, ref ki, Marshal.SizeOf(ki)))
                 {
                     throw new Win32Exception();
                 }
@@ -960,17 +953,17 @@ namespace NUnit.Extensions.Forms
         /// </example>
         public void Drag(PointF startPoint, params PointF[] points)
         {
-            if(points == null)
+            if (points == null)
             {
                 throw new ArgumentNullException("points");
             }
-            if(points.Length < 1)
+            if (points.Length < 1)
             {
                 throw new ArgumentException("At lease one point must be specified.", "points");
             }
 
             Press(MouseButtons.Left, startPoint);
-            for(int i = 0; i < points.Length - 1; ++i)
+            for (int i = 0; i < points.Length - 1; ++i)
             {
                 Position = points[i];
             }
@@ -1013,21 +1006,21 @@ namespace NUnit.Extensions.Forms
         /// </example>
         public void Drag(float startX, float startY, params float[] points)
         {
-            if(points == null)
+            if (points == null)
             {
                 throw new ArgumentNullException("points");
             }
-            if(points.Length < 2)
+            if (points.Length < 2)
             {
                 throw new ArgumentException("At lease one point must be specified.", "points");
             }
-            if((points.Length & 1) != 0)
+            if ((points.Length & 1) != 0)
             {
                 throw new ArgumentException("Missing the final y-coordinate.", "points");
             }
 
             Press(MouseButtons.Left, new PointF(startX, startY));
-            for(int i = 0; i < points.Length - 2; i += 2)
+            for (int i = 0; i < points.Length - 2; i += 2)
             {
                 Position = new PointF(points[i], points[i + 1]);
             }
@@ -1037,6 +1030,8 @@ namespace NUnit.Extensions.Forms
         #endregion
 
         #region Private methods
+
+        #endregion
 
         #endregion
     }

@@ -36,6 +36,8 @@ namespace NUnit.Extensions.Forms.ExampleApplication
 {
     public class FormManager : IFormManager
     {
+        #region IFormManager Members
+
         public void Show(Form form)
         {
             form.Show();
@@ -55,5 +57,7 @@ namespace NUnit.Extensions.Forms.ExampleApplication
         {
             MessageBox.Show(title, message);
         }
+
+        #endregion
     }
 }

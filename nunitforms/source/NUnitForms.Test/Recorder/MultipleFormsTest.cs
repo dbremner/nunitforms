@@ -40,32 +40,6 @@ namespace NUnit.Extensions.Forms.Recorder.Test
     public class MultipleFormsTest : NUnitFormTest
     {
         [Test]
-        public void FormClose()
-        {
-            MultiForm form = new MultiForm();
-            form.Show();
-            TestWriter writer = new TestWriter(form);
-            ButtonTester button = new ButtonTester("myButton");
-            button.Click();
-            FormTester form0 = new FormTester("Form-0");
-            form0.Close();
-
-            Assert.AreEqual(
-                    @"[Test]
-public void Test()
-{
-
-	ButtonTester myButton = new ButtonTester(""myButton"");
-	FormTester Form-0 = new FormTester(""Form-0"");
-
-	myButton.Click();
-	Form-0.Close();
-
-}",
-                    writer.Test);
-        }
-
-        [Test]
         public void EventCausesAnother()
         {
             MultiForm form = new MultiForm();
@@ -78,13 +52,13 @@ public void Test()
                 button.Click();
                 Assert.Fail("Window did not close.");
             }
-            catch(NoSuchControlException)
+            catch (NoSuchControlException)
             {
                 //window is closed.. good.
             }
 
             Assert.AreEqual(
-                    @"[Test]
+                @"[Test]
 public void Test()
 {
 
@@ -93,7 +67,33 @@ public void Test()
 	btnClose.Click();
 
 }",
-                    writer.Test);
+                writer.Test);
+        }
+
+        [Test]
+        public void FormClose()
+        {
+            MultiForm form = new MultiForm();
+            form.Show();
+            TestWriter writer = new TestWriter(form);
+            ButtonTester button = new ButtonTester("myButton");
+            button.Click();
+            FormTester form0 = new FormTester("Form-0");
+            form0.Close();
+
+            Assert.AreEqual(
+                @"[Test]
+public void Test()
+{
+
+	ButtonTester myButton = new ButtonTester(""myButton"");
+	FormTester Form-0 = new FormTester(""Form-0"");
+
+	myButton.Click();
+	Form-0.Close();
+
+}",
+                writer.Test);
         }
 
         [Test]
@@ -110,7 +110,7 @@ public void Test()
             button2.Click();
 
             Assert.AreEqual(
-                    @"[Test]
+                @"[Test]
 public void Test()
 {
 
@@ -121,7 +121,7 @@ public void Test()
 	Form-0_myButton.Click();
 
 }",
-                    writer.Test);
+                writer.Test);
         }
 
         [Test]
@@ -138,7 +138,7 @@ public void Test()
             //------------------------------------------------------
 
             Assert.AreEqual(
-                    @"[Test]
+                @"[Test]
 public void Test()
 {
 
@@ -147,7 +147,7 @@ public void Test()
 	nothingButton.Click();
 
 }",
-                    writer.Test);
+                writer.Test);
 
             //------------------------------------------------------
 
@@ -157,7 +157,7 @@ public void Test()
             //------------------------------------------------------
 
             Assert.AreEqual(
-                    @"[Test]
+                @"[Test]
 public void Test()
 {
 
@@ -168,7 +168,7 @@ public void Test()
 	myButton.Click();
 
 }",
-                    writer.Test);
+                writer.Test);
 
             //------------------------------------------------------
 
@@ -180,7 +180,7 @@ public void Test()
             //------------------------------------------------------
 
             Assert.AreEqual(
-                    @"[Test]
+                @"[Test]
 public void Test()
 {
 
@@ -194,7 +194,7 @@ public void Test()
 	Form_nothingButton.Click();
 
 }",
-                    writer.Test);
+                writer.Test);
             //------------------------------------------------------
         }
     }

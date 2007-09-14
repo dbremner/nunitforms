@@ -31,15 +31,26 @@
 #endregion
 
 using NMock;
-
-using NUnit.Framework;
 using NUnit.Extensions.Forms.ExampleApplication;
+using NUnit.Framework;
 
 namespace NUnit.Forms.ExampleApplication
 {
     [TestFixture]
     public class ControllerTest
     {
+        #region Setup/Teardown
+
+        [SetUp]
+        public void Setup()
+        {
+            formManager = new DynamicMock(typeof (IFormManager));
+            model = new DynamicMock(typeof (IAppModel));
+            controller = new AppController((IAppModel) model.MockInstance, (IFormManager) formManager.MockInstance);
+        }
+
+        #endregion
+
         private int TestValue = 2;
 
         private string TestValueString = "2";
@@ -49,22 +60,6 @@ namespace NUnit.Forms.ExampleApplication
         private Mock model = null;
 
         private AppController controller = null;
-
-        [SetUp]
-        public void Setup()
-        {
-            formManager = new DynamicMock(typeof(IFormManager));
-            model = new DynamicMock(typeof(IAppModel));
-            controller = new AppController((IAppModel) model.MockInstance, (IFormManager) formManager.MockInstance);
-        }
-
-        [Test]
-        public void ShowModal()
-        {
-            formManager.Expect("ShowMessageBox", "Testing!", "Alert");
-            controller.ShowModal();
-            formManager.Verify();
-        }
 
         [Test]
         public void Count()
@@ -80,6 +75,14 @@ namespace NUnit.Forms.ExampleApplication
             model.ExpectAndReturn("GetData", TestValue);
             Assert.AreEqual(TestValueString, controller.GetData());
             model.Verify();
+        }
+
+        [Test]
+        public void ShowModal()
+        {
+            formManager.Expect("ShowMessageBox", "Testing!", "Alert");
+            controller.ShowModal();
+            formManager.Verify();
         }
     }
 }

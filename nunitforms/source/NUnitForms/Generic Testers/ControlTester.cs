@@ -35,89 +35,101 @@ using NUnit.Extensions.Forms.Exceptions;
 
 namespace NUnit.Extensions.Forms
 {
-    public class ControlTester<T, TThis> : Tester<T, TThis> 
+    public class ControlTester<T, TThis> : Tester<T, TThis>
         where T : Control
         where TThis : Tester<T, TThis>, new()
     {
-        public ControlTester() { }
-        public ControlTester(string name, string formName) : base(name, formName) { }
-        public ControlTester(string name, Form form) : base(name, form) {}
-        public ControlTester(string name) : base(name) {}
-        public ControlTester(ControlTester<T, TThis> tester, int index) : base(tester, index) { }
-        
-		/// <summary>
-		/// Convenience method "Clicks" on the control being tested if it is visible
-		/// and enabled.
-		/// </summary>
-		public virtual void Click()
-		{
-			if (!Properties.Visible)
-			{
-				throw new ControlNotVisibleException(name);
-			}
-			if (!Properties.Enabled)
-			{
-				throw new ControlNotEnabledException(name);
-			}
-			FireEvent("Click");
-		}
+        public ControlTester()
+        {
+        }
 
-    	/// <summary>
-		/// Convenience method "DoubleClicks" on the control being tested if it is visible.
-		/// </summary>
-		/// <exception>
-		/// ControlNotVisibleException is thrown if the Control is not Visible.
-		/// </exception>
-		public virtual void DoubleClick()
-		{
-			if (!Properties.Visible)
-				throw new ControlNotVisibleException(name);
-			FireEvent("DoubleClick");
-		}
+        public ControlTester(string name, string formName) : base(name, formName)
+        {
+        }
 
-		/// <summary>
-		/// Default handler for entering text into a text control.
-		/// Must be exposed publically by testers that want to use it.
-		/// </summary>
-		protected virtual void EnterText(string text)
-		{
-			FireEvent("Enter");
-			Properties.Text = text;
-			FireEvent("Leave");
+        public ControlTester(string name, Form form) : base(name, form)
+        {
+        }
 
-			EndCurrentEdit("Text");
-		}
+        public ControlTester(string name) : base(name)
+        {
+        }
 
-		/// <summary>
-		/// Should call this method after editing something in order to trigger any
-		/// databinding done with the Databindings collection.  (ie text box to a data
-		/// set)
-		/// </summary>
-		public void EndCurrentEdit(string propertyName)
-		{
-			if (Properties.DataBindings[propertyName] != null)
-			{
-                Properties.DataBindings[propertyName].BindingManagerBase.EndCurrentEdit();
-			}
-		}
+        public ControlTester(ControlTester<T, TThis> tester, int index) : base(tester, index)
+        {
+        }
 
-		/// <summary>
-		/// Convenience method retrieves the Text property of the tested control.
-		/// </summary>
-		public virtual string Text
-		{
+        /// <summary>
+        /// Convenience method retrieves the Text property of the tested control.
+        /// </summary>
+        public virtual string Text
+        {
             get { return Properties.Text; }
-		}
+        }
 
-		/// <summary>
-		/// Calls EndCurrentEdit on this control's data binding for the given property.
-		/// </summary>
-		/// <param name="propertyName"></param>
-		protected override void DoAfterSetProperty(string propertyName)
-		{
-			EndCurrentEdit(propertyName);
-		}
+        /// <summary>
+        /// Convenience method "Clicks" on the control being tested if it is visible
+        /// and enabled.
+        /// </summary>
+        public virtual void Click()
+        {
+            if (!Properties.Visible)
+            {
+                throw new ControlNotVisibleException(name);
+            }
+            if (!Properties.Enabled)
+            {
+                throw new ControlNotEnabledException(name);
+            }
+            FireEvent("Click");
+        }
 
-       
-	}
+        /// <summary>
+        /// Convenience method "DoubleClicks" on the control being tested if it is visible.
+        /// </summary>
+        /// <exception>
+        /// ControlNotVisibleException is thrown if the Control is not Visible.
+        /// </exception>
+        public virtual void DoubleClick()
+        {
+            if (!Properties.Visible)
+                throw new ControlNotVisibleException(name);
+            FireEvent("DoubleClick");
+        }
+
+        /// <summary>
+        /// Default handler for entering text into a text control.
+        /// Must be exposed publically by testers that want to use it.
+        /// </summary>
+        protected virtual void EnterText(string text)
+        {
+            FireEvent("Enter");
+            Properties.Text = text;
+            FireEvent("Leave");
+
+            EndCurrentEdit("Text");
+        }
+
+        /// <summary>
+        /// Should call this method after editing something in order to trigger any
+        /// databinding done with the Databindings collection.  (ie text box to a data
+        /// set)
+        /// </summary>
+        public void EndCurrentEdit(string propertyName)
+        {
+            if (Properties.DataBindings[propertyName] != null)
+            {
+                Properties.DataBindings[propertyName].BindingManagerBase.EndCurrentEdit();
+            }
+        }
+
+        /// <summary>
+        /// Calls EndCurrentEdit on this control's data binding for the given property.
+        /// </summary>
+        /// <param name="propertyName"></param>
+        protected override void DoAfterSetProperty(string propertyName)
+        {
+            EndCurrentEdit(propertyName);
+        }
+    }
 }

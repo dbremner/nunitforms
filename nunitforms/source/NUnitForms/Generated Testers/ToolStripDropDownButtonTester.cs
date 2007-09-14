@@ -30,17 +30,31 @@
 
 #endregion
 
-using System;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-    public partial class ToolStripDropDownButtonTester : ToolStripItemTester<ToolStripDropDownButton, ToolStripDropDownButtonTester>
+    public partial class ToolStripDropDownButtonTester :
+        ToolStripItemTester<ToolStripDropDownButton, ToolStripDropDownButtonTester>
     {
-        public ToolStripDropDownButtonTester() { }
-        public ToolStripDropDownButtonTester(string name, Form form) : base(name, form) { }
-        public ToolStripDropDownButtonTester(string name, string formName) : base(name, formName) { }
-        public ToolStripDropDownButtonTester(string name) : base(name) { }
-        public ToolStripDropDownButtonTester(ToolStripDropDownButtonTester tester, int index) : base(tester, index) { }
+        public ToolStripDropDownButtonTester()
+        {
+        }
+
+        public ToolStripDropDownButtonTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public ToolStripDropDownButtonTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public ToolStripDropDownButtonTester(string name) : base(name)
+        {
+        }
+
+        public ToolStripDropDownButtonTester(ToolStripDropDownButtonTester tester, int index) : base(tester, index)
+        {
+        }
     }
 }

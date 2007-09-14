@@ -30,7 +30,6 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -44,18 +43,10 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(AmbiguousNameException))]
+        [ExpectedException(typeof (AmbiguousNameException))]
         public void AmbiguousName()
         {
             ButtonTester button = new ButtonTester("myButton");
-            button.Click();
-        }
-
-        [Test]
-        [ExpectedException(typeof(NoSuchControlException))]
-        public void NoSuchName()
-        {
-            ButtonTester button = new ButtonTester("junkData");
             button.Click();
         }
 
@@ -66,6 +57,14 @@ namespace NUnit.Extensions.Forms.TestApplications
             ButtonTester button = new ButtonTester("myControl2.myButton");
             button.Click();
             Assert.AreEqual("1", label.Text);
+        }
+
+        [Test]
+        [ExpectedException(typeof (NoSuchControlException))]
+        public void NoSuchName()
+        {
+            ButtonTester button = new ButtonTester("junkData");
+            button.Click();
         }
 
         [Test]

@@ -35,23 +35,25 @@ using NUnit.Extensions.Forms.Recorder;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-	public class ButtonControlRecorder : ControlRecorder
-	{
-		public ButtonControlRecorder(Listener listener) : base(listener) {}
+    public class ButtonControlRecorder : ControlRecorder
+    {
+        public ButtonControlRecorder(Listener listener) : base(listener)
+        {
+        }
 
-		public override Type RecorderType
-		{
-			get { return typeof (ButtonControl); }
-		}
+        public override Type RecorderType
+        {
+            get { return typeof (ButtonControl); }
+        }
 
-		public override Type TesterType
-		{
-			get { return typeof (ButtonControlTester); }
-		}
+        public override Type TesterType
+        {
+            get { return typeof (ButtonControlTester); }
+        }
 
-		public void SuperClick(object sender, EventArgs args)
-		{
-			Listener.FireEvent(TesterType, sender, "SuperClick");
-		}
-	}
+        public void SuperClick(object sender, EventArgs args)
+        {
+            Listener.FireEvent(TesterType, sender, "SuperClick");
+        }
+    }
 }
