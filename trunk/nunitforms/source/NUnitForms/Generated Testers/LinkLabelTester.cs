@@ -34,12 +34,26 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	public partial class LinkLabelTester : ControlTester<LinkLabel, LinkLabelTester>
-	{
-		public LinkLabelTester() {}
-		public LinkLabelTester(string name, Form form) : base(name, form) {}
-		public LinkLabelTester(string name, string formName) : base(name, formName) {}
-		public LinkLabelTester(string name) : base(name) {}
-		public LinkLabelTester(LinkLabelTester tester, int index) : base(tester, index) {}
-	}
+    public partial class LinkLabelTester : ControlTester<LinkLabel, LinkLabelTester>
+    {
+        public LinkLabelTester()
+        {
+        }
+
+        public LinkLabelTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public LinkLabelTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public LinkLabelTester(string name) : base(name)
+        {
+        }
+
+        public LinkLabelTester(LinkLabelTester tester, int index) : base(tester, index)
+        {
+        }
+    }
 }

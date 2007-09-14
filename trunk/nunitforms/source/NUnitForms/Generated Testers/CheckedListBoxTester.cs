@@ -34,12 +34,26 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	public partial class CheckedListBoxTester : ControlTester<CheckedListBox, CheckedListBoxTester>
-	{
-		public CheckedListBoxTester() {}
-		public CheckedListBoxTester(string name, Form form) : base(name, form) {}
-		public CheckedListBoxTester(string name, string formName) : base(name, formName) {}
-		public CheckedListBoxTester(string name) : base(name) {}
-        public CheckedListBoxTester(CheckedListBoxTester tester, int index) : base(tester, index) { }
-	}
+    public partial class CheckedListBoxTester : ControlTester<CheckedListBox, CheckedListBoxTester>
+    {
+        public CheckedListBoxTester()
+        {
+        }
+
+        public CheckedListBoxTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public CheckedListBoxTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public CheckedListBoxTester(string name) : base(name)
+        {
+        }
+
+        public CheckedListBoxTester(CheckedListBoxTester tester, int index) : base(tester, index)
+        {
+        }
+    }
 }

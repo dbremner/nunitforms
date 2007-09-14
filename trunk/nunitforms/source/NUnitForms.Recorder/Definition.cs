@@ -34,104 +34,104 @@ using System;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
-	///<summary>
-	/// This class represents a C# variable initialization.
-	///</summary>
-	public class Definition
-	{
-		private object control;
-		private string name;
-		private Type testerType;
-		private string formName;
+    ///<summary>
+    /// This class represents a C# variable initialization.
+    ///</summary>
+    public class Definition
+    {
+        private object control;
+        private string formName;
+        private string name;
+        private Type testerType;
 
-		///<summary>
-		/// Constructs a new <see cref="Definition"/>.
-		///</summary>
-		public Definition(object control, string name, Type testerType, string formName)
-		{
-			this.control = control;
-			this.name = name;
-			this.testerType = testerType;
-			this.formName = formName;
-		}
+        ///<summary>
+        /// Constructs a new <see cref="Definition"/>.
+        ///</summary>
+        public Definition(object control, string name, Type testerType, string formName)
+        {
+            this.control = control;
+            this.name = name;
+            this.testerType = testerType;
+            this.formName = formName;
+        }
 
-		///<summary>
-		/// The control being defined.
-		///</summary>
-		public object Control
-		{
-			get { return control; }
-		}
+        ///<summary>
+        /// The control being defined.
+        ///</summary>
+        public object Control
+        {
+            get { return control; }
+        }
 
-		///<summary>
-		/// The control name to use.
-		///</summary>
-		public string Name
-		{
-			get { return name; }
-			set { name = value; }
-		}
+        ///<summary>
+        /// The control name to use.
+        ///</summary>
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
 
-		/// <summary>
-		/// The variable name of an instance.
-		/// </summary>
-		/// <example>
-		/// <i>toolStripSplitButton1</i> Is the variable name of an instance:
-		/// <code>
-		/// ToolStripSplitButtonTester toolStripSplitButton1 = new ToolStripSplitButtonTester("toolStripSplitButton1");
-		/// </code>
-		/// </example>
-		public string VarName
-		{
-			get
-			{
-				if (FormName == null)
-					return Name;
-				else
-					return FormName + "_" + Name;
-			}
-		}
+        /// <summary>
+        /// The variable name of an instance.
+        /// </summary>
+        /// <example>
+        /// <i>toolStripSplitButton1</i> Is the variable name of an instance:
+        /// <code>
+        /// ToolStripSplitButtonTester toolStripSplitButton1 = new ToolStripSplitButtonTester("toolStripSplitButton1");
+        /// </code>
+        /// </example>
+        public string VarName
+        {
+            get
+            {
+                if (FormName == null)
+                    return Name;
+                else
+                    return FormName + "_" + Name;
+            }
+        }
 
-		///<summary>
-		/// The parent form name.
-		///</summary>
-		public string FormName
-		{
-			get { return formName; }
-			set { formName = value; }
-		}
+        ///<summary>
+        /// The parent form name.
+        ///</summary>
+        public string FormName
+        {
+            get { return formName; }
+            set { formName = value; }
+        }
 
-		///<summary>
-		/// Gets the <see cref="TesterType"/> associated with this <see cref="Definition"/>.
-		///</summary>
-		public Type TesterType
-		{
-			get { return testerType; }
-		}
+        ///<summary>
+        /// Gets the <see cref="TesterType"/> associated with this <see cref="Definition"/>.
+        ///</summary>
+        public Type TesterType
+        {
+            get { return testerType; }
+        }
 
-		///<summary>
-		/// 
-		///</summary>
-		///<returns>C# code to initialize the defined variable.</returns>
-		public override string ToString()
-		{
-			if (FormName == null)
-			{
-				return string.Format(
-					"{0} {1} = new {0}(\"{2}\");",
-					TesterType.Name,
-					Strings.SafeRemoveSpaces(VarName),
-					Name.Replace("_", "."));
-			}
-			else
-			{
-				return string.Format(
-					"{0} {1} = new {0}(\"{2}\", \"{3}\");",
-					TesterType.Name,
-					Strings.SafeRemoveSpaces(VarName),
-					Name.Replace("_", "."),
-					FormName);
-			}
-		}
-	}
+        ///<summary>
+        /// 
+        ///</summary>
+        ///<returns>C# code to initialize the defined variable.</returns>
+        public override string ToString()
+        {
+            if (FormName == null)
+            {
+                return string.Format(
+                    "{0} {1} = new {0}(\"{2}\");",
+                    TesterType.Name,
+                    Strings.SafeRemoveSpaces(VarName),
+                    Name.Replace("_", "."));
+            }
+            else
+            {
+                return string.Format(
+                    "{0} {1} = new {0}(\"{2}\", \"{3}\");",
+                    TesterType.Name,
+                    Strings.SafeRemoveSpaces(VarName),
+                    Name.Replace("_", "."),
+                    FormName);
+            }
+        }
+    }
 }

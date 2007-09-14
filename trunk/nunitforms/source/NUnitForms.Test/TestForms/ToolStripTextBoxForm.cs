@@ -35,22 +35,22 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-	///<summary>
-	/// Form for testing ToolStripTextBoxTester.
-	///</summary>
-	public partial class ToolStripTextBoxForm : Form
-	{
-		///<summary>
-		/// Constructs a new ToolStripTextBoxForm.
-		///</summary>
-		public ToolStripTextBoxForm()
-		{
-			InitializeComponent();
-		}
+    ///<summary>
+    /// Form for testing ToolStripTextBoxTester.
+    ///</summary>
+    public partial class ToolStripTextBoxForm : Form
+    {
+        ///<summary>
+        /// Constructs a new ToolStripTextBoxForm.
+        ///</summary>
+        public ToolStripTextBoxForm()
+        {
+            InitializeComponent();
+        }
 
-		private void toolStripButton1_Click(object sender, EventArgs e)
-		{
-			toolStripTextBox1.Text = "clicked";
-		}
-	}
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            toolStripTextBox1.Text = "clicked";
+        }
+    }
 }

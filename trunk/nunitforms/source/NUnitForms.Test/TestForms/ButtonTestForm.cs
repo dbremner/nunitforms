@@ -42,14 +42,14 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// </summary>
     public class ButtonTestForm : Form
     {
-        private Button myButton;
-
-        private Label myLabel;
-
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
+
+        private Button myButton;
+
+        private Label myLabel;
 
         public ButtonTestForm()
         {
@@ -68,14 +68,20 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void myButton_Click(object sender, EventArgs e)
+        {
+            int i = int.Parse(myLabel.Text) + 1;
+            myLabel.Text = i.ToString();
         }
 
         #region Windows Form Designer generated code
@@ -117,11 +123,5 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         #endregion
-
-        private void myButton_Click(object sender, EventArgs e)
-        {
-            int i = int.Parse(myLabel.Text) + 1;
-            myLabel.Text = i.ToString();
-        }
     }
 }

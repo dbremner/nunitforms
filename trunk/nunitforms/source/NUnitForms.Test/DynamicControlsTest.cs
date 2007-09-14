@@ -30,7 +30,6 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -51,19 +50,6 @@ namespace NUnit.Extensions.Forms.TestApplications
             ButtonTester dynamicButton = new ButtonTester("button0");
             dynamicButton.Click();
             Assert.AreEqual("1", dynamicButton.Text);
-        }
-
-        [Test]
-        [ExpectedException(typeof(AmbiguousNameException))]
-        public void DynamicControlsWithDuplicateNameIsAmbiguous()
-        {
-            ButtonTester addDuplicateButton = new ButtonTester("btnAddDuplicate");
-            ButtonTester duplicate = new ButtonTester("duplicate");
-
-            addDuplicateButton.Click();
-            addDuplicateButton.Click();
-
-            duplicate.Click();
         }
 
         [Test]
@@ -89,15 +75,43 @@ namespace NUnit.Extensions.Forms.TestApplications
             addDuplicateButton.Click();
             addDuplicateButton.Click();
 
-            foreach(ButtonTester button in duplicate)
+            foreach (ButtonTester button in duplicate)
             {
                 button.Click();
             }
 
-            foreach(ButtonTester button in duplicate)
+            foreach (ButtonTester button in duplicate)
             {
                 Assert.AreEqual("1", button.Text);
             }
+        }
+
+        [Test]
+        [ExpectedException(typeof (AmbiguousNameException))]
+        public void DynamicControlsWithDuplicateNameIsAmbiguous()
+        {
+            ButtonTester addDuplicateButton = new ButtonTester("btnAddDuplicate");
+            ButtonTester duplicate = new ButtonTester("duplicate");
+
+            addDuplicateButton.Click();
+            addDuplicateButton.Click();
+
+            duplicate.Click();
+        }
+
+        [Test]
+        [ExpectedException(typeof (NoSuchControlException), ExpectedMessage = "duplicate[2]")]
+        public void DynamicControlsWithDuplicateNameNotFound()
+        {
+            ButtonTester addDuplicateButton = new ButtonTester("btnAddDuplicate");
+            ButtonTester duplicate = new ButtonTester("duplicate");
+
+            addDuplicateButton.Click();
+            addDuplicateButton.Click();
+
+            duplicate[0].Click();
+            duplicate[1].Click();
+            duplicate[2].Click();
         }
 
         [Test]
@@ -111,21 +125,6 @@ namespace NUnit.Extensions.Forms.TestApplications
 
             duplicate[0].Click();
             duplicate[1].Click();
-        }
-
-        [Test]
-        [ExpectedException(typeof(NoSuchControlException), ExpectedMessage = "duplicate[2]")]
-        public void DynamicControlsWithDuplicateNameNotFound()
-        {
-            ButtonTester addDuplicateButton = new ButtonTester("btnAddDuplicate");
-            ButtonTester duplicate = new ButtonTester("duplicate");
-
-            addDuplicateButton.Click();
-            addDuplicateButton.Click();
-
-            duplicate[0].Click();
-            duplicate[1].Click();
-            duplicate[2].Click();
         }
     }
 }

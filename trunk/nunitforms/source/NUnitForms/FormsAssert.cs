@@ -46,7 +46,7 @@ namespace NUnit.Extensions.Forms
         ///<exception cref="FormsTestAssertionException"></exception>
         public static void AreEqual(object o, object o2, string error)
         {
-            if(!o.Equals(o2))
+            if (!o.Equals(o2))
             {
                 throw new FormsTestAssertionException("should be equal " + o + " : " + o2 + " , " + error);
             }
@@ -70,7 +70,7 @@ namespace NUnit.Extensions.Forms
         ///<exception cref="FormsTestAssertionException"></exception>
         public static void IsTrue(bool val, string error)
         {
-            if(!val)
+            if (!val)
             {
                 throw new FormsTestAssertionException(error);
             }

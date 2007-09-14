@@ -29,41 +29,42 @@
 '*******************************************************************************************************************/
 
 #endregion
+
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-	///<summary>
-	/// Test Fixture for ToolStripTextBoxTester.
-	///</summary>
-	[TestFixture]
-	public class ToolStripTextBoxTest : NUnitFormTest
-	{
-		///<summary>
-		/// Sets up this test.
-		///</summary>
-		public override void Setup()
-		{
-			new ToolStripTextBoxForm().Show();
-		}
+    ///<summary>
+    /// Test Fixture for ToolStripTextBoxTester.
+    ///</summary>
+    [TestFixture]
+    public class ToolStripTextBoxTest : NUnitFormTest
+    {
+        ///<summary>
+        /// Sets up this test.
+        ///</summary>
+        public override void Setup()
+        {
+            new ToolStripTextBoxForm().Show();
+        }
 
-		/// <summary>
-		/// This testcase presses a ToolStripButton which will put the string clicked into the ToolStripTextBox. 
-		/// Test is ok if the ToolStripTextBox text is clicked.
-		/// </summary>
-		[Test]
-		public void ToolStripTextBoxOnToolBar()
-		{
-			ToolStripButtonTester button_tester = new ToolStripButtonTester("toolStripButton1");
+        /// <summary>
+        /// This testcase presses a ToolStripButton which will put the string clicked into the ToolStripTextBox. 
+        /// Test is ok if the ToolStripTextBox text is clicked.
+        /// </summary>
+        [Test]
+        public void ToolStripTextBoxOnToolBar()
+        {
+            ToolStripButtonTester button_tester = new ToolStripButtonTester("toolStripButton1");
 
-			ToolStripTextBoxTester textbox_tester = new ToolStripTextBoxTester("toolStripTextBox1");
-			Assert.IsTrue(string.IsNullOrEmpty(textbox_tester.Text));
+            ToolStripTextBoxTester textbox_tester = new ToolStripTextBoxTester("toolStripTextBox1");
+            Assert.IsTrue(string.IsNullOrEmpty(textbox_tester.Text));
 
-			button_tester.Click();
-			Assert.IsTrue(textbox_tester.Text == "clicked");
+            button_tester.Click();
+            Assert.IsTrue(textbox_tester.Text == "clicked");
 
-			textbox_tester.Enter("entered text");
-			Assert.IsTrue(textbox_tester.Text == "entered text");
-		}
-	}
+            textbox_tester.Enter("entered text");
+            Assert.IsTrue(textbox_tester.Text == "entered text");
+        }
+    }
 }

@@ -30,23 +30,22 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
-using NUnit.Framework;
 using System.Windows.Forms;
+using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-  [TestFixture]
-  public class ToolStripComboBoxTest : NUnitFormTest
-  {
-    [Test]
-    public void MainToolbar()
+    [TestFixture]
+    public class ToolStripComboBoxTest : NUnitFormTest
     {
-      Form form = new ToolStripComboBoxTestForm();
-      form.Show();
-      ToolStripComboBoxTester tester = new ToolStripComboBoxTester("toolStripComboBox1", form);
-      tester.Select(1);
-      Assert.IsTrue(new LabelTester("label1", form).Text == "two clicked");
+        [Test]
+        public void MainToolbar()
+        {
+            Form form = new ToolStripComboBoxTestForm();
+            form.Show();
+            ToolStripComboBoxTester tester = new ToolStripComboBoxTester("toolStripComboBox1", form);
+            tester.Select(1);
+            Assert.IsTrue(new LabelTester("label1", form).Text == "two clicked");
+        }
     }
-  }
 }

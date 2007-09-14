@@ -30,7 +30,6 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -43,7 +42,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         //[Test]
         public void ModalFormExample()
         {
-            using(ModalFormTester tester = new ModalFormTester())
+            using (ModalFormTester tester = new ModalFormTester())
             {
                 tester.ExpectModal("Form-0", new ModalFormActivated(ModalFormHandler));
 
@@ -64,23 +63,14 @@ namespace NUnit.Extensions.Forms.TestApplications
             btnClose.Click();
         }
 
-        [Test]
-        public void AnExampleOnAHiddenDesktopWithoutBaseClass()
-        {
-            using(new Desktop())
-            {
-                ModalFormExample();
-            }
-        }
-
         //[Test]
         public void CompleteExampleWithoutBaseClass() //still not promising to clean up EVERYTHING
         {
-            using(new Desktop())
+            using (new Desktop())
             {
-                using(new FormTester("Form"))
+                using (new FormTester("Form"))
                 {
-                    using(ModalFormTester modalTester = new ModalFormTester())
+                    using (ModalFormTester modalTester = new ModalFormTester())
                     {
                         modalTester.ExpectModal("Form-0", new ModalFormActivated(ModalFormHandler));
 
@@ -88,6 +78,15 @@ namespace NUnit.Extensions.Forms.TestApplications
                         new ButtonTester("myButton", "Form").Click();
                     }
                 }
+            }
+        }
+
+        [Test]
+        public void AnExampleOnAHiddenDesktopWithoutBaseClass()
+        {
+            using (new Desktop())
+            {
+                ModalFormExample();
             }
         }
     }

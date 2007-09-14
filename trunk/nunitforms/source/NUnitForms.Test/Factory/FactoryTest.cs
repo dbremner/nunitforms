@@ -32,7 +32,6 @@
 
 using System;
 using System.Windows.Forms;
-
 using NUnit.Extensions.Forms.Recorder;
 using NUnit.Framework;
 
@@ -44,16 +43,16 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test]
         public void New()
         {
-            Form form = new FormFactory().New(typeof(Form));
+            Form form = new FormFactory().New(typeof (Form));
             Assert.IsNotNull(form);
-            Assert.AreEqual(typeof(Form), form.GetType());
+            Assert.AreEqual(typeof (Form), form.GetType());
         }
 
         [Test]
-        [ExpectedException(typeof(Exception), ExpectedMessage= "Your type is not a form!  -->System.String")]
+        [ExpectedException(typeof (Exception), ExpectedMessage= "Your type is not a form!  -->System.String")]
         public void NewException()
         {
-            new FormFactory().New(typeof(string));
+            new FormFactory().New(typeof (string));
         }
     }
 }

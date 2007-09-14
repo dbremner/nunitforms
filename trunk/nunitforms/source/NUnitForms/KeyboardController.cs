@@ -51,9 +51,16 @@ namespace NUnit.Extensions.Forms
     /// </remarks>
     public class KeyboardController : IDisposable
     {
+        private static readonly Hashtable modifiers = new Hashtable();
+        private KeyboardControl keyboardControl = null;
         private bool restoreUserInput = false;
 
-        private KeyboardControl keyboardControl = null;
+        static KeyboardController()
+        {
+            modifiers['%'] = "ALT";
+            modifiers['+'] = "SHIFT";
+            modifiers['^'] = "CONTROL";
+        }
 
         internal KeyboardController()
         {
@@ -70,6 +77,31 @@ namespace NUnit.Extensions.Forms
             UseOn(controlTester);
         }
 
+        #region IDisposable Members
+
+        /// <summary>
+        /// Implements the IDisposable interface.  This restores user input.
+        /// It should eventually return the keyboard to its pre-test state.
+        /// </summary>
+        /// <remarks>
+        /// If you are using the Keyboard controller through the base NUnitFormTest
+        /// class, then you should not need to call this method or use finally or using
+        /// blocks.  The base class handles this for you.</remarks>
+        public void Dispose()
+        {
+            if (keyboardControl != null)
+            {
+                if (restoreUserInput)
+                {
+                    //if this next line returns false, I used to throw an exception...
+                    Win32.BlockInput(false);
+                    restoreUserInput = false;
+                }
+            }
+        }
+
+        #endregion
+
         /// <summary>
         /// Initializes the KeyboardController, blocks user input, and sets
         /// the focus on the specified control.
@@ -77,14 +109,14 @@ namespace NUnit.Extensions.Forms
         /// <param name="control">The ControlTester to use the keyboard on.</param>
         public void UseOn(ReflectionTester control)
         {
-            if(control == null)
+            if (control == null)
             {
                 throw new ArgumentNullException("control");
             }
 
             keyboardControl = new KeyboardControl(control);
 
-            if(!restoreUserInput)
+            if (!restoreUserInput)
             {
                 //if this next line returns false, I used to throw an exception...
                 Win32.BlockInput(true);
@@ -128,27 +160,6 @@ namespace NUnit.Extensions.Forms
         }
 
         /// <summary>
-        /// Implements the IDisposable interface.  This restores user input.
-        /// It should eventually return the keyboard to its pre-test state.
-        /// </summary>
-        /// <remarks>
-        /// If you are using the Keyboard controller through the base NUnitFormTest
-        /// class, then you should not need to call this method or use finally or using
-        /// blocks.  The base class handles this for you.</remarks>
-        public void Dispose()
-        {
-            if(keyboardControl != null)
-            {
-                if(restoreUserInput)
-                {
-                    //if this next line returns false, I used to throw an exception...
-                    Win32.BlockInput(false);
-                    restoreUserInput = false;
-                }
-            }
-        }
-
-        /// <summary>
         /// This will send a string of key inputs.
         /// </summary>
         /// <remarks>
@@ -172,10 +183,10 @@ namespace NUnit.Extensions.Forms
         {
             string keyString = Digitize(keys);
             ArrayList commands = new ArrayList();
-            for(int i = 0; i < keyString.Length; i++)
+            for (int i = 0; i < keyString.Length; i++)
             {
                 string modifier = (string) modifiers[keyString[i]];
-                if(modifier != null)
+                if (modifier != null)
                 {
                     i = HandleModifier(commands, keyString, i, modifier);
                 }
@@ -184,7 +195,7 @@ namespace NUnit.Extensions.Forms
                     i = HandleKey(keyString, commands, i);
                 }
             }
-            return (string[]) commands.ToArray(typeof(string));
+            return (string[]) commands.ToArray(typeof (string));
         }
 
         private static string Digitize(string keys)
@@ -192,10 +203,10 @@ namespace NUnit.Extensions.Forms
             StringBuilder sb = new StringBuilder();
             char[] chars = keys.ToCharArray();
             bool inBrackets = false;
-            foreach(char c in chars)
+            foreach (char c in chars)
             {
                 inBrackets = inBrackets && c != '}' || c == '{';
-                if(!inBrackets && Char.IsDigit(c))
+                if (!inBrackets && Char.IsDigit(c))
                 {
                     sb.Append("{DIGIT_");
                     sb.Append(c);
@@ -226,15 +237,6 @@ namespace NUnit.Extensions.Forms
         //
         //		}
 
-        private readonly static Hashtable modifiers = new Hashtable();
-
-        static KeyboardController()
-        {
-            modifiers['%'] = "ALT";
-            modifiers['+'] = "SHIFT";
-            modifiers['^'] = "CONTROL";
-        }
-
         private int HandleModifier(ArrayList commands, string keyString, int i, string modifier)
         {
             commands.Add("PRESS");
@@ -247,9 +249,9 @@ namespace NUnit.Extensions.Forms
 
         private static int HandleKey(string keyString, ArrayList commands, int i)
         {
-            int nextIndex = i+1;
+            int nextIndex = i + 1;
             string next = keyString[nextIndex].ToString();
-            if(next == "{")
+            if (next == "{")
             {
                 int endBracket = keyString.IndexOf('}', nextIndex);
                 commands.Add(keyString.Substring(nextIndex + 1, endBracket - nextIndex - 1));
@@ -265,7 +267,7 @@ namespace NUnit.Extensions.Forms
         private int HandleNext(string keyString, ArrayList commands, int i)
         {
             string next = keyString[++i].ToString();
-            if(next == "{")
+            if (next == "{")
             {
                 int endBracket = keyString.IndexOf('}', i);
                 commands.AddRange(ParseKeys(keyString.Substring(i + 1, endBracket - i - 1)));
@@ -278,28 +280,28 @@ namespace NUnit.Extensions.Forms
             return i;
         }
 
-		/// <summary>
-		/// Press and release a key.
-		/// these constants.
-		/// </summary>
-		/// <remarks>
-		/// Use the Key class (in Key.cs) to find these constants.
-		/// </remarks>
-		/// <param name="key">The key to click.</param>
+        /// <summary>
+        /// Press and release a key.
+        /// these constants.
+        /// </summary>
+        /// <remarks>
+        /// Use the Key class (in Key.cs) to find these constants.
+        /// </remarks>
+        /// <param name="key">The key to click.</param>
         public void Click(string key)
         {
             Press(key);
             Release(key);
         }
 
-		/// <summary>
-		/// Press a key.
-		/// </summary>
-		/// <remarks>
-		/// Use the Key class (in Key.cs) to find these constants.
-		/// </remarks>
-		/// <param name="key">The key to press.</param>
-		public void Press(string key)
+        /// <summary>
+        /// Press a key.
+        /// </summary>
+        /// <remarks>
+        /// Use the Key class (in Key.cs) to find these constants.
+        /// </remarks>
+        /// <param name="key">The key to press.</param>
+        public void Press(string key)
         {
             keyboardControl.Focus();
 
@@ -308,14 +310,14 @@ namespace NUnit.Extensions.Forms
             Application.DoEvents();
         }
 
-		/// <summary>
-		/// Release a key.  
-		/// </summary>
-		/// <remarks>
-		/// Use the Key class (in Key.cs) to find these constants.
-		/// </remarks>
-		/// <param name="key">The key to release.</param>
-		public void Release(string key)
+        /// <summary>
+        /// Release a key.  
+        /// </summary>
+        /// <remarks>
+        /// Use the Key class (in Key.cs) to find these constants.
+        /// </remarks>
+        /// <param name="key">The key to release.</param>
+        public void Release(string key)
         {
             Application.DoEvents();
         }

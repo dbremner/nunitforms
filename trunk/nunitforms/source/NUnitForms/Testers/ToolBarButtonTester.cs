@@ -54,10 +54,7 @@ namespace NUnit.Extensions.Forms
         /// </summary>
         public ToolBar Bar
         {
-            get
-            {
-                return bar.Properties;
-            }
+            get { return bar.Properties; }
         }
 
         /// <summary>
@@ -65,10 +62,7 @@ namespace NUnit.Extensions.Forms
         /// </summary>
         public ToolBarButton Button
         {
-            get
-            {
-                return button;
-            }
+            get { return button; }
         }
 
         /// <summary>
@@ -85,26 +79,14 @@ namespace NUnit.Extensions.Forms
 
         public bool Pushed
         {
-            set
-            {
-                Button.Pushed = value;
-            }
-            get
-            {
-                return Button.Pushed;
-            }
+            set { Button.Pushed = value; }
+            get { return Button.Pushed; }
         }
 
         public bool PartialPushed
         {
-            set
-            {
-                Button.PartialPush = value;
-            }
-            get
-            {
-                return Button.PartialPush;
-            }
+            set { Button.PartialPush = value; }
+            get { return Button.PartialPush; }
         }
 
         #endregion
@@ -129,9 +111,9 @@ namespace NUnit.Extensions.Forms
         public void ClickDropDownMenuItem(string menuText)
         {
             FormsAssert.IsTrue(button.Style == ToolBarButtonStyle.DropDownButton);
-            foreach(MenuItem item in button.DropDownMenu.MenuItems)
+            foreach (MenuItem item in button.DropDownMenu.MenuItems)
             {
-                if(item.Text == menuText)
+                if (item.Text == menuText)
                 {
                     item.PerformClick();
                     return;

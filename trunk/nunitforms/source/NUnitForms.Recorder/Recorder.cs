@@ -36,98 +36,102 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
-	///<summary>
-	/// This is the abstract base class for all event recorder classes
-	/// that don't depend on a concrete object type.
-	///</summary>
-	/// <remarks>
-	/// This class is inherited by <see cref="ControlRecorder"/>
-	/// and <see cref="ToolStripRecorder"/> which provide
-	/// control-specific services.
-	/// </remarks>
-	public abstract class Recorder : IRecorder
-	{
-		private Listener listener;
+    ///<summary>
+    /// This is the abstract base class for all event recorder classes
+    /// that don't depend on a concrete object type.
+    ///</summary>
+    /// <remarks>
+    /// This class is inherited by <see cref="ControlRecorder"/>
+    /// and <see cref="ToolStripRecorder"/> which provide
+    /// control-specific services.
+    /// </remarks>
+    public abstract class Recorder : IRecorder
+    {
+        private Listener listener;
 
-		/// <summary>
-		/// Constructs a new <see cref="Recorder"/>.
-		/// </summary>
-		/// <param name="listener">The <see cref="Listener"/> to use with this <see cref="Recorder"/>.</param>
-		protected Recorder(Listener listener)
-		{
-			this.listener = listener;
-		}
+        /// <summary>
+        /// Constructs a new <see cref="Recorder"/>.
+        /// </summary>
+        /// <param name="listener">The <see cref="Listener"/> to use with this <see cref="Recorder"/>.</param>
+        protected Recorder(Listener listener)
+        {
+            this.listener = listener;
+        }
 
-		/// <summary>
-		/// Gets the type of object being recorded.
-		/// </summary>
-		public abstract Type RecorderType { get; }
+        #region IRecorder Members
 
-		/// <summary>
-		/// Gets the type of the <see cref="ControlTester"/>
-		/// being used.
-		/// </summary>
-		public abstract Type TesterType { get; }
+        /// <summary>
+        /// Gets the type of object being recorded.
+        /// </summary>
+        public abstract Type RecorderType { get; }
 
-		///<summary>
-		/// Gets the <see cref="Listener"/> associated with this <see cref="Recorder"/>.
-		///</summary>
-		public Listener Listener
-		{
-			get { return listener; }
-		}
+        /// <summary>
+        /// Gets the type of the <see cref="ControlTester"/>
+        /// being used.
+        /// </summary>
+        public abstract Type TesterType { get; }
 
-		/// <summary>
-		/// Returns the "Event Key" for the given named event.
-		/// </summary>
-		/// <remarks>
-		/// <para>
-		/// The <see cref="Control"/> base class defines a large number of events for use in user code, 
-		/// which are inherited by all derived classes. Instead of members for each possible event handler,
-		/// a single hash table is used to store event handlers. This hash table is keyed on 
-		/// private static readonly objects whose names correspond to event handlers.
-		/// </para>
-		/// <para>
-		/// The <see cref="Listener"/> class retreives these objects in order to manually combine event handler delegates
-		/// at run time.
-		/// </para>
-		/// </remarks>
-		/// <param name="name">The name of the event.</param>
-		/// <returns>A <see cref="FieldInfo"/> object representing the event key for the named event.</returns>
-		public virtual FieldInfo EventKey(string name)
-		{
-			return EventKey(name, RecorderType);
-		}
+        ///<summary>
+        /// Gets the <see cref="Listener"/> associated with this <see cref="Recorder"/>.
+        ///</summary>
+        public Listener Listener
+        {
+            get { return listener; }
+        }
 
-		protected virtual FieldInfo EventKey(string name, Type type)
-		{
-			FieldInfo key = type.GetField("Event" + name, BindingFlags.Static | BindingFlags.NonPublic);
-			if (key != null)
-			{
-				return key;
-			}
+        /// <summary>
+        /// Returns the "Event Key" for the given named event.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// The <see cref="Control"/> base class defines a large number of events for use in user code, 
+        /// which are inherited by all derived classes. Instead of members for each possible event handler,
+        /// a single hash table is used to store event handlers. This hash table is keyed on 
+        /// private static readonly objects whose names correspond to event handlers.
+        /// </para>
+        /// <para>
+        /// The <see cref="Listener"/> class retreives these objects in order to manually combine event handler delegates
+        /// at run time.
+        /// </para>
+        /// </remarks>
+        /// <param name="name">The name of the event.</param>
+        /// <returns>A <see cref="FieldInfo"/> object representing the event key for the named event.</returns>
+        public virtual FieldInfo EventKey(string name)
+        {
+            return EventKey(name, RecorderType);
+        }
 
-			key = type.GetField("EVENT_" + name.ToUpper(), BindingFlags.Static | BindingFlags.NonPublic);
-			if (key != null)
-			{
-				return key;
-			}
+        #endregion
 
-			if (name == "TextChanged")
-			{
-				key = type.GetField("EventText", BindingFlags.Static | BindingFlags.NonPublic);
-			}
-			if (key != null)
-			{
-				return key;
-			}
+        protected virtual FieldInfo EventKey(string name, Type type)
+        {
+            FieldInfo key = type.GetField("Event" + name, BindingFlags.Static | BindingFlags.NonPublic);
+            if (key != null)
+            {
+                return key;
+            }
 
-			if (type == typeof (object))
-			{
-				return null;
-			}
+            key = type.GetField("EVENT_" + name.ToUpper(), BindingFlags.Static | BindingFlags.NonPublic);
+            if (key != null)
+            {
+                return key;
+            }
 
-			return EventKey(name, type.BaseType);
-		}
-	}
+            if (name == "TextChanged")
+            {
+                key = type.GetField("EventText", BindingFlags.Static | BindingFlags.NonPublic);
+            }
+            if (key != null)
+            {
+                return key;
+            }
+
+            if (type == typeof (object))
+            {
+                return null;
+            }
+
+            return EventKey(name, type.BaseType);
+        }
+    }
 }

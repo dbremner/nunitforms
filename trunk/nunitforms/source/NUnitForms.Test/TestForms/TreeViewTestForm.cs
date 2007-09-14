@@ -41,14 +41,14 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// </summary>
     public class TreeViewTestForm : Form
     {
-        private Label myLabel;
-
-        private TreeView myTree;
-
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
+
+        private Label myLabel;
+
+        private TreeView myTree;
 
         public TreeViewTestForm()
         {
@@ -67,14 +67,19 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            myLabel.Text = e.Node.Text;
         }
 
         #region Windows Form Designer generated code
@@ -96,37 +101,37 @@ namespace NUnit.Extensions.Forms.TestApplications
             this.myTree.Location = new Point(0, 0);
             this.myTree.Name = "myTree";
             this.myTree.Nodes.AddRange(
-                    new TreeNode[]
-                            {
-                                    new TreeNode("Node0",
-                                                 new TreeNode[]
-                                                         {new TreeNode("Node1", new TreeNode[] {new TreeNode("Node2")})})
-                                    ,
-                                    new TreeNode("Node3",
-                                                 new TreeNode[]
-                                                         {
-                                                                 new TreeNode("Node4",
-                                                                              new TreeNode[]
-                                                                                      {
-                                                                                              new TreeNode("Node5"),
-                                                                                              new TreeNode("Node6",
-                                                                                                           new TreeNode[]
-                                                                                                                   {
-                                                                                                                           new
-                                                                                                                                   TreeNode
-                                                                                                                                   ("Node7")
-                                                                                                                           ,
-                                                                                                                           new
-                                                                                                                                   TreeNode
-                                                                                                                                   ("Node8")
-                                                                                                                           ,
-                                                                                                                           new
-                                                                                                                                   TreeNode
-                                                                                                                                   ("Node9")
-                                                                                                                   })
-                                                                                      })
-                                                         })
-                            });
+                new TreeNode[]
+                    {
+                        new TreeNode("Node0",
+                                     new TreeNode[]
+                                         {new TreeNode("Node1", new TreeNode[] {new TreeNode("Node2")})})
+                        ,
+                        new TreeNode("Node3",
+                                     new TreeNode[]
+                                         {
+                                             new TreeNode("Node4",
+                                                          new TreeNode[]
+                                                              {
+                                                                  new TreeNode("Node5"),
+                                                                  new TreeNode("Node6",
+                                                                               new TreeNode[]
+                                                                                   {
+                                                                                       new
+                                                                                           TreeNode
+                                                                                           ("Node7")
+                                                                                       ,
+                                                                                       new
+                                                                                           TreeNode
+                                                                                           ("Node8")
+                                                                                       ,
+                                                                                       new
+                                                                                           TreeNode
+                                                                                           ("Node9")
+                                                                                   })
+                                                              })
+                                         })
+                    });
             this.myTree.SelectedImageIndex = -1;
             this.myTree.Size = new Size(224, 488);
             this.myTree.TabIndex = 0;
@@ -151,10 +156,5 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         #endregion
-
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            myLabel.Text = e.Node.Text;
-        }
     }
 }

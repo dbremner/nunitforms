@@ -42,6 +42,13 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// </summary>
     public class MainMenuTestForm : Form
     {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
+
+        private Label label;
+
         private MainMenu mainMenu1;
 
         private MenuItem menuItem1;
@@ -55,13 +62,6 @@ namespace NUnit.Extensions.Forms.TestApplications
         private MenuItem menuItem5;
 
         private MenuItem menuItem6;
-
-        private Label label;
-
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private Container components = null;
 
         public MainMenuTestForm()
         {
@@ -80,14 +80,24 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void menuItem_Click(object sender, EventArgs e)
+        {
+            label.Text = "clicked";
+        }
+
+        private void menuItem_Popup(object sender, EventArgs e)
+        {
+            label.Text = "shown";
         }
 
         #region Windows Form Designer generated code
@@ -116,7 +126,7 @@ namespace NUnit.Extensions.Forms.TestApplications
             // 
             this.menuItem1.Index = 0;
             this.menuItem1.MenuItems.AddRange(
-                    new MenuItem[] {this.menuItem6, this.menuItem2, this.menuItem4, this.menuItem5});
+                new MenuItem[] {this.menuItem6, this.menuItem2, this.menuItem4, this.menuItem5});
             this.menuItem1.Text = "Main";
             this.menuItem1.Popup += new EventHandler(this.menuItem_Popup);
             // 
@@ -170,15 +180,5 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         #endregion
-
-        private void menuItem_Click(object sender, EventArgs e)
-        {
-            label.Text = "clicked";
-        }
-
-        private void menuItem_Popup(object sender, EventArgs e)
-        {
-            label.Text = "shown";
-        }
     }
 }

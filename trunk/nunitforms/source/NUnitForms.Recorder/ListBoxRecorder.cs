@@ -35,55 +35,57 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
-	public class ListBoxRecorder : ControlRecorder
-	{
-		public ListBoxRecorder(Listener listener) : base(listener) {}
+    public class ListBoxRecorder : ControlRecorder
+    {
+        public ListBoxRecorder(Listener listener) : base(listener)
+        {
+        }
 
-		public override Type RecorderType
-		{
-			get { return typeof (ListBox); }
-		}
+        public override Type RecorderType
+        {
+            get { return typeof (ListBox); }
+        }
 
-		public override Type TesterType
-		{
-			get { return typeof (ListBoxTester); }
-		}
+        public override Type TesterType
+        {
+            get { return typeof (ListBoxTester); }
+        }
 
-		public void SelectedIndexChanged(object sender, EventArgs e)
-		{
-			ListBox list = (ListBox) sender;
-			if (list.SelectionMode == SelectionMode.One)
-			{
-				FireSingleSelection(list);
-			}
-			else if (list.SelectionMode == SelectionMode.MultiSimple || list.SelectionMode == SelectionMode.MultiExtended)
-			{
-				FireMultipleSelection(list);
-			}
-		}
+        public void SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListBox list = (ListBox) sender;
+            if (list.SelectionMode == SelectionMode.One)
+            {
+                FireSingleSelection(list);
+            }
+            else if (list.SelectionMode == SelectionMode.MultiSimple || list.SelectionMode == SelectionMode.MultiExtended)
+            {
+                FireMultipleSelection(list);
+            }
+        }
 
-		private void FireSingleSelection(ListBox list)
-		{
-			EventAction action = new EventAction("Select", list.SelectedIndex);
-			action.Comment = list.Text;
-			Listener.FireEvent(TesterType, list, action);
-		}
+        private void FireSingleSelection(ListBox list)
+        {
+            EventAction action = new EventAction("Select", list.SelectedIndex);
+            action.Comment = list.Text;
+            Listener.FireEvent(TesterType, list, action);
+        }
 
-		private void FireMultipleSelection(ListBox list)
-		{
-			//HACK: SelectedItem does not return last item selected or indicate on/off so 
-			//unless we have a smarter plan just issue clear and setselected
-			CompositeAction actions = new CompositeAction("MultipleSelections");
-			actions.Add("ClearSelected");
+        private void FireMultipleSelection(ListBox list)
+        {
+            //HACK: SelectedItem does not return last item selected or indicate on/off so 
+            //unless we have a smarter plan just issue clear and setselected
+            CompositeAction actions = new CompositeAction("MultipleSelections");
+            actions.Add("ClearSelected");
 
-			foreach (int index in list.SelectedIndices)
-			{
-				EventAction action = new EventAction("SetSelected", index, true);
-				action.Comment = list.Items[index].ToString();
-				actions.Add(action);
-			}
+            foreach (int index in list.SelectedIndices)
+            {
+                EventAction action = new EventAction("SetSelected", index, true);
+                action.Comment = list.Items[index].ToString();
+                actions.Add(action);
+            }
 
-			Listener.FireEvent(TesterType, list, actions);
-		}
-	}
+            Listener.FireEvent(TesterType, list, actions);
+        }
+    }
 }

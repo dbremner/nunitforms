@@ -28,9 +28,9 @@
 
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace NUnitForms.ScreenCapture
 {
@@ -40,9 +40,9 @@ namespace NUnitForms.ScreenCapture
     public partial class MainForm : Form
     {
         /// <summary>
-        /// The path of the executable, used to save the captured images.
+        /// The class instance used to capture the screen
         /// </summary>
-        private string pathName;
+        private ScreenCapture capture;
 
         /// <summary>
         /// Helper to handle the file formats
@@ -50,9 +50,9 @@ namespace NUnitForms.ScreenCapture
         private ImageFormatHandler handlers;
 
         /// <summary>
-        /// The class instance used to capture the screen
+        /// The path of the executable, used to save the captured images.
         /// </summary>
-        private ScreenCapture capture;
+        private string pathName;
 
         /// <summary>
         /// Do it....
@@ -61,7 +61,7 @@ namespace NUnitForms.ScreenCapture
         {
             InitializeComponent();
             pathName = String.Format("{0}\\Data\\", Path.GetDirectoryName(Application.ExecutablePath));
-            if(! Directory.Exists(pathName))
+            if (! Directory.Exists(pathName))
             {
                 Directory.CreateDirectory(pathName);
             }
@@ -74,9 +74,9 @@ namespace NUnitForms.ScreenCapture
         {
             Process[] processes = Process.GetProcesses();
 
-            foreach(Process process in processes)
+            foreach (Process process in processes)
             {
-                if(!String.IsNullOrEmpty(process.ProcessName) && process.MainWindowHandle != null)
+                if (!String.IsNullOrEmpty(process.ProcessName) && process.MainWindowHandle != null)
                 {
                     listBoxProcesses.Items.Add(process.ProcessName);
                 }
@@ -136,13 +136,14 @@ namespace NUnitForms.ScreenCapture
                 Process[] processes = Process.GetProcessesByName(listBoxProcesses.SelectedItem.ToString());
 
                 string filename = String.Format("{0}Captured Other Process.png", pathName);
-                Bitmap bitmap = capture.Capture(processes[0].MainWindowHandle, filename, ImageFormatHandler.ImageFormatTypes.imgPNG);
+                Bitmap bitmap =
+                    capture.Capture(processes[0].MainWindowHandle, filename, ImageFormatHandler.ImageFormatTypes.imgPNG);
                 pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
                 pictureBox1.Image = bitmap;
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
-                System.Windows.Forms.MessageBox.Show(exception.Message);
+                MessageBox.Show(exception.Message);
             }
         }
     }

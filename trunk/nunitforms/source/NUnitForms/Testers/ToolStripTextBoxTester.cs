@@ -30,20 +30,19 @@
 
 #endregion
 
-
 namespace NUnit.Extensions.Forms
 {
     public partial class ToolStripTextBoxTester
     {
         /// <summary>
-		/// This method allows you to enter text into the text box.
-		/// </summary>
-		/// <param name="text">The text to enter into the text box.</param>
-		public void Enter(string text)
-		{
-			FireEvent("Enter");
-			Properties.Text = text;
-			FireEvent("Leave");
-		}
-	}
+        /// This method allows you to enter text into the text box.
+        /// </summary>
+        /// <param name="text">The text to enter into the text box.</param>
+        public void Enter(string text)
+        {
+            FireEvent("Enter");
+            Properties.Text = text;
+            FireEvent("Leave");
+        }
+    }
 }

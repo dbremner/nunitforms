@@ -30,23 +30,22 @@
 
 #endregion
 
-
 namespace NUnit.Extensions.Forms
 {
-	/// <summary>
-	/// A ControlTester for testing TextBoxes.
-	/// </summary>
-	/// <remarks>
-	/// There is a convenience method for entering text into a text box.</remarks>
-	public partial class TextBoxTester
-    { 
-		/// <summary>
-		/// This method allows you to enter text into the text box.
-		/// </summary>
-		/// <param name="text">The text to enter into the text box.</param>
-		public void Enter(string text)
-		{
-			EnterText(text);
-		}
-	}
+    /// <summary>
+    /// A ControlTester for testing TextBoxes.
+    /// </summary>
+    /// <remarks>
+    /// There is a convenience method for entering text into a text box.</remarks>
+    public partial class TextBoxTester
+    {
+        /// <summary>
+        /// This method allows you to enter text into the text box.
+        /// </summary>
+        /// <param name="text">The text to enter into the text box.</param>
+        public void Enter(string text)
+        {
+            EnterText(text);
+        }
+    }
 }

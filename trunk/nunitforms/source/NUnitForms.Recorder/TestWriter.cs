@@ -44,6 +44,11 @@ namespace NUnit.Extensions.Forms.Recorder
     ///</summary>
     public class TestWriter
     {
+        private List<Action> actions = new List<Action>();
+        private ArrayList definitions = new ArrayList();
+        private string test = "";
+        public EventHandler TestChanged;
+
         /// <summary>
         /// Initialize a <c>TestWriter</c> for a form.
         /// </summary>
@@ -75,10 +80,7 @@ namespace NUnit.Extensions.Forms.Recorder
         /// </value>
         public string Test
         {
-            get
-            {                
-                return test;
-            }
+            get { return test; }
             set
             {
                 if (value != null)
@@ -92,7 +94,7 @@ namespace NUnit.Extensions.Forms.Recorder
                 FireTestChanged();
             }
         }
-        
+
         /// <summary>
         /// Add a definition to the list of definitions.
         /// </summary>
@@ -114,7 +116,7 @@ namespace NUnit.Extensions.Forms.Recorder
                 throw new ArgumentException();
             }
         }
-        
+
         /// <summary>
         /// Add an action to the list of actions.
         /// </summary>
@@ -137,11 +139,9 @@ namespace NUnit.Extensions.Forms.Recorder
             }
         }
 
-        public EventHandler TestChanged;
-        
         protected void FireTestChanged()
         {
-            if(TestChanged != null)
+            if (TestChanged != null)
             {
                 TestChanged(this, new EventArgs());
             }
@@ -162,7 +162,7 @@ namespace NUnit.Extensions.Forms.Recorder
             {
                 newDefinition = new Definition(control, GetName(control, null), testerType, null);
             }
-            catch(AmbiguousNameException)
+            catch (AmbiguousNameException)
             {
                 Form form = ((Control) control).FindForm(); //TODO: fix this! not always a control :(
                 newDefinition = new Definition(control, GetName(control, form), testerType, form.Name);
@@ -174,7 +174,7 @@ namespace NUnit.Extensions.Forms.Recorder
         {
             Definition goodName = GetNewDefinition(control, testerType);
             definition.Name = goodName.Name;
-            if(goodName.FormName != null)
+            if (goodName.FormName != null)
             {
                 definition.FormName = goodName.FormName;
             }
@@ -182,9 +182,9 @@ namespace NUnit.Extensions.Forms.Recorder
 
         private Definition FindOrCreateVariableNameForDefinition(object control, Type testerType)
         {
-            foreach(Definition definition in definitions)
+            foreach (Definition definition in definitions)
             {
-                if(definition.Control == control && definition.TesterType == testerType)
+                if (definition.Control == control && definition.TesterType == testerType)
                 {
                     EnsureNameIsGood(definition, control, testerType);
                     return definition;
@@ -219,17 +219,17 @@ namespace NUnit.Extensions.Forms.Recorder
             {
                 control = new Finder<Control>(findName, form).Find();
             }
-            catch(NoSuchControlException)
+            catch (NoSuchControlException)
             {
             }
             try
             {
                 menuItem = new Finder<MenuItem>(findName, form).Find();
             }
-            catch(NoSuchControlException)
+            catch (NoSuchControlException)
             {
             }
-            if((control != null) && (menuItem != null))
+            if ((control != null) && (menuItem != null))
             {
                 throw new AmbiguousNameException(name);
             }
@@ -259,19 +259,18 @@ namespace NUnit.Extensions.Forms.Recorder
                     Find(name, form);
                     foundGoodName = true;
                 }
-                catch(AmbiguousNameException)
+                catch (AmbiguousNameException)
                 {
-                    if(parent is Form)
+                    if (parent is Form)
                     {
                         throw;
                     }
                     name = finder.Name(parent) + "_" + name;
                     parent = finder.Parent(parent);
                 }
-            }
-            while(!foundGoodName);
+            } while (!foundGoodName);
 
-            if(name.StartsWith("_") && control is MenuItem)
+            if (name.StartsWith("_") && control is MenuItem)
             {
                 name = GetName(((MenuItem) control).GetContextMenu().SourceControl, null) + name;
             }
@@ -293,7 +292,7 @@ namespace NUnit.Extensions.Forms.Recorder
             WriteLine(sb);
             WriteLine(sb);
 
-            foreach(Definition definition in definitions)
+            foreach (Definition definition in definitions)
             {
                 WriteDefinition(definition, sb);
             }
@@ -302,12 +301,12 @@ namespace NUnit.Extensions.Forms.Recorder
             //should allow multiple or plugin style approach to test writing
 
             //should allow Plugin approach to processors of actions.
-			ICollection<Action> processedActions = actions;
+            ICollection<Action> processedActions = actions;
 
             processedActions = new EnterSelectTextCollapsingProcessor().Process(processedActions);
             processedActions = new EnterTextCollapsingProcessor().Process(processedActions);
 
-            foreach(Action action in processedActions)
+            foreach (Action action in processedActions)
             {
                 WriteAction(action.ToString(), sb);
             }
@@ -411,11 +410,5 @@ namespace NUnit.Extensions.Forms.Recorder
                 throw new ArgumentException();
             }
         }
-
-        private string test = "";
-
-        private ArrayList definitions = new ArrayList();
-
-		private List<Action> actions = new List<Action>();
     }
 }

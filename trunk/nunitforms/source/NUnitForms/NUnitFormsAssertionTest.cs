@@ -44,82 +44,82 @@ namespace NUnit.Extensions.Forms
     {
         public void Assert(bool condition, string message)
         {
-            NUnit.Framework.Assert.IsTrue(condition, message);
+            Framework.Assert.IsTrue(condition, message);
         }
 
         public void Assert(bool condition)
         {
-            NUnit.Framework.Assert.IsTrue(condition);
+            Framework.Assert.IsTrue(condition);
         }
 
         public void AssertEquals(double expected, double actual, double delta)
         {
-            NUnit.Framework.Assert.AreEqual(expected, actual, delta);
+            Framework.Assert.AreEqual(expected, actual, delta);
         }
 
         public void AssertEquals(float expected, float actual, float delta)
         {
-            NUnit.Framework.Assert.AreEqual(expected, actual, delta);
+            Framework.Assert.AreEqual(expected, actual, delta);
         }
 
         public void AssertEquals(object expected, object actual)
         {
-            NUnit.Framework.Assert.AreEqual(expected, actual);
+            Framework.Assert.AreEqual(expected, actual);
         }
 
         public void AssertEquals(int expected, int actual)
         {
-            NUnit.Framework.Assert.AreEqual(expected, actual);
+            Framework.Assert.AreEqual(expected, actual);
         }
 
         public void AssertEquals(string message, double expected, double actual, double delta)
         {
-            NUnit.Framework.Assert.AreEqual(expected, actual, delta, message);
+            Framework.Assert.AreEqual(expected, actual, delta, message);
         }
 
         public void AssertEquals(string message, float expected, float actual, float delta)
         {
-            NUnit.Framework.Assert.AreEqual(expected, actual, delta, message);
+            Framework.Assert.AreEqual(expected, actual, delta, message);
         }
 
         public void AssertEquals(string message, object expected, object actual)
         {
-            NUnit.Framework.Assert.AreEqual(expected, actual, message);
+            Framework.Assert.AreEqual(expected, actual, message);
         }
 
         public void AssertEquals(string message, int expected, int actual)
         {
-            NUnit.Framework.Assert.AreEqual(expected, actual, message);
+            Framework.Assert.AreEqual(expected, actual, message);
         }
 
         public void AssertNotNull(object anObject)
         {
-            NUnit.Framework.Assert.IsNotNull(anObject);
+            Framework.Assert.IsNotNull(anObject);
         }
 
         public void AssertNotNull(string message, object anObject)
         {
-            NUnit.Framework.Assert.IsNotNull(anObject, message);
+            Framework.Assert.IsNotNull(anObject, message);
         }
 
         public void AssertSame(object expected, object actual)
         {
-            NUnit.Framework.Assert.AreSame(expected, actual);
+            Framework.Assert.AreSame(expected, actual);
         }
 
         public void AssertSame(string message, object expected, object actual)
         {
-            NUnit.Framework.Assert.AreSame(expected, actual, message);
+            Framework.Assert.AreSame(expected, actual, message);
         }
 
         public void Fail()
         {
-            NUnit.Framework.Assert.Fail();
+            Framework.Assert.Fail();
         }
 
         public void Fail(string message)
         {
-            NUnit.Framework.Assert.Fail(message);
+            Framework.Assert.Fail(message);
         }
     }
 }

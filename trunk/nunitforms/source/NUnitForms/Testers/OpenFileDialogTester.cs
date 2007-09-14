@@ -34,29 +34,31 @@ using System.Threading;
 
 namespace NUnit.Extensions.Forms
 {
-	/// <summary>
-	/// This class is used to test the built-in OpenFileDialog. This class is not meant to be
-	/// used directly. Instead you should use the ExpectOpenFileDialog and CancelOpenFileDialog functions
-	/// in the NUnitFormTest
-	/// class.
-	/// </summary>
-	public class OpenFileDialogTester : FileDialogTester
-	{
-		/// <summary>
-		/// Constructs a new OpenFileDialogTester with the given title.
-		/// </summary>
-		public OpenFileDialogTester(string title) : base(title) {}
+    /// <summary>
+    /// This class is used to test the built-in OpenFileDialog. This class is not meant to be
+    /// used directly. Instead you should use the ExpectOpenFileDialog and CancelOpenFileDialog functions
+    /// in the NUnitFormTest
+    /// class.
+    /// </summary>
+    public class OpenFileDialogTester : FileDialogTester
+    {
+        /// <summary>
+        /// Constructs a new OpenFileDialogTester with the given title.
+        /// </summary>
+        public OpenFileDialogTester(string title) : base(title)
+        {
+        }
 
 
-		///<summary>
-		/// Opens the given file using this dialog, on a separate thread.
-		///</summary>
-		///<param name="file"></param>
-		public void OpenFile(string file)
-		{
-			fileName = file;
-			Thread thr = new Thread(FileNameHandler);
-			thr.Start();
-		}
-	}
+        ///<summary>
+        /// Opens the given file using this dialog, on a separate thread.
+        ///</summary>
+        ///<param name="file"></param>
+        public void OpenFile(string file)
+        {
+            fileName = file;
+            Thread thr = new Thread(FileNameHandler);
+            thr.Start();
+        }
+    }
 }

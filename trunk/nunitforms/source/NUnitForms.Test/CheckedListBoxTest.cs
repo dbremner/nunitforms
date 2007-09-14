@@ -34,8 +34,6 @@
 
 using System;
 using System.Collections;
-
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -53,11 +51,18 @@ namespace NUnit.Extensions.Forms.TestApplications
             checkedListBox = new CheckedListBoxTester("checkedListBox", checkedListForm);
         }
 
-        [Test]
-        public void HookupTestForm()
+        private void FillListBox()
         {
             checkedListForm.Show();
-            Assert.IsTrue(checkedListBox.Properties.Visible);
+            checkedListBox.Items.AddRange(new string[] {"Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"});
+        }
+
+        [Test]
+        [ExpectedException(typeof (IndexOutOfRangeException), ExpectedMessage="Ultra-Violet not in list")]
+        public void CheckItem()
+        {
+            checkedListForm.Show();
+            checkedListBox.CheckItem("Ultra-Violet");
         }
 
         [Test]
@@ -71,14 +76,6 @@ namespace NUnit.Extensions.Forms.TestApplications
             checkedListBox.CheckItem("Violet");
 
             checkedListBox.CheckSelectedItems(new ArrayList(new string[] {"Red", "Orange", "Indigo", "Violet"}));
-        }
-
-        [Test]
-        [ExpectedException(typeof(IndexOutOfRangeException), ExpectedMessage="Ultra-Violet not in list")]
-        public void CheckItem()
-        {
-            checkedListForm.Show();
-            checkedListBox.CheckItem("Ultra-Violet");
         }
 
         [Test]
@@ -96,11 +93,11 @@ namespace NUnit.Extensions.Forms.TestApplications
             checkedListBox.CheckSelectedItems(new ArrayList(new string[] {"Red", "Indigo", "Violet"}));
         }
 
-
-        private void FillListBox()
+        [Test]
+        public void HookupTestForm()
         {
             checkedListForm.Show();
-            checkedListBox.Items.AddRange(new string[] {"Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"});
+            Assert.IsTrue(checkedListBox.Properties.Visible);
         }
     }
 }

@@ -31,8 +31,6 @@
 #endregion
 
 using System.Windows.Forms;
-
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -40,45 +38,20 @@ namespace NUnit.Extensions.Forms.TestApplications
     [TestFixture]
     public class MultipleFormsTest : NUnitFormTest
     {
-        [Test]
-        public void TestMultipleForms()
-        {
-            MultiForm form = new MultiForm();
-            form.Show();
-
-            ButtonTester buttonOne = new ButtonTester("myButton", "Form");
-            ButtonTester buttonTwo = new ButtonTester("myButton", "Form-0");
-            ButtonTester buttonThree = new ButtonTester("myButton", "Form-0-0");
-            ButtonTester buttonFour = new ButtonTester("myButton", "Form-1");
-
-            buttonOne.Click();
-            buttonTwo.Click();
-            buttonThree.Click();
-            buttonOne.Click();
-            buttonFour.Click();
-        }
-
-        [Test]
-        [ExpectedException(typeof(NoSuchControlException),ExpectedMessage= "Could not find form with name 'Form-1'")]
-        public void TestMultipleFormsShouldNotFindLastButton()
-        {
-            MultiForm form = new MultiForm();
-            form.Show();
-
-            ButtonTester buttonOne = new ButtonTester("myButton", "Form");
-            ButtonTester buttonTwo = new ButtonTester("myButton", "Form-0");
-            ButtonTester buttonThree = new ButtonTester("myButton", "Form-0-0");
-            ButtonTester buttonFour = new ButtonTester("myButton", "Form-1");
-
-            buttonOne.Click();
-            buttonTwo.Click();
-            buttonThree.Click();
-            buttonFour.Click();
-        }
-
         private void ShowForm(Form f)
         {
             f.Show();
+        }
+
+        [Test]
+        [ExpectedException(typeof (AmbiguousNameException))]
+        public void AmbiguousNameWithMultipleForms()
+        {
+            ShowForm(new ButtonTestForm());
+            ShowForm(new ButtonTestForm());
+
+            ButtonTester myButton = new ButtonTester("myButton");
+            myButton.Click();
         }
 
         [Test]
@@ -105,14 +78,39 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(AmbiguousNameException))]
-        public void AmbiguousNameWithMultipleForms()
+        public void TestMultipleForms()
         {
-            ShowForm(new ButtonTestForm());
-            ShowForm(new ButtonTestForm());
+            MultiForm form = new MultiForm();
+            form.Show();
 
-            ButtonTester myButton = new ButtonTester("myButton");
-            myButton.Click();
+            ButtonTester buttonOne = new ButtonTester("myButton", "Form");
+            ButtonTester buttonTwo = new ButtonTester("myButton", "Form-0");
+            ButtonTester buttonThree = new ButtonTester("myButton", "Form-0-0");
+            ButtonTester buttonFour = new ButtonTester("myButton", "Form-1");
+
+            buttonOne.Click();
+            buttonTwo.Click();
+            buttonThree.Click();
+            buttonOne.Click();
+            buttonFour.Click();
+        }
+
+        [Test]
+        [ExpectedException(typeof (NoSuchControlException), ExpectedMessage= "Could not find form with name 'Form-1'")]
+        public void TestMultipleFormsShouldNotFindLastButton()
+        {
+            MultiForm form = new MultiForm();
+            form.Show();
+
+            ButtonTester buttonOne = new ButtonTester("myButton", "Form");
+            ButtonTester buttonTwo = new ButtonTester("myButton", "Form-0");
+            ButtonTester buttonThree = new ButtonTester("myButton", "Form-0-0");
+            ButtonTester buttonFour = new ButtonTester("myButton", "Form-1");
+
+            buttonOne.Click();
+            buttonTwo.Click();
+            buttonThree.Click();
+            buttonFour.Click();
         }
     }
 }

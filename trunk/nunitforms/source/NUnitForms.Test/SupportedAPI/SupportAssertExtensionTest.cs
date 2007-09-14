@@ -41,18 +41,16 @@ namespace NUnit.Extensions.Forms.TestApplications
         //base.. and not that they are completely implemented correctly.  I think
         //that it works, tell me if it does not.  
 
-        [Test]
-        public void BaseClassIsTrue()
+        public void BaseClassIsNull()
         {
-            IsTrue(true);
-            IsTrue(true, "message");
+            IsNull(null);
+            IsNull(null, "message");
         }
 
-        [Test]
-        public void BaseClassIsFalse()
+        public void BaseClassIsNotNull()
         {
-            IsFalse(false);
-            IsFalse(false, "message");
+            IsNotNull("test");
+            IsNotNull("test", "message");
         }
 
         [Test]
@@ -70,18 +68,6 @@ namespace NUnit.Extensions.Forms.TestApplications
             AreEqual(new decimal(1.0d), new decimal(1.0d), "message");
         }
 
-        public void BaseClassIsNull()
-        {
-            IsNull(null);
-            IsNull(null, "message");
-        }
-
-        public void BaseClassIsNotNull()
-        {
-            IsNotNull("test");
-            IsNotNull("test", "message");
-        }
-
         [Test]
         public void BaseClassAreSame()
         {
@@ -90,17 +76,31 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(AssertionException))]
+        [ExpectedException(typeof (AssertionException))]
         public void BaseClassAssertFail()
         {
             Fail();
         }
 
         [Test]
-        [ExpectedException(typeof(AssertionException))]
+        [ExpectedException(typeof (AssertionException))]
         public void BaseClassAssertFailMessage()
         {
             Fail("message");
+        }
+
+        [Test]
+        public void BaseClassIsFalse()
+        {
+            IsFalse(false);
+            IsFalse(false, "message");
+        }
+
+        [Test]
+        public void BaseClassIsTrue()
+        {
+            IsTrue(true);
+            IsTrue(true, "message");
         }
     }
 }

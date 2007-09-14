@@ -35,11 +35,25 @@ using System.Windows.Forms;
 namespace NUnit.Extensions.Forms
 {
     public partial class ToolStripTextBoxTester : ToolStripItemTester<ToolStripTextBox, ToolStripTextBoxTester>
-	{
-        public ToolStripTextBoxTester(){}
-		public ToolStripTextBoxTester(string name, Form form): base(name, form) {}
-        public ToolStripTextBoxTester(string name, string formName)	: base(name, formName) {}
-		public ToolStripTextBoxTester(string name): base(name) {}
-        public ToolStripTextBoxTester(ToolStripTextBoxTester tester, int index): base(tester, index) {}
-	}
+    {
+        public ToolStripTextBoxTester()
+        {
+        }
+
+        public ToolStripTextBoxTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public ToolStripTextBoxTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public ToolStripTextBoxTester(string name) : base(name)
+        {
+        }
+
+        public ToolStripTextBoxTester(ToolStripTextBoxTester tester, int index) : base(tester, index)
+        {
+        }
+    }
 }

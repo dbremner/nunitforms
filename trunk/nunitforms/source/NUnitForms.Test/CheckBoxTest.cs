@@ -30,7 +30,6 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -59,6 +58,17 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
+        public void ToggleWithValue()
+        {
+            checkBox.Check(true);
+            Assert.IsTrue(checkBox.Checked);
+            checkBox.Check(false);
+            Assert.IsTrue(!checkBox.Checked);
+            checkBox.Check(true);
+            Assert.IsTrue(checkBox.Checked);
+        }
+
+        [Test]
         public void UnCheck()
         {
             Assert.AreEqual("default", label.Text);
@@ -75,17 +85,6 @@ namespace NUnit.Extensions.Forms.TestApplications
             checkBox.UnCheck();
             Assert.IsTrue(!checkBox.Checked);
             Assert.AreEqual("off", label.Text);
-        }
-
-        [Test]
-        public void ToggleWithValue()
-        {
-            checkBox.Check(true);
-            Assert.IsTrue(checkBox.Checked);
-            checkBox.Check(false);
-            Assert.IsTrue(!checkBox.Checked);
-            checkBox.Check(true);
-            Assert.IsTrue(checkBox.Checked);
         }
     }
 }

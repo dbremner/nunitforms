@@ -30,19 +30,30 @@
 
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
     public partial class CheckBoxTester : ControlTester<CheckBox, CheckBoxTester>
     {
-        public CheckBoxTester() { }
-        public CheckBoxTester(string name, Form form) : base(name, form) { }
-        public CheckBoxTester(string name, string formName) : base(name, formName) { }
-        public CheckBoxTester(string name) : base(name) { }
-        public CheckBoxTester(ControlTester<CheckBox, CheckBoxTester> tester, int index) : base(tester, index) { }
+        public CheckBoxTester()
+        {
+        }
+
+        public CheckBoxTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public CheckBoxTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public CheckBoxTester(string name) : base(name)
+        {
+        }
+
+        public CheckBoxTester(ControlTester<CheckBox, CheckBoxTester> tester, int index) : base(tester, index)
+        {
+        }
     }
 }

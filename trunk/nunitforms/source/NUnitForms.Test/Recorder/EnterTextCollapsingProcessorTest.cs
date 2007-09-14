@@ -39,6 +39,17 @@ namespace NUnit.Extensions.Forms.Recorder.Test
     [Category("Recorder")]
     public class EnterTextCollapsingProcessorTest
     {
+        #region Setup/Teardown
+
+        [SetUp]
+        public void setup()
+        {
+            processor = new EnterTextCollapsingProcessor();
+            list = new List<Action>();
+        }
+
+        #endregion
+
         private IList<Action> list = null;
 
         private string control1 = "control1";
@@ -50,13 +61,6 @@ namespace NUnit.Extensions.Forms.Recorder.Test
         private string notenter = "NotEnter";
 
         private EnterTextCollapsingProcessor processor = null;
-
-        [SetUp]
-        public void setup()
-        {
-            processor = new EnterTextCollapsingProcessor();
-			list = new List<Action>();
-        }
 
         public void Add(string control, string method, string arg)
         {
@@ -86,24 +90,6 @@ namespace NUnit.Extensions.Forms.Recorder.Test
         }
 
         [Test]
-        public void DontCollapseDifferentControls()
-        {
-            Add(control1, enter, "test");
-            Add(control2, enter, "test2");
-            Process();
-            Assert.AreEqual(2, list.Count);
-        }
-
-        [Test]
-        public void DontCollapseDifferentMethods()
-        {
-            Add(control1, enter, "test");
-            Add(control1, notenter, "test2");
-            Process();
-            Assert.AreEqual(2, list.Count);
-        }
-
-        [Test]
         public void CanCollapseMoreComplex()
         {
             Add(control1, enter, "test");
@@ -120,6 +106,24 @@ namespace NUnit.Extensions.Forms.Recorder.Test
             Assert.AreEqual("test4", Action(1).Args[0]);
             Assert.AreEqual("test6", Action(2).Args[0]);
             Assert.AreEqual("test7", Action(3).Args[0]);
+        }
+
+        [Test]
+        public void DontCollapseDifferentControls()
+        {
+            Add(control1, enter, "test");
+            Add(control2, enter, "test2");
+            Process();
+            Assert.AreEqual(2, list.Count);
+        }
+
+        [Test]
+        public void DontCollapseDifferentMethods()
+        {
+            Add(control1, enter, "test");
+            Add(control1, notenter, "test2");
+            Process();
+            Assert.AreEqual(2, list.Count);
         }
     }
 }

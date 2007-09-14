@@ -44,16 +44,15 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// </summary>
     public class TextBoxDataSetBindingTestForm : Form
     {
-        private TextBox myTextBox;
-
         private Button btnView;
-
-        private DataSet myDataSet;
 
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
+
+        private DataSet myDataSet;
+        private TextBox myTextBox;
 
         public TextBoxDataSetBindingTestForm()
         {
@@ -72,14 +71,30 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void TextBoxDataSetBindingTestForm_Load(object sender, EventArgs e)
+        {
+            myDataSet.Tables.Add("TableName");
+            myDataSet.Tables[0].Columns.Add("ColumnName");
+            DataRow row = myDataSet.Tables[0].NewRow();
+            myDataSet.Tables[0].Rows.Add(row);
+            myDataSet.Tables[0].Rows[0]["ColumnName"] = "Old";
+
+            myTextBox.DataBindings.Add(new Binding("Text", myDataSet, "TableName.ColumnName"));
+        }
+
+        private void btnView_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(myDataSet.Tables[0].Rows[0].ItemArray[0].ToString(), myTextBox.Text);
         }
 
         #region Windows Form Designer generated code
@@ -130,21 +145,5 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         #endregion
-
-        private void TextBoxDataSetBindingTestForm_Load(object sender, EventArgs e)
-        {
-            myDataSet.Tables.Add("TableName");
-            myDataSet.Tables[0].Columns.Add("ColumnName");
-            DataRow row = myDataSet.Tables[0].NewRow();
-            myDataSet.Tables[0].Rows.Add(row);
-            myDataSet.Tables[0].Rows[0]["ColumnName"] = "Old";
-
-            myTextBox.DataBindings.Add(new Binding("Text", myDataSet, "TableName.ColumnName"));
-        }
-
-        private void btnView_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(myDataSet.Tables[0].Rows[0].ItemArray[0].ToString(), myTextBox.Text);
-        }
     }
 }

@@ -34,12 +34,26 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	public partial class PanelTester : ControlTester<Panel, PanelTester>
-	{
-		public PanelTester() { }
-		public PanelTester(string name, Form form) : base(name, form) { }
-		public PanelTester(string name, string formName) : base(name, formName) { }
-		public PanelTester(string name) : base(name) { }
-		public PanelTester(PanelTester tester, int index) : base(tester, index) { }
-	}
+    public partial class PanelTester : ControlTester<Panel, PanelTester>
+    {
+        public PanelTester()
+        {
+        }
+
+        public PanelTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public PanelTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public PanelTester(string name) : base(name)
+        {
+        }
+
+        public PanelTester(PanelTester tester, int index) : base(tester, index)
+        {
+        }
+    }
 }

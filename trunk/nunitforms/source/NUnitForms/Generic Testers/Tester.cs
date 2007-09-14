@@ -32,8 +32,8 @@
 
 using System;
 using System.Collections;
-using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
@@ -66,11 +66,6 @@ namespace NUnit.Extensions.Forms
             this.name = name;
         }
 
-        public int Count
-        {
-            get { return GetFinder().Count; }
-        }
-
         public Tester(Tester<T, TThis> tester, int index)
         {
             InitFromTester(tester, index);
@@ -79,15 +74,13 @@ namespace NUnit.Extensions.Forms
         ///<summary>
         /// Default constructor for generic support.
         ///</summary>
-        protected Tester() { }
-
-        protected void InitFromTester(Tester<T, TThis> tester, int controlIndex)
+        protected Tester()
         {
-            if (controlIndex < 0) throw new ArgumentOutOfRangeException("controlIndex", controlIndex, "Should not have index < 0");
-            this.index = controlIndex;
-            this.form = tester.form;
-            this.formName = tester.formName;
-            this.name = tester.name;
+        }
+
+        public int Count
+        {
+            get { return GetFinder().Count; }
         }
 
         /// <summary>
@@ -106,6 +99,48 @@ namespace NUnit.Extensions.Forms
             get { return Properties; }
         }
 
+        public virtual TThis this[int index]
+        {
+            get
+            {
+                TThis newTester = new TThis();
+                newTester.InitFromTester(this, index);
+                return newTester;
+            }
+        }
+
+        #region IEnumerable<TThis> Members
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        ///<summary>
+        ///Returns an enumerator that iterates through the collection.
+        ///</summary>
+        public IEnumerator<TThis> GetEnumerator()
+        {
+            List<TThis> items = new List<TThis>();
+            for (int i = 0; i < Count; i++)
+            {
+                items.Add(this[i]);
+            }
+            return items.GetEnumerator();
+        }
+
+        #endregion
+
+        protected void InitFromTester(Tester<T, TThis> tester, int controlIndex)
+        {
+            if (controlIndex < 0)
+                throw new ArgumentOutOfRangeException("controlIndex", controlIndex, "Should not have index < 0");
+            index = controlIndex;
+            form = tester.form;
+            formName = tester.formName;
+            name = tester.name;
+        }
+
         private Finder<T> GetFinder()
         {
             if (form != null)
@@ -120,33 +155,6 @@ namespace NUnit.Extensions.Forms
             {
                 return new Finder<T>(name);
             }
-        }
-
-        public virtual TThis this[int index]
-        {
-            get
-            {
-                TThis newTester = new TThis();
-                newTester.InitFromTester(this, index);
-                return newTester;
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator(){
-            return GetEnumerator();
-        }
-
-        ///<summary>
-        ///Returns an enumerator that iterates through the collection.
-        ///</summary>
-        public IEnumerator<TThis> GetEnumerator()
-        {
-            List<TThis> items = new List<TThis>();
-            for (int i = 0; i < this.Count; i++)
-            {
-                items.Add(this[i]);
-            }
-            return items.GetEnumerator();
         }
     }
 }

@@ -36,39 +36,39 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	/// <summary>
-	/// A ControlTester for testing Toolbars.  
-	/// </summary>
-	public partial class ToolBarTester 
+    /// <summary>
+    /// A ControlTester for testing Toolbars.  
+    /// </summary>
+    public partial class ToolBarTester
     {
-		/// <summary>
-		/// Get the toolbar with the specified text
-		/// </summary>
-		/// <param name="buttonText">The text of the ToolBarButton</param>
-		/// <returns>A ToolBarButtonTester containing the matching ToolBarButton</returns>
-		public ToolBarButtonTester GetButton(string buttonText)
-		{
-			for (int i = 0; i < Properties.Buttons.Count; ++i)
-			{
-				ToolBarButton button = Properties.Buttons[i];
-				if (button.Text == buttonText)
-				{
-					return GetButton(i);
-				}
-			}
+        /// <summary>
+        /// Get the toolbar with the specified text
+        /// </summary>
+        /// <param name="buttonText">The text of the ToolBarButton</param>
+        /// <returns>A ToolBarButtonTester containing the matching ToolBarButton</returns>
+        public ToolBarButtonTester GetButton(string buttonText)
+        {
+            for (int i = 0; i < Properties.Buttons.Count; ++i)
+            {
+                ToolBarButton button = Properties.Buttons[i];
+                if (button.Text == buttonText)
+                {
+                    return GetButton(i);
+                }
+            }
 
-			return null;
-		}
+            return null;
+        }
 
-		/// <summary>
-		/// Get the toolbar at the index
-		/// </summary>
-		/// <param name="index">The index of the button within the toolbar</param>
-		/// <returns>A ToolBarButtonTester containing the matching ToolBarButton</returns>
-		/// <remarks>We cannot use this[int index] here as used for ControlTester</remarks>
-		public ToolBarButtonTester GetButton(int index)
-		{
-			return new ToolBarButtonTester(Properties.Buttons[index], this);
-		}
-	}
+        /// <summary>
+        /// Get the toolbar at the index
+        /// </summary>
+        /// <param name="index">The index of the button within the toolbar</param>
+        /// <returns>A ToolBarButtonTester containing the matching ToolBarButton</returns>
+        /// <remarks>We cannot use this[int index] here as used for ControlTester</remarks>
+        public ToolBarButtonTester GetButton(int index)
+        {
+            return new ToolBarButtonTester(Properties.Buttons[index], this);
+        }
+    }
 }

@@ -29,66 +29,93 @@
 '*******************************************************************************************************************/
 
 #endregion
-using System;
-using NUnit.Extensions.Forms.TestApplications;
+
+using System.IO;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-  [TestFixture]
-  [Ignore]
-  public class SaveFileDialogTest : NUnitFormTest
-  {
-    private LabelTester label1 = new LabelTester("lblFileName");
-    private string _fileName = "";
-    
-    public override void Setup()
+    [TestFixture]
+    public class SaveFileDialogTest : NUnitFormTest
     {
-      base.init();
-     
-      new SaveFileDialogTestForm().Show();
+        private LabelTester label1 = new LabelTester("lblFileName");
+        private string _fileName = "";
+        private SaveFileDialogTestForm form;
+
+        public override void Setup()
+        {
+            base.Setup();
+
+            form = new SaveFileDialogTestForm();
+            form.Show();
+        }
+
+        private void ClickSaveButton()
+        {
+            ButtonTester save_btn = new ButtonTester("btSave");
+            save_btn.Click();
+        }
+
+        public void SaveFileHandler()
+        {
+            SaveFileDialogTester dlg_tester = new SaveFileDialogTester("Save As");
+            dlg_tester.SaveFile(_fileName);
+        }
+
+        public void CancelFileHandler()
+        {
+            SaveFileDialogTester dlg_tester = new SaveFileDialogTester("Save As");
+            dlg_tester.ClickCancel();
+        }
+
+        public void SaveDefaultFileHandler()
+        {
+            SaveFileDialogTester dlg_tester = new SaveFileDialogTester("Save As");
+            dlg_tester.SaveFile();
+        }
+
+        private void EnsureFileDoesntExist()
+        {
+            // If exists remove it
+            if (File.Exists(_fileName))
+            {
+                File.Delete(_fileName);
+            }
+        }
+
+        [Test]
+        public void CancelTest()
+        {
+            ExpectFileDialog("CancelFileHandler");
+            ClickSaveButton();
+            Assert.AreEqual(label1.Text, "cancel pressed");
+        }
+
+        [Test]
+        public void SaveTest()
+        {
+            ExpectFileDialog("SaveFileHandler");
+
+            // Generate a temporary file
+            _fileName = Path.GetTempPath() + "NUnitFormsTestFile.tmp";
+            EnsureFileDoesntExist();
+
+            ClickSaveButton();
+            Assert.AreEqual(label1.Text, _fileName);
+        }
+
+
+        [Test]
+        public void SaveWithDefaultFile()
+        {
+            ExpectFileDialog("SaveDefaultFileHandler");
+
+            _fileName = Path.GetTempPath() + "NUnitFormsDefaultTestFile.tmp";
+            EnsureFileDoesntExist();
+
+            form.SetDefaultTestFileName(_fileName);
+            ClickSaveButton();
+            Assert.AreEqual(label1.Text, _fileName);
+        }
     }
-
-    [Test]
-    public void SaveTest()
-    {
-      ExpectFileDialog("SaveFileHandler");
-
-      // Generate a temporary file
-      _fileName = System.IO.Path.GetTempPath() + "NUnitFormsTestFile.tmp";
-      // If exists remove it
-      if (System.IO.File.Exists(_fileName))
-      {
-        System.IO.File.Delete(_fileName);
-      }
-
-      
-      ButtonTester save_btn = new ButtonTester("btSave");
-      save_btn.Click();
-      Assert.AreEqual(label1.Text, _fileName);
-    }
-
-
-
-    [Test]
-    public void CancelTest()
-    {
-      ExpectFileDialog("CancelFileHandler");
-      ButtonTester save_btn = new ButtonTester("btSave");
-      save_btn.Click();
-      Assert.AreEqual(label1.Text, "cancel pressed");
-    }
-    public void SaveFileHandler()
-    {
-      SaveFileDialogTester dlg_tester = new SaveFileDialogTester("Save As");
-      dlg_tester.SaveFile(_fileName);
-    }
-
-    public void CancelFileHandler()
-    {
-      SaveFileDialogTester dlg_tester = new SaveFileDialogTester("Save As");
-      dlg_tester.ClickCancel();
-    }
-
-  }
 }

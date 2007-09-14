@@ -45,20 +45,34 @@ namespace NUnit.Extensions.Forms
             this.tester = tester;
         }
 
-        internal void Focus()
-        {
-            Control.FindForm().Activate();
-        }
-
         internal PointF Resolution
         {
             get
             {
-                using(Graphics g = Control.CreateGraphics())
+                using (Graphics g = Control.CreateGraphics())
                 {
                     return new PointF(g.DpiX, g.DpiY);
                 }
             }
+        }
+
+        private Control Control
+        {
+            get
+            {
+                Control control = tester.TheObject as Control;
+                FormsAssert.IsTrue(control != null, "Mouse control requires control based tester.");
+                if (!control.IsHandleCreated)
+                {
+                    Application.DoEvents();
+                }
+                return control;
+            }
+        }
+
+        internal void Focus()
+        {
+            Control.FindForm().Activate();
         }
 
         /// <summary>
@@ -86,20 +100,6 @@ namespace NUnit.Extensions.Forms
         {
             Point client = Control.PointToClient(new Point(screen.x, screen.y));
             return new PointF(client.X/scale.X, client.Y/scale.Y);
-        }
-
-        private Control Control
-        {
-            get
-            {
-                Control control = tester.TheObject as Control;
-                FormsAssert.IsTrue(control != null, "Mouse control requires control based tester.");
-                if(!control.IsHandleCreated)
-                {
-                    Application.DoEvents();
-                }
-                return control;
-            }
         }
     }
 }

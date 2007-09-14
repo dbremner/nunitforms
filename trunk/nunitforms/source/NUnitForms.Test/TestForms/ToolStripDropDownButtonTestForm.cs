@@ -31,36 +31,31 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-  public partial class ToolStripDropDownButtonTestForm : Form
-  {
-    public ToolStripDropDownButtonTestForm()
+    public partial class ToolStripDropDownButtonTestForm : Form
     {
-      InitializeComponent();
-    }
+        public ToolStripDropDownButtonTestForm()
+        {
+            InitializeComponent();
+        }
 
-    private void toolStripDropDownButton1_Click(object sender, EventArgs e)
-    {
-      textBox1.Text = "toolStripDropDownButton1 clicked";
-    }
+        private void toolStripDropDownButton1_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "toolStripDropDownButton1 clicked";
+        }
 
-    private void oneToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-      textBox1.Text = "oneToolStripMenuItem clicked";
-    }
+        private void oneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "oneToolStripMenuItem clicked";
+        }
 
-    private void toolStripDropDownButton1_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
-    {
-      ToolStripItem item = e.ClickedItem;
-      textBox1.Text = item.Name + " clicked";
+        private void toolStripDropDownButton1_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            ToolStripItem item = e.ClickedItem;
+            textBox1.Text = item.Name + " clicked";
+        }
     }
-  }
 }

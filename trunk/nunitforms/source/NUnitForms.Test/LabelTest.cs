@@ -30,7 +30,6 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -47,16 +46,16 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        public void LabelText()
-        {
-            Assert.AreEqual("myValue", label.Text);
-        }
-
-        [Test]
         public void LabelClick()
         {
             //TODO: actually implement something on label.click!!
             label.Click();
+            Assert.AreEqual("myValue", label.Text);
+        }
+
+        [Test]
+        public void LabelText()
+        {
             Assert.AreEqual("myValue", label.Text);
         }
     }

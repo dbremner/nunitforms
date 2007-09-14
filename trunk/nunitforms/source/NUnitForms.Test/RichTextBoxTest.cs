@@ -34,61 +34,61 @@ using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-	///<summary>
-	/// Test Fixture for the <see cref="RichTextBoxTester"/> class.
-	///</summary>
-	[TestFixture]
-	public class RichTextBoxTest : NUnitFormTest
-	{
-		[Test]
-		public void RichTextBox()
-		{
-			new RichTextBoxTestForm().Show();
-			RichTextBoxTester box = new RichTextBoxTester("myTextBox");
-			Assert.AreEqual("default", box.Text);
-			box.Enter("Text");
-			Assert.AreEqual("Text", box.Text);
-		}
+    ///<summary>
+    /// Test Fixture for the <see cref="RichTextBoxTester"/> class.
+    ///</summary>
+    [TestFixture]
+    public class RichTextBoxTest : NUnitFormTest
+    {
+        public void oldhandler()
+        {
+            MessageBoxTester mb = new MessageBoxTester("Old");
+            Assert.AreEqual("Old", mb.Text);
+            mb.ClickOk();
+        }
 
-		[Test]
-		public void DataSetBinding()
-		{
-			ExpectModal("Old", "oldhandler");
-			ExpectModal("New", "newhandler");
+        public void newhandler()
+        {
+            MessageBoxTester mb = new MessageBoxTester("New");
+            Assert.AreEqual("New", mb.Text);
+            mb.ClickOk();
+        }
 
-			new RichTextBoxDataSetBindingTestForm().Show();
-			new ButtonTester("btnView").Click();
-			new RichTextBoxTester("myRichTextBox").Enter("New");
-			new ButtonTester("btnView").Click();
-		}
+        [Test]
+        public void DataSetBinding()
+        {
+            ExpectModal("Old", "oldhandler");
+            ExpectModal("New", "newhandler");
 
-		[Test]
-		public void DataSetBindingWithGenericPropertySetter()
-		{
-			ExpectModal("Old", "oldhandler");
-			ExpectModal("New", "newhandler");
+            new RichTextBoxDataSetBindingTestForm().Show();
+            new ButtonTester("btnView").Click();
+            new RichTextBoxTester("myRichTextBox").Enter("New");
+            new ButtonTester("btnView").Click();
+        }
 
-			new RichTextBoxDataSetBindingTestForm().Show();
+        [Test]
+        public void DataSetBindingWithGenericPropertySetter()
+        {
+            ExpectModal("Old", "oldhandler");
+            ExpectModal("New", "newhandler");
 
-			new ButtonTester("btnView").Click();
+            new RichTextBoxDataSetBindingTestForm().Show();
+
+            new ButtonTester("btnView").Click();
 
             new RichTextBoxTester("myRichTextBox")["Text"] = "New";
 
-			new ButtonTester("btnView").Click();
-		}
+            new ButtonTester("btnView").Click();
+        }
 
-		public void oldhandler()
-		{
-			MessageBoxTester mb = new MessageBoxTester("Old");
-			Assert.AreEqual("Old", mb.Text);
-			mb.ClickOk();
-		}
-
-		public void newhandler()
-		{
-			MessageBoxTester mb = new MessageBoxTester("New");
-			Assert.AreEqual("New", mb.Text);
-			mb.ClickOk();
-		}
-	}
+        [Test]
+        public void RichTextBox()
+        {
+            new RichTextBoxTestForm().Show();
+            RichTextBoxTester box = new RichTextBoxTester("myTextBox");
+            Assert.AreEqual("default", box.Text);
+            box.Enter("Text");
+            Assert.AreEqual("Text", box.Text);
+        }
+    }
 }

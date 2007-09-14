@@ -37,24 +37,18 @@ namespace NUnit.Extensions.Forms.Recorder
 {
     public class RadioButtonRecorder : ButtonRecorder
     {
+        public RadioButtonRecorder(Listener listener) : base(listener)
+        {
+        }
+
         public override Type RecorderType
         {
-            get
-            {
-                return typeof(RadioButton);
-            }
+            get { return typeof (RadioButton); }
         }
 
         public override Type TesterType
         {
-            get
-            {
-                return typeof(RadioButtonTester);
-            }
-        }
-
-        public RadioButtonRecorder(Listener listener) : base(listener)
-        {
+            get { return typeof (RadioButtonTester); }
         }
     }
 }

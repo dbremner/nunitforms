@@ -63,7 +63,7 @@ namespace NUnit.Extensions.Forms.Recorder
         /// <returns>An instance of the form</returns>
         public Form New(Type type)
         {
-            if(!typeof(Form).IsAssignableFrom(type))
+            if (!typeof (Form).IsAssignableFrom(type))
             {
                 throw new Exception("Your type is not a form!  -->" + type);
             }
@@ -75,7 +75,7 @@ namespace NUnit.Extensions.Forms.Recorder
         {
             ConstructorInfo[] constructors = type.GetConstructors();
 
-            if(constructors.Length > 1)
+            if (constructors.Length > 1)
             {
                 throw new Exception("Ambiguous Constructor");
             }
@@ -86,7 +86,7 @@ namespace NUnit.Extensions.Forms.Recorder
 
             object[] arguments = new object[parameters.Length];
 
-            for(int i = 0; i < parameters.Length; i++)
+            for (int i = 0; i < parameters.Length; i++)
             {
                 arguments[i] = NewType(parameters[i].ParameterType);
             }
@@ -97,17 +97,17 @@ namespace NUnit.Extensions.Forms.Recorder
         private object NewInterface(Type type)
         {
             ArrayList candidates = new ArrayList();
-            foreach(Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                foreach(Type t in assembly.GetTypes())
+                foreach (Type t in assembly.GetTypes())
                 {
-                    if(type.IsAssignableFrom(t) && !type.Equals(t))
+                    if (type.IsAssignableFrom(t) && !type.Equals(t))
                     {
                         candidates.Add(t);
                     }
                 }
             }
-            if(candidates.Count != 1)
+            if (candidates.Count != 1)
             {
                 throw new Exception("Implementing type not found or ambiguous");
             }
@@ -116,7 +116,7 @@ namespace NUnit.Extensions.Forms.Recorder
 
         private object NewType(Type type)
         {
-            if(type.IsInterface)
+            if (type.IsInterface)
             {
                 return NewInterface(type);
             }

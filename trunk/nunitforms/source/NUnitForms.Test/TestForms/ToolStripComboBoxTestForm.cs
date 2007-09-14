@@ -29,26 +29,22 @@
 '*******************************************************************************************************************/
 
 #endregion
+
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-  public partial class ToolStripComboBoxTestForm : Form
-  {
-    public ToolStripComboBoxTestForm()
+    public partial class ToolStripComboBoxTestForm : Form
     {
-      InitializeComponent();
-    }
+        public ToolStripComboBoxTestForm()
+        {
+            InitializeComponent();
+        }
 
-    private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
-    {
-      label1.Text = toolStripComboBox1.Text + " clicked";
+        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            label1.Text = toolStripComboBox1.Text + " clicked";
+        }
     }
-  }
 }

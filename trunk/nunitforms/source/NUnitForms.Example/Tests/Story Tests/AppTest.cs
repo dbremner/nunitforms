@@ -30,11 +30,9 @@
 
 #endregion
 
-using System.Windows.Forms;
-
 using NUnit.Extensions.Forms;
-using NUnit.Framework;
 using NUnit.Extensions.Forms.ExampleApplication;
+using NUnit.Framework;
 
 namespace NUnit.Forms.ExampleApplication
 {
@@ -46,11 +44,9 @@ namespace NUnit.Forms.ExampleApplication
             new AppForm(new AppController(new AppModel(), new FormManager())).Show();
         }
 
-        [Test]
-        public void ButtonLabelShouldDefaultToZero()
+        public void handleModal()
         {
-            ButtonTester button = new ButtonTester("countButton");
-            Assert.AreEqual("0", button.Text);
+            new MessageBoxTester("Alert").ClickOk();
         }
 
         [Test]
@@ -71,16 +67,18 @@ namespace NUnit.Forms.ExampleApplication
         }
 
         [Test]
+        public void ButtonLabelShouldDefaultToZero()
+        {
+            ButtonTester button = new ButtonTester("countButton");
+            Assert.AreEqual("0", button.Text);
+        }
+
+        [Test]
         public void ShowModalButtonShouldShowModalDialog()
         {
             ExpectModal("Alert", "handleModal");
             ButtonTester button = new ButtonTester("showModalButton");
             button.Click();
-        }
-
-        public void handleModal()
-        {
-            new MessageBoxTester("Alert").ClickOk();
         }
     }
 }

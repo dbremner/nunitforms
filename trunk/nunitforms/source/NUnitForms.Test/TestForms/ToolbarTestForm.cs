@@ -32,51 +32,39 @@
 
 //Contributed by: Ian Cooper
 
+using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-    public class ToolbarTestForm : System.Windows.Forms.Form
+    public class ToolbarTestForm : Form
     {
-        private System.ComponentModel.IContainer components;
+        private IContainer components;
+        private ContextMenu contextMenuColor;
 
-        private System.Windows.Forms.ToolBarButton toolBarButtonToggle;
+        private ImageList imageListToolbar;
 
-        private System.Windows.Forms.MenuItem menuItemBlue;
+        private Label labelToolbarSelection;
+        private MenuItem menuItemBlue;
+        private MenuItem menuItemGreen;
 
-        private System.Windows.Forms.ImageList imageListToolbar;
+        private MenuItem menuItemIndigo;
+        private MenuItem menuItemOrange;
+        private MenuItem menuItemRed;
+        private MenuItem menuItemViolet;
+        private MenuItem menuItemYellow;
 
-        private System.Windows.Forms.MenuItem menuItemViolet;
+        private ToolBarButton toolBarButtonClose;
+        private ToolBarButton toolBarButtonColorPicker;
+        private ToolBarButton toolBarButtonNext;
 
-        private System.Windows.Forms.Label labelToolbarSelection;
-
-        private System.Windows.Forms.ToolBarButton toolBarButtonSeperator2;
-
-        private System.Windows.Forms.ToolBar toolBarTest;
-
-        private System.Windows.Forms.ContextMenu contextMenuColor;
-
-        private System.Windows.Forms.MenuItem menuItemYellow;
-
-        private System.Windows.Forms.ToolBarButton toolBarButtonSeperator;
-
-        private System.Windows.Forms.MenuItem menuItemRed;
-
-        private System.Windows.Forms.ToolBarButton toolBarButtonNext;
-
-        private System.Windows.Forms.MenuItem menuItemOrange;
-
-        private System.Windows.Forms.ToolBarButton toolBarButtonPrevious;
-
-        private System.Windows.Forms.MenuItem menuItemIndigo;
-
-        private System.Windows.Forms.ToolBarButton toolBarButtonColorPicker;
-
-        private System.Windows.Forms.ToolBarButton toolBarButtonClose;
-
-        private System.Windows.Forms.MenuItem menuItemGreen;
-
-        private System.Windows.Forms.ToolBarButton toolBarButtonOpen;
+        private ToolBarButton toolBarButtonOpen;
+        private ToolBarButton toolBarButtonPrevious;
+        private ToolBarButton toolBarButtonSeperator;
+        private ToolBarButton toolBarButtonSeperator2;
+        private ToolBarButton toolBarButtonToggle;
+        private ToolBar toolBarTest;
 
         public ToolbarTestForm()
         {
@@ -85,14 +73,59 @@ namespace NUnit.Extensions.Forms.TestApplications
 
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void toolBar1_ButtonClick(object sender, ToolBarButtonClickEventArgs e)
+        {
+            labelToolbarSelection.Text = e.Button.Text;
+        }
+
+        private void menuItemRed_Click(object sender, EventArgs e)
+        {
+            OnMenuItemClick((MenuItem) sender);
+        }
+
+        private void menuItemOrange_Click(object sender, EventArgs e)
+        {
+            OnMenuItemClick((MenuItem) sender);
+        }
+
+        private void menuItemYellow_Click(object sender, EventArgs e)
+        {
+            OnMenuItemClick((MenuItem) sender);
+        }
+
+        private void menuItemGreen_Click(object sender, EventArgs e)
+        {
+            OnMenuItemClick((MenuItem) sender);
+        }
+
+        private void menuItemBlue_Click(object sender, EventArgs e)
+        {
+            OnMenuItemClick((MenuItem) sender);
+        }
+
+        private void menuItemIndigo_Click(object sender, EventArgs e)
+        {
+            OnMenuItemClick((MenuItem) sender);
+        }
+
+        private void menuItemViolet_Click(object sender, EventArgs e)
+        {
+            OnMenuItemClick((MenuItem) sender);
+        }
+
+        private void OnMenuItemClick(MenuItem sender)
+        {
+            labelToolbarSelection.Text = sender.Text;
         }
 
         #region Windows Form Designer generated code
@@ -194,21 +227,21 @@ namespace NUnit.Extensions.Forms.TestApplications
             // contextMenuColor
             // 
             this.contextMenuColor.MenuItems.AddRange(
-                    new System.Windows.Forms.MenuItem[]
-                            {
-                                    this.menuItemRed, this.menuItemOrange, this.menuItemYellow, this.menuItemGreen,
-                                    this.menuItemBlue, this.menuItemIndigo, this.menuItemViolet
-                            });
+                new System.Windows.Forms.MenuItem[]
+                    {
+                        this.menuItemRed, this.menuItemOrange, this.menuItemYellow, this.menuItemGreen,
+                        this.menuItemBlue, this.menuItemIndigo, this.menuItemViolet
+                    });
             // 
             // toolBarTest
             // 
             this.toolBarTest.Buttons.AddRange(
-                    new System.Windows.Forms.ToolBarButton[]
-                            {
-                                    this.toolBarButtonOpen, this.toolBarButtonClose, this.toolBarButtonNext,
-                                    this.toolBarButtonPrevious, this.toolBarButtonSeperator, this.toolBarButtonColorPicker,
-                                    this.toolBarButtonSeperator2, this.toolBarButtonToggle
-                            });
+                new System.Windows.Forms.ToolBarButton[]
+                    {
+                        this.toolBarButtonOpen, this.toolBarButtonClose, this.toolBarButtonNext,
+                        this.toolBarButtonPrevious, this.toolBarButtonSeperator, this.toolBarButtonColorPicker,
+                        this.toolBarButtonSeperator2, this.toolBarButtonToggle
+                    });
             this.toolBarTest.DropDownArrows = true;
             this.toolBarTest.ImageList = this.imageListToolbar;
             this.toolBarTest.Location = new System.Drawing.Point(0, 0);
@@ -217,7 +250,7 @@ namespace NUnit.Extensions.Forms.TestApplications
             this.toolBarTest.Size = new System.Drawing.Size(352, 50);
             this.toolBarTest.TabIndex = 0;
             this.toolBarTest.ButtonClick +=
-                    new System.Windows.Forms.ToolBarButtonClickEventHandler(this.toolBar1_ButtonClick);
+                new System.Windows.Forms.ToolBarButtonClickEventHandler(this.toolBar1_ButtonClick);
             // 
             // toolBarButtonSeperator2
             // 
@@ -264,50 +297,5 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         #endregion
-
-        private void toolBar1_ButtonClick(object sender, System.Windows.Forms.ToolBarButtonClickEventArgs e)
-        {
-            labelToolbarSelection.Text = e.Button.Text;
-        }
-
-        private void menuItemRed_Click(object sender, System.EventArgs e)
-        {
-            OnMenuItemClick((MenuItem) sender);
-        }
-
-        private void menuItemOrange_Click(object sender, System.EventArgs e)
-        {
-            OnMenuItemClick((MenuItem) sender);
-        }
-
-        private void menuItemYellow_Click(object sender, System.EventArgs e)
-        {
-            OnMenuItemClick((MenuItem) sender);
-        }
-
-        private void menuItemGreen_Click(object sender, System.EventArgs e)
-        {
-            OnMenuItemClick((MenuItem) sender);
-        }
-
-        private void menuItemBlue_Click(object sender, System.EventArgs e)
-        {
-            OnMenuItemClick((MenuItem) sender);
-        }
-
-        private void menuItemIndigo_Click(object sender, System.EventArgs e)
-        {
-            OnMenuItemClick((MenuItem) sender);
-        }
-
-        private void menuItemViolet_Click(object sender, System.EventArgs e)
-        {
-            OnMenuItemClick((MenuItem) sender);
-        }
-
-        private void OnMenuItemClick(MenuItem sender)
-        {
-            labelToolbarSelection.Text = sender.Text;
-        }
     }
 }

@@ -31,7 +31,6 @@
 #endregion
 
 using System;
-
 using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
@@ -42,6 +41,12 @@ namespace NUnit.Extensions.Forms.Recorder.Test
     public class ListenerTest : NUnitFormTest
     {
         private int FireCount = 0;
+
+        public void EventListener(Type testerType, object control, Action action)
+        {
+            Assert.AreEqual(typeof (ButtonTester), testerType);
+            FireCount++;
+        }
 
         [Test]
         public void Listen()
@@ -59,12 +64,6 @@ namespace NUnit.Extensions.Forms.Recorder.Test
             Assert.AreEqual(1, FireCount);
             button.Click();
             Assert.AreEqual(2, FireCount);
-        }
-
-        public void EventListener(Type testerType, object control, Action action)
-        {
-            Assert.AreEqual(typeof(ButtonTester), testerType);
-            FireCount++;
         }
     }
 }

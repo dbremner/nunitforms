@@ -30,23 +30,26 @@
 
 #endregion
 
+using System;
+using System.ComponentModel;
+using System.Windows.Forms;
+
 namespace NUnit.Extensions.Forms.TestApplications
 {
     /// <summary>
     /// Summary description for ScriptDemoForm.
     /// </summary>
-    public class ScriptDemoForm : System.Windows.Forms.Form
+    public class ScriptDemoForm : Form
     {
-        private System.Windows.Forms.TextBox textBox;
-
-        private System.Windows.Forms.Button button;
-
-        private System.Windows.Forms.Label counter;
+        private Button button;
 
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.Container components = null;
+        private Container components = null;
+
+        private Label counter;
+        private TextBox textBox;
 
         public ScriptDemoForm()
         {
@@ -65,14 +68,21 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void myButton_Click(object sender, EventArgs e)
+        {
+            int i = int.Parse(counter.Text);
+            i++;
+            counter.Text = i.ToString();
         }
 
         #region Windows Form Designer generated code
@@ -123,12 +133,5 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         #endregion
-
-        private void myButton_Click(object sender, System.EventArgs e)
-        {
-            int i = int.Parse(counter.Text);
-            i++;
-            counter.Text = i.ToString();
-        }
     }
 }

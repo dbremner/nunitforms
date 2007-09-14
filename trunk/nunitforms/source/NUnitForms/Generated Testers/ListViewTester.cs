@@ -32,17 +32,30 @@
 
 //Contributed by: Ian Cooper
 
-using System.Collections;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	public partial class ListViewTester : ControlTester<ListView, ListViewTester>
-	{
-		public ListViewTester() { }
-        public ListViewTester(string name, Form form) : base(name, form) {}
-        public ListViewTester(string name, string formName) : base(name, formName) {}
-        public ListViewTester(string name) : base(name) {}
-        public ListViewTester(ListViewTester tester, int index) : base(tester, index) {}
+    public partial class ListViewTester : ControlTester<ListView, ListViewTester>
+    {
+        public ListViewTester()
+        {
+        }
+
+        public ListViewTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public ListViewTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public ListViewTester(string name) : base(name)
+        {
+        }
+
+        public ListViewTester(ListViewTester tester, int index) : base(tester, index)
+        {
+        }
     }
 }

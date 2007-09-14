@@ -35,24 +35,26 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
-	public class ToolStripDropDownButtonRecorder : ToolStripRecorder
-	{
-		public override Type RecorderType
-		{
-			get { return typeof (ToolStripDropDownButton); }
-		}
+    public class ToolStripDropDownButtonRecorder : ToolStripRecorder
+    {
+        public ToolStripDropDownButtonRecorder(Listener listener)
+            : base(listener)
+        {
+        }
 
-		public override Type TesterType
-		{
-			get { return typeof (ToolStripDropDownButtonTester); }
-		}
+        public override Type RecorderType
+        {
+            get { return typeof (ToolStripDropDownButton); }
+        }
 
-		public void Click(object sender, EventArgs args)
-		{
-			Listener.FireEvent(TesterType, sender, "Click");
-		}
+        public override Type TesterType
+        {
+            get { return typeof (ToolStripDropDownButtonTester); }
+        }
 
-		public ToolStripDropDownButtonRecorder(Listener listener)
-			: base(listener) {}
-	}
+        public void Click(object sender, EventArgs args)
+        {
+            Listener.FireEvent(TesterType, sender, "Click");
+        }
+    }
 }

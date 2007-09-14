@@ -37,24 +37,18 @@ namespace NUnit.Extensions.Forms.Recorder
 {
     public class LabelRecorder : ControlRecorder
     {
+        public LabelRecorder(Listener listener) : base(listener)
+        {
+        }
+
         public override Type RecorderType
         {
-            get
-            {
-                return typeof(Label);
-            }
+            get { return typeof (Label); }
         }
 
         public override Type TesterType
         {
-            get
-            {
-                return typeof(LabelTester);
-            }
-        }
-
-        public LabelRecorder(Listener listener) : base(listener)
-        {
+            get { return typeof (LabelTester); }
         }
     }
 }

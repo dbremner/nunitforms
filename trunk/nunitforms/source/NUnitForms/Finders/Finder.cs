@@ -30,10 +30,10 @@
 
 #endregion
 
-using System.Windows.Forms;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
@@ -48,10 +48,12 @@ namespace NUnit.Extensions.Forms
     /// the recorder application.
     public class Finder<T>
     {
-        private readonly string name;
         private readonly List<Form> forms = null;
+        private readonly string name;
 
-        public Finder() { }
+        public Finder()
+        {
+        }
 
         /// <summary>
         /// Creates a Finder that will find things on a specific Form according to their name.
@@ -77,6 +79,23 @@ namespace NUnit.Extensions.Forms
             this.name = name;
         }
 
+        public int Count
+        {
+            get { return FindAll(typeof (T)).Count; }
+        }
+
+        private List<Form> FormCollection
+        {
+            get
+            {
+                if (forms == null)
+                {
+                    return new FormFinder().FindAll();
+                }
+                return forms;
+            }
+        }
+
         /// <summary>
         /// Finds a control.  
         /// </summary>
@@ -93,30 +112,10 @@ namespace NUnit.Extensions.Forms
 
         public T Find(int index)
         {
-            return (T)Find(index, typeof(T));
+            return (T) Find(index, typeof (T));
         }
 
-        public int Count
-        {
-            get
-            {
-                return FindAll(typeof(T)).Count;
-            }
-        }
-
-        private List<Form> FormCollection
-        {
-            get
-            {
-                if (forms == null)
-                {
-                    return new FormFinder().FindAll();
-                }
-                return forms;
-            }
-        }
-
-        private List<Object> FindAll()
+        private List<object> FindAll()
         {
             List<Object> found = new List<Object>();
             foreach (Form form in FormCollection)
@@ -126,7 +125,7 @@ namespace NUnit.Extensions.Forms
             return found;
         }
 
-        private List<Object> FindAll(Type type)
+        private List<object> FindAll(Type type)
         {
             List<Object> found = new List<object>();
             List<Object> allFound = FindAll();
@@ -182,7 +181,7 @@ namespace NUnit.Extensions.Forms
 
             if (obj is Form)
             {
-                Form f = (Form)obj;
+                Form f = (Form) obj;
                 if (f.Menu != null)
                 {
                     results.AddRange(Find(name, f.Menu, f));
@@ -191,7 +190,7 @@ namespace NUnit.Extensions.Forms
 
             if (obj is ToolStrip)
             {
-                ToolStrip t = (ToolStrip)obj;
+                ToolStrip t = (ToolStrip) obj;
                 foreach (ToolStripItem t2 in t.Items)
                 {
                     results.AddRange(Find(name, t2, null));
@@ -200,7 +199,7 @@ namespace NUnit.Extensions.Forms
 
             if (obj is ToolStripDropDownItem)
             {
-                ToolStripDropDownItem i = (ToolStripDropDownItem)obj;
+                ToolStripDropDownItem i = (ToolStripDropDownItem) obj;
                 foreach (ToolStripItem i2 in i.DropDownItems)
                 {
                     results.AddRange(Find(name, i2, null));
@@ -209,7 +208,7 @@ namespace NUnit.Extensions.Forms
 
             if (obj is Control)
             {
-                Control c = (Control)obj;
+                Control c = (Control) obj;
                 foreach (Control c2 in c.Controls)
                 {
                     results.AddRange(Find(name, c2, null));
@@ -226,7 +225,7 @@ namespace NUnit.Extensions.Forms
                     }
                 }
             }
-            
+
             if (obj is Menu)
             {
                 Menu m = (Menu) obj;
@@ -261,15 +260,15 @@ namespace NUnit.Extensions.Forms
         {
             if (o is Control)
             {
-                return ((Control)o).Parent;
+                return ((Control) o).Parent;
             }
             if (o is MenuItem)
             {
-                return ((MenuItem)o).Parent;
+                return ((MenuItem) o).Parent;
             }
             if (o is Component)
             {
-                return ((Component)o).Container;
+                return ((Component) o).Container;
             }
             return null;
         }
@@ -278,19 +277,19 @@ namespace NUnit.Extensions.Forms
         {
             if (o is ToolStripControlHost)
             {
-                return ((ToolStripControlHost)o).Name;
+                return ((ToolStripControlHost) o).Name;
             }
             if (o is ToolStripItem)
             {
-                return ((ToolStripItem)o).Name;
+                return ((ToolStripItem) o).Name;
             }
             if (o is Control)
             {
-                return ((Control)o).Name;
+                return ((Control) o).Name;
             }
             if (o is MenuItem)
             {
-                return ((MenuItem)o).Text.Replace("&", string.Empty).Replace(".", string.Empty);
+                return ((MenuItem) o).Text.Replace("&", string.Empty).Replace(".", string.Empty);
             }
             if (o is MainMenu)
             {
@@ -302,7 +301,7 @@ namespace NUnit.Extensions.Forms
             }
             if (o is Component)
             {
-                return ((Component)o).Site.Name;
+                return ((Component) o).Site.Name;
             }
             throw new Exception("Object name not defined");
         }

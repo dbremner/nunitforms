@@ -34,12 +34,26 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	public partial class ListBoxTester : ControlTester<ListBox, ListBoxTester>
-	{
-		public ListBoxTester() {}
-		public ListBoxTester(string name, Form form) : base(name, form) {}
-		public ListBoxTester(string name, string formName) : base(name, formName) {}
-		public ListBoxTester(string name) : base(name) {}
-		public ListBoxTester(ListBoxTester tester, int index) : base(tester, index) {}
-	}
+    public partial class ListBoxTester : ControlTester<ListBox, ListBoxTester>
+    {
+        public ListBoxTester()
+        {
+        }
+
+        public ListBoxTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public ListBoxTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public ListBoxTester(string name) : base(name)
+        {
+        }
+
+        public ListBoxTester(ListBoxTester tester, int index) : base(tester, index)
+        {
+        }
+    }
 }

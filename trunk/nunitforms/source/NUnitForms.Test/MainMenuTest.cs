@@ -30,7 +30,6 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -43,6 +42,63 @@ namespace NUnit.Extensions.Forms.TestApplications
         public override void Setup()
         {
             new MainMenuTestForm().Show();
+        }
+
+        private void ClickAndTest(string name)
+        {
+            new MenuItemTester(name).Click();
+            Assert.AreEqual("clicked", label.Text);
+        }
+
+        [Test]
+        [ExpectedException(typeof (NoSuchControlException))]
+        public void CantUseAmpsInName()
+        {
+            ClickAndTest("Main.With &Alt Key");
+        }
+
+        [Test]
+        [ExpectedException(typeof (NoSuchControlException))]
+        public void CantUseDotInName()
+        {
+            ClickAndTest("Main.With Dots...");
+        }
+
+        [Test]
+        public void FormQualifiedMenuItem()
+        {
+            ClickAndTest("MainMenuTestForm.MainMenu.Main.Item");
+        }
+
+        [Test]
+        public void FullyQualifiedMenuItem()
+        {
+            ClickAndTest("MainMenu.Main.Item");
+        }
+
+        [Test]
+        public void ItemWithAltKey()
+        {
+            ClickAndTest("Main.With Alt Key");
+        }
+
+        [Test]
+        public void ItemWithDot()
+        {
+            ClickAndTest("Main.With Dots");
+        }
+
+        [Test]
+        public void MenuPopup()
+        {
+            new MenuItemTester("Main").Popup();
+            Assert.AreEqual("shown", label.Text);
+        }
+
+        [Test]
+        public void PartiallyQualifiedSubMenuItem()
+        {
+            ClickAndTest("Sub Menu.Sub Menu Item");
         }
 
         [Test]
@@ -61,63 +117,6 @@ namespace NUnit.Extensions.Forms.TestApplications
         public void SubMenuItem()
         {
             ClickAndTest("Sub Menu Item");
-        }
-
-        [Test]
-        public void PartiallyQualifiedSubMenuItem()
-        {
-            ClickAndTest("Sub Menu.Sub Menu Item");
-        }
-
-        [Test]
-        public void FullyQualifiedMenuItem()
-        {
-            ClickAndTest("MainMenu.Main.Item");
-        }
-
-        [Test]
-        public void FormQualifiedMenuItem()
-        {
-            ClickAndTest("MainMenuTestForm.MainMenu.Main.Item");
-        }
-
-        [Test]
-        public void ItemWithAltKey()
-        {
-            ClickAndTest("Main.With Alt Key");
-        }
-
-        [Test]
-        public void ItemWithDot()
-        {
-            ClickAndTest("Main.With Dots");
-        }
-
-        [Test]
-        [ExpectedException(typeof(NoSuchControlException))]
-        public void CantUseAmpsInName()
-        {
-            ClickAndTest("Main.With &Alt Key");
-        }
-
-        [Test]
-        [ExpectedException(typeof(NoSuchControlException))]
-        public void CantUseDotInName()
-        {
-            ClickAndTest("Main.With Dots...");
-        }
-
-        [Test]
-        public void MenuPopup()
-        {
-            new MenuItemTester("Main").Popup();
-            Assert.AreEqual("shown", label.Text);
-        }
-
-        private void ClickAndTest(string name)
-        {
-            new MenuItemTester(name).Click();
-            Assert.AreEqual("clicked", label.Text);
         }
     }
 }

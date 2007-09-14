@@ -36,7 +36,6 @@ using System.Reflection;
 [assembly : AssemblyTitle("NUnitForms")]
 [assembly : AssemblyProduct("NUnitForms")]
 [assembly : AssemblyCopyright("Copyright ©  2003-2007, Luke T. Maxon")]
-
 [assembly : AssemblyVersion("2.0.*")]
 [assembly : AssemblyFileVersion("1.0.0.0")]
-[assembly : CLSCompliant( true )]
+[assembly : CLSCompliant(true)]

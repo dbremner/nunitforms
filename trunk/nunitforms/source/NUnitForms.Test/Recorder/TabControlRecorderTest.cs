@@ -30,8 +30,6 @@
 
 #endregion
 
-using System;
-
 using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
@@ -53,7 +51,7 @@ namespace NUnit.Extensions.Forms.Recorder.Test
             tabs.SelectTab(1);
 
             Assert.AreEqual(
-                    @"[Test]
+                @"[Test]
 public void Test()
 {
 
@@ -62,7 +60,7 @@ public void Test()
 	myTabs.SelectTab(1);
 
 }",
-                    writer.Test);
+                writer.Test);
         }
     }
 }

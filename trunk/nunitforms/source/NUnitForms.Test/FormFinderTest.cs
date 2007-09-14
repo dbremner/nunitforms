@@ -31,10 +31,9 @@
 #endregion
 
 using System;
-using System.Windows.Forms;
-
-using NUnit.Framework;
 using System.Collections.Generic;
+using System.Windows.Forms;
+using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
@@ -54,6 +53,26 @@ namespace NUnit.Extensions.Forms.TestApplications
             form.Name = name;
             form.Show();
             return form;
+        }
+
+        [Test]
+        public void FindAll()
+        {
+            Form one = ShowNewForm("form");
+            Form two = ShowNewForm("form2");
+            Form three = ShowNewForm("form3");
+            List<Form> found = finder.FindAll();
+            Assert.AreEqual(3, found.Count);
+            Assert.IsTrue(found.Contains(one));
+            Assert.IsTrue(found.Contains(two));
+            Assert.IsTrue(found.Contains(three));
+        }
+
+        [Test]
+        [ExpectedException(typeof (Exception), ExpectedMessage = "Object name not defined")]
+        public void FinderWithBadObjectHasNoName()
+        {
+            new Finder<Control>().Name("a");
         }
 
         [Test]
@@ -78,31 +97,19 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        public void FindAll()
+        [ExpectedException(typeof (NoSuchControlException), ExpectedMessage = "Could not find form with name 'form'")]
+        public void FindOneFormWhenThereAreNone()
         {
-            Form one = ShowNewForm("form");
-            Form two = ShowNewForm("form2");
-            Form three = ShowNewForm("form3");
-            List<Form> found = finder.FindAll();
-            Assert.AreEqual(3, found.Count);
-            Assert.IsTrue(found.Contains(one));
-            Assert.IsTrue(found.Contains(two));
-            Assert.IsTrue(found.Contains(three));
-        }
-
-        [Test]
-        [ExpectedException(typeof(AmbiguousNameException), ExpectedMessage="Found too many forms with the name 'form'")]
-        public void FindOneFormWhenThereAreTwo()
-        {
-            ShowNewForm("form");
-            ShowNewForm("form");
             finder.Find("form");
         }
 
         [Test]
-        [ExpectedException(typeof(NoSuchControlException), ExpectedMessage = "Could not find form with name 'form'")]
-        public void FindOneFormWhenThereAreNone()
+        [ExpectedException(typeof (AmbiguousNameException), ExpectedMessage="Found too many forms with the name 'form'")
+        ]
+        public void FindOneFormWhenThereAreTwo()
         {
+            ShowNewForm("form");
+            ShowNewForm("form");
             finder.Find("form");
         }
 
@@ -115,13 +122,6 @@ namespace NUnit.Extensions.Forms.TestApplications
             Assert.AreEqual(2, found.Count);
             Assert.IsTrue(found.Contains(one));
             Assert.IsTrue(found.Contains(two));
-        }
-
-        [Test]
-        [ExpectedException(typeof(Exception), ExpectedMessage = "Object name not defined")]
-        public void FinderWithBadObjectHasNoName()
-        {
-            new Finder<Control>().Name("a");
         }
     }
 }

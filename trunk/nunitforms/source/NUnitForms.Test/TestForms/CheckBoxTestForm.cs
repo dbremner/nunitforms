@@ -42,14 +42,14 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// </summary>
     public class CheckBoxTestForm : Form
     {
-        private CheckBox myCheckBox;
-
-        private Label myLabel;
-
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
+
+        private CheckBox myCheckBox;
+
+        private Label myLabel;
 
         public CheckBoxTestForm()
         {
@@ -68,14 +68,19 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void myCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            myLabel.Text = myCheckBox.Checked ? "on" : "off";
         }
 
         #region Windows Form Designer generated code
@@ -117,10 +122,5 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         #endregion
-
-        private void myCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            myLabel.Text = myCheckBox.Checked ? "on" : "off";
-        }
     }
 }

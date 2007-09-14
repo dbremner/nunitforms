@@ -38,91 +38,91 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	/// <summary>
-	/// A ControlTester for testing CheckedListBoxes.  
-	/// </summary>
-	public partial class CheckedListBoxTester 
+    /// <summary>
+    /// A ControlTester for testing CheckedListBoxes.  
+    /// </summary>
+    public partial class CheckedListBoxTester
     {
-		/// <summary>
-		/// Checks the row that matches item in the list
-		/// </summary>
-		/// <param name="item">The list item to check</param>
-		public void CheckItem(string item)
-		{
-			SetItemChecked(FindListItem(item), true);
-		}
+        /// <summary>
+        /// Provides access to the list of items
+        /// </summary>
+        /// <returns>A CheckedListBox.ObjectCollection of all the items in the list</returns>
+        public CheckedListBox.ObjectCollection Items
+        {
+            get { return Properties.Items; }
+        }
 
-		/// <summary>
-		/// Check a range of items
-		/// </summary>
-		/// <param name="items"></param>
-		public void CheckItems(string[] items)
-		{
-			foreach (string item in items)
-			{
-				CheckItem(item);
-			}
-		}
+        /// <summary>
+        /// Provides access to the list of checked items
+        /// </summary>
+        public CheckedListBox.CheckedItemCollection CheckedItems
+        {
+            get { return Properties.CheckedItems; }
+        }
 
-		/// <summary>
-		/// Check a specific item in a list.
-		/// </summary>
-		/// <param name="index">The index of the item to check</param>
-		/// <param name="selected">True to select the item, false to unselect it.</param>
-		public void SetItemChecked(int index, bool selected)
-		{
-			Properties.SetItemChecked(index, selected);
-		}
+        /// <summary>
+        /// Checks the row that matches item in the list
+        /// </summary>
+        /// <param name="item">The list item to check</param>
+        public void CheckItem(string item)
+        {
+            SetItemChecked(FindListItem(item), true);
+        }
 
-		/// <summary>
-		/// Clears the row that matches item in the list
-		/// </summary>
-		/// <param name="item">The list item to check</param>
-		public void ClearItem(string item)
-		{
-			SetItemChecked(FindListItem(item), false);
-		}
+        /// <summary>
+        /// Check a range of items
+        /// </summary>
+        /// <param name="items"></param>
+        public void CheckItems(string[] items)
+        {
+            foreach (string item in items)
+            {
+                CheckItem(item);
+            }
+        }
 
-		///<summary>
-		/// Check items matching those in the given list.
-		///</summary>
-		///<param name="matchList">The list of items to check.</param>
-		public void CheckSelectedItems(ArrayList matchList)
-		{
-			foreach (object item in CheckedItems)
-			{
-				FormsAssert.IsTrue(matchList.Contains(item));
-			}
-		}
+        /// <summary>
+        /// Check a specific item in a list.
+        /// </summary>
+        /// <param name="index">The index of the item to check</param>
+        /// <param name="selected">True to select the item, false to unselect it.</param>
+        public void SetItemChecked(int index, bool selected)
+        {
+            Properties.SetItemChecked(index, selected);
+        }
 
-		/// <summary>
-		/// Provides access to the list of items
-		/// </summary>
-		/// <returns>A CheckedListBox.ObjectCollection of all the items in the list</returns>
-		public CheckedListBox.ObjectCollection Items
-		{
-			get { return Properties.Items; }
-		}
+        /// <summary>
+        /// Clears the row that matches item in the list
+        /// </summary>
+        /// <param name="item">The list item to check</param>
+        public void ClearItem(string item)
+        {
+            SetItemChecked(FindListItem(item), false);
+        }
 
-		/// <summary>
-		/// Provides access to the list of checked items
-		/// </summary>
-		public CheckedListBox.CheckedItemCollection CheckedItems
-		{
-			get { return Properties.CheckedItems; }
-		}
+        ///<summary>
+        /// Check items matching those in the given list.
+        ///</summary>
+        ///<param name="matchList">The list of items to check.</param>
+        public void CheckSelectedItems(ArrayList matchList)
+        {
+            foreach (object item in CheckedItems)
+            {
+                FormsAssert.IsTrue(matchList.Contains(item));
+            }
+        }
 
 
-		private int FindListItem(string item)
-		{
-			int index = Properties.FindStringExact(item);
+        private int FindListItem(string item)
+        {
+            int index = Properties.FindStringExact(item);
 
-			if (index == -1)
-			{
-				throw new IndexOutOfRangeException(string.Format("{0} not in list", item));
-			}
+            if (index == -1)
+            {
+                throw new IndexOutOfRangeException(string.Format("{0} not in list", item));
+            }
 
-			return index;
-		}
-	}
+            return index;
+        }
+    }
 }

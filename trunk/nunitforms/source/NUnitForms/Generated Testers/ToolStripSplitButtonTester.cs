@@ -30,17 +30,31 @@
 
 #endregion
 
-using System;
-using System.Reflection;
 using System.Windows.Forms;
+
 namespace NUnit.Extensions.Forms
 {
-    public partial class ToolStripSplitButtonTester : ToolStripItemTester<ToolStripSplitButton, ToolStripSplitButtonTester>
+    public partial class ToolStripSplitButtonTester :
+        ToolStripItemTester<ToolStripSplitButton, ToolStripSplitButtonTester>
     {
-        public ToolStripSplitButtonTester() { }
-        public ToolStripSplitButtonTester(string name, Form form) : base(name, form) { }
-        public ToolStripSplitButtonTester(string name, string formName) : base(name, formName) { }
-        public ToolStripSplitButtonTester(string name) : base(name) { }
-        public ToolStripSplitButtonTester(ToolStripSplitButtonTester tester, int index) : base(tester, index) { }
+        public ToolStripSplitButtonTester()
+        {
+        }
+
+        public ToolStripSplitButtonTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public ToolStripSplitButtonTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public ToolStripSplitButtonTester(string name) : base(name)
+        {
+        }
+
+        public ToolStripSplitButtonTester(ToolStripSplitButtonTester tester, int index) : base(tester, index)
+        {
+        }
     }
 }

@@ -30,9 +30,6 @@
 
 #endregion
 
-using System;
-
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications

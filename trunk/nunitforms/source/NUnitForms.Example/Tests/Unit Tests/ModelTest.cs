@@ -30,17 +30,15 @@
 
 #endregion
 
-using NUnit.Framework;
 using NUnit.Extensions.Forms.ExampleApplication;
+using NUnit.Framework;
 
 namespace NUnit.Forms.ExampleApplication
 {
     [TestFixture]
     public class ModelTest
     {
-        private int DefaultDataValue = 0;
-
-        private AppModel model = null;
+        #region Setup/Teardown
 
         [SetUp]
         public void Setup()
@@ -48,17 +46,23 @@ namespace NUnit.Forms.ExampleApplication
             model = new AppModel();
         }
 
-        [Test]
-        public void DefaultValue()
-        {
-            Assert.AreEqual(DefaultDataValue, model.GetData());
-        }
+        #endregion
+
+        private int DefaultDataValue = 0;
+
+        private AppModel model = null;
 
         [Test]
         public void BusinessLogic()
         {
             model.BusinessLogic();
             Assert.AreEqual(1, model.GetData());
+        }
+
+        [Test]
+        public void DefaultValue()
+        {
+            Assert.AreEqual(DefaultDataValue, model.GetData());
         }
 
         [Test]

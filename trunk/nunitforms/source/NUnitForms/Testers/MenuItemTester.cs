@@ -48,26 +48,6 @@ namespace NUnit.Extensions.Forms
 
         protected string name;
 
-        protected MenuItem MenuItem
-        {
-            get
-            {
-                if(form != null)
-                {
-                    //may have dynamically added controls.  I am not saving this.
-                    return new Finder<MenuItem>(name, form).Find();
-                }
-                else if(formName != null)
-                {
-                    return new Finder<MenuItem>(name, new FormFinder().Find(formName)).Find();
-                }
-                else
-                {
-                    return new Finder<MenuItem>(name).Find();
-                }
-            }
-        }
-
         public MenuItemTester(string name, Form form)
         {
             this.form = form;
@@ -85,6 +65,56 @@ namespace NUnit.Extensions.Forms
             this.name = name;
         }
 
+        protected MenuItem MenuItem
+        {
+            get
+            {
+                if (form != null)
+                {
+                    //may have dynamically added controls.  I am not saving this.
+                    return new Finder<MenuItem>(name, form).Find();
+                }
+                else if (formName != null)
+                {
+                    return new Finder<MenuItem>(name, new FormFinder().Find(formName)).Find();
+                }
+                else
+                {
+                    return new Finder<MenuItem>(name).Find();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the text of this MenuItem.
+        /// </summary>
+        public string Text
+        {
+            get { return MenuItem.Text; }
+        }
+
+        /// <summary>
+        /// Allows you to access any properties of this MenuItem.
+        /// </summary>
+        public MenuItem Properties
+        {
+            get { return MenuItem; }
+        }
+
+        #region EventFiring
+
+        protected void FireEvent(string eventName)
+        {
+            MethodInfo minfo =
+                MenuItem.GetType().GetMethod("On" + eventName,
+                                             BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            ParameterInfo[] param = minfo.GetParameters();
+            Type parameterType = param[0].ParameterType;
+            minfo.Invoke(MenuItem, new Object[] {Activator.CreateInstance(parameterType)});
+        }
+
+        #endregion
+
         /// <summary>
         /// Clicks the MenuItem (activates it)
         /// </summary>
@@ -100,41 +130,5 @@ namespace NUnit.Extensions.Forms
         {
             FireEvent("Popup");
         }
-
-        /// <summary>
-        /// Gets the text of this MenuItem.
-        /// </summary>
-        public string Text
-        {
-            get
-            {
-                return MenuItem.Text;
-            }
-        }
-
-        /// <summary>
-        /// Allows you to access any properties of this MenuItem.
-        /// </summary>
-        public MenuItem Properties
-        {
-            get
-            {
-                return MenuItem;
-            }
-        }
-
-        #region EventFiring
-
-        protected void FireEvent(string eventName)
-        {
-            MethodInfo minfo =
-                    MenuItem.GetType().GetMethod("On" + eventName,
-                                                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-            ParameterInfo[] param = minfo.GetParameters();
-            Type parameterType = param[0].ParameterType;
-            minfo.Invoke(MenuItem, new Object[] {Activator.CreateInstance(parameterType)});
-        }
-
-        #endregion
     }
 }

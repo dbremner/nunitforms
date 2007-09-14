@@ -34,71 +34,71 @@ using System;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
-	///<summary>
-	/// The abstract base class for all recordable Actions.
-	///</summary>
-	public abstract class Action
-	{
-		/// <summary>
-		/// Sets or gets the <see cref="Definition"/> associated with this <c>Action</c>.
-		/// </summary>
-		/// <value>
-		/// The associated <see cref="Definition"/>.
-		/// </value>
-		/// <exception cref="ArgumentException">
-		/// This exception is thrown if no effective value is given.
-		/// </exception>
-		public Definition Definition
-		{
-			get { return definition; }
-			set
-			{
-				if (value != null)
-				{
-					definition = value;
-				}
-				else
-				{
-					throw new ArgumentException();
-				}
-			}
-		}
+    ///<summary>
+    /// The abstract base class for all recordable Actions.
+    ///</summary>
+    public abstract class Action
+    {
+        /// <summary>
+        /// The reference to the associated definition.
+        /// </summary>
+        private Definition definition;
 
-		/// <summary>
-		/// Removes all spaces from a string.
-		/// </summary>
-		/// <param name="name">
-		/// Remove all spaces from this string.
-		/// </param>
-		/// <returns>
-		/// <list type="bullet">
-		/// <item><paramref name="name"/> without spaces.</item>
-		/// <item>if <paramref name="name"/> is not effective, returns an empty string</item>
-		/// </list>
-		/// </returns>
-		private static string RemoveSpaces(string name)
-		{
-			if (name != null)
-			{
-				return name.Replace(" ", "");
-			}
-			else
-			{
-				return String.Empty;
-			}
-		}
+        /// <summary>
+        /// Sets or gets the <see cref="Definition"/> associated with this <c>Action</c>.
+        /// </summary>
+        /// <value>
+        /// The associated <see cref="Definition"/>.
+        /// </value>
+        /// <exception cref="ArgumentException">
+        /// This exception is thrown if no effective value is given.
+        /// </exception>
+        public Definition Definition
+        {
+            get { return definition; }
+            set
+            {
+                if (value != null)
+                {
+                    definition = value;
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		public string Control
-		{
-			get { return RemoveSpaces(Definition.Name); }
-		}
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Control
+        {
+            get { return RemoveSpaces(Definition.Name); }
+        }
 
-		/// <summary>
-		/// The reference to the associated definition.
-		/// </summary>
-		private Definition definition;
-	}
+        /// <summary>
+        /// Removes all spaces from a string.
+        /// </summary>
+        /// <param name="name">
+        /// Remove all spaces from this string.
+        /// </param>
+        /// <returns>
+        /// <list type="bullet">
+        /// <item><paramref name="name"/> without spaces.</item>
+        /// <item>if <paramref name="name"/> is not effective, returns an empty string</item>
+        /// </list>
+        /// </returns>
+        private static string RemoveSpaces(string name)
+        {
+            if (name != null)
+            {
+                return name.Replace(" ", "");
+            }
+            else
+            {
+                return String.Empty;
+            }
+        }
+    }
 }

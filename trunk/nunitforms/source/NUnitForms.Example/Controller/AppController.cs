@@ -34,15 +34,16 @@ namespace NUnit.Extensions.Forms.ExampleApplication
 {
     public class AppController : IAppController
     {
-        private IAppModel model;
-
         private IFormManager manager;
+        private IAppModel model;
 
         public AppController(IAppModel model, IFormManager manager)
         {
             this.model = model;
             this.manager = manager;
         }
+
+        #region IAppController Members
 
         public void Count()
         {
@@ -58,5 +59,7 @@ namespace NUnit.Extensions.Forms.ExampleApplication
         {
             return model.GetData().ToString();
         }
+
+        #endregion
     }
 }

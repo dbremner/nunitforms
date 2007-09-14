@@ -30,47 +30,59 @@
 
 #endregion
 
-using System;
-using System.Collections;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-    public class ToolStripItemTester<T, TThis> : Tester<T, TThis> 
+    public class ToolStripItemTester<T, TThis> : Tester<T, TThis>
         where T : ToolStripItem
         where TThis : Tester<T, TThis>, new()
     {
-        public ToolStripItemTester() { }
-        public ToolStripItemTester(string name, string formName) : base(name, formName) { }
-        public ToolStripItemTester(string name, Form form) : base(name, form) {}
-        public ToolStripItemTester(string name) : base(name) {}
-        public ToolStripItemTester(ToolStripItemTester<T, TThis> tester, int index) : base(tester, index) { }
-        
-		/// <summary>
-		/// Convenience method "Clicks" on the control being tested if it is visible.
-		/// </summary>
-		public virtual void Click()
-		{
-            FireEvent("Click");
-		}
+        public ToolStripItemTester()
+        {
+        }
 
-		/// <summary>
-		/// Convenience method "DoubleClicks" on the control being tested if it is visible.
-		/// </summary>
-		/// <exception>
-		/// ControlNotVisibleException is thrown if the Control is not Visible.
-		/// </exception>
-		public virtual void DoubleClick()
-		{
-			FireEvent("DoubleClick");
-		}
+        public ToolStripItemTester(string name, string formName) : base(name, formName)
+        {
+        }
 
-		/// <summary>
-		/// Convenience method retrieves the Text property of the tested control.
-		/// </summary>
-		public virtual string Text
-		{
+        public ToolStripItemTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public ToolStripItemTester(string name) : base(name)
+        {
+        }
+
+        public ToolStripItemTester(ToolStripItemTester<T, TThis> tester, int index) : base(tester, index)
+        {
+        }
+
+        /// <summary>
+        /// Convenience method retrieves the Text property of the tested control.
+        /// </summary>
+        public virtual string Text
+        {
             get { return Properties.Text; }
-		}
-	}
+        }
+
+        /// <summary>
+        /// Convenience method "Clicks" on the control being tested if it is visible.
+        /// </summary>
+        public virtual void Click()
+        {
+            FireEvent("Click");
+        }
+
+        /// <summary>
+        /// Convenience method "DoubleClicks" on the control being tested if it is visible.
+        /// </summary>
+        /// <exception>
+        /// ControlNotVisibleException is thrown if the Control is not Visible.
+        /// </exception>
+        public virtual void DoubleClick()
+        {
+            FireEvent("DoubleClick");
+        }
+    }
 }

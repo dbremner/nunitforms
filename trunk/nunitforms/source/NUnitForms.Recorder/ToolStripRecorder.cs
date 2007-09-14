@@ -36,26 +36,28 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
-	/// <summary>
-	/// Base recorder class for all ToolStrip classes.
-	/// </summary>
-	public abstract class ToolStripRecorder : Recorder
-	{
-		protected ToolStripRecorder(Listener listener)
-			: base(listener) {}
+    /// <summary>
+    /// Base recorder class for all ToolStrip classes.
+    /// </summary>
+    public abstract class ToolStripRecorder : Recorder
+    {
+        protected ToolStripRecorder(Listener listener)
+            : base(listener)
+        {
+        }
 
-		public void PropertyAssert(object sender, EventArgs args)
-		{
-			Control source = ((MenuItem) sender).GetContextMenu().SourceControl;
-			string propertyName = ((MenuItem) sender).Text;
-			object propertyValue = GetPropertyValue(source, propertyName);
-			Listener.FireEvent(TesterType, source, new PropertyAssertAction(propertyName, propertyValue));
-		}
+        public void PropertyAssert(object sender, EventArgs args)
+        {
+            Control source = ((MenuItem) sender).GetContextMenu().SourceControl;
+            string propertyName = ((MenuItem) sender).Text;
+            object propertyValue = GetPropertyValue(source, propertyName);
+            Listener.FireEvent(TesterType, source, new PropertyAssertAction(propertyName, propertyValue));
+        }
 
-		private object GetPropertyValue(Control source, string propertyName)
-		{
-			PropertyInfo info = source.GetType().GetProperty(propertyName);
-			return info.GetValue(source, new object[] {});
-		}
-	}
+        private object GetPropertyValue(Control source, string propertyName)
+        {
+            PropertyInfo info = source.GetType().GetProperty(propertyName);
+            return info.GetValue(source, new object[] {});
+        }
+    }
 }

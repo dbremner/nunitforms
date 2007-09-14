@@ -42,24 +42,22 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// </summary>
     public class TabControlTestForm : Form
     {
-        private TabControl myTabs;
-
-        private TabPage page1;
-
-        private TabPage page2;
-
         private Button button1;
 
-        private Label label1;
-
         private Button button2;
-
-        private Label label2;
 
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
+
+        private Label label1;
+        private Label label2;
+        private TabControl myTabs;
+
+        private TabPage page1;
+
+        private TabPage page2;
 
         public TabControlTestForm()
         {
@@ -78,14 +76,30 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            IncrementLabel(label2);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            IncrementLabel(label1);
+        }
+
+        private void IncrementLabel(Label label)
+        {
+            int i = int.Parse(label.Text) + 1;
+            label.Text = i.ToString();
         }
 
         #region Windows Form Designer generated code
@@ -182,21 +196,5 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         #endregion
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            IncrementLabel(label2);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            IncrementLabel(label1);
-        }
-
-        private void IncrementLabel(Label label)
-        {
-            int i = int.Parse(label.Text) + 1;
-            label.Text = i.ToString();
-        }
     }
 }

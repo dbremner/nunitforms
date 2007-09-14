@@ -158,6 +158,11 @@
              The abstract base class for all recordable Actions.
             </summary>
         </member>
+        <member name="F:NUnit.Extensions.Forms.Recorder.Action.definition">
+            <summary>
+            The reference to the associated definition.
+            </summary>
+        </member>
         <member name="M:NUnit.Extensions.Forms.Recorder.Action.RemoveSpaces(System.String)">
             <summary>
             Removes all spaces from a string.
@@ -171,11 +176,6 @@
             <item>if <paramref name="name"/> is not effective, returns an empty string</item>
             </list>
             </returns>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.Recorder.Action.definition">
-            <summary>
-            The reference to the associated definition.
-            </summary>
         </member>
         <member name="P:NUnit.Extensions.Forms.Recorder.Action.Definition">
             <summary>
@@ -464,14 +464,14 @@
              A recorder for <see cref="T:System.Windows.Forms.ToolStripSplitButton"/> controls.
             </summary>
         </member>
-        <member name="M:NUnit.Extensions.Forms.Recorder.ToolStripSplitButtonRecorder.Click(System.Object,System.EventArgs)">
-            <summary>
-             Raises the Click event for this control.
-            </summary>
-        </member>
         <member name="M:NUnit.Extensions.Forms.Recorder.ToolStripSplitButtonRecorder.#ctor(NUnit.Extensions.Forms.Recorder.Listener)">
             <summary>
              Constructs a new <see cref="T:NUnit.Extensions.Forms.Recorder.ToolStripSplitButtonRecorder"/>.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.Recorder.ToolStripSplitButtonRecorder.Click(System.Object,System.EventArgs)">
+            <summary>
+             Raises the Click event for this control.
             </summary>
         </member>
         <member name="T:NUnit.Extensions.Forms.Recorder.FormRecorder">
@@ -479,14 +479,14 @@
             A <see cref="T:NUnit.Extensions.Forms.Recorder.ControlRecorder"/> class for <see cref="T:System.Windows.Forms.Form"/>s.
             </summary>
         </member>
-        <member name="M:NUnit.Extensions.Forms.Recorder.FormRecorder.Closed(System.Object,System.EventArgs)">
-            <summary>
-            Fires the "Close" event for a form.
-            </summary>
-        </member>
         <member name="M:NUnit.Extensions.Forms.Recorder.FormRecorder.#ctor(NUnit.Extensions.Forms.Recorder.Listener)">
             <summary>
             Constructes a new <see cref="T:NUnit.Extensions.Forms.Recorder.FormRecorder"/> with the given listener.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.Recorder.FormRecorder.Closed(System.Object,System.EventArgs)">
+            <summary>
+            Fires the "Close" event for a form.
             </summary>
         </member>
         <member name="P:NUnit.Extensions.Forms.Recorder.FormRecorder.RecorderType">

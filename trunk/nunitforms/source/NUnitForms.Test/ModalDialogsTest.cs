@@ -38,26 +38,12 @@ namespace NUnit.Extensions.Forms.TestApplications
     [TestFixture]
     public class ModalDialogsTest : NUnitFormTest
     {
-        [Test]
-        public void TestMessageBoxOK()
-        {
-            ExpectModal("caption", "MessageBoxOkHandler");
-            MessageBox.Show("test string", "caption");
-        }
-
         public void MessageBoxOkHandler()
         {
             MessageBoxTester messageBox = new MessageBoxTester("caption");
             Assert.AreEqual("test string", messageBox.Text);
             Assert.AreEqual("caption", messageBox.Title);
             messageBox.ClickOk();
-        }
-
-        [Test]
-        public void TestMessageBoxCancel()
-        {
-            ExpectModal("caption", "MessageBoxCancelHandler");
-            MessageBox.Show("test string", "caption", MessageBoxButtons.OKCancel);
         }
 
         public void MessageBoxCancelHandler()
@@ -68,19 +54,40 @@ namespace NUnit.Extensions.Forms.TestApplications
             messageBox.ClickCancel();
         }
 
-        [Test]
-        public void TestSimpleMessageBox()
-        {
-            ExpectModal("JustOK", "SimpleOKHandler");
-            Assert.AreEqual(DialogResult.OK, MessageBox.Show("Just An OK Button", "JustOK", MessageBoxButtons.OK));
-        }
-
         public void SimpleOKHandler()
         {
             MessageBoxTester messageBox = new MessageBoxTester("JustOK");
             Assert.AreEqual("Just An OK Button", messageBox.Text);
             Assert.AreEqual("JustOK", messageBox.Title);
             messageBox.SendCommand(MessageBoxTester.Command.OK);
+        }
+
+        public void OKAndCancelHandler()
+        {
+            MessageBoxTester messageBox = new MessageBoxTester("OKAndCancel");
+            messageBox.SendCommand(MessageBoxTester.Command.Cancel);
+        }
+
+        [Test]
+        [ExpectedException(typeof (ControlNotVisibleException), ExpectedMessage = "Message Box not visible")]
+        public void NoModalFound()
+        {
+            string text = new MessageBoxTester("NotFound").Text;
+            Assert.Fail("Should not find: " + text);
+        }
+
+        [Test]
+        public void TestMessageBoxCancel()
+        {
+            ExpectModal("caption", "MessageBoxCancelHandler");
+            MessageBox.Show("test string", "caption", MessageBoxButtons.OKCancel);
+        }
+
+        [Test]
+        public void TestMessageBoxOK()
+        {
+            ExpectModal("caption", "MessageBoxOkHandler");
+            MessageBox.Show("test string", "caption");
         }
 
         [Test]
@@ -91,14 +98,15 @@ namespace NUnit.Extensions.Forms.TestApplications
                             MessageBox.Show("Both OK and Cancel buttons", "OKAndCancel", MessageBoxButtons.OKCancel));
         }
 
-        public void OKAndCancelHandler()
+        [Test]
+        public void TestSimpleMessageBox()
         {
-            MessageBoxTester messageBox = new MessageBoxTester("OKAndCancel");
-            messageBox.SendCommand(MessageBoxTester.Command.Cancel);
+            ExpectModal("JustOK", "SimpleOKHandler");
+            Assert.AreEqual(DialogResult.OK, MessageBox.Show("Just An OK Button", "JustOK", MessageBoxButtons.OK));
         }
 
         [Test]
-        [ExpectedException(typeof(FormsTestAssertionException),
+        [ExpectedException(typeof (FormsTestAssertionException),
             ExpectedMessage = "expected 0 invocations of modal, but was invoked 1 times (Form Caption = blah)")]
         public void UnexpectedModalIsClosedAndFails()
         {
@@ -137,14 +145,6 @@ namespace NUnit.Extensions.Forms.TestApplications
             MessageBox.Show("I didn't expect this!", "Error1");
             MessageBox.Show("I didn't expect this!", "Error1");
             Verify();
-        }
-
-        [Test]
-        [ExpectedException(typeof(ControlNotVisibleException), ExpectedMessage = "Message Box not visible")]
-        public void NoModalFound()
-        {
-            string text = new MessageBoxTester("NotFound").Text;
-            Assert.Fail("Should not find: " + text);
         }
     }
 }

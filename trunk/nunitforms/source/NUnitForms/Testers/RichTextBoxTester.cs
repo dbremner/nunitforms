@@ -30,23 +30,22 @@
 
 #endregion
 
-
 namespace NUnit.Extensions.Forms
 {
-	/// <summary>
-	/// A ControlTester for testing RichTextBoxes.
-	/// </summary>
-	/// <remarks>
-	/// There is a convenience method for entering text into a RichTextBox.</remarks>
-	public partial class RichTextBoxTester
+    /// <summary>
+    /// A ControlTester for testing RichTextBoxes.
+    /// </summary>
+    /// <remarks>
+    /// There is a convenience method for entering text into a RichTextBox.</remarks>
+    public partial class RichTextBoxTester
     {
-		/// <summary>
-		/// This method allows you to enter text into the text box.
-		/// </summary>
-		/// <param name="text">The text to enter into the text box.</param>
-		public void Enter(string text)
-		{
-			EnterText(text);
-		}
-	}
+        /// <summary>
+        /// This method allows you to enter text into the text box.
+        /// </summary>
+        /// <param name="text">The text to enter into the text box.</param>
+        public void Enter(string text)
+        {
+            EnterText(text);
+        }
+    }
 }

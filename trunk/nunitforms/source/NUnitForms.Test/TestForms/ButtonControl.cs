@@ -35,36 +35,36 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
-	/// <summary>
-	/// A UserControl for testing.
-	/// </summary>
-	public partial class ButtonControl : UserControl
-	{
-		/// <summary>
-		/// Constructs a new <see cref="ButtonControl"/>.
-		/// </summary>
-		public ButtonControl()
-		{
-			InitializeComponent();
-		}
+    /// <summary>
+    /// A UserControl for testing.
+    /// </summary>
+    public partial class ButtonControl : UserControl
+    {
+        /// <summary>
+        /// Constructs a new <see cref="ButtonControl"/>.
+        /// </summary>
+        public ButtonControl()
+        {
+            InitializeComponent();
+        }
 
-		public event EventHandler SuperClick;
+        /// <summary>
+        /// A helper method to retreive the button contained in this control.
+        /// This method wouldn't be needed if our tester used reflection.
+        /// </summary>
+        public Button InnerButton
+        {
+            get { return myButton; }
+        }
 
-		private void myButton_Click(object sender, EventArgs e)
-		{
-			if (SuperClick != null)
-			{
-				SuperClick(this, e);
-			}
-		}
+        public event EventHandler SuperClick;
 
-		/// <summary>
-		/// A helper method to retreive the button contained in this control.
-		/// This method wouldn't be needed if our tester used reflection.
-		/// </summary>
-		public Button InnerButton
-		{
-			get { return myButton; }
-		}
-	}
+        private void myButton_Click(object sender, EventArgs e)
+        {
+            if (SuperClick != null)
+            {
+                SuperClick(this, e);
+            }
+        }
+    }
 }

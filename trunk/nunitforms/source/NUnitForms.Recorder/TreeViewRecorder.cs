@@ -36,33 +36,35 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
-	public class TreeViewRecorder : ControlRecorder
-	{
-		public override Type RecorderType
-		{
-			get { return typeof (TreeView); }
-		}
+    public class TreeViewRecorder : ControlRecorder
+    {
+        public TreeViewRecorder(Listener listener) : base(listener)
+        {
+        }
 
-		public override Type TesterType
-		{
-			get { return typeof (TreeViewTester); }
-		}
+        public override Type RecorderType
+        {
+            get { return typeof (TreeView); }
+        }
 
-		public TreeViewRecorder(Listener listener) : base(listener) {}
+        public override Type TesterType
+        {
+            get { return typeof (TreeViewTester); }
+        }
 
-		public void AfterSelect(object sender, TreeViewEventArgs e)
-		{
-			TreeNode node = e.Node;
-			ArrayList list = new ArrayList();
-			while (node.Parent != null)
-			{
-				list.Add(node.Parent.Nodes.IndexOf(node));
-				node = node.Parent;
-			}
-			list.Add(((TreeView) sender).Nodes.IndexOf(node));
-			list.Reverse();
+        public void AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            TreeNode node = e.Node;
+            ArrayList list = new ArrayList();
+            while (node.Parent != null)
+            {
+                list.Add(node.Parent.Nodes.IndexOf(node));
+                node = node.Parent;
+            }
+            list.Add(((TreeView) sender).Nodes.IndexOf(node));
+            list.Reverse();
 
-			Listener.FireEvent(TesterType, sender, new EventAction("SelectNode", list.ToArray(typeof (object))));
-		}
-	}
+            Listener.FireEvent(TesterType, sender, new EventAction("SelectNode", list.ToArray(typeof (object))));
+        }
+    }
 }

@@ -461,16 +461,6 @@
              Sets up this test by showing a new OpenFileDialogTestForm form.
             </summary>
         </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.OpenTest">
-            <summary>
-             Tests opening a file.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.CancelTest">
-            <summary>
-             Tests cancelling.
-            </summary>
-        </member>
         <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.OpenFileHandler">
             <summary>
              Modal handler to click the open button.
@@ -479,6 +469,16 @@
         <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.CancelFileHandler">
             <summary>
              Modal handler to click the cancel button.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.CancelTest">
+            <summary>
+             Tests cancelling.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.OpenTest">
+            <summary>
+             Tests opening a file.
             </summary>
         </member>
         <member name="T:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestForm">
@@ -833,6 +833,17 @@
              Basic tests for the <see cref="T:NUnit.Extensions.Forms.ControlTester"/> class.
             </summary>
         </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ControlTest.HasIntIndexer(System.Type)">
+            <summary>
+            Verify that the given type has an int indexer.
+            </summary>
+            <param name="testerType">The <see cref="T:System.Type"/> to test.</param>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ControlTest.BadIndex">
+            <summary>
+             Test finding a control with an invalid index.
+            </summary>
+        </member>
         <member name="M:NUnit.Extensions.Forms.TestApplications.ControlTest.ControlTestersHaveFourConstructorsAndIndexer">
             <summary>
              Verifies that all control testers have the expected constructors.
@@ -846,17 +857,6 @@
              Certain dialog tests have fewer constructors, and no check is made for
              </para>
              </remarks>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ControlTest.HasIntIndexer(System.Type)">
-            <summary>
-            Verify that the given type has an int indexer.
-            </summary>
-            <param name="testerType">The <see cref="T:System.Type"/> to test.</param>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ControlTest.BadIndex">
-            <summary>
-             Test finding a control with an invalid index.
-            </summary>
         </member>
     </members>
 </doc>

@@ -32,7 +32,6 @@
 
 //Contributed by: Ian Cooper
 
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -49,12 +48,6 @@ namespace NUnit.Extensions.Forms.TestApplications
             new ToolbarTestForm().Show();
             labelToolbarSelection = new LabelTester("labelToolbarSelection");
             toolbarTest = new ToolBarTester("toolBarTest");
-        }
-
-        [Test]
-        public void GetToolbar()
-        {
-            Assert.IsTrue(toolbarTest.Properties.Visible);
         }
 
         [Test]
@@ -79,6 +72,12 @@ namespace NUnit.Extensions.Forms.TestApplications
             button = toolbarTest.GetButton("Color");
             button.ClickDropDownMenuItem("Violet");
             Assert.AreEqual("Violet", labelToolbarSelection.Text);
+        }
+
+        [Test]
+        public void GetToolbar()
+        {
+            Assert.IsTrue(toolbarTest.Properties.Visible);
         }
 
         [Test]

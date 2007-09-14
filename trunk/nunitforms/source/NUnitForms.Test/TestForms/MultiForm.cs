@@ -42,18 +42,16 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// </summary>
     public class MultiForm : Form
     {
-        private Label myLabel;
-
-        private Button myButton;
-
-        private Button nothingButton;
-
         private Button btnClose;
 
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
+
+        private Button myButton;
+        private Label myLabel;
+        private Button nothingButton;
 
         public MultiForm()
         {
@@ -74,14 +72,30 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int i = int.Parse(myLabel.Text) + 1;
+            myLabel.Text = i.ToString();
+
+            MultiForm newForm = new MultiForm();
+            newForm.Name = Name + "-" + (i - 1);
+            newForm.Text = newForm.Name;
+            newForm.Show();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
         #region Windows Form Designer generated code
@@ -142,21 +156,5 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         #endregion
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int i = int.Parse(myLabel.Text) + 1;
-            myLabel.Text = i.ToString();
-
-            MultiForm newForm = new MultiForm();
-            newForm.Name = Name + "-" + (i - 1);
-            newForm.Text = newForm.Name;
-            newForm.Show();
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
     }
 }

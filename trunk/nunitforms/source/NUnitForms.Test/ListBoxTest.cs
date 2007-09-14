@@ -33,8 +33,6 @@
 using System;
 using System.Collections.Specialized;
 using System.Windows.Forms;
-
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -46,7 +44,33 @@ namespace NUnit.Extensions.Forms.TestApplications
         {
             new ListBoxTestForm().Show();
         }
+
         private string[] rainbowArray = new string[] {"Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"};
+
+        [Test]
+        public void ListBoxMultiSelection()
+        {
+            ListBoxTester myListBox = new ListBoxTester("myListBox");
+
+            string[] alternateColors = new string[] {"Red", "Yellow", "Blue", "Violet"};
+            StringCollection alternates = new StringCollection();
+            alternates.AddRange(alternateColors);
+
+            myListBox.ClearSelected();
+
+            foreach (string color in alternates)
+            {
+                myListBox.SetSelected(color, true);
+            }
+
+            Assert.AreEqual(4, myListBox.Properties.SelectedItems.Count);
+
+            foreach (object selectedItem in myListBox.Properties.SelectedItems)
+            {
+                Assert.IsTrue(alternates.Contains(Convert.ToString(selectedItem)));
+            }
+        }
+
         [Test]
         public void ListBoxPropertyAsserts()
         {
@@ -70,39 +94,15 @@ namespace NUnit.Extensions.Forms.TestApplications
 
         [Test]
         [
-                ExpectedException(typeof(FormsTestAssertionException),
-                        ExpectedMessage = "Could not find text 'NotFound' in ComboBox 'myListBox'")]
+            ExpectedException(typeof (FormsTestAssertionException),
+                ExpectedMessage = "Could not find text 'NotFound' in ComboBox 'myListBox'")]
         public void ListBoxSelectionBad()
         {
             new ListBoxTester("myListBox").Select("NotFound");
         }
 
         [Test]
-        public void ListBoxMultiSelection()
-        {
-            ListBoxTester myListBox = new ListBoxTester("myListBox");
-
-            string[] alternateColors = new string[] {"Red", "Yellow", "Blue", "Violet"};
-            StringCollection alternates = new StringCollection();
-            alternates.AddRange(alternateColors);
-
-            myListBox.ClearSelected();
-
-            foreach(string color in alternates)
-            {
-                myListBox.SetSelected(color, true);
-            }
-
-            Assert.AreEqual(4, myListBox.Properties.SelectedItems.Count);
-
-            foreach(object selectedItem in myListBox.Properties.SelectedItems)
-            {
-                Assert.IsTrue(alternates.Contains(Convert.ToString(selectedItem)));
-            }
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [ExpectedException(typeof (ArgumentOutOfRangeException))]
         public void SelectDoesNotExist()
         {
             ListBoxTester myListBox = new ListBoxTester("myListBox");

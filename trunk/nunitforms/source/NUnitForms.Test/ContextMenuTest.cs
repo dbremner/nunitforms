@@ -30,7 +30,6 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -47,11 +46,42 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
+        [ExpectedException(typeof (AmbiguousNameException))]
+        public void AmbiguousNameBecauseInSubMenusButNotQualified()
+        {
+            MenuItemTester myMenuItem = new MenuItemTester("Not Ambiguous");
+            myMenuItem.Click();
+        }
+
+        [Test]
+        [ExpectedException(typeof (AmbiguousNameException))]
+        public void AmbiguousNameBecauseInTwoMenus()
+        {
+            MenuItemTester myMenuItem = new MenuItemTester("Test 2.Not Ambiguous");
+            myMenuItem.Click();
+        }
+
+        [Test]
+        [ExpectedException(typeof (AmbiguousNameException))]
+        public void AmbiguousNameBecauseWeUseTextNotNameForMenuItems()
+        {
+            MenuItemTester myMenuItem = new MenuItemTester("Ambiguous");
+            myMenuItem.Click();
+        }
+
+        [Test]
         public void ContextMenuClick()
         {
             MenuItemTester myMenuItem = new MenuItemTester("Click To Count");
             myMenuItem.Click();
             Assert.AreEqual("1", label.Text);
+        }
+
+        [Test]
+        public void DontNeedToSpecifyWhichForm()
+        {
+            MenuItemTester myMenuItem = new MenuItemTester("myCounterLabel.ContextMenu.Test 2.Not Ambiguous");
+            myMenuItem.Click();
         }
 
         [Test]
@@ -63,26 +93,10 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(NoSuchControlException))]
+        [ExpectedException(typeof (NoSuchControlException))]
         public void NoSuchControlFinder()
         {
             MenuItemTester myMenuItem = new MenuItemTester("junkData");
-            myMenuItem.Click();
-        }
-
-        [Test]
-        [ExpectedException(typeof(AmbiguousNameException))]
-        public void AmbiguousNameBecauseWeUseTextNotNameForMenuItems()
-        {
-            MenuItemTester myMenuItem = new MenuItemTester("Ambiguous");
-            myMenuItem.Click();
-        }
-
-        [Test]
-        [ExpectedException(typeof(AmbiguousNameException))]
-        public void AmbiguousNameBecauseInSubMenusButNotQualified()
-        {
-            MenuItemTester myMenuItem = new MenuItemTester("Not Ambiguous");
             myMenuItem.Click();
         }
 
@@ -94,26 +108,11 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(AmbiguousNameException))]
-        public void AmbiguousNameBecauseInTwoMenus()
-        {
-            MenuItemTester myMenuItem = new MenuItemTester("Test 2.Not Ambiguous");
-            myMenuItem.Click();
-        }
-
-        [Test]
         public void NotAmbiguousNameBecauseInTwoMenusButQualified()
         {
             //source control property of the menu item is not actually set on the menu item in the tester
             //so handlers that rely on this are currently broken.  I am not sure whether anyone will notice
             //this.
-            MenuItemTester myMenuItem = new MenuItemTester("myCounterLabel.ContextMenu.Test 2.Not Ambiguous");
-            myMenuItem.Click();
-        }
-
-        [Test]
-        public void DontNeedToSpecifyWhichForm()
-        {
             MenuItemTester myMenuItem = new MenuItemTester("myCounterLabel.ContextMenu.Test 2.Not Ambiguous");
             myMenuItem.Click();
         }

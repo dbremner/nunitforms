@@ -118,20 +118,24 @@ namespace NUnit.Extensions.Forms
     /// </summary>
     public class Desktop : IDisposable
     {
-        private IntPtr testDesktopHandle;
         private IntPtr realDesktopHandle;
         private bool shouldDisplayDesktop;
+        private IntPtr testDesktopHandle;
 
         ///<summary>
         /// Creates a new desktop for testing using the default settings.
         ///</summary>
-        public Desktop() : this("NUnitForms Test Desktop"){}
+        public Desktop() : this("NUnitForms Test Desktop")
+        {
+        }
 
-		/// <summary>
-		/// Creates a new hidden desktop for testing with the given name.
-		/// </summary>
-		/// <param name="name"></param>
-        public Desktop(string name) : this(name, false){}
+        /// <summary>
+        /// Creates a new hidden desktop for testing with the given name.
+        /// </summary>
+        /// <param name="name"></param>
+        public Desktop(string name) : this(name, false)
+        {
+        }
 
         ///<summary>
         /// Creates a new desktop with the given name, and conditionally displays it.
@@ -147,13 +151,10 @@ namespace NUnit.Extensions.Forms
 
             Win32.SetThreadDesktop(testDesktopHandle);
 
-			Switch(shouldDisplayDesktop);
+            Switch(shouldDisplayDesktop);
         }
 
-        ~Desktop()
-        {
-            Destroy();
-        }
+        #region IDisposable Members
 
         ///<summary>
         /// Releases managed resources.
@@ -162,6 +163,13 @@ namespace NUnit.Extensions.Forms
         {
             Destroy();
             GC.SuppressFinalize(this);
+        }
+
+        #endregion
+
+        ~Desktop()
+        {
+            Destroy();
         }
 
         private void Destroy()
@@ -175,7 +183,7 @@ namespace NUnit.Extensions.Forms
 
         private static void Switch(bool shouldSwitch)
         {
-            if(shouldSwitch)
+            if (shouldSwitch)
             {
                 Win32.SwitchDesktop(CurrentHandle());
             }

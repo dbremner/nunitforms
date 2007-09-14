@@ -30,8 +30,6 @@
 
 #endregion
 
-using System;
-
 using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
@@ -53,7 +51,7 @@ namespace NUnit.Extensions.Forms.Recorder.Test
             button.Click();
 
             Assert.AreEqual(
-                    @"[Test]
+                @"[Test]
 public void Test()
 {
 
@@ -62,7 +60,7 @@ public void Test()
 	myButton.Click();
 
 }",
-                    writer.Test);
+                writer.Test);
         }
     }
 }

@@ -42,14 +42,14 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// </summary>
     public class ComboBoxTestForm : Form
     {
-        private ComboBox myComboBox;
-
-        private Label myLabel;
-
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
+
+        private ComboBox myComboBox;
+
+        private Label myLabel;
 
         public ComboBoxTestForm()
         {
@@ -68,14 +68,19 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void ComboBox_TextChanged(object sender, EventArgs e)
+        {
+            myLabel.Text = ((ComboBox) sender).Text;
         }
 
         #region Windows Form Designer generated code
@@ -119,10 +124,5 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         #endregion
-
-        private void ComboBox_TextChanged(object sender, EventArgs e)
-        {
-            myLabel.Text = ((ComboBox) sender).Text;
-        }
     }
 }

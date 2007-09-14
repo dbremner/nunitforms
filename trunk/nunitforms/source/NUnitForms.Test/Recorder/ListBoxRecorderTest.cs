@@ -30,11 +30,9 @@
 
 #endregion
 
-using System;
-
+using System.Windows.Forms;
 using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
-using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder.Test
 {
@@ -42,32 +40,6 @@ namespace NUnit.Extensions.Forms.Recorder.Test
     [Category("Recorder")]
     public class ListBoxRecorderTest : NUnitFormTest
     {
-        [Test]
-        public void SelectItem()
-        {
-            Form form = new ListBoxTestForm();
-            form.Show();
-            TestWriter writer = new TestWriter(form);
-            Assert.AreEqual("", writer.Test);
-
-            ListBoxTester myListBox = new ListBoxTester("myListBox", form);
-
-            myListBox.Select(0);
-
-            Assert.AreEqual(
-                    @"[Test]
-public void Test()
-{
-
-	ListBoxTester myListBox = new ListBoxTester(""myListBox"");
-
-	myListBox.ClearSelected();
-	myListBox.SetSelected(0, True); //Red
-
-}",
-                    writer.Test);
-        }
-
         [Test]
         public void MutlipleSelection()
         {
@@ -85,7 +57,7 @@ public void Test()
             myListBox.SetSelected(6, true); //Violet
 
             Assert.AreEqual(
-                    @"[Test]
+                @"[Test]
 public void Test()
 {
 
@@ -107,7 +79,33 @@ public void Test()
 	myListBox.SetSelected(6, True); //Violet
 
 }",
-                    writer.Test);
+                writer.Test);
+        }
+
+        [Test]
+        public void SelectItem()
+        {
+            Form form = new ListBoxTestForm();
+            form.Show();
+            TestWriter writer = new TestWriter(form);
+            Assert.AreEqual("", writer.Test);
+
+            ListBoxTester myListBox = new ListBoxTester("myListBox", form);
+
+            myListBox.Select(0);
+
+            Assert.AreEqual(
+                @"[Test]
+public void Test()
+{
+
+	ListBoxTester myListBox = new ListBoxTester(""myListBox"");
+
+	myListBox.ClearSelected();
+	myListBox.SetSelected(0, True); //Red
+
+}",
+                writer.Test);
         }
 
         [Test]
@@ -127,7 +125,7 @@ public void Test()
             myListBox.SetSelected(6, true); //Violet
 
             Assert.AreEqual(
-                    @"[Test]
+                @"[Test]
 public void Test()
 {
 
@@ -139,7 +137,7 @@ public void Test()
 	mySingleSelectBox.Select(6); //Time
 
 }",
-                    writer.Test);
+                writer.Test);
         }
     }
 }

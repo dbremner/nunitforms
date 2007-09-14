@@ -43,13 +43,16 @@ namespace NUnit.Extensions.Forms.Recorder
     /// </summary>
     public partial class AppForm : Form
     {
-		///<summary>
-		/// Constructs a new <see cref="AppForm"/>.
-		///</summary>
-		public AppForm()
-		{
-			InitializeComponent();
-		}
+        private EventHandler handler = null;
+        private TestWriter writer = null;
+
+        ///<summary>
+        /// Constructs a new <see cref="AppForm"/>.
+        ///</summary>
+        public AppForm()
+        {
+            InitializeComponent();
+        }
 
         private void Load_Click(object sender, EventArgs e)
         {
@@ -62,20 +65,20 @@ namespace NUnit.Extensions.Forms.Recorder
             ofd.ReadOnlyChecked = true;
             ofd.RestoreDirectory = true;
 
-            if(ofd.ShowDialog() == DialogResult.OK)
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
-                foreach(string fileName in ofd.FileNames)
+                foreach (string fileName in ofd.FileNames)
                 {
                     Assembly.LoadFrom(new FileInfo(fileName).ToString());
 
                     combo.SelectedIndexChanged -= new EventHandler(combo_SelectedIndexChanged);
 
                     combo.Items.Clear();
-                    foreach(Assembly a in AppDomain.CurrentDomain.GetAssemblies())
+                    foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
                     {
-                        foreach(Type t in a.GetTypes())
+                        foreach (Type t in a.GetTypes())
                         {
-                            if(t.IsSubclassOf(typeof(Form)) && ! t.FullName.StartsWith("System."))
+                            if (t.IsSubclassOf(typeof (Form)) && ! t.FullName.StartsWith("System."))
                             {
                                 combo.Items.Add(t.FullName);
                             }
@@ -87,10 +90,6 @@ namespace NUnit.Extensions.Forms.Recorder
             }
         }
 
-        private TestWriter writer = null;
-
-        private EventHandler handler = null;
-
         public void UpdateTests(object sender, EventArgs args)
         {
             textBox.Text = writer.Test;
@@ -100,22 +99,22 @@ namespace NUnit.Extensions.Forms.Recorder
 
         private void combo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(handler == null)
+            if (handler == null)
             {
                 handler = new EventHandler(UpdateTests);
             }
-            if(writer != null)
+            if (writer != null)
             {
                 writer.TestChanged -= handler;
             }
 
             Type type = Type.GetType(combo.SelectedItem.ToString());
-            if(type == null)
+            if (type == null)
             {
-                foreach(Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+                foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
                 {
                     type = assembly.GetType(combo.SelectedItem.ToString());
-                    if(type != null)
+                    if (type != null)
                     {
                         break;
                     }
@@ -150,12 +149,12 @@ namespace NUnit.Extensions.Forms.Recorder
                     ImageFormatHandler handlers = new ImageFormatHandler();
                     ScreenCapture capture = new ScreenCapture(handlers);
                     pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
-                    pictureBox1.Image = capture.Capture(form, @"NUnitFormsCapture\" );
+                    pictureBox1.Image = capture.Capture(form, @"NUnitFormsCapture\");
                     CompareControlCaptureAction action = new CompareControlCaptureAction(capture.LastCapture, null);
                     writer.AddAction(action);
                     textBox.Text = writer.Test;
                 }
-                catch(ObjectDisposedException)
+                catch (ObjectDisposedException)
                 {
                     MessageBox.Show("Please re-open your form.");
                 }

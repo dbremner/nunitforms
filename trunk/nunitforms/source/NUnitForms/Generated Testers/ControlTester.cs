@@ -30,17 +30,30 @@
 
 #endregion
 
-using System;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
     public partial class ControlTester : ControlTester<Control, ControlTester>
     {
-        public ControlTester() { }
-        public ControlTester(string name, Form form) : base(name, form) { }
-        public ControlTester(string name, string formName) : base(name, formName) { }
-        public ControlTester(string name) : base(name) { }
-        public ControlTester(ControlTester<Control, ControlTester> tester, int index) : base(tester, index) { }
+        public ControlTester()
+        {
+        }
+
+        public ControlTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public ControlTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public ControlTester(string name) : base(name)
+        {
+        }
+
+        public ControlTester(ControlTester<Control, ControlTester> tester, int index) : base(tester, index)
+        {
+        }
     }
 }

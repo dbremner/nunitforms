@@ -30,7 +30,6 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -38,6 +37,24 @@ namespace NUnit.Extensions.Forms.TestApplications
     [TestFixture]
     public class ModalFormsTest : NUnitFormTest
     {
+        public void ModalFormHandler()
+        {
+            ButtonTester btnClose = new ButtonTester("btnClose", "Form-0");
+            btnClose.Click();
+        }
+
+        [Test]
+        [ExpectedException(typeof (FormsTestAssertionException),
+            ExpectedMessage="expected 1 invocations of modal, but was invoked 0 times (Form Caption = Form-0)")]
+        public void ModalFormDoesntShow()
+        {
+            new ModalMultiForm().Show();
+
+            ExpectModal("Form-0", "ModalFormHandler");
+
+            Verify();
+        }
+
         [Test]
         public void TestModalForm()
         {
@@ -61,23 +78,6 @@ namespace NUnit.Extensions.Forms.TestApplications
             ButtonTester buttonOne = new ButtonTester("myButton", "Form");
 
             buttonOne.Click();
-        }
-
-        [Test]
-        [ExpectedException(typeof(FormsTestAssertionException), ExpectedMessage="expected 1 invocations of modal, but was invoked 0 times (Form Caption = Form-0)")]
-        public void ModalFormDoesntShow()
-        {
-            new ModalMultiForm().Show();
-
-            ExpectModal("Form-0", "ModalFormHandler");
-
-            Verify();
-        }
-
-        public void ModalFormHandler()
-        {
-            ButtonTester btnClose = new ButtonTester("btnClose", "Form-0");
-            btnClose.Click();
         }
     }
 }

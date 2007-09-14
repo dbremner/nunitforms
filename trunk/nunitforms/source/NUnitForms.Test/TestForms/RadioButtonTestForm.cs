@@ -42,28 +42,24 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// </summary>
     public class RadioButtonTestForm : Form
     {
-        private Label lblSelectedColor;
-
-        private RadioButton rbRed;
-
-        private RadioButton rbOrange;
-
-        private RadioButton rbGreen;
-
-        private RadioButton rbYellow;
-
-        private RadioButton rbBlue;
-
-        private RadioButton rbIndigo;
-
-        private RadioButton rbViolet;
-
-        private GroupBox grpColors;
-
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
+
+        private GroupBox grpColors;
+
+        private Label lblSelectedColor;
+
+        private RadioButton rbBlue;
+        private RadioButton rbGreen;
+
+        private RadioButton rbIndigo;
+        private RadioButton rbOrange;
+        private RadioButton rbRed;
+
+        private RadioButton rbViolet;
+        private RadioButton rbYellow;
 
         public RadioButtonTestForm()
         {
@@ -82,14 +78,31 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void rb_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = (RadioButton) sender;
+            lblSelectedColor.Text = (string) rb.Tag;
+        }
+
+        private void RadioButtonTestForm_Load(object sender, EventArgs e)
+        {
+            rbRed.Tag = "Red";
+            rbOrange.Tag = "Orange";
+            rbGreen.Tag = "Green";
+            rbYellow.Tag = "Yellow";
+            rbBlue.Tag = "Blue";
+            rbIndigo.Tag = "Indigo";
+            rbViolet.Tag = "Violet";
         }
 
         #region Windows Form Designer generated code
@@ -204,22 +217,5 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         #endregion
-
-        private void rb_CheckedChanged(object sender, EventArgs e)
-        {
-            RadioButton rb = (RadioButton) sender;
-            lblSelectedColor.Text = (string) rb.Tag;
-        }
-
-        private void RadioButtonTestForm_Load(object sender, EventArgs e)
-        {
-            rbRed.Tag = "Red";
-            rbOrange.Tag = "Orange";
-            rbGreen.Tag = "Green";
-            rbYellow.Tag = "Yellow";
-            rbBlue.Tag = "Blue";
-            rbIndigo.Tag = "Indigo";
-            rbViolet.Tag = "Violet";
-        }
     }
 }

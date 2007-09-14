@@ -30,23 +30,22 @@
 
 #endregion
 
-
 namespace NUnit.Extensions.Forms
 {
-	/// <summary>
-	/// A ControlTester for testing RadioButtons.  
-	/// </summary>
-	/// <remarks>
-	/// This class provides a convenience property for determining
-	/// whether a RadioButton is checked.</remarks>
-	public partial class RadioButtonTester
+    /// <summary>
+    /// A ControlTester for testing RadioButtons.  
+    /// </summary>
+    /// <remarks>
+    /// This class provides a convenience property for determining
+    /// whether a RadioButton is checked.</remarks>
+    public partial class RadioButtonTester
     {
-		///<summary>
-		/// Gets the Checked property of the underlying radio button.
-		///</summary>
-		public bool Checked
-		{
-			get { return Properties.Checked; }
-		}
-	}
+        ///<summary>
+        /// Gets the Checked property of the underlying radio button.
+        ///</summary>
+        public bool Checked
+        {
+            get { return Properties.Checked; }
+        }
+    }
 }

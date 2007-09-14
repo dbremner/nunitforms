@@ -30,21 +30,33 @@
 
 #endregion
 
-using System;
-using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	///<summary>
-	/// Base class for Tool Strip Item testers.
-	///</summary>
+    ///<summary>
+    /// Base class for Tool Strip Item testers.
+    ///</summary>
     public partial class ToolStripItemTester : ToolStripItemTester<ToolStripItem, ToolStripItemTester>
-	{
-        public ToolStripItemTester() { }
-		public ToolStripItemTester(string name, Form form) : base(name, form) {}
-		public ToolStripItemTester(string name, string formName) : base(name, formName) {}
-		public ToolStripItemTester(string name) : base(name) {}
-		public ToolStripItemTester(ToolStripItemTester tester, int index) : base(tester, index) {}
+    {
+        public ToolStripItemTester()
+        {
+        }
+
+        public ToolStripItemTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public ToolStripItemTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public ToolStripItemTester(string name) : base(name)
+        {
+        }
+
+        public ToolStripItemTester(ToolStripItemTester tester, int index) : base(tester, index)
+        {
+        }
     }
 }

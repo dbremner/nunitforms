@@ -42,18 +42,16 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// </summary>
     public class ModalMultiForm : Form
     {
-        private Label myLabel;
-
-        private Button myButton;
-
-        private Button nothingButton;
-
         private Button btnClose;
 
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
+
+        private Button myButton;
+        private Label myLabel;
+        private Button nothingButton;
 
         public ModalMultiForm()
         {
@@ -80,11 +78,11 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            lock(this)
+            lock (this)
             {
-                if(disposing)
+                if (disposing)
                 {
-                    if(components != null)
+                    if (components != null)
                     {
                         components.Dispose();
                     }
@@ -96,6 +94,22 @@ namespace NUnit.Extensions.Forms.TestApplications
                 ////}
                 base.Dispose(disposing);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int i = int.Parse(myLabel.Text) + 1;
+            myLabel.Text = i.ToString();
+
+            ModalMultiForm newForm = new ModalMultiForm();
+            newForm.Name = Name + "-" + (i - 1);
+            newForm.Text = newForm.Name;
+            newForm.ShowDialog();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
         #region Windows Form Designer generated code
@@ -156,21 +170,5 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         #endregion
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int i = int.Parse(myLabel.Text) + 1;
-            myLabel.Text = i.ToString();
-
-            ModalMultiForm newForm = new ModalMultiForm();
-            newForm.Name = Name + "-" + (i - 1);
-            newForm.Text = newForm.Name;
-            newForm.ShowDialog();
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
     }
 }

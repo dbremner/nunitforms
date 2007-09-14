@@ -41,12 +41,12 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// </summary>
     public class LabelTestForm : Form
     {
-        private Label myLabel;
-
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
+
+        private Label myLabel;
 
         public LabelTestForm()
         {
@@ -65,9 +65,9 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }

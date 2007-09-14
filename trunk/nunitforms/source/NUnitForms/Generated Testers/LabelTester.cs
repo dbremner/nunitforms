@@ -34,12 +34,26 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	public class LabelTester : ControlTester<Label, LabelTester>
-	{
-		public LabelTester() {}
-		public LabelTester(string name, Form form) : base(name, form) {}
-		public LabelTester(string name, string formName) : base(name, formName) {}
-		public LabelTester(string name) : base(name) {}
-		public LabelTester(LabelTester tester, int index) : base(tester, index) {}
-	}
+    public class LabelTester : ControlTester<Label, LabelTester>
+    {
+        public LabelTester()
+        {
+        }
+
+        public LabelTester(string name, Form form) : base(name, form)
+        {
+        }
+
+        public LabelTester(string name, string formName) : base(name, formName)
+        {
+        }
+
+        public LabelTester(string name) : base(name)
+        {
+        }
+
+        public LabelTester(LabelTester tester, int index) : base(tester, index)
+        {
+        }
+    }
 }

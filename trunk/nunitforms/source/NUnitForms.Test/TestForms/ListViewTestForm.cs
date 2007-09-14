@@ -32,13 +32,15 @@
 
 //Contributed by: Ian Cooper
 
+using System.ComponentModel;
+using System.Windows.Forms;
+
 namespace NUnit.Extensions.Forms.TestApplications
 {
-    public class ListViewTestForm : System.Windows.Forms.Form
+    public class ListViewTestForm : Form
     {
-        private System.Windows.Forms.ListView listViewDetails;
-
-        private System.ComponentModel.Container components = null;
+        private Container components = null;
+        private ListView listViewDetails;
 
         public ListViewTestForm()
         {
@@ -47,9 +49,9 @@ namespace NUnit.Extensions.Forms.TestApplications
 
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }

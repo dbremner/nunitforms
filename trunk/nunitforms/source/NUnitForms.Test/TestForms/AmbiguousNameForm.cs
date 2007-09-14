@@ -40,14 +40,14 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// </summary>
     public partial class AmbiguousNameForm : Form
     {
-		/// <summary>
-		/// Constructs a new <see cref="AmbiguousNameForm"/>.
-		/// </summary>
+        /// <summary>
+        /// Constructs a new <see cref="AmbiguousNameForm"/>.
+        /// </summary>
         public AmbiguousNameForm()
         {
             InitializeComponent();
         }
-		
+
         private void onSuperClick1(object sender, EventArgs e)
         {
             IncrementLabel(myFirstLabel);

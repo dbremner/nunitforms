@@ -35,48 +35,57 @@ using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
 {
-	/// <summary>
-	/// A ControlTester for testing forms.
-	/// 
-	/// This class implements a Close() helper method to close a form that you find.
-	/// </summary>
-	/// <remarks>
-	/// This class does not have all of the constructors because they don't make
-	/// sense in this context.</remarks>
-	public class FormTester : ControlTester<Form, FormTester>, IDisposable
-	{
+    /// <summary>
+    /// A ControlTester for testing forms.
+    /// 
+    /// This class implements a Close() helper method to close a form that you find.
+    /// </summary>
+    /// <remarks>
+    /// This class does not have all of the constructors because they don't make
+    /// sense in this context.</remarks>
+    public class FormTester : ControlTester<Form, FormTester>, IDisposable
+    {
         private bool explicitlyClosed;
 
-        public FormTester() { }
-		public FormTester(string name) : base(name) {}
+        public FormTester()
+        {
+        }
 
-		/// <summary>
-		/// Gets or sets the dialog result for the form.
-		/// </summary>
-		/// <returns>
-		/// A <c>System.Windows.Forms.DialogResult</c> that represents the result of the form when used as a dialog box.
-		/// </returns>
-		public DialogResult DialogResult
-		{
-			get { return Properties.DialogResult; }
-		}
+        public FormTester(string name) : base(name)
+        {
+        }
 
-		/// <summary>
-		/// Closes the associated Form.
-		/// </summary>
-		public void Close()
-		{
-			Properties.Close();
-			explicitlyClosed = true;
-		}
+        /// <summary>
+        /// Gets or sets the dialog result for the form.
+        /// </summary>
+        /// <returns>
+        /// A <c>System.Windows.Forms.DialogResult</c> that represents the result of the form when used as a dialog box.
+        /// </returns>
+        public DialogResult DialogResult
+        {
+            get { return Properties.DialogResult; }
+        }
 
-		/// <summary>
-		/// Disposes the associated Form.
-		/// </summary>
-		public void Dispose()
-		{
-			if (!explicitlyClosed)
-				Close();
-		}
-	}
+        #region IDisposable Members
+
+        /// <summary>
+        /// Disposes the associated Form.
+        /// </summary>
+        public void Dispose()
+        {
+            if (!explicitlyClosed)
+                Close();
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Closes the associated Form.
+        /// </summary>
+        public void Close()
+        {
+            Properties.Close();
+            explicitlyClosed = true;
+        }
+    }
 }

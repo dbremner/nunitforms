@@ -43,16 +43,16 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// </summary>
     public class ListBoxTestForm : Form
     {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
+
         private Label myLabel;
 
         private ListBox myListBox;
 
         private ListBox mySingleSelectBox;
-
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private Container components = null;
 
         public ListBoxTestForm()
         {
@@ -71,14 +71,30 @@ namespace NUnit.Extensions.Forms.TestApplications
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
             base.Dispose(disposing);
+        }
+
+        private void myButton_Click(object sender, EventArgs e)
+        {
+            int i = int.Parse(myLabel.Text) + 1;
+            myLabel.Text = i.ToString();
+        }
+
+        private void selectedValueChanged(object sender, EventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (object selectedItem in ((ListBox) sender).SelectedItems)
+            {
+                sb.Append(selectedItem);
+            }
+            myLabel.Text = sb.ToString();
         }
 
         #region Windows Form Designer generated code
@@ -132,21 +148,5 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         #endregion
-
-        private void myButton_Click(object sender, EventArgs e)
-        {
-            int i = int.Parse(myLabel.Text) + 1;
-            myLabel.Text = i.ToString();
-        }
-
-        private void selectedValueChanged(object sender, EventArgs e)
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach(object selectedItem in ((ListBox) sender).SelectedItems)
-            {
-                sb.Append(selectedItem);
-            }
-            myLabel.Text = sb.ToString();
-        }
     }
 }

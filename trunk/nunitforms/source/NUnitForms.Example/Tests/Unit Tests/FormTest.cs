@@ -31,10 +31,9 @@
 #endregion
 
 using NMock;
-
 using NUnit.Extensions.Forms;
-using NUnit.Framework;
 using NUnit.Extensions.Forms.ExampleApplication;
+using NUnit.Framework;
 
 namespace NUnit.Forms.ExampleApplication
 {
@@ -43,12 +42,12 @@ namespace NUnit.Forms.ExampleApplication
     {
         private Mock controller = null;
 
-        const string TestValue = "TestValue";
-        const string UpdatedValue = "UpdatedValue";
+        private const string TestValue = "TestValue";
+        private const string UpdatedValue = "UpdatedValue";
 
         public override void Setup()
         {
-            controller = new DynamicMock(typeof(IAppController));
+            controller = new DynamicMock(typeof (IAppController));
             controller.SetupResult("GetData", TestValue);
             new AppForm((IAppController) controller.MockInstance).Show();
         }
@@ -58,6 +57,17 @@ namespace NUnit.Forms.ExampleApplication
         {
             ButtonTester button = new ButtonTester("countButton");
             Assert.AreEqual(TestValue, button.Text);
+        }
+
+        [Test]
+        public void ButtonLabelShouldUpdateAfterClick()
+        {
+            controller.SetupResult("GetData", UpdatedValue);
+
+            ButtonTester button = new ButtonTester("countButton");
+            button.Click();
+
+            Assert.AreEqual(UpdatedValue, button.Text);
         }
 
         [Test]
@@ -80,17 +90,6 @@ namespace NUnit.Forms.ExampleApplication
             button.Click();
 
             controller.Verify();
-        }
-
-        [Test]
-        public void ButtonLabelShouldUpdateAfterClick()
-        {
-            controller.SetupResult("GetData", UpdatedValue);
-
-            ButtonTester button = new ButtonTester("countButton");
-            button.Click();
-
-            Assert.AreEqual(UpdatedValue, button.Text);
         }
     }
 }
