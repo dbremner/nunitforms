@@ -161,7 +161,7 @@ namespace NUnit.Extensions.Forms
 			lock (this)
 			{
 				IntPtr desktop = Win32.GetDesktopWindow();
-				Win32.EnumChildWindows(desktop, new Win32.WindowEnumProc(OnEnumWindow), IntPtr.Zero);
+				Win32.EnumChildWindows(desktop, OnEnumWindow, IntPtr.Zero);
 				if (wParam == IntPtr.Zero)
 				{
 					throw new ControlNotVisibleException("Open File Dialog is not visible");

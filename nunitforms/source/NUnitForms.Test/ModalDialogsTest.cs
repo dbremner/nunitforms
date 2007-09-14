@@ -31,7 +31,6 @@
 #endregion
 
 using System.Windows.Forms;
-
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications
@@ -99,7 +98,8 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(FormsTestAssertionException), ExpectedMessage = "unexpected/expected modal was invoked/not invoked")]
+        [ExpectedException(typeof(FormsTestAssertionException),
+            ExpectedMessage = "expected 0 invocations of modal, but was invoked 1 times (Form Caption = blah)")]
         public void UnexpectedModalIsClosedAndFails()
         {
             MessageBox.Show("I didn't expect this!", "blah");
@@ -107,10 +107,35 @@ namespace NUnit.Extensions.Forms.TestApplications
         }
 
         [Test]
-        [ExpectedException(typeof(FormsTestAssertionException), ExpectedMessage = "unexpected/expected modal was invoked/not invoked")]
+        [ExpectedException(typeof (FormsTestAssertionException),
+            ExpectedMessage = "expected 0 invocations of modal, but was invoked 1 times (Form Caption = Unnamed)")]
         public void UnexpectedModalIsClosedAndFailsNoTitle()
         {
             MessageBox.Show("I didn't expect this!"); // no title specified
+            Verify();
+        }
+
+        [Test]
+        [ExpectedException(typeof (FormsTestAssertionException),
+            ExpectedMessage =
+            "expected 0 invocations of modal, but was invoked 1 times (Form Caption = Error1)\r\nexpected 0 invocations of modal, but was invoked 1 times (Form Caption = Error2)\r\n"
+            )]
+        public void UnexpectedModalsEachReportErrors()
+        {
+            MessageBox.Show("I didn't expect this!", "Error1");
+            MessageBox.Show("I didn't expect this!", "Error2");
+            Verify();
+        }
+
+        [Test]
+        [ExpectedException(typeof (FormsTestAssertionException),
+            ExpectedMessage =
+            "expected 0 invocations of modal, but was invoked 2 times (Form Caption = Error1)"
+            )]
+        public void UnexpectedModalWithSameTitleReportsErrorCount()
+        {
+            MessageBox.Show("I didn't expect this!", "Error1");
+            MessageBox.Show("I didn't expect this!", "Error1");
             Verify();
         }
 

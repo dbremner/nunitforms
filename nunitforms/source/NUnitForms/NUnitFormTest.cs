@@ -278,8 +278,12 @@ namespace NUnit.Extensions.Forms
 					}
 				}
 
+                string[] errors = new string[0];
 				bool modalVerify = modal.Verify();
-
+                if (!modalVerify)
+                {
+                    errors = modal.GetErrors();
+                }
 				modal.Dispose();
 
 				if (UseHidden)
@@ -292,10 +296,15 @@ namespace NUnit.Extensions.Forms
 
 				if (!modalVerify)
 				{
-					throw new FormsTestAssertionException("unexpected/expected modal was invoked/not invoked");
-				}
-			}
-		}
+                    string message = "";
+                    foreach (string m in errors)
+                    {
+                        message += m + ((errors.Length > 1) ? "\r\n" : "");
+                    }
+                    throw new FormsTestAssertionException(message);
+                }
+            }
+        }
 
         /// <summary>
         /// Override this TearDown method if you have custom behavior to execute after each test

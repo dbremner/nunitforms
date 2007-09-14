@@ -49,25 +49,31 @@ namespace NUnit.Extensions.Forms
 	///</summary>
 	public class ModalFormTester : IDisposable
 	{
+        public ModalFormTester()
+        {
+            BeginListening();
+        }
 		/// <summary>
 		/// This class encapsulates a event handler
 		/// along with information on whether it was
 		/// expected to be called, and if it was actually called.
 		/// </summary>
-		private class Handler
+        internal class Handler
 		{
-			private bool invoked = false;
+            private int invokedCount = 0;
 
-			private readonly bool expected = false;
+            private readonly int expectedCount = 0;
 			private readonly Delegate handler = null;
+            private readonly string name;
 
 			/// <summary>
 			/// Constructs a new <see cref="Handler"/>.
 			/// </summary>
-			public Handler(Delegate handler, bool expected)
+            public Handler(Delegate handler, int expectedTimes, string name)
 			{
 				this.handler = handler;
-				this.expected = expected;
+                expectedCount = expectedTimes;
+                this.name = name;
 			}
 
 			/// <summary>
@@ -76,7 +82,7 @@ namespace NUnit.Extensions.Forms
 			/// </summary>
 			public bool Verify()
 			{
-				return expected == invoked;
+                return expectedCount == invokedCount;
 			}
 
 			/// <summary>
@@ -85,7 +91,7 @@ namespace NUnit.Extensions.Forms
 			/// <param name="hWnd"></param>
 			public void Invoke(IntPtr hWnd)
 			{
-				invoked = true;
+                invokedCount++;
 				try
 				{
 					if (handler is ModalFormActivated)
@@ -105,8 +111,25 @@ namespace NUnit.Extensions.Forms
 						throw ex.InnerException;
 					}
 				}
-			}
-		}
+            }
+
+            public string Name
+            {
+                get { return name; }
+            }
+
+
+            public string GetError()
+            {
+                if (Verify())
+                {
+                    throw new InvalidOperationException("Don't call GetError when there are not errors");
+                }
+                return
+                    string.Format("expected {0} invocations of modal, but was invoked {1} times", expectedCount,
+                                  invokedCount);
+            }
+        }
 
 		/// <summary>
 		/// The mapping of form titles to event handlers.
@@ -114,21 +137,6 @@ namespace NUnit.Extensions.Forms
 		private readonly Hashtable handlers = new Hashtable();
 
 		/// <summary>
-		/// A token representing "any form".
-		/// </summary>
-		public readonly string ANY = Guid.NewGuid().ToString();
-
-		///<summary>
-		/// Constructs a new <see cref="ModalFormTester"/>.
-		///</summary>
-		public ModalFormTester()
-		{
-			Add(ANY,
-			    (ModalFormActivatedHwnd)
-			    Delegate.CreateDelegate(typeof (ModalFormActivatedHwnd), this, "UnexpectedModal"), false);
-		}
-
-		///<summary>
 		/// A <see cref="ModalFormActivatedHwnd"/> that tries to click the OK button of the modal form.
 		///</summary>
 		public void UnexpectedModal(IntPtr hWnd)
@@ -155,8 +163,7 @@ namespace NUnit.Extensions.Forms
 		///<param name="expected">True if this handler is expected; false if this handler is not expected.</param>
 		public void ExpectModal(string name, ModalFormActivated handler, bool expected)
 		{
-			BeginListening();
-			handlers[name] = new Handler(handler, expected);
+            handlers[name] = new Handler(handler, (expected ? 1 : 0), name);
 		}
 
 		///<summary>
@@ -164,11 +171,12 @@ namespace NUnit.Extensions.Forms
 		///</summary>
 		///<param name="name">The caption of the form to handle.</param>
 		///<param name="handler">The handler.</param>
-		///<param name="expected">True if this handler is expected; false if this handler is not expected.</param>
-		internal void Add(string name, ModalFormActivatedHwnd handler, bool expected)
+        ///<param name="expectedCount">number of times this handler is expected</param>
+        internal Handler Add(string name, ModalFormActivatedHwnd handler, int expectedCount)
 		{
-			BeginListening();
-			handlers[name] = new Handler(handler, expected);
+            Handler handlerObject = new Handler(handler, expectedCount, name);
+            handlers[name] = handlerObject;
+            return handlerObject;
 		}
 
 		~ModalFormTester()
@@ -196,6 +204,8 @@ namespace NUnit.Extensions.Forms
 
 		private const int CbtHookType = 5;
 		private const int HCBT_ACTIVATE = 5;
+        private const int HCBT_SETFOCUS = 9;
+        private const int HCBT_MOVESIZE = 0;
 
 		/// <summary>
 		/// True if we have begun listening for CBT Activate events.
@@ -213,7 +223,7 @@ namespace NUnit.Extensions.Forms
 				// before the callback is used.
 				// If we try to assign the call back "inline" we get memory violation errors.
 				callback = Callback_ModalListener;
-				handleToHook = Win32.SetWindowsHookEx(CbtHookType, callback, IntPtr.Zero, Win32.GetCurrentThreadId());
+                handleToHook = Win32.SetWindowsHookEx(HCBT_ACTIVATE, callback, IntPtr.Zero, Win32.GetCurrentThreadId());
 			}
 		}
 
@@ -233,20 +243,16 @@ namespace NUnit.Extensions.Forms
 		private void Invoke(string name, IntPtr hWnd)
 		{
 			if (name == null) return;
+            if (name == string.Empty) name = "Unnamed";
 
 			Handler namedHandler = handlers[name] as Handler;
-			if (namedHandler != null)
+            if (namedHandler == null)
 			{
-				namedHandler.Invoke(hWnd);
-				return;
+                namedHandler = Add(name, (ModalFormActivatedHwnd)
+                                         Delegate.CreateDelegate(typeof (ModalFormActivatedHwnd), this,
+                                                                 "UnexpectedModal"), 0);
 			}
-
-			Handler anyHandler = handlers[ANY] as Handler;
-			if (anyHandler != null)
-			{
-				anyHandler.Invoke(hWnd);
-				return;
-			}
+            namedHandler.Invoke(hWnd);
 		}
 
 		/// <summary>
@@ -284,5 +290,19 @@ namespace NUnit.Extensions.Forms
 
 			Invoke(name, hwnd);
 		}
+
+        public string[] GetErrors()
+        {
+            ArrayList errors = new ArrayList();
+            foreach (string name in handlers.Keys)
+            {
+                Handler h = (Handler) handlers[name];
+                if (!h.Verify())
+                {
+                    errors.Add(h.GetError() + string.Format(" (Form Caption = {0})", h.Name));
+                }
+            }
+            return (string[]) errors.ToArray(typeof (string));
+        }
 	}
 }
