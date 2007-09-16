@@ -30,69 +30,15 @@
 
 #endregion
 
-using System.Windows.Forms;
-using NUnit.Framework;
+using NUnit.Extensions.Forms.Util;
 
-namespace NUnit.Extensions.Forms.TestApplications
+namespace NUnit.Extensions.Forms.Util
 {
-	[TestFixture]
-	[Category("DisplayHidden")]
-	[Category("ControlsKeyboard")]
-	public class SimpleWin32APIKeyboardTest : NUnitFormTest
+	public class SendKeysParserFactory : ISendKeysParserFactory
 	{
-		public override bool DisplayHidden
+		public ISendKeysParser Create(string text)
 		{
-			get { return true; }
-		}
-
-		[Test]
-		public void PressEnterClicksButton()
-		{
-			Form form = new ButtonTestForm();
-			form.Show();
-			LabelTester label = new LabelTester("myLabel", form);
-			ButtonTester button = new ButtonTester("myButton", form);
-
-			Assert.AreEqual("0", label.Text);
-
-			Keyboard.UseOn(button);
-			Keyboard.Press(Win32Key.RETURN);
-
-			Assert.AreEqual("1", label.Text);
-		}
-
-		[Test]
-		public void TypeShiftAABC()
-		{
-			new TextBoxTestForm().Show();
-			TextBoxTester box = new TextBoxTester("myTextBox");
-			Assert.AreEqual("default", box.Text);
-
-			Keyboard.UseOn(box);
-
-			Keyboard.Press(Win32Key.SHIFT, Win32Key.A);
-			Keyboard.Press(Win32Key.A);
-			Keyboard.Press(Win32Key.B);
-			Keyboard.Press(Win32Key.C);
-
-			Assert.AreEqual("Aabc", box.Text);
-		}
-
-		[Test]
-		public void ReplaceOneWithDIGIT_1WhenNotInBraces()
-		{
-			new TextBoxTestForm().Show();
-			TextBoxTester box = new TextBoxTester("myTextBox");
-			Assert.AreEqual("default", box.Text);
-
-			Keyboard.UseOn(box);
-
-			Keyboard.Press(Win32Key.NUMPAD1);
-			Keyboard.Press(Win32Key.NUMPAD2);
-			Keyboard.Press(Win32Key.NUMPAD3);
-			Keyboard.Press(Win32Key.NUMPAD1);
-
-			Assert.AreEqual("1231", box.Text);
+			return new SendKeysParser(text);
 		}
 	}
 }

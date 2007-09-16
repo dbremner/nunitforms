@@ -55,15 +55,15 @@ namespace NUnit.Extensions.Forms
     ///  on a <b>Form</b>.  The <b>Position</b> can be specified in pixels, inches or millimetres
     ///  </para>
     ///  <para>
-    ///  The mouse buttons are controlled with the Press and Release methods.  Both
+    ///  The mouse buttons are controlled with the PressAndRelease and Release methods.  Both
     ///  methods allow a bitwise combination of the <see cref="MouseButtons"/>, for example 
-    ///  <c>Press(MouseButtons.Left | MouseButtons.Center)</c>.
+    ///  <c>PressAndRelease(MouseButtons.Left | MouseButtons.Center)</c>.
     ///  Button modifiers, the Alt, Shift and Ctrl keys, are also controlled with the two methods.
     ///  </para>
     ///  <para>
     ///  The <b>XButtons</b> (<see cref="MouseButtons.XButton1"/> and <see cref="MouseButtons.XButton2"/>)
     ///  can only be simulated when a mouse with <see cref="SystemInformation.MouseButtons">5 buttons</see> is installed. 
-    ///  The <b>Press</b> and <b>Release</b> methods will throw <see cref="System.NotSupportedException"/> if the XButtons are used 
+    ///  The <b>PressAndRelease</b> and <b>Release</b> methods will throw <see cref="System.NotSupportedException"/> if the XButtons are used 
     ///  when a mouse does not have 4 or 5 button support.
     ///  </para>
     /// </remarks>
@@ -131,7 +131,7 @@ namespace NUnit.Extensions.Forms
         /// using (MouseController mouse = new MouseControler(myTestControl))
         /// {
         ///   mouse.Position = new PointF(1,1);
-        ///   mouse.Press(MouseButtons.Middle);
+        ///   mouse.PressAndRelease(MouseButtons.Middle);
         /// }
         /// </code>
         /// </example>
@@ -520,7 +520,7 @@ namespace NUnit.Extensions.Forms
         ///   A bitwise combination of the <see cref="MouseButtons"/> enumeration values. 
         /// </param>
         /// <remarks>
-        ///   <b>Press</b> positions the mouse over the control under test 
+        ///   <b>PressAndRelease</b> positions the mouse over the control under test 
         ///   and then simulates pressing the specified <paramref name="buttons"/>.
         /// </remarks>
         /// <exception cref="NotSupportedException">
@@ -550,7 +550,7 @@ namespace NUnit.Extensions.Forms
         ///   to <see cref="Position">move</see> the mouse to.
         /// </param>
         /// <remarks>
-        ///   <b>Press</b> positions the mouse over the control under test 
+        ///   <b>PressAndRelease</b> positions the mouse over the control under test 
         ///   at the specified point (<paramref name="x"/>, <paramref name="y"/>)
         ///   and then simulates pressing the specified <paramref name="buttons"/>.
         /// </remarks>
@@ -575,7 +575,7 @@ namespace NUnit.Extensions.Forms
         ///   to <see cref="Position">move</see> the mouse to.
         /// </param>
         /// <remarks>
-        ///   <b>Press</b> positions the mouse over the control under test 
+        ///   <b>PressAndRelease</b> positions the mouse over the control under test 
         ///   at the specified <paramref name="point"/>
         ///   and then simulates pressing the specified <paramref name="buttons"/>.
         /// </remarks>
@@ -642,7 +642,7 @@ namespace NUnit.Extensions.Forms
         ///   and <b>Control</b> are allowed.
         /// </param>
         /// <remarks>
-        ///   <b>Press</b> simulates pressing the specified <paramref name="keys"/>.
+        ///   <b>PressAndRelease</b> simulates pressing the specified <paramref name="keys"/>.
         /// </remarks>
         /// <exception cref="ArgumentOutOfRangeException">
         ///   When <paramref name="keys"/> contains a value that is not 
@@ -668,7 +668,7 @@ namespace NUnit.Extensions.Forms
         ///      mouse.Drag (10,10, 20,20);
         ///      AssertEquals (1, myControl.Properties.SelectedObjects.Count);
         ///      
-        ///      mouse.Press(Keys.Shift);
+        ///      mouse.PressAndRelease(Keys.Shift);
         ///      mouse.Drag(100,100, 200,200);
         ///      mouse.Release(Keys.Shift);
         ///      AssertEquals (2, myControl.Properties.SelectedObjects.Count);
@@ -871,7 +871,7 @@ namespace NUnit.Extensions.Forms
         ///      mouse.Drag (10,10, 20,20);
         ///      AssertEquals (1, myControl.Properties.SelectedObjects.Count);
         ///      
-        ///      mouse.Press(Keys.Shift);
+        ///      mouse.PressAndRelease(Keys.Shift);
         ///      mouse.Drag(100,100, 200,200);
         ///      mouse.Release(Keys.Shift);
         ///      AssertEquals (2, myControl.Properties.SelectedObjects.Count);
