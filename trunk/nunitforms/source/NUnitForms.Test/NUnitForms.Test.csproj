@@ -7,7 +7,7 @@
     <ProjectGuid>{E779CBD7-1CCE-4796-AE12-00AB56A8A815}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NUnit.Extensions.Forms.Test</RootNamespace>
+    <RootNamespace>NUnit.Extensions.Forms.TestApplications</RootNamespace>
     <AssemblyName>NUnitForms.Test</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SimpleAPIKeyboardWithEmulationTest.cs.cs" />
     <Compile Include="ToolStripContainerTest.cs" />
     <Compile Include="DialogWithNoHandlerTest.cs" />
     <Compile Include="ButtonTest.cs" />

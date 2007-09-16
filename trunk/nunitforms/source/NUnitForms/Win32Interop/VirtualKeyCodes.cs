@@ -31,15 +31,17 @@
 #endregion
 
 
-namespace NUnit.Extensions.Forms
+namespace NUnit.Extensions.Forms.Win32Interop
 {
 	/// <summary>
+	/// Microsft virtual key codes.
+	/// http://msdn2.microsoft.com/en-us/library/ms927175.aspx
+	/// 
 	/// Constant values for use with KeyboardController.
 	/// Values from winuser.h
-	/// 
 	/// http://www.krugle.com/examples/p-dEfbRNANb0n1Aamr/Key.cs
 	/// </summary>
-	public enum Win32Key : short
+	public enum VirtualKeyCodes : short
 	{
 		LBUTTON = 0x01,
 		RBUTTON = 0x02,
@@ -239,4 +241,3 @@ namespace NUnit.Extensions.Forms
 		OEM_CLEAR = 0xFE,
 	}
 }
-

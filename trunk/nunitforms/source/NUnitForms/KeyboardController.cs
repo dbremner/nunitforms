@@ -34,6 +34,8 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Windows.Forms;
+using NUnit.Extensions.Forms.DotNet;
+using SendKeys=NUnit.Extensions.Forms.DotNet.SendKeys;
 
 namespace NUnit.Extensions.Forms
 {
@@ -51,7 +53,8 @@ namespace NUnit.Extensions.Forms
     /// </remarks>
     public class KeyboardController : IDisposable
     {
-        private static readonly Hashtable modifiers = new Hashtable();
+    	private readonly ISendKeys sendKeys;
+    	private static readonly Hashtable modifiers = new Hashtable();
         private KeyboardControl keyboardControl = null;
         private bool restoreUserInput = false;
 
@@ -62,8 +65,9 @@ namespace NUnit.Extensions.Forms
             modifiers['^'] = "CONTROL";
         }
 
-        internal KeyboardController()
+        internal KeyboardController(ISendKeys sendKeys)
         {
+        	this.sendKeys = sendKeys;
         }
 
         /// <summary>
@@ -72,7 +76,7 @@ namespace NUnit.Extensions.Forms
         /// </summary>
         /// <param name="controlTester">The ControlTester to use the keyboard
         /// on.</param>
-        public KeyboardController(ControlTester controlTester)
+        public KeyboardController(ControlTester controlTester) : this(new SendKeys())
         {
             UseOn(controlTester);
         }
@@ -305,7 +309,7 @@ namespace NUnit.Extensions.Forms
         {
             keyboardControl.Focus();
 
-            SendKeys.SendWait(key);
+			sendKeys.SendWait(key);
 
             Application.DoEvents();
         }

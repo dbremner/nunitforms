@@ -51,7 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DotNet\ISendKeys.cs" />
+    <Compile Include="DotNet\SendKeys.cs" />
     <Compile Include="Exceptions\ControlNotEnabledException.cs" />
+    <Compile Include="Exceptions\KeyboardSequenceException.cs" />
     <Compile Include="Generated Testers\ListBoxTester.cs" />
     <Compile Include="Generated Testers\ListViewTester.cs" />
     <Compile Include="Generated Testers\RadioButtonTester.cs" />
@@ -115,6 +118,11 @@
     <Compile Include="Testers\RadioButtonTester.cs" />
     <Compile Include="Testers\RichTextBoxTester.cs" />
     <Compile Include="Testers\SaveFileDialogTester.cs" />
+    <Compile Include="Util\ISendKeysParser.cs" />
+    <Compile Include="Util\ISendKeysParserFactory.cs" />
+    <Compile Include="Util\SendKeys.cs" />
+    <Compile Include="Util\SendKeysParser.cs" />
+    <Compile Include="Util\SendKeysParserFactory.cs" />
     <Compile Include="Util\Strings.cs" />
     <Compile Include="Testers\TabControlTester.cs" />
     <Compile Include="Testers\TextBoxTester.cs" />
@@ -132,6 +140,11 @@
     <Compile Include="Util\Types.cs" />
     <Compile Include="Util\Win32.cs" />
     <Compile Include="Util\WindowHandle.cs" />
+    <Compile Include="Win32Interop\ISendKeyboardInput.cs" />
+    <Compile Include="Win32Interop\SendInputFlags.cs" />
+    <Compile Include="Win32Interop\SendKeyboardInput.cs" />
+    <Compile Include="Win32Interop\VirtualKeyCodes.cs" />
+    <Compile Include="Win32Interop\VirtualKeyScan.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NUnitForms.ScreenCapture\NUnitForms.ScreenCapture.csproj">

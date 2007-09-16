@@ -35,6 +35,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
 using NUnit.Framework;
+using NUnit.Extensions.Forms.Win32Interop;
+using NUnit.Extensions.Forms.Util;
 
 namespace NUnit.Extensions.Forms
 {
@@ -151,10 +153,23 @@ namespace NUnit.Extensions.Forms
 
             modal = new ModalFormTester();
             mouse = new MouseController();
-            keyboard = new KeyboardController();
+			keyboard = new KeyboardController(new DotNet.SendKeys());
 
             Setup();
         }
+
+		/// <summary>
+		/// A patch method to allow migration to an alternative SendKeys class instead
+		/// of the dot Net SendKeys class. Once the new class is completed this method
+		/// will be replaced by a method to allow use of the dot Net class.
+		/// 
+		/// This method must only be called at the start of the test fixture's overriden
+		/// SetUp().
+		/// </summary>
+		protected void EmulateSendKeys()
+		{
+			keyboard = new KeyboardController(new Util.SendKeys(new SendKeyboardInput(), new SendKeysParserFactory()));
+		}
 
         /// <summary>
         /// This method is needed because the way the FileDialogs working are strange.

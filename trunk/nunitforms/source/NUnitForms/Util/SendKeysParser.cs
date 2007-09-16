@@ -30,100 +30,77 @@
 
 #endregion
 
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
+using System.Text.RegularExpressions;
+using NUnit.Extensions.Forms.Util;
 
 
-namespace NUnit.Extensions.Forms
+namespace NUnit.Extensions.Forms.Util
 {
-	internal class KeyboardControllerWin32 : IDisposable
+	public class SendKeysParser : ISendKeysParser
 	{
-		//TODO: should make sure caps lock is off and return it to its pretest state
+		private readonly List<string> groupModifiers = new List<string>();
+		private readonly List<string> bodyTexts = new List<string>();
+		private const string groupsPattern = @"(?<group> ([\(\{+^%~\{\[].+?[\)\}]) | ([^\(\{+^%~\{\[\)\}]+) )";
+		private const string modifiersPattern = @"^(?<modifier> [+^%~] + )? [\(\{\[]? (?<body> .*? )? [\)\}\]]? $";
 
-		private bool restoreUserInput = false;
-		private readonly Dictionary<Win32Key, Win32Key> keysHeldDown = new Dictionary<Win32Key, Win32Key>();
-		private Win32.KEYBDINPUT keyboardInput = new Win32.KEYBDINPUT();
-
-		public KeyboardControllerWin32()
+		public SendKeysParser(string sendKeysFormattedText)
 		{
-			keyboardInput.type = Win32.INPUT_KEYBOARD;
-			keyboardInput.dwExtraInfo = Win32.GetMessageExtraInfo();
-			keyboardInput.time = 0;
-			keyboardInput.wScan = 0;
-		}
-
-		public void BlockUserInput()
-		{
-			if (!restoreUserInput)
+			Regex regex = new Regex(groupsPattern, RegexOptions.IgnorePatternWhitespace);
+			MatchCollection matches = regex.Matches(sendKeysFormattedText);
+			List<string> groupsList = new List<string>();
+			foreach (Match match in matches)
 			{
-				restoreUserInput = Win32.BlockInput(true);
+				groupsList.Add(match.Value);
+			}
+			string[] groups = groupsList.ToArray();
+
+			foreach (string group in groups)
+			{
+				ParseGroupElements(group);
 			}
 		}
 
-		public void PressAndRelease(params Win32Key[] keys)
+		private void ParseGroupElements(string group)
 		{
-			SendKeys(keys, Win32.KEYEVENTF_KEYDOWN);
-			Array.Reverse(keys);
-			SendKeys(keys, Win32.KEYEVENTF_KEYUP);
-		}
+			Regex regex = new Regex(modifiersPattern, RegexOptions.IgnorePatternWhitespace);
 
-		private void SendKeys(IEnumerable<Win32Key> keys, int flags)
-		{
-			foreach (Win32Key key in keys)
+			string modifierCharacters = string.Empty;
+			string bodyText = string.Empty;
+
+			MatchCollection match = regex.Matches(group);
+			if (match.Count == 1)
 			{
-				SendKeyboardInput(key, flags);
-			}
-		}
-
-		private void SendKeyboardInput(Win32Key key, int flags)
-		{
-			keyboardInput.dwFlags = flags;
-			keyboardInput.wVk = (short)key;
-
-			if (Win32.SendKeyboardInput(1, ref keyboardInput, Marshal.SizeOf(keyboardInput)) == 0)
-			{
-				throw new Win32Exception();
-			}
-
-			if (flags == Win32.KEYEVENTF_KEYDOWN)
-			{
-				keysHeldDown.Add(key, key);
-			}
-
-			if (flags == Win32.KEYEVENTF_KEYUP)
-			{
-				keysHeldDown.Remove(key);
-			}
-
-			Application.DoEvents();
-		}
-
-		private void ReleaseAllKeys()
-		{
-			foreach (Win32Key key in keysHeldDown.Keys)
-			{
-				SendKeyboardInput(key, Win32.KEYEVENTF_KEYUP);
-			}
-			keysHeldDown.Clear();
-		}
-
-		public void Dispose()
-		{
-			try
-			{
-				ReleaseAllKeys();
-			}
-			finally
-			{
-				if (restoreUserInput)
+				Group modiferGroup = match[0].Groups["modifier"];
+				if (modiferGroup.Success)
 				{
-					Win32.BlockInput(false);
-					restoreUserInput = false;
+					modifierCharacters = modiferGroup.Value;
+				}
+
+				Group bodyGroup = match[0].Groups["body"];
+				if (bodyGroup.Success)
+				{
+					bodyText = bodyGroup.Value;
 				}
 			}
+
+			groupModifiers.Add(modifierCharacters);
+			bodyTexts.Add(bodyText);
+		}
+
+		public int GroupCount
+		{
+			get { return bodyTexts.Count; }
+		}
+
+		public string[] Modifiers
+		{
+			get { return groupModifiers.ToArray(); }
+		}
+
+		public string[] Text
+		{
+			get { return bodyTexts.ToArray(); }
 		}
 	}
 }
