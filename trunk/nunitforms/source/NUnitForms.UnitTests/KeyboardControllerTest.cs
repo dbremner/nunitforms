@@ -40,7 +40,7 @@ namespace NUnit.Extensions.Forms.UnitTests
 	/// Test existing KeyboardController functionality.
 	/// </summary>
 	[TestFixture]
-	[Ignore("Used Microsoft SendKeys class which is unreliable. Test fail intermittently.")]
+	[Ignore("Uses Microsoft SendKeys class which is unreliable. Test fail intermittently.")]
 	public class KeyboardControllerTest
 	{
 		private KeyboardController keyboardController;

@@ -33,6 +33,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using NUnit.Extensions.Forms.Util;
+using NUnit.Extensions.Forms.Win32Interop;
 
 
 namespace NUnit.Extensions.Forms.Util
@@ -40,12 +41,17 @@ namespace NUnit.Extensions.Forms.Util
 	public class SendKeysParser : ISendKeysParser
 	{
 		private readonly List<string> groupModifiers = new List<string>();
-		private readonly List<string> bodyTexts = new List<string>();
-		private const string groupsPattern = @"(?<group> ([\(\{+^%~\{\[].+?[\)\}]) | ([^\(\{+^%~\{\[\)\}]+) )";
-		private const string modifiersPattern = @"^(?<modifier> [+^%~] + )? [\(\{\[]? (?<body> .*? )? [\)\}\]]? $";
+		private readonly List<VirtualKeyCodes> escapedKeyCodes = new List<VirtualKeyCodes>();
+		private readonly List<string> bodyTexts = new List<string>(); 
+
+		private const string groupsPattern = @"(?<group> ([\(\{+^%~\[] .+? [\)\}]) | ([^\(\{+^%~\[\)\}]+) )";
+		private const string modifiersPattern = @"^(?<modifier> [+^%~] + )? (?<escapedKey>\{ ENTER \})? ([\(\{\[]? (?<body> .*? )? [\)\}\]]?) $";
+		private readonly Dictionary<string, VirtualKeyCodes> keyValueMap = new Dictionary<string, VirtualKeyCodes>();
 
 		public SendKeysParser(string sendKeysFormattedText)
 		{
+			InitialiseKeyValueMap();
+
 			Regex regex = new Regex(groupsPattern, RegexOptions.IgnorePatternWhitespace);
 			MatchCollection matches = regex.Matches(sendKeysFormattedText);
 			List<string> groupsList = new List<string>();
@@ -53,12 +59,16 @@ namespace NUnit.Extensions.Forms.Util
 			{
 				groupsList.Add(match.Value);
 			}
-			string[] groups = groupsList.ToArray();
 
-			foreach (string group in groups)
+			foreach (string group in groupsList)
 			{
 				ParseGroupElements(group);
 			}
+		}
+
+		private void InitialiseKeyValueMap()
+		{
+			keyValueMap.Add("{ENTER}", VirtualKeyCodes.RETURN);
 		}
 
 		private void ParseGroupElements(string group)
@@ -66,6 +76,7 @@ namespace NUnit.Extensions.Forms.Util
 			Regex regex = new Regex(modifiersPattern, RegexOptions.IgnorePatternWhitespace);
 
 			string modifierCharacters = string.Empty;
+			VirtualKeyCodes keyCode = VirtualKeyCodes.None; 
 			string bodyText = string.Empty;
 
 			MatchCollection match = regex.Matches(group);
@@ -77,6 +88,12 @@ namespace NUnit.Extensions.Forms.Util
 					modifierCharacters = modiferGroup.Value;
 				}
 
+				Group escapedKeyGroup = match[0].Groups["escapedKey"];
+				if (escapedKeyGroup.Success)
+				{
+					keyCode = keyValueMap[escapedKeyGroup.Value];
+				}
+
 				Group bodyGroup = match[0].Groups["body"];
 				if (bodyGroup.Success)
 				{
@@ -85,6 +102,7 @@ namespace NUnit.Extensions.Forms.Util
 			}
 
 			groupModifiers.Add(modifierCharacters);
+			escapedKeyCodes.Add(keyCode);
 			bodyTexts.Add(bodyText);
 		}
 
@@ -96,6 +114,11 @@ namespace NUnit.Extensions.Forms.Util
 		public string[] Modifiers
 		{
 			get { return groupModifiers.ToArray(); }
+		}
+
+		public VirtualKeyCodes[] EscapedKeys
+		{
+			get { return escapedKeyCodes.ToArray();  }
 		}
 
 		public string[] Text

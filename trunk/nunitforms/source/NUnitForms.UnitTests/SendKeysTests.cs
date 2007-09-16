@@ -1,8 +1,8 @@
-#region Copyright (c) 2003-2005, Luke T. Maxon
+#region Copyright (c) 2003-2007, Luke T. Maxon
 
 /********************************************************************************************************************
 '
-' Copyright (c) 2003-2005, Luke T. Maxon
+' Copyright (c) 2003-2007, Luke T. Maxon
 ' All rights reserved.
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -65,8 +65,9 @@ namespace NUnit.Extensions.Forms.UnitTests
 		{
 			string[] modifiers = new string[] { "" };
 			string[] text = new string[] { "b" };
+			VirtualKeyCodes[] escapedKeys = new VirtualKeyCodes[] {VirtualKeyCodes.None};
 
-			StubFormatter(text, modifiers);
+			StubFormatter(text, modifiers, escapedKeys);
 
 			ExpectKeyDownAndRelease(VirtualKeyCodes.B);
 
@@ -78,8 +79,9 @@ namespace NUnit.Extensions.Forms.UnitTests
 		{
 			string[] modifiers = new string[] { "" };
 			string[] text = new string[] { "B" };
+			VirtualKeyCodes[] escapedKeys = new VirtualKeyCodes[] {VirtualKeyCodes.None};
 
-			StubFormatter(text, modifiers);
+			StubFormatter(text, modifiers, escapedKeys);
 
 			ExpectKeyDown(VirtualKeyCodes.SHIFT);
 			ExpectKeyDownAndRelease(VirtualKeyCodes.B);
@@ -93,8 +95,9 @@ namespace NUnit.Extensions.Forms.UnitTests
 		{
 			string[] modifiers = new string[] { "+" };
 			string[] text = new string[] { "ab" };
+			VirtualKeyCodes[] escapedKeys = new VirtualKeyCodes[] {VirtualKeyCodes.None};
 
-			StubFormatter(text, modifiers);
+			StubFormatter(text, modifiers, escapedKeys);
 
 			ExpectKeyDown(VirtualKeyCodes.SHIFT);
 			ExpectKeyDownAndRelease(VirtualKeyCodes.A);
@@ -109,8 +112,9 @@ namespace NUnit.Extensions.Forms.UnitTests
 		{
 			string[] modifiers = new string[] { "^" };
 			string[] text = new string[] { "ab" };
+			VirtualKeyCodes[] escapedKeys = new VirtualKeyCodes[] {VirtualKeyCodes.None};
 
-			StubFormatter(text, modifiers);
+			StubFormatter(text, modifiers, escapedKeys);
 
 			ExpectKeyDown(VirtualKeyCodes.CONTROL);
 			ExpectKeyDownAndRelease(VirtualKeyCodes.A);
@@ -125,8 +129,9 @@ namespace NUnit.Extensions.Forms.UnitTests
 		{
 			string[] modifiers = new string[] { "%" };
 			string[] text = new string[] { "ab" };
+			VirtualKeyCodes[] escapedKeys = new VirtualKeyCodes[] {VirtualKeyCodes.None};
 
-			StubFormatter(text, modifiers);
+			StubFormatter(text, modifiers, escapedKeys);
 
 			ExpectKeyDown(VirtualKeyCodes.MENU);
 			ExpectKeyDownAndRelease(VirtualKeyCodes.A);
@@ -141,8 +146,9 @@ namespace NUnit.Extensions.Forms.UnitTests
 		{
 			string[] modifiers = new string[] { "%+^" };
 			string[] text = new string[] { "ab" };
+			VirtualKeyCodes[] escapedKeys = new VirtualKeyCodes[] {VirtualKeyCodes.None};
 
-			StubFormatter(text, modifiers);
+			StubFormatter(text, modifiers, escapedKeys);
 
 			ExpectKeyDown(VirtualKeyCodes.MENU);
 			ExpectKeyDown(VirtualKeyCodes.CONTROL);
@@ -164,8 +170,9 @@ namespace NUnit.Extensions.Forms.UnitTests
 		{
 			string[] modifiers = new string[] { "" };
 			string[] text = new string[] { "aA {1." };
+			VirtualKeyCodes[] escapedKeys = new VirtualKeyCodes[] {VirtualKeyCodes.None};
 
-			StubFormatter(text, modifiers);
+			StubFormatter(text, modifiers, escapedKeys);
 
 			ExpectKeyDownAndRelease(VirtualKeyCodes.A);
 
@@ -202,11 +209,12 @@ namespace NUnit.Extensions.Forms.UnitTests
 			Expect.Once.On(keyboardInput).Method("SendInput").With(keyCode, SendInputFlags.KeyUp);
 		}
 
-		private void StubFormatter(string[] text, string[] modifiers)
+		private void StubFormatter(string[] text, string[] modifiers, VirtualKeyCodes[] escapedKeys)
 		{
 			Stub.On(parserFactory).Method("Create").With(string.Join("", text)).Will(Return.Value(parser));
 			Stub.On(parser).GetProperty("GroupCount").Will(Return.Value(1));
 			Stub.On(parser).GetProperty("Modifiers").Will(Return.Value(modifiers));
+			Stub.On(parser).GetProperty("EscapedKeys").Will(Return.Value(escapedKeys));
 			Stub.On(parser).GetProperty("Text").Will(Return.Value(text));
 		}
 	}

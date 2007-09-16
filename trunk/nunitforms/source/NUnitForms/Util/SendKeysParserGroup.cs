@@ -34,11 +34,32 @@ using NUnit.Extensions.Forms.Win32Interop;
 
 namespace NUnit.Extensions.Forms.Util
 {
-	public interface ISendKeysParser
+	public class SendKeysParserGroup
 	{
-		int GroupCount { get; }
-		string[] Modifiers { get; }
-		VirtualKeyCodes[] EscapedKeys { get; }
-		string[] Text { get; }
+		private readonly string modifierCharacters;
+		private readonly string body;
+		private readonly VirtualKeyCodes escapedKey;
+
+		public SendKeysParserGroup(string modifierCharacters, string body, VirtualKeyCodes escapedKey)
+		{
+			this.modifierCharacters = modifierCharacters;
+			this.body = body;
+			this.escapedKey = escapedKey;
+		}
+
+		public string ModifierCharacters
+		{
+			get { return modifierCharacters; }
+		}
+
+		public string Body
+		{
+			get { return body; }
+		}
+
+		public VirtualKeyCodes EscapedKey
+		{
+			get { return escapedKey; }
+		}
 	}
 }
