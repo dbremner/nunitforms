@@ -48,6 +48,7 @@ namespace NUnit.Extensions.Forms.Util
 	{
 		private readonly ISendKeyboardInput keyboardInput;
 		private readonly ISendKeysParserFactory parserFactory;
+
 		private readonly Dictionary<VirtualKeyCodes, VirtualKeyCodes> keysHeldDown = new Dictionary<VirtualKeyCodes, VirtualKeyCodes>();
 		private readonly Dictionary<char, VirtualKeyCodes> modifierKeyMap = new Dictionary<char, VirtualKeyCodes>();
 
@@ -86,6 +87,12 @@ namespace NUnit.Extensions.Forms.Util
 				}
 
 				PressKeysDown(modifierKeys.ToArray());
+
+				VirtualKeyCodes escapedKey = parser.EscapedKeys[groupIndex];
+				if (escapedKey != VirtualKeyCodes.None)
+				{
+					PressAndRelease(escapedKey);
+				}
 
 				TypeUnformated(parser.Text[groupIndex]);
 

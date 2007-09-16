@@ -159,12 +159,6 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.SimpleAPIKeyboardWithEmulationTest">
-            <summary>
-            Repeat existing SimpleAPIKeyboardTest tests using emulated SendKeys.
-            Part of work in progress in replacing the dot Net SendKeys class.
-            </summary>
-        </member>
         <member name="T:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxTest">
             <summary>
              Test Fixture for ToolStripTextBoxTester.
@@ -207,6 +201,12 @@
         <member name="T:NUnit.Extensions.Forms.Recorder.Test.MenuItemRecorderTest">
             <summary>
              Test fixture for the <see cref="T:NUnit.Extensions.Forms.Recorder.MenuItemRecorder"/>.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.SimpleAPIKeyboardWithEmulationTest">
+            <summary>
+            Repeat existing SimpleAPIKeyboardTest tests using emulated SendKeys.
+            Part of work in progress in replacing the dot Net SendKeys class.
             </summary>
         </member>
         <member name="T:NUnit.Extensions.Forms.Test.TestForms.ToborTestForm">

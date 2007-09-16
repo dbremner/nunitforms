@@ -105,7 +105,6 @@ namespace NUnit.Extensions.Forms.TestApplications
 
 			Keyboard.UseOn(box);
 
-			//Keyboard.Type("ABC{DIGIT_1}DEF{SPACE}GHI");
 			Keyboard.Type("abc1def ghi");
 
 			Assert.AreEqual("abc1def ghi", box.Text);

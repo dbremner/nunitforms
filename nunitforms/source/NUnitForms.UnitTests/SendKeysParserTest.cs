@@ -1,8 +1,8 @@
-#region Copyright (c) 2003-2005, Luke T. Maxon
+#region Copyright (c) 2003-2007, Luke T. Maxon
 
 /********************************************************************************************************************
 '
-' Copyright (c) 2003-2005, Luke T. Maxon
+' Copyright (c) 2003-2007, Luke T. Maxon
 ' All rights reserved.
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -31,6 +31,7 @@
 #endregion
 
 using NUnit.Extensions.Forms.Util;
+using NUnit.Extensions.Forms.Win32Interop;
 using NUnit.Framework;
 
 
@@ -46,26 +47,37 @@ namespace NUnit.Extensions.Forms.UnitTests
 
 			Assert.AreEqual(8, parser.GroupCount);
 
-			Assert.AreEqual(8, parser.Modifiers.Length);
-			Assert.AreEqual(8, parser.Text.Length);
+			int groupIndex = 0;
+			Assert.AreEqual("", parser.Modifiers[groupIndex++]);
+			Assert.AreEqual("+", parser.Modifiers[groupIndex++]);
+			Assert.AreEqual("", parser.Modifiers[groupIndex++]);
+			Assert.AreEqual("+^", parser.Modifiers[groupIndex++]);
+			Assert.AreEqual("", parser.Modifiers[groupIndex++]);
+			Assert.AreEqual("", parser.Modifiers[groupIndex++]);
+			Assert.AreEqual("", parser.Modifiers[groupIndex++]);
+			Assert.AreEqual("%", parser.Modifiers[groupIndex]);
+
+			groupIndex = 0;
+			Assert.AreEqual("111", parser.Text[groupIndex++]);
+			Assert.AreEqual("aaa", parser.Text[groupIndex++]);
+			Assert.AreEqual("22", parser.Text[groupIndex++]);
+			Assert.AreEqual("bbb", parser.Text[groupIndex++]);
+			Assert.AreEqual("33", parser.Text[groupIndex++]);
+			Assert.AreEqual("{", parser.Text[groupIndex++]);
+			Assert.AreEqual("4", parser.Text[groupIndex++]);
+			Assert.AreEqual("a", parser.Text[groupIndex]);
+		}
+
+		[Test]
+		public void Key_ENTER()
+		{
+			ISendKeysParser parser = new SendKeysParser("{ENTER}");
+
+			Assert.AreEqual(1, parser.GroupCount);
 
 			Assert.AreEqual("", parser.Modifiers[0]);
-			Assert.AreEqual("+", parser.Modifiers[1]);
-			Assert.AreEqual("", parser.Modifiers[2]);
-			Assert.AreEqual("+^", parser.Modifiers[3]);
-			Assert.AreEqual("", parser.Modifiers[4]);
-			Assert.AreEqual("", parser.Modifiers[5]);
-			Assert.AreEqual("", parser.Modifiers[6]);
-			Assert.AreEqual("%", parser.Modifiers[7]);
-
-			Assert.AreEqual("111", parser.Text[0]);
-			Assert.AreEqual("aaa", parser.Text[1]);
-			Assert.AreEqual("22", parser.Text[2]);
-			Assert.AreEqual("bbb", parser.Text[3]);
-			Assert.AreEqual("33", parser.Text[4]);
-			Assert.AreEqual("{", parser.Text[5]);
-			Assert.AreEqual("4", parser.Text[6]);
-			Assert.AreEqual("a", parser.Text[7]);
+			Assert.AreEqual(VirtualKeyCodes.RETURN, parser.EscapedKeys[0]);
+			Assert.AreEqual("", parser.Text[0]);
 		}
 	}
 }

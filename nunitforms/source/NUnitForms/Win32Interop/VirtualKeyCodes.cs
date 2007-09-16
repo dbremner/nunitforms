@@ -43,6 +43,7 @@ namespace NUnit.Extensions.Forms.Win32Interop
 	/// </summary>
 	public enum VirtualKeyCodes : short
 	{
+		None = 0,
 		LBUTTON = 0x01,
 		RBUTTON = 0x02,
 		CANCEL = 0x03,

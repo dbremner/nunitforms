@@ -123,6 +123,7 @@
     <Compile Include="Util\SendKeys.cs" />
     <Compile Include="Util\SendKeysParser.cs" />
     <Compile Include="Util\SendKeysParserFactory.cs" />
+    <Compile Include="Util\SendKeysParserGroup.cs" />
     <Compile Include="Util\Strings.cs" />
     <Compile Include="Testers\TabControlTester.cs" />
     <Compile Include="Testers\TextBoxTester.cs" />
