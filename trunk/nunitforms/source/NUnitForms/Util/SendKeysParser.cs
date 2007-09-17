@@ -47,7 +47,7 @@ namespace NUnit.Extensions.Forms.Util
 		private readonly List<string> bodyTexts = new List<string>(); 
 
 		private const string groupsPattern = @"(?<group> ([\(\{+^%~\[] .+? [\)\}]) | ([^\(\{+^%~\[\)\}]+) )";
-		private const string modifiersPattern = @"^(?<modifier> [+^%~] + )? (?<escapedKey>\{ ENTER \})? ([\(\{\[]? (?<body> .*? )? [\)\}\]]?) $";
+		private const string modifiersPattern = @"^(?<modifier> [+^%~] + )? (?<escapedKey>\{ [^\}]+? \})? ([\(\{\[]? (?<body> .*? )? [\)\}\]]?) $";
 		private readonly Dictionary<string, VirtualKeyCodes> keyValueMap = new Dictionary<string, VirtualKeyCodes>();
 
 		public SendKeysParser(string sendKeysFormattedText)
@@ -71,6 +71,23 @@ namespace NUnit.Extensions.Forms.Util
 		private void InitialiseKeyValueMap()
 		{
 			keyValueMap.Add("{ENTER}", VirtualKeyCodes.RETURN);
+
+			keyValueMap.Add("{F1}", VirtualKeyCodes.F1);
+			keyValueMap.Add("{F2}", VirtualKeyCodes.F2);
+			keyValueMap.Add("{F3}", VirtualKeyCodes.F3);
+			keyValueMap.Add("{F4}", VirtualKeyCodes.F4);
+			keyValueMap.Add("{F5}", VirtualKeyCodes.F5);
+			keyValueMap.Add("{F6}", VirtualKeyCodes.F6);
+			keyValueMap.Add("{F7}", VirtualKeyCodes.F7);
+			keyValueMap.Add("{F8}", VirtualKeyCodes.F8);
+			keyValueMap.Add("{F9}", VirtualKeyCodes.F9);
+			keyValueMap.Add("{F10}", VirtualKeyCodes.F10);
+			keyValueMap.Add("{F11}", VirtualKeyCodes.F11);
+			keyValueMap.Add("{F12}", VirtualKeyCodes.F12);
+			keyValueMap.Add("{F13}", VirtualKeyCodes.F13);
+			keyValueMap.Add("{F14}", VirtualKeyCodes.F14);
+			keyValueMap.Add("{F15}", VirtualKeyCodes.F15);
+			keyValueMap.Add("{F16}", VirtualKeyCodes.F16);
 		}
 
 		private void ParseGroupElements(string group)
@@ -93,13 +110,24 @@ namespace NUnit.Extensions.Forms.Util
 				Group escapedKeyGroup = match[0].Groups["escapedKey"];
 				if (escapedKeyGroup.Success)
 				{
-					keyCode = keyValueMap[escapedKeyGroup.Value];
+					if (keyValueMap.TryGetValue(escapedKeyGroup.Value, out keyCode) == false)
+					{
+						keyCode = VirtualKeyCodes.None;
+						if (escapedKeyGroup.Value.Length == 3)
+						{
+							// escaped character
+							bodyText = escapedKeyGroup.Value.Substring(1,1);
+						}
+					}
 				}
 
-				Group bodyGroup = match[0].Groups["body"];
-				if (bodyGroup.Success)
+				if (bodyText == string.Empty)
 				{
-					bodyText = bodyGroup.Value;
+					Group bodyGroup = match[0].Groups["body"];
+					if (bodyGroup.Success)
+					{
+						bodyText = bodyGroup.Value;
+					}
 				}
 			}
 

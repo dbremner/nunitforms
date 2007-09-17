@@ -70,10 +70,42 @@ namespace NUnit.Extensions.Forms.UnitTests
 			Assert.AreEqual("", parser.Groups[0].Body);
 		}
 
+		[Test]
+		public void Key_FunctionKeys()
+		{
+			ISendKeysParser parser = new SendKeysParser("{F1}{F2}{F3}{F4}{F5}{F6}{F7}{F8}{F9}{F10}{F11}{F12}{F13}{F14}{F15}{F16}");
+
+			Assert.AreEqual(16, parser.Groups.Length);
+
+			int groupIndex = 0;
+			Assert.AreEqual(VirtualKeyCodes.F1, parser.Groups[groupIndex++].EscapedKey);
+			Assert.AreEqual(VirtualKeyCodes.F2, parser.Groups[groupIndex++].EscapedKey);
+			Assert.AreEqual(VirtualKeyCodes.F3, parser.Groups[groupIndex++].EscapedKey);
+			Assert.AreEqual(VirtualKeyCodes.F4, parser.Groups[groupIndex++].EscapedKey);
+			Assert.AreEqual(VirtualKeyCodes.F5, parser.Groups[groupIndex++].EscapedKey);
+			Assert.AreEqual(VirtualKeyCodes.F6, parser.Groups[groupIndex++].EscapedKey);
+			Assert.AreEqual(VirtualKeyCodes.F7, parser.Groups[groupIndex++].EscapedKey);
+			Assert.AreEqual(VirtualKeyCodes.F8, parser.Groups[groupIndex++].EscapedKey);
+			Assert.AreEqual(VirtualKeyCodes.F9, parser.Groups[groupIndex++].EscapedKey);
+			Assert.AreEqual(VirtualKeyCodes.F10, parser.Groups[groupIndex++].EscapedKey);
+			Assert.AreEqual(VirtualKeyCodes.F11, parser.Groups[groupIndex++].EscapedKey);
+			Assert.AreEqual(VirtualKeyCodes.F12, parser.Groups[groupIndex++].EscapedKey);
+			Assert.AreEqual(VirtualKeyCodes.F13, parser.Groups[groupIndex++].EscapedKey);
+			Assert.AreEqual(VirtualKeyCodes.F14, parser.Groups[groupIndex++].EscapedKey);
+			Assert.AreEqual(VirtualKeyCodes.F15, parser.Groups[groupIndex++].EscapedKey);
+			Assert.AreEqual(VirtualKeyCodes.F16, parser.Groups[groupIndex].EscapedKey);
+
+			foreach(SendKeysParserGroup group in parser.Groups)
+			{
+				Assert.AreEqual(string.Empty, group.ModifierCharacters);
+				Assert.AreEqual(string.Empty, group.Body);
+			}
+		}
+
 		private static void AssertGroup(ISendKeysParserGroup group, string modifierCharacters, string bodyText)
 		{
-			Assert.AreEqual(group.ModifierCharacters, modifierCharacters);
-			Assert.AreEqual(group.Body, bodyText);
+			Assert.AreEqual(modifierCharacters, group.ModifierCharacters);
+			Assert.AreEqual(bodyText, group.Body);
 		}
 	}
 }
