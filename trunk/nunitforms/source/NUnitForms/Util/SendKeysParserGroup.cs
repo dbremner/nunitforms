@@ -34,7 +34,7 @@ using NUnit.Extensions.Forms.Win32Interop;
 
 namespace NUnit.Extensions.Forms.Util
 {
-	public class SendKeysParserGroup
+	public class SendKeysParserGroup : ISendKeysParserGroup
 	{
 		private readonly string modifierCharacters;
 		private readonly string body;

@@ -40,6 +40,8 @@ namespace NUnit.Extensions.Forms.Util
 {
 	public class SendKeysParser : ISendKeysParser
 	{
+		private readonly List<SendKeysParserGroup> groups = new List<SendKeysParserGroup>();
+
 		private readonly List<string> groupModifiers = new List<string>();
 		private readonly List<VirtualKeyCodes> escapedKeyCodes = new List<VirtualKeyCodes>();
 		private readonly List<string> bodyTexts = new List<string>(); 
@@ -104,6 +106,8 @@ namespace NUnit.Extensions.Forms.Util
 			groupModifiers.Add(modifierCharacters);
 			escapedKeyCodes.Add(keyCode);
 			bodyTexts.Add(bodyText);
+
+			groups.Add(new SendKeysParserGroup(modifierCharacters, bodyText, keyCode));
 		}
 
 		public int GroupCount
@@ -124,6 +128,11 @@ namespace NUnit.Extensions.Forms.Util
 		public string[] Text
 		{
 			get { return bodyTexts.ToArray(); }
+		}
+
+		public ISendKeysParserGroup[] Groups
+		{
+			get { return groups.ToArray(); }
 		}
 	}
 }

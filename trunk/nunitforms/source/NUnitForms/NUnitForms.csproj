@@ -120,6 +120,7 @@
     <Compile Include="Testers\SaveFileDialogTester.cs" />
     <Compile Include="Util\ISendKeysParser.cs" />
     <Compile Include="Util\ISendKeysParserFactory.cs" />
+    <Compile Include="Util\ISendKeysParserGroup.cs" />
     <Compile Include="Util\SendKeys.cs" />
     <Compile Include="Util\SendKeysParser.cs" />
     <Compile Include="Util\SendKeysParserFactory.cs" />

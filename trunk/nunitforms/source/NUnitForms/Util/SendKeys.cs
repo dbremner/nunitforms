@@ -46,6 +46,7 @@ namespace NUnit.Extensions.Forms.Util
 	/// </summary>
 	public class SendKeys : ISendKeys, IDisposable
 	{
+		private readonly ISendKeysParserGroup[] groups;
 		private readonly ISendKeyboardInput keyboardInput;
 		private readonly ISendKeysParserFactory parserFactory;
 
@@ -76,11 +77,11 @@ namespace NUnit.Extensions.Forms.Util
 		{
 			ISendKeysParser parser = parserFactory.Create(text);
 
-			for (int groupIndex = 0; groupIndex < parser.GroupCount; groupIndex++)
+			foreach(ISendKeysParserGroup group in parser.Groups)
 			{
 				List<VirtualKeyCodes> modifierKeys = new List<VirtualKeyCodes>();
 
-				string modifierCharacters = parser.Modifiers[groupIndex];
+				string modifierCharacters = group.ModifierCharacters;
 				foreach (char modifierCharacter in modifierCharacters)
 				{
 					modifierKeys.Add(modifierKeyMap[modifierCharacter]);
@@ -88,13 +89,13 @@ namespace NUnit.Extensions.Forms.Util
 
 				PressKeysDown(modifierKeys.ToArray());
 
-				VirtualKeyCodes escapedKey = parser.EscapedKeys[groupIndex];
+				VirtualKeyCodes escapedKey = group.EscapedKey;
 				if (escapedKey != VirtualKeyCodes.None)
 				{
 					PressAndRelease(escapedKey);
 				}
 
-				TypeUnformated(parser.Text[groupIndex]);
+				TypeUnformated(group.Body);
 
 				modifierKeys.Reverse();
 				ReleaseKeys(modifierKeys.ToArray());
