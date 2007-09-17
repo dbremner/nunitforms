@@ -30,15 +30,11 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.Win32Interop;
 
 namespace NUnit.Extensions.Forms.Util
 {
 	public interface ISendKeysParser
 	{
-		int GroupCount { get; }
-		string[] Modifiers { get; }
-		VirtualKeyCodes[] EscapedKeys { get; }
-		string[] Text { get; }
+		ISendKeysParserGroup[] Groups { get; }
 	}
 }

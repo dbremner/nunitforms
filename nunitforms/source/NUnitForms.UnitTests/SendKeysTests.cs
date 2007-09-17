@@ -63,92 +63,68 @@ namespace NUnit.Extensions.Forms.UnitTests
 		[Test]
 		public void SendWait_SingleCharLowerCase()
 		{
-			string[] modifiers = new string[] { "" };
-			string[] text = new string[] { "b" };
-			VirtualKeyCodes[] escapedKeys = new VirtualKeyCodes[] {VirtualKeyCodes.None};
-
-			StubFormatter(text, modifiers, escapedKeys);
+			StubFormatter("b", "b", "", VirtualKeyCodes.None);
 
 			ExpectKeyDownAndRelease(VirtualKeyCodes.B);
 
-			keyboardSendKeys.SendWait(string.Join("", text));
+			keyboardSendKeys.SendWait("b");
 		}
 
 		[Test]
 		public void SendWait_SingleCharUpperCase()
 		{
-			string[] modifiers = new string[] { "" };
-			string[] text = new string[] { "B" };
-			VirtualKeyCodes[] escapedKeys = new VirtualKeyCodes[] {VirtualKeyCodes.None};
-
-			StubFormatter(text, modifiers, escapedKeys);
+			StubFormatter("B", "B", "", VirtualKeyCodes.None);
 
 			ExpectKeyDown(VirtualKeyCodes.SHIFT);
 			ExpectKeyDownAndRelease(VirtualKeyCodes.B);
 			ExpectKeyUp(VirtualKeyCodes.SHIFT);
 
-			keyboardSendKeys.SendWait(string.Join("", text));
+			keyboardSendKeys.SendWait("B");
 		}
 
 		[Test]
 		public void SendWait_ShiftFormatted()
 		{
-			string[] modifiers = new string[] { "+" };
-			string[] text = new string[] { "ab" };
-			VirtualKeyCodes[] escapedKeys = new VirtualKeyCodes[] {VirtualKeyCodes.None};
-
-			StubFormatter(text, modifiers, escapedKeys);
+			StubFormatter("+(ab)", "ab", "+", VirtualKeyCodes.None);
 
 			ExpectKeyDown(VirtualKeyCodes.SHIFT);
 			ExpectKeyDownAndRelease(VirtualKeyCodes.A);
 			ExpectKeyDownAndRelease(VirtualKeyCodes.B);
 			ExpectKeyUp(VirtualKeyCodes.SHIFT);
 
-			keyboardSendKeys.SendWait(string.Join("", text));
+			keyboardSendKeys.SendWait("+(ab)");
 		}
 
 		[Test]
 		public void SendWait_ControlFormatted()
 		{
-			string[] modifiers = new string[] { "^" };
-			string[] text = new string[] { "ab" };
-			VirtualKeyCodes[] escapedKeys = new VirtualKeyCodes[] {VirtualKeyCodes.None};
-
-			StubFormatter(text, modifiers, escapedKeys);
+			StubFormatter("^(ab)", "ab", "^", VirtualKeyCodes.None);
 
 			ExpectKeyDown(VirtualKeyCodes.CONTROL);
 			ExpectKeyDownAndRelease(VirtualKeyCodes.A);
 			ExpectKeyDownAndRelease(VirtualKeyCodes.B);
 			ExpectKeyUp(VirtualKeyCodes.CONTROL);
 
-			keyboardSendKeys.SendWait(string.Join("", text));
+			keyboardSendKeys.SendWait("^(ab)");
 		}
 
 		[Test]
 		public void SendWait_AltFormatted()
 		{
-			string[] modifiers = new string[] { "%" };
-			string[] text = new string[] { "ab" };
-			VirtualKeyCodes[] escapedKeys = new VirtualKeyCodes[] {VirtualKeyCodes.None};
-
-			StubFormatter(text, modifiers, escapedKeys);
+			StubFormatter("%(ab)", "ab", "%", VirtualKeyCodes.None);
 
 			ExpectKeyDown(VirtualKeyCodes.MENU);
 			ExpectKeyDownAndRelease(VirtualKeyCodes.A);
 			ExpectKeyDownAndRelease(VirtualKeyCodes.B);
 			ExpectKeyUp(VirtualKeyCodes.MENU);
 
-			keyboardSendKeys.SendWait(string.Join("", text));
+			keyboardSendKeys.SendWait("%(ab)");
 		}
 
 		[Test]
 		public void SendWait_AltShiftControlFormatted()
 		{
-			string[] modifiers = new string[] { "%+^" };
-			string[] text = new string[] { "ab" };
-			VirtualKeyCodes[] escapedKeys = new VirtualKeyCodes[] {VirtualKeyCodes.None};
-
-			StubFormatter(text, modifiers, escapedKeys);
+			StubFormatter("%+^(ab)", "ab", "%+^", VirtualKeyCodes.None);
 
 			ExpectKeyDown(VirtualKeyCodes.MENU);
 			ExpectKeyDown(VirtualKeyCodes.CONTROL);
@@ -161,18 +137,14 @@ namespace NUnit.Extensions.Forms.UnitTests
 			ExpectKeyUp(VirtualKeyCodes.CONTROL);
 			ExpectKeyUp(VirtualKeyCodes.MENU);
 
-			keyboardSendKeys.SendWait(string.Join("", text));
+			keyboardSendKeys.SendWait("%+^(ab)");
 		}
 
 		[Test]
 		[Ignore("This test is keyboard layout dependent.")]
 		public void SendWait_SimpleText()
 		{
-			string[] modifiers = new string[] { "" };
-			string[] text = new string[] { "aA {1." };
-			VirtualKeyCodes[] escapedKeys = new VirtualKeyCodes[] {VirtualKeyCodes.None};
-
-			StubFormatter(text, modifiers, escapedKeys);
+			StubFormatter("aA {{}1.", "aA {1.", "", VirtualKeyCodes.None);
 
 			ExpectKeyDownAndRelease(VirtualKeyCodes.A);
 
@@ -190,7 +162,7 @@ namespace NUnit.Extensions.Forms.UnitTests
 			ExpectKeyDownAndRelease(VirtualKeyCodes.DIGIT_1);
 			ExpectKeyDownAndRelease(VirtualKeyCodes.OEM_PERIOD);
 
-			keyboardSendKeys.SendWait(string.Join("", text));
+			keyboardSendKeys.SendWait("aA {{}1.");
 		}
 
 		private void ExpectKeyDown(VirtualKeyCodes keyCode)
@@ -209,13 +181,16 @@ namespace NUnit.Extensions.Forms.UnitTests
 			Expect.Once.On(keyboardInput).Method("SendInput").With(keyCode, SendInputFlags.KeyUp);
 		}
 
-		private void StubFormatter(string[] text, string[] modifiers, VirtualKeyCodes[] escapedKeys)
+		private void StubFormatter(string rawText, string body, string modifiers, VirtualKeyCodes escapedKeys)
 		{
-			Stub.On(parserFactory).Method("Create").With(string.Join("", text)).Will(Return.Value(parser));
-			Stub.On(parser).GetProperty("GroupCount").Will(Return.Value(1));
-			Stub.On(parser).GetProperty("Modifiers").Will(Return.Value(modifiers));
-			Stub.On(parser).GetProperty("EscapedKeys").Will(Return.Value(escapedKeys));
-			Stub.On(parser).GetProperty("Text").Will(Return.Value(text));
+			Stub.On(parserFactory).Method("Create").With(rawText).Will(Return.Value(parser));
+
+			ISendKeysParserGroup group = NewMock<ISendKeysParserGroup>();
+			Stub.On(group).GetProperty("ModifierCharacters").Will(Return.Value(modifiers));
+			Stub.On(group).GetProperty("EscapedKey").Will(Return.Value(escapedKeys));
+			Stub.On(group).GetProperty("Body").Will(Return.Value(body));
+
+			Stub.On(parser).GetProperty("Groups").Will(Return.Value(new ISendKeysParserGroup[] { group }));
 		}
 	}
 }

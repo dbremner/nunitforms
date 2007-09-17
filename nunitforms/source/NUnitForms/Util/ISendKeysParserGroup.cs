@@ -30,50 +30,14 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.Util;
 using NUnit.Extensions.Forms.Win32Interop;
-using NUnit.Framework;
 
-
-namespace NUnit.Extensions.Forms.UnitTests
+namespace NUnit.Extensions.Forms.Util
 {
-	[TestFixture]
-	public class SendKeysParserTest
+	public interface ISendKeysParserGroup
 	{
-		[Test]
-		public void GroupExtraction()
-		{
-			ISendKeysParser parser = new SendKeysParser("111+(aaa)22+^(bbb)33{{}4%(a)");
-
-			Assert.AreEqual(8, parser.Groups.Length);
-
-			int groupIndex = 0;
-			AssertGroup(parser.Groups[groupIndex++], "", "111");
-			AssertGroup(parser.Groups[groupIndex++], "+", "aaa");
-			AssertGroup(parser.Groups[groupIndex++], "", "22");
-			AssertGroup(parser.Groups[groupIndex++], "+^", "bbb");
-			AssertGroup(parser.Groups[groupIndex++], "", "33");
-			AssertGroup(parser.Groups[groupIndex++], "", "{");
-			AssertGroup(parser.Groups[groupIndex++], "", "4");
-			AssertGroup(parser.Groups[groupIndex], "%", "a");
-		}
-
-		[Test]
-		public void Key_ENTER()
-		{
-			ISendKeysParser parser = new SendKeysParser("{ENTER}");
-
-			Assert.AreEqual(1, parser.Groups.Length);
-
-			Assert.AreEqual("", parser.Groups[0].ModifierCharacters);
-			Assert.AreEqual(VirtualKeyCodes.RETURN, parser.Groups[0].EscapedKey);
-			Assert.AreEqual("", parser.Groups[0].Body);
-		}
-
-		private static void AssertGroup(ISendKeysParserGroup group, string modifierCharacters, string bodyText)
-		{
-			Assert.AreEqual(group.ModifierCharacters, modifierCharacters);
-			Assert.AreEqual(group.Body, bodyText);
-		}
+		string ModifierCharacters { get; }
+		string Body { get; }
+		VirtualKeyCodes EscapedKey { get; }
 	}
 }
