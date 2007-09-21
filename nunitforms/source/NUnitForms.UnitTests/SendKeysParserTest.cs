@@ -98,14 +98,163 @@ namespace NUnit.Extensions.Forms.UnitTests
 		}
 
 		[Test]
+		public void Key_BACKSPACE()
+		{
+			AssertKeywordIsParsedAs("{BACKSPACE}", VirtualKeyCodes.BACK);
+			AssertKeywordIsParsedAs("{BS}", VirtualKeyCodes.BACK);
+			AssertKeywordIsParsedAs("{BKSP}", VirtualKeyCodes.BACK);
+		}
+
+		[Test]
+		[Ignore("Required but not implemented functionalty")]
+		public void Key_BREAK()
+		{
+			// Need to confirm correct key code
+			AssertKeywordIsParsedAs("{BREAK}", VirtualKeyCodes.None);
+		}
+
+		[Test]
+		[Ignore("Required but not implemented functionalty")]
+		public void Key_CAPSLOCK()
+		{
+			// Need to confirm correct key code
+			AssertKeywordIsParsedAs("{CAPSLOCK}", VirtualKeyCodes.CAPITAL);
+			AssertKeywordIsParsedAs("{CAP}", VirtualKeyCodes.CAPITAL);
+		}
+
+		[Test]
+		public void Key_DELETE()
+		{
+			AssertKeywordIsParsedAs("{DELETE}", VirtualKeyCodes.DELETE);
+			AssertKeywordIsParsedAs("{DEL}", VirtualKeyCodes.DELETE);
+		}
+
+		[Test]
+		public void Key_DOWN()
+		{
+			AssertKeywordIsParsedAs("{DOWN}", VirtualKeyCodes.DOWN);
+		}
+
+		[Test]
+		public void Key_END()
+		{
+			AssertKeywordIsParsedAs("{END}", VirtualKeyCodes.END);
+		}
+
+		[Test]
 		public void Key_ENTER()
 		{
-			ISendKeysParser parser = new SendKeysParser("{ENTER}");
+			AssertKeywordIsParsedAs("{ENTER}", VirtualKeyCodes.RETURN);
+		}
+
+		[Test]
+		public void Key_ESC()
+		{
+			AssertKeywordIsParsedAs("{ESC}", VirtualKeyCodes.ESCAPE);
+		}
+
+		[Test]
+		public void Key_HELP()
+		{
+			AssertKeywordIsParsedAs("{HELP}", VirtualKeyCodes.HELP);
+		}
+
+		[Test]
+		public void Key_HOME()
+		{
+			AssertKeywordIsParsedAs("{HOME}", VirtualKeyCodes.HOME);
+		}
+
+		[Test]
+		public void Key_INSERT()
+		{
+			AssertKeywordIsParsedAs("{INSERT}", VirtualKeyCodes.INSERT);
+			AssertKeywordIsParsedAs("{INS}", VirtualKeyCodes.INSERT);
+		}
+
+		[Test]
+		[Ignore("Required but not implemented functionalty")]
+		public void Key_LEFT()
+		{
+			AssertKeywordIsParsedAs("{LEFT}", VirtualKeyCodes.LEFT);
+		}
+
+		[Test]
+		[Ignore("Required but not implemented functionalty")]
+		public void Key_NUMLOCK()
+		{
+			AssertKeywordIsParsedAs("{NUMLOCK}", VirtualKeyCodes.NUMLOCK);
+		}
+
+		[Test]
+		[Ignore("Required but not implemented functionalty")]
+		public void Key_PGDN()
+		{
+			// Need to find the virtual key code
+			AssertKeywordIsParsedAs("{PGDN}", VirtualKeyCodes.None);
+		}
+
+		[Test]
+		[Ignore("Required but not implemented functionalty")]
+		public void Key_PGUP()
+		{
+			// Need to find the virtual key code
+			AssertKeywordIsParsedAs("{PGUP}", VirtualKeyCodes.None);
+		}
+
+		[Test]
+		[Ignore("Required but not implemented functionalty")]
+		public void Key_PRTSC()
+		{
+			// Need to find the virtual key code
+			AssertKeywordIsParsedAs("{PRTSC}", VirtualKeyCodes.None);
+		}
+
+		[Test]
+		[Ignore("Required but not implemented functionalty")]
+		public void Key_RIGHT()
+		{
+			AssertKeywordIsParsedAs("{RIGHT}", VirtualKeyCodes.RIGHT);
+		}
+
+		[Test]
+		[Ignore("Required but not implemented functionalty")]
+		public void Key_SCROLLLOCK()
+		{
+			// Need to find the virtual key code
+			AssertKeywordIsParsedAs("{SCROLLLOCK}", VirtualKeyCodes.None);
+		}
+
+		[Test]
+		[Ignore("Required but not implemented functionalty")]
+		public void Key_SPACE()
+		{
+			AssertKeywordIsParsedAs("{SPACE}", VirtualKeyCodes.SPACE);
+		}
+
+		[Test]
+		[Ignore("Required but not implemented functionalty")]
+		public void Key_TAB()
+		{
+			AssertKeywordIsParsedAs("{TAB}", VirtualKeyCodes.TAB);
+		}
+
+		[Test]
+		[Ignore("Required but not implemented functionalty")]
+		public void Key_UP()
+		{
+			// Need to find the virtual key code
+			AssertKeywordIsParsedAs("{UP}", VirtualKeyCodes.UP);
+		}
+
+		private static void AssertKeywordIsParsedAs(string keyword, VirtualKeyCodes expectedKey)
+		{
+			ISendKeysParser parser = new SendKeysParser(keyword);
 
 			Assert.AreEqual(1, parser.Groups.Length);
 
 			Assert.AreEqual("", parser.Groups[0].ModifierCharacters);
-			Assert.AreEqual(VirtualKeyCodes.RETURN, parser.Groups[0].EscapedKey);
+			Assert.AreEqual(expectedKey, parser.Groups[0].EscapedKey);
 			Assert.AreEqual("", parser.Groups[0].Body);
 		}
 
