@@ -59,7 +59,6 @@ namespace NUnit.Extensions.Forms.UnitTests
 		}
 
 		[Test]
-		[Ignore("Required functionality, not yet implemented.")]
 		public void ShiftModifier()
 		{
 			ISendKeysParser parser = new SendKeysParser("a+bc");
@@ -73,7 +72,6 @@ namespace NUnit.Extensions.Forms.UnitTests
 		}
 
 		[Test]
-		[Ignore("Required functionality, not yet implemented.")]
 		public void ControlModifier()
 		{
 			ISendKeysParser parser = new SendKeysParser("a^bc");
@@ -87,7 +85,6 @@ namespace NUnit.Extensions.Forms.UnitTests
 		}
 
 		[Test]
-		[Ignore("Required functionality, not yet implemented.")]
 		public void AltModifier()
 		{
 			ISendKeysParser parser = new SendKeysParser("a%bc");
