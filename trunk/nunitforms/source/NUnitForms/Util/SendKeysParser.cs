@@ -70,7 +70,20 @@ namespace NUnit.Extensions.Forms.Util
 
 		private void InitialiseKeyValueMap()
 		{
+			keyValueMap.Add("{BACKSPACE}", VirtualKeyCodes.BACK);
+			keyValueMap.Add("{BS}", VirtualKeyCodes.BACK);
+			keyValueMap.Add("{BKSP}", VirtualKeyCodes.BACK);
+
+			keyValueMap.Add("{DELETE}", VirtualKeyCodes.DELETE);
+			keyValueMap.Add("{DEL}", VirtualKeyCodes.DELETE);
+			keyValueMap.Add("{DOWN}", VirtualKeyCodes.DOWN);
+			keyValueMap.Add("{END}", VirtualKeyCodes.END);
 			keyValueMap.Add("{ENTER}", VirtualKeyCodes.RETURN);
+			keyValueMap.Add("{ESC}", VirtualKeyCodes.ESCAPE);
+			keyValueMap.Add("{HELP}", VirtualKeyCodes.HELP);
+			keyValueMap.Add("{HOME}", VirtualKeyCodes.HOME);
+			keyValueMap.Add("{INSERT}", VirtualKeyCodes.INSERT);
+			keyValueMap.Add("{INS}", VirtualKeyCodes.INSERT);
 
 			keyValueMap.Add("{F1}", VirtualKeyCodes.F1);
 			keyValueMap.Add("{F2}", VirtualKeyCodes.F2);
