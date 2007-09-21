@@ -59,6 +59,48 @@ namespace NUnit.Extensions.Forms.UnitTests
 		}
 
 		[Test]
+		[Ignore("Required functionality, not yet implemented.")]
+		public void ShiftModifier()
+		{
+			ISendKeysParser parser = new SendKeysParser("a+bc");
+
+			Assert.AreEqual(3, parser.Groups.Length);
+
+			int groupIndex = 0;
+			AssertGroup(parser.Groups[groupIndex++], "", "a");
+			AssertGroup(parser.Groups[groupIndex++], "+", "b");
+			AssertGroup(parser.Groups[groupIndex], "", "c");
+		}
+
+		[Test]
+		[Ignore("Required functionality, not yet implemented.")]
+		public void ControlModifier()
+		{
+			ISendKeysParser parser = new SendKeysParser("a^bc");
+
+			Assert.AreEqual(3, parser.Groups.Length);
+
+			int groupIndex = 0;
+			AssertGroup(parser.Groups[groupIndex++], "", "a");
+			AssertGroup(parser.Groups[groupIndex++], "^", "b");
+			AssertGroup(parser.Groups[groupIndex], "", "c");
+		}
+
+		[Test]
+		[Ignore("Required functionality, not yet implemented.")]
+		public void AltModifier()
+		{
+			ISendKeysParser parser = new SendKeysParser("a%bc");
+
+			Assert.AreEqual(3, parser.Groups.Length);
+
+			int groupIndex = 0;
+			AssertGroup(parser.Groups[groupIndex++], "", "a");
+			AssertGroup(parser.Groups[groupIndex++], "%", "b");
+			AssertGroup(parser.Groups[groupIndex], "", "c");
+		}
+
+		[Test]
 		public void Key_ENTER()
 		{
 			ISendKeysParser parser = new SendKeysParser("{ENTER}");
