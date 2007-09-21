@@ -44,9 +44,9 @@ namespace NUnit.Extensions.Forms.Util
 
 		private readonly List<string> groupModifiers = new List<string>();
 		private readonly List<VirtualKeyCodes> escapedKeyCodes = new List<VirtualKeyCodes>();
-		private readonly List<string> bodyTexts = new List<string>(); 
+		private readonly List<string> bodyTexts = new List<string>();
 
-		private const string groupsPattern = @"(?<group> ([\(\{+^%~\[] .+? [\)\}]) | ([^\(\{+^%~\[\)\}]+) )";
+		private const string groupsPattern = @"(?<group> ([\(\{+^%~\[] .+? [\)\}]) | ([^\(\{+^%~\[\)\}]+) | ([+^%~].) )";
 		private const string modifiersPattern = @"^(?<modifier> [+^%~] + )? (?<escapedKey>\{ [^\}]+? \})? ([\(\{\[]? (?<body> .*? )? [\)\}\]]?) $";
 		private readonly Dictionary<string, VirtualKeyCodes> keyValueMap = new Dictionary<string, VirtualKeyCodes>();
 
