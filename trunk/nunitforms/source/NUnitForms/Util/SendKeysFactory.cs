@@ -29,14 +29,27 @@
 '*******************************************************************************************************************/
 
 #endregion
-
 using System;
+using NUnit.Extensions.Forms.DotNet;
+using NUnit.Extensions.Forms.Win32Interop;
 
 
-namespace NUnit.Extensions.Forms.Win32Interop
+namespace NUnit.Extensions.Forms.Util
 {
-	public interface ISendKeyboardInput
-	{
-		void SendInput(IntPtr window, VirtualKeyCodes keyCodes, SendInputFlags flags);
-	}
+    public class SendKeysFactory: ISendKeysFactory
+    {
+        private readonly ISendKeysParserFactory parserFactory;
+        private readonly ISendKeyboardInput keyboardInput;
+
+        public SendKeysFactory(ISendKeysParserFactory parserFactory, ISendKeyboardInput keyboardInput)
+        {
+            this.parserFactory = parserFactory;
+            this.keyboardInput = keyboardInput;
+        }
+
+        public ISendKeys Create(IntPtr window)
+        {
+            return new SendKeys(keyboardInput, parserFactory, window);
+        }
+    }
 }

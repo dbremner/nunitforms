@@ -30,6 +30,7 @@
 
 #endregion
 
+using System;
 using NMock2;
 using NUnit.Extensions.Forms.Util;
 using NUnit.Extensions.Forms.Win32Interop;
@@ -45,14 +46,16 @@ namespace NUnit.Extensions.Forms.UnitTests
 		private ISendKeyboardInput keyboardInput;
 		private ISendKeysParserFactory parserFactory;
 		private ISendKeysParser parser;
+	    private IntPtr window;
 
-		protected override void SetUp()
+	    protected override void SetUp()
 		{
 			keyboardInput = NewMock<ISendKeyboardInput>();
 			parserFactory = NewMock<ISendKeysParserFactory>();
 			parser = NewMock<ISendKeysParser>();
 
-			keyboardSendKeys = new SendKeys(keyboardInput, parserFactory);
+	        window = new IntPtr(0x12345);
+	        keyboardSendKeys = new SendKeys(keyboardInput, parserFactory, window);
 		}
 
 		protected override void TearDown()
@@ -167,18 +170,18 @@ namespace NUnit.Extensions.Forms.UnitTests
 
 		private void ExpectKeyDown(VirtualKeyCodes keyCode)
 		{
-			Expect.Once.On(keyboardInput).Method("SendInput").With(keyCode, SendInputFlags.KeyDown);
+			Expect.Once.On(keyboardInput).Method("SendInput").With(window, keyCode, SendInputFlags.KeyDown);
 		}
 
 		private void ExpectKeyUp(VirtualKeyCodes keyCode)
 		{
-			Expect.Once.On(keyboardInput).Method("SendInput").With(keyCode, SendInputFlags.KeyUp);
+			Expect.Once.On(keyboardInput).Method("SendInput").With(window, keyCode, SendInputFlags.KeyUp);
 		}
 
 		private void ExpectKeyDownAndRelease(VirtualKeyCodes keyCode)
 		{
-			Expect.Once.On(keyboardInput).Method("SendInput").With(keyCode, SendInputFlags.KeyDown);
-			Expect.Once.On(keyboardInput).Method("SendInput").With(keyCode, SendInputFlags.KeyUp);
+            Expect.Once.On(keyboardInput).Method("SendInput").With(window, keyCode, SendInputFlags.KeyDown);
+            Expect.Once.On(keyboardInput).Method("SendInput").With(window, keyCode, SendInputFlags.KeyUp);
 		}
 
 		private void StubFormatter(string rawText, string body, string modifiers, VirtualKeyCodes escapedKeys)

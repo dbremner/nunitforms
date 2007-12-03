@@ -29,14 +29,23 @@
 '*******************************************************************************************************************/
 
 #endregion
+using NUnit.Framework;
 
-using System;
 
-
-namespace NUnit.Extensions.Forms.Win32Interop
+namespace NUnit.Extensions.Forms.TestApplications
 {
-	public interface ISendKeyboardInput
-	{
-		void SendInput(IntPtr window, VirtualKeyCodes keyCodes, SendInputFlags flags);
-	}
+    /// <summary>
+    /// Repeat existing SimpleAPIKeyboardTest tests using emulated SendKeys.
+    /// Part of work in progress in replacing the dot Net SendKeys class.
+    /// </summary>
+    [TestFixture]
+    [Ignore("Work in progress. Tests do fail as work is incomplete.")]
+    public class SimpleAPIKeyboardWithEmulateWindowSpecificEmulationTest : SimpleAPIKeyboardTest
+    {
+        public override void Setup()
+        {
+            EmulateWindowSpecificSendKeys();
+            base.Setup();
+        }
+    }
 }

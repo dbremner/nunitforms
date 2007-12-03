@@ -30,6 +30,7 @@
 
 #endregion
 
+using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -49,7 +50,7 @@ namespace NUnit.Extensions.Forms.Win32Interop
 			keyboardInput.wScan = 0;
 		}
 
-		public void SendInput(VirtualKeyCodes keyCodes, SendInputFlags flags)
+		public void SendInput(IntPtr window, VirtualKeyCodes keyCodes, SendInputFlags flags)
 		{
 			keyboardInput.dwFlags = (int)flags;
 			keyboardInput.wVk = (short)keyCodes;

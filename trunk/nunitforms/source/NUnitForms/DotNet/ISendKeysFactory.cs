@@ -29,14 +29,13 @@
 '*******************************************************************************************************************/
 
 #endregion
-
 using System;
 
 
-namespace NUnit.Extensions.Forms.Win32Interop
+namespace NUnit.Extensions.Forms.DotNet
 {
-	public interface ISendKeyboardInput
-	{
-		void SendInput(IntPtr window, VirtualKeyCodes keyCodes, SendInputFlags flags);
-	}
+    public interface ISendKeysFactory
+    {
+        ISendKeys Create(IntPtr window);
+    }
 }
