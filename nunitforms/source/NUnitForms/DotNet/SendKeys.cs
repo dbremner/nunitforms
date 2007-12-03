@@ -51,4 +51,12 @@ namespace NUnit.Extensions.Forms.DotNet
 			System.Windows.Forms.SendKeys.SendWait(text);
 		}
 	}
+
+    public class SendKeysFactory : ISendKeysFactory
+    {
+        public ISendKeys Create(IntPtr window)
+        {
+            return new SendKeys();
+        }
+    }
 }

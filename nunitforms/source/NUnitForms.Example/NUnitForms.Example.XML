@@ -4,6 +4,11 @@
         <name>NUnitForms.Example</name>
     </assembly>
     <members>
+        <member name="T:NUnit.Extensions.Forms.ExampleApplication.MainApp">
+            <summary>
+            Summary description for Class1.
+            </summary>
+        </member>
         <member name="T:NUnit.Extensions.Forms.ExampleApplication.AppForm">
             <summary>
             Summary description for AppForm.
@@ -44,11 +49,6 @@
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.ExampleApplication.MainApp">
-            <summary>
-            Summary description for Class1.
             </summary>
         </member>
     </members>

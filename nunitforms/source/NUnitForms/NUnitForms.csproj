@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DotNet\ISendKeys.cs" />
+    <Compile Include="DotNet\ISendKeysFactory.cs" />
     <Compile Include="DotNet\SendKeys.cs" />
     <Compile Include="Exceptions\ControlNotEnabledException.cs" />
     <Compile Include="Exceptions\KeyboardSequenceException.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Util\ISendKeysParserFactory.cs" />
     <Compile Include="Util\ISendKeysParserGroup.cs" />
     <Compile Include="Util\SendKeys.cs" />
+    <Compile Include="Util\SendKeysFactory.cs" />
     <Compile Include="Util\SendKeysParser.cs" />
     <Compile Include="Util\SendKeysParserFactory.cs" />
     <Compile Include="Util\SendKeysParserGroup.cs" />
@@ -147,6 +149,7 @@
     <Compile Include="Win32Interop\SendKeyboardInput.cs" />
     <Compile Include="Win32Interop\VirtualKeyCodes.cs" />
     <Compile Include="Win32Interop\VirtualKeyScan.cs" />
+    <Compile Include="Win32Interop\WindowSpecificSendKeyboardInput.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NUnitForms.ScreenCapture\NUnitForms.ScreenCapture.csproj">

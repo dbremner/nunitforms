@@ -30,170 +30,182 @@
 
 #endregion
 
+using System;
 using System.Collections.Generic;
 using NUnit.Extensions.Forms.DotNet;
 using NUnit.Extensions.Forms.Exceptions;
 using NUnit.Extensions.Forms.Win32Interop;
-using System;
 
 
 namespace NUnit.Extensions.Forms.Util
 {
-	/// <summary>
-	/// Alternative to the dot Net SendKeys class.
-	/// 
-	/// SendWait method emulates the dot Net class method.
-	/// </summary>
-	public class SendKeys : ISendKeys, IDisposable
-	{
-		private readonly ISendKeysParserGroup[] groups;
-		private readonly ISendKeyboardInput keyboardInput;
-		private readonly ISendKeysParserFactory parserFactory;
+    /// <summary>
+    /// Alternative to the dot Net SendKeys class.
+    /// 
+    /// SendWait method emulates the dot Net class method.
+    /// </summary>
+    public class SendKeys : ISendKeys, IDisposable
+    {
+        private readonly ISendKeyboardInput keyboardInput;
+        private readonly ISendKeysParserFactory parserFactory;
+        private readonly IntPtr window;
 
-		private readonly Dictionary<VirtualKeyCodes, VirtualKeyCodes> keysHeldDown = new Dictionary<VirtualKeyCodes, VirtualKeyCodes>();
-		private readonly Dictionary<char, VirtualKeyCodes> modifierKeyMap = new Dictionary<char, VirtualKeyCodes>();
+        private readonly Dictionary<VirtualKeyCodes, int> keysHeldDown =
+            new Dictionary<VirtualKeyCodes, int>();
 
-		public SendKeys(ISendKeyboardInput keyboardInput, ISendKeysParserFactory parserFactory)
-		{
-			this.keyboardInput = keyboardInput;
-			this.parserFactory = parserFactory;
+        private readonly Dictionary<char, VirtualKeyCodes> modifierKeyMap = new Dictionary<char, VirtualKeyCodes>();
 
-			InitialiseModifierKeyMap();
-		}
+        public SendKeys(ISendKeyboardInput keyboardInput, ISendKeysParserFactory parserFactory, IntPtr window)
+        {
+            this.keyboardInput = keyboardInput;
+            this.parserFactory = parserFactory;
+            this.window = window;
 
-		private void InitialiseModifierKeyMap()
-		{
-			modifierKeyMap.Add('+', VirtualKeyCodes.SHIFT);
-			modifierKeyMap.Add('^', VirtualKeyCodes.CONTROL);
-			modifierKeyMap.Add('%', VirtualKeyCodes.MENU);	// Alt
-		}
+            InitialiseModifierKeyMap();
+        }
 
-		/// <summary>
-		/// Send text to keyboard parsing text using .Net SendKeys.SendWait(...) method formatting.
-		/// See: http://msdn2.microsoft.com/en-us/library/system.windows.forms.sendkeys.sendwait(VS.90).aspx
-		/// </summary>
-		/// <param name="text"></param>
-		public void SendWait(string text)
-		{
-			ISendKeysParser parser = parserFactory.Create(text);
+        private void InitialiseModifierKeyMap()
+        {
+            modifierKeyMap.Add('+', VirtualKeyCodes.SHIFT);
+            modifierKeyMap.Add('^', VirtualKeyCodes.CONTROL);
+            modifierKeyMap.Add('%', VirtualKeyCodes.MENU); // Alt
+        }
 
-			foreach(ISendKeysParserGroup group in parser.Groups)
-			{
-				List<VirtualKeyCodes> modifierKeys = new List<VirtualKeyCodes>();
+        /// <summary>
+        /// Send text to keyboard parsing text using .Net SendKeys.SendWait(...) method formatting.
+        /// See: http://msdn2.microsoft.com/en-us/library/system.windows.forms.sendkeys.sendwait(VS.90).aspx
+        /// </summary>
+        /// <param name="text"></param>
+        public void SendWait(string text)
+        {
+            ISendKeysParser parser = parserFactory.Create(text);
 
-				string modifierCharacters = group.ModifierCharacters;
-				foreach (char modifierCharacter in modifierCharacters)
-				{
-					modifierKeys.Add(modifierKeyMap[modifierCharacter]);
-				}
+            foreach (ISendKeysParserGroup group in parser.Groups)
+            {
+                List<VirtualKeyCodes> modifierKeys = new List<VirtualKeyCodes>();
 
-				PressKeysDown(modifierKeys.ToArray());
+                string modifierCharacters = group.ModifierCharacters;
+                foreach (char modifierCharacter in modifierCharacters)
+                {
+                    modifierKeys.Add(modifierKeyMap[modifierCharacter]);
+                }
 
-				VirtualKeyCodes escapedKey = group.EscapedKey;
-				if (escapedKey != VirtualKeyCodes.None)
-				{
-					PressAndRelease(escapedKey);
-				}
+                PressKeysDown(modifierKeys.ToArray());
 
-				TypeUnformated(group.Body);
+                VirtualKeyCodes escapedKey = group.EscapedKey;
+                if (escapedKey != VirtualKeyCodes.None)
+                {
+                    PressAndRelease(escapedKey);
+                }
 
-				modifierKeys.Reverse();
-				ReleaseKeys(modifierKeys.ToArray());
-			}
-		}
+                TypeUnformated(group.Body);
 
-		private void TypeUnformated(IEnumerable<char> text)
-		{
-			foreach (char character in text)
-			{
-				VirtualKeyScan scanCode = new VirtualKeyScan(character);
-				VirtualKeyCodes[] shiftKeyCodeses = scanCode.GetShiftKeys();
+                modifierKeys.Reverse();
+                ReleaseKeys(modifierKeys.ToArray());
+            }
+        }
 
-				PressKeysDown(shiftKeyCodeses);
-				PressAndRelease(scanCode.KeyCodesCode);
-				ReleaseKeys(shiftKeyCodeses);
-			}
-		}
+        private void TypeUnformated(IEnumerable<char> text)
+        {
+            foreach (char character in text)
+            {
+                VirtualKeyScan scanCode = new VirtualKeyScan(character);
+                VirtualKeyCodes[] shiftKeyCodeses = scanCode.GetShiftKeys();
 
-		private void PressAndRelease(params VirtualKeyCodes[] keyCodeses)
-		{
-			PressKeysDown(keyCodeses);
-			ReleaseKeys(keyCodeses);
-		}
+                PressKeysDown(shiftKeyCodeses);
+                PressAndRelease(scanCode.KeyCodesCode);
+                ReleaseKeys(shiftKeyCodeses);
+            }
+        }
 
-		private void ReleaseKeys(params VirtualKeyCodes[] keyCodeses)
-		{
-			for (int keyIndex = keyCodeses.Length - 1; keyIndex >= 0; keyIndex--)
-			{
-				SendKeyUp(keyCodeses[keyIndex]);
-			}
-		}
+        private void PressAndRelease(params VirtualKeyCodes[] keyCodeses)
+        {
+            PressKeysDown(keyCodeses);
+            ReleaseKeys(keyCodeses);
+        }
 
-		public void PressKeysDown(params VirtualKeyCodes[] keyCodeses)
-		{
-			foreach (VirtualKeyCodes key in keyCodeses)
-			{
-				SendKeyDown(key);
-			}
-		}
+        private void ReleaseKeys(params VirtualKeyCodes[] keyCodeses)
+        {
+            for (int keyIndex = keyCodeses.Length - 1; keyIndex >= 0; keyIndex--)
+            {
+                SendKeyUp(keyCodeses[keyIndex]);
+            }
+        }
 
-		private void SendKeyUp(VirtualKeyCodes keyCodes)
-		{
-			lock (keysHeldDown)
-			{
-				if (!keysHeldDown.ContainsKey(keyCodes))
-				{
-					throw new KeyboardSequenceException();
-				}
+        public void PressKeysDown(params VirtualKeyCodes[] keyCodeses)
+        {
+            foreach (VirtualKeyCodes key in keyCodeses)
+            {
+                SendKeyDown(key);
+            }
+        }
 
-				try
-				{
-					keyboardInput.SendInput(keyCodes, SendInputFlags.KeyUp);
-				}
-				finally
-				{
-					keysHeldDown.Remove(keyCodes);
-				}
-			}
-		}
+        private void SendKeyUp(VirtualKeyCodes keyCodes)
+        {
+            lock (keysHeldDown)
+            {
+                if (!keysHeldDown.ContainsKey(keyCodes))
+                {
+                    throw new KeyboardSequenceException();
+                }
+                else
+                {
+                    keysHeldDown[keyCodes] -= 1;
+                    if (keysHeldDown[keyCodes] == 0)
+                    {
+                        try
+                        {
+                            keyboardInput.SendInput(window, keyCodes, SendInputFlags.KeyUp);
+                        }
+                        finally
+                        {
+                            keysHeldDown.Remove(keyCodes);
+                        }
+                    }
+                }
+            }
+        }
 
-		private void SendKeyDown(VirtualKeyCodes keyCodes)
-		{
-			lock (keysHeldDown)
-			{
-				if (keysHeldDown.ContainsKey(keyCodes))
-				{
-					throw new KeyboardSequenceException();
-				}
-				keysHeldDown.Add(keyCodes, keyCodes);
+        private void SendKeyDown(VirtualKeyCodes keyCodes)
+        {
+            lock (keysHeldDown)
+            {
+                if (keysHeldDown.ContainsKey(keyCodes))
+                {
+                    keysHeldDown[keyCodes] += 1;
+                }
+                else
+                {
+                    keysHeldDown.Add(keyCodes, 1);
 
-				try
-				{
-					keyboardInput.SendInput(keyCodes, SendInputFlags.KeyDown);
-				}
-				catch (Exception)
-				{
-					keysHeldDown.Remove(keyCodes);
-					throw;
-				}
-			}
-		}
+                    try
+                    {
+                        keyboardInput.SendInput(window, keyCodes, SendInputFlags.KeyDown);
+                    }
+                    catch (Exception)
+                    {
+                        keysHeldDown.Remove(keyCodes);
+                        throw;
+                    }
+                }
+            }
+        }
 
-		private void ReleaseAllHeldKeys()
-		{
-			lock (keysHeldDown)
-			{
-				foreach (VirtualKeyCodes key in keysHeldDown.Keys)
-				{
-					keyboardInput.SendInput(key, SendInputFlags.KeyUp);
-				}
-				keysHeldDown.Clear();
-			}
-		}
+        private void ReleaseAllHeldKeys()
+        {
+            lock (keysHeldDown)
+            {
+                foreach (VirtualKeyCodes key in keysHeldDown.Keys)
+                {
+                    keyboardInput.SendInput(window, key, SendInputFlags.KeyUp);
+                }
+                keysHeldDown.Clear();
+            }
+        }
 
-		public void Dispose()
-		{
-			ReleaseAllHeldKeys();
-		}
-	}
+        public void Dispose()
+        {
+            ReleaseAllHeldKeys();
+        }
+    }
 }

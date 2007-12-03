@@ -31,14 +31,14 @@
 #endregion
 
 using System;
-using System.Collections;
-using System.Text;
 using System.Windows.Forms;
 using NUnit.Extensions.Forms.DotNet;
 using SendKeys=NUnit.Extensions.Forms.DotNet.SendKeys;
 
 namespace NUnit.Extensions.Forms
 {
+    
+
     //TODO: should make sure caps lock is off and return it to its pretest state
     //make sure all keys are released at the end of each test.
 
@@ -53,21 +53,14 @@ namespace NUnit.Extensions.Forms
     /// </remarks>
     public class KeyboardController : IDisposable
     {
-    	private readonly ISendKeys sendKeys;
-    	private static readonly Hashtable modifiers = new Hashtable();
+        private readonly ISendKeysFactory sendKeysFactory;
+        private ISendKeys sendKeys;
         private KeyboardControl keyboardControl = null;
         private bool restoreUserInput = false;
 
-        static KeyboardController()
+        internal KeyboardController(ISendKeysFactory sendKeysFactory)
         {
-            modifiers['%'] = "ALT";
-            modifiers['+'] = "SHIFT";
-            modifiers['^'] = "CONTROL";
-        }
-
-        internal KeyboardController(ISendKeys sendKeys)
-        {
-        	this.sendKeys = sendKeys;
+            this.sendKeysFactory = sendKeysFactory;
         }
 
         /// <summary>
@@ -76,7 +69,7 @@ namespace NUnit.Extensions.Forms
         /// </summary>
         /// <param name="controlTester">The ControlTester to use the keyboard
         /// on.</param>
-        public KeyboardController(ControlTester controlTester) : this(new SendKeys())
+        public KeyboardController(ControlTester controlTester) : this(new SendKeysFactory())
         {
             UseOn(controlTester);
         }
@@ -117,6 +110,10 @@ namespace NUnit.Extensions.Forms
             {
                 throw new ArgumentNullException("control");
             }
+
+            Control c = control.TheObject as Control;
+            FormsAssert.IsTrue(c != null, "Keyboard control requires tester of Control");
+            sendKeys = sendKeysFactory.Create(c.Handle);
 
             keyboardControl = new KeyboardControl(control);
 

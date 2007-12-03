@@ -74,6 +74,11 @@ namespace NUnit.Extensions.Forms
         //internal const int XBUTTON1 = 8388608;
         internal const int XBUTTON2 = 0x2; //16777216
 
+	    public const uint WM_KEYDOWN = 0x0100;
+	    public const uint WM_KEYUP = 0x0101;
+	    public const uint WM_SYSKEYDOWN = 0x104;
+	    public const uint WM_SYSKEYUP = 0x105;
+
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern IntPtr OpenInputDesktop(uint dwFlags, bool fInherit, uint dwDesiredAccess);
 
@@ -390,5 +395,39 @@ namespace NUnit.Extensions.Forms
         }
 
         #endregion
+
+        [DllImport("user32.dll")]
+        public static extern short VkKeyScanEx(char ch, IntPtr dwhkl);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetKeyboardLayout(int idThread);
+
+        [DllImport("user32.dll", EntryPoint = "SendMessage")] //
+        public static extern bool SendMessage(IntPtr hWnd, uint Msg, int wParam, uint lParam);
+
+        [DllImport("user32.dll")]
+        public static extern uint MapVirtualKeyEx(uint uCode, uint uMapType, IntPtr dwhkl);
+
+        [DllImport("user32.dll", EntryPoint = "PostMessage")] //
+        public static extern bool PostMessage(IntPtr hWnd, uint Msg, int wParam, uint lParam);
+
+        [DllImport("user32.dll")]
+        public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
+
+        [DllImport("user32.dll")]
+        public static extern bool GetKeyboardState(byte[] lpKeyState);
+
+        [DllImport("user32.dll")]
+        public static extern bool SetKeyboardState(byte[] lpKeyState);
+
+        [DllImport("user32.dll")]
+        public static extern bool PostThreadMessage(uint idThread, uint Msg, UIntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, IntPtr lpdwProcessId);
+
+        [DllImport("user32.dll")]
+        public static extern bool AttachThreadInput(int idAttach, uint idAttachTo, bool fAttach);
+
 	}
 }
