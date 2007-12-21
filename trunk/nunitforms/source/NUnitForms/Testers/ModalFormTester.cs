@@ -32,6 +32,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -50,6 +51,7 @@ namespace NUnit.Extensions.Forms
     public class ModalFormTester : IDisposable
     {
         private const int CbtHookType = 5;
+        private const int HCBT_DESTROYWND = 4;
         private const int HCBT_ACTIVATE = 5;
         private const int HCBT_MOVESIZE = 0;
         private const int HCBT_SETFOCUS = 9;
@@ -63,12 +65,18 @@ namespace NUnit.Extensions.Forms
         private IntPtr handleToHook = IntPtr.Zero;
 
         /// <summary>
+        /// This list is used to keep track of which windows that have been created.
+        /// </summary>
+        private List<IntPtr> hwndList;
+
+        /// <summary>
         /// True if we have begun listening for CBT Activate events.
         /// </summary>
         private bool listening = false;
 
         public ModalFormTester()
         {
+            hwndList = new List<IntPtr>();
             BeginListening();
         }
 
@@ -89,6 +97,12 @@ namespace NUnit.Extensions.Forms
 
         #endregion
 
+        public void ClearWindowList()
+        {
+            // Clear the list of open windows. Should be called from Setup to make sure no windows is in the list 
+            // when starting a new testcase.
+            hwndList.Clear();
+        }
         /// <summary>
         /// A <see cref="ModalFormActivatedHwnd"/> that tries to click the OK button of the modal form.
         ///</summary>
@@ -190,12 +204,46 @@ namespace NUnit.Extensions.Forms
         {
             if (code == HCBT_ACTIVATE)
             {
-                FindWindowNameAndInvokeHandler(wParam);
+                // Some controls sends an HCBT_ACTIVATE when changed for example tabPages. We do not 
+                // want our handler to be called when a tabPage is changed. This is a problem in Modal
+                // modal windows.
+                if (!hwndList.Contains(wParam))
+                {
+                    hwndList.Add(wParam);
+                    FindWindowNameAndInvokeHandler(wParam);
+                }
+            }
+            if (code == HCBT_DESTROYWND)
+            {
+                // Need to remove the handle when the window is destroyed.
+                if (hwndList.Contains(wParam))
+                {
+                    hwndList.Remove(wParam);
+                }
             }
 
             return Win32.CallNextHookEx(handleToHook, code, wParam, lParam);
         }
 
+        private void RemoveModal(IntPtr hwnd)
+        {
+            string name = null;
+
+            Form form = Form.FromHandle(hwnd) as Form;
+            if (form != null && form.Modal)
+            {
+                name = form.Name;
+            }
+            else if (WindowHandle.IsDialog(hwnd))
+            {
+                name = WindowHandle.GetCaption(hwnd);
+                if (name == null)
+                {
+                    name = string.Empty;
+                }
+            }
+
+        }
         private void FindWindowNameAndInvokeHandler(IntPtr hwnd)
         {
             string name = null;
