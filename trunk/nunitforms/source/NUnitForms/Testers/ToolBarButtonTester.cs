@@ -99,7 +99,8 @@ namespace NUnit.Extensions.Forms
         public void Click()
         {
             FormsAssert.IsTrue((button.Style == ToolBarButtonStyle.PushButton) ||
-                               (button.Style == ToolBarButtonStyle.ToggleButton));
+                               (button.Style == ToolBarButtonStyle.ToggleButton ||
+                                button.Style == ToolBarButtonStyle.DropDownButton));
             ToolBarButtonClickEventArgs buttonArg = new ToolBarButtonClickEventArgs(Button);
             bar.FireEvent("ButtonClick", buttonArg);
         }
