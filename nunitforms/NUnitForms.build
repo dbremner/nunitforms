@@ -6,7 +6,7 @@
 	
 	<property name="source.dir" value="source" />
 	
-	<property name="nunit.dir" value="${path::get-full-path('lib\NUnit-2.4.1')}" />
+	<property name="nunit.dir" value="lib\NUnit" />
 	<property name="nmock.dir" value="lib\NMock" />
 	<property name="ncover.dir" value="lib\NCover" />
 	
@@ -14,13 +14,10 @@
 	<property name="bin.dir" value="${build.dir}\bin" />
 	
 	<property name="dll.path" value="${bin.dir}\NUnitForms.dll" />
-	<property name="screencapture.dll.path" value="${bin.dir}\NUnitForms.ScreenCapture.dll" />
 	<property name="dll.doc.path" value="${bin.dir}\NUnitForms.xml" />
 	<property name="test.dll.path" value="${bin.dir}\NUnitForms.Test.dll" />
 	<property name="recorder.dll.path" value="${bin.dir}\NUnitForms.Recorder.dll" />
 	<property name="recorder.exe.path" value="${bin.dir}\NUnitForms.Recorder.exe" />
-	<property name="example.exe.path" value="${bin.dir}\NUnitForms.Example.exe" />
-	<property name="teamtest.example.exe.path" value="${bin.dir}\NUnitForms.TeamTest.Example.exe" />
 
 	<property name="sdk.path" value="C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Bin" />
 	
@@ -29,7 +26,7 @@
 		<mkdir dir="${bin.dir}" />
 		<copy todir="${bin.dir}">
 			<fileset basedir="${nmock.dir}">
-				<include name="nmock.dll"/>
+				<include name="nmock2.dll"/>
 			</fileset>
 		</copy>
 		<copy todir="${bin.dir}">
@@ -46,26 +43,13 @@
 		<exec program="${sdk.path}\sn.exe" commandline="-q -i NUnitForms.snk NUnitForms" />
 	</target>
 
-	<target name="compile_screencapture_dll">
-		<csc target="library" output="${screencapture.dll.path}" debug="${debug}">
-			<sources basedir="${source.dir}\NUnitForms.ScreenCapture">
-				<include name="**\*.cs" />
-			</sources>
-			<references>
-				<include name="${nunit.dir}\*.dll" />
-				<include name="${dll.path}" />
-			</references>
-		</csc>
-	</target>
-
-	<target name="compile" depends="build_dir, compile_screencapture_dll">
+	<target name="compile" depends="build_dir">
 		<csc target="library" output="${dll.path}" doc="${dll.doc.path}" debug="${debug}">
 			<sources basedir="${source.dir}\NUnitForms">
 				<include name="**\*.cs" />
 			</sources>
 			<references>
 				<include name="${nunit.dir}\*.dll" />
-				<include name="${screencapture.dll.path}" />
 			</references>
 			<arg value="/nowarn:1591"/>
 		</csc>
@@ -79,7 +63,6 @@
 			<references>
 				<include name="${nunit.dir}\*.dll" />
 				<include name="${dll.path}" />
-				<include name="${screencapture.dll.path}" />
 			</references>
 		</csc>
 	</target>
@@ -107,48 +90,18 @@
     			</resources>
 			<references>
 				<include name="${nunit.dir}\*.dll" />
+				<include name="${nmock.dir}\nmock2.dll" />
 				<include name="${dll.path}" />
 				<include name="${recorder.dll.path}" />
 			</references>
 		</csc>
 	</target>
 	
-	<target name="compile_example" depends="build_dir, compile">
-		<csc target="exe" output="${example.exe.path}" debug="${debug}">
-			<sources basedir="${source.dir}\NUnitForms.Example">
-				<include name="**\*.cs" />
-			</sources>
-			<references>
-				<include name="${nunit.dir}\*.dll" />
-				<include name="${nmock.dir}\*.dll" />
-				<include name="${dll.path}" />
-			</references>
-		</csc>
-	</target>
-
-	<target name="compile_teamtest_example" depends="build_dir, compile">
-		<csc target="exe" output="${teamtest.example.exe.path}" debug="${debug}">
-			<sources basedir="${source.dir}\NUnitForms.TeamTest.Example">
-				<include name="**\*.cs" />
-			</sources>
-			<references>
-				<include name="${nmock.dir}\*.dll" />
-				<include name="${dll.path}" />
-			</references>
-		</csc>
-	</target>
-
-	<target name="build" depends="compile_test, compile_recorder_exe, compile_example">
+	<target name="build" depends="compile_test, compile_recorder_exe">
 	</target>
 	
-	<target name="test" depends="build" description="Test project">
-		<exec 
-			program="${ncover.dir}\NCover.Console.exe" 
-			commandline='/c "${nunit.dir}\nunit-console.exe" "NUnitForms.Test.dll NUnitForms.Example.exe /nologo" /a NUnitForms /w ${bin.dir} /o ${bin.dir}\coverage.xml'/>
-	</target>
-
-	<target name="test-nocover" depends="build" description="Test project without code coverage.">
-		<exec program="${nunit.dir}\nunit-console.exe" commandline="${bin.dir}\NUnitForms.Test.dll ${bin.dir}\NUnitForms.Example.exe /nologo"/>
+	<target name="test" depends="build" description="Test project.">
+		<exec program="${nunit.dir}\nunit-console.exe" commandline="${bin.dir}\NUnitForms.Test.dll /nologo"/>
 	</target>
 	
 	<target name="clean" description="Deletes all build files">
@@ -160,41 +113,6 @@
 				<include name="source/**/obj/**/*" />
 			</fileset>
 		</delete>
-	</target>
-	
-	<target name="document">
-	<ndoc>
-		<assemblies basedir="${bin.dir}">
-		    <include name="NUnitForms.dll" />
-		</assemblies>
-		<summaries basedir=".">
-		    <include name="NamespaceSummary.xml" />
-		</summaries>
-		<documenters>
-		    <documenter name="MSDN">
-			<property name="OutputDirectory" value="doc\MSDN" />
-			<property name="HtmlHelpName" value="NUnitForms" />
-			<property name="HtmlHelpCompilerFilename" value="hhc.exe" />
-			<property name="IncludeFavorites" value="False" />
-			<property name="Title" value="NUnitForms Class Library" />
-			<property name="SplitTOCs" value="False" />
-			<property name="DefaulTOC" value="" />
-			<property name="ShowVisualBasic" value="True" />
-			<property name="ShowMissingSummaries" value="True" />
-			<property name="ShowMissingRemarks" value="False" />
-			<property name="ShowMissingParams" value="True" />
-			<property name="ShowMissingReturns" value="True" />
-			<property name="ShowMissingValues" value="False" />
-			<property name="DocumentInternals" value="False" />
-			<property name="DocumentProtected" value="True" />
-			<property name="DocumentPrivates" value="False" />
-			<property name="DocumentEmptyNamespaces" value="False" />
-			<property name="IncludeAssemblyVersion" value="False" />
-			<property name="CopyrightText" value="Copyright (c) 2003-2007, Luke T. Maxon    - All rights reserved." />
-			<property name="CopyrightHref" value="" />
-		     </documenter>
-		</documenters> 
-	    </ndoc>
 	</target>
 
 </project>

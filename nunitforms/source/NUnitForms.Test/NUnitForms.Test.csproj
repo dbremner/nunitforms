@@ -1,14 +1,35 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E779CBD7-1CCE-4796-AE12-00AB56A8A815}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NUnit.Extensions.Forms.TestApplications</RootNamespace>
     <AssemblyName>NUnitForms.Test</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,6 +54,10 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NMock2, Version=1.0.2313.18049, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\NMock\NMock2.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.4.1.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\NUnit\nunit.framework.dll</HintPath>
@@ -44,6 +69,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="KeyboardControllerTest.cs" />
+    <Compile Include="MockingTestFixture.cs" />
+    <Compile Include="SendKeysParserTest.cs" />
+    <Compile Include="SendKeysTests.cs" />
     <Compile Include="SimpleAPIKeyboardWithEmulateWindowSpecificEmulationTest.cs" />
     <Compile Include="SimpleAPIKeyboardWithEmulationTest.cs.cs" />
     <Compile Include="ToolStripContainerTest.cs" />
@@ -267,27 +296,35 @@
   <ItemGroup>
     <EmbeddedResource Include="TestForms\AmbiguousNameForm.resx">
       <DependentUpon>AmbiguousNameForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\ButtonControl.resx">
       <DependentUpon>ButtonControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\ButtonTestForm.resx">
       <DependentUpon>ButtonTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\CheckBoxDataSetBindingTestForm.resx">
       <DependentUpon>CheckBoxDataSetBindingTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\CheckBoxTestForm.resx">
       <DependentUpon>CheckBoxTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\CheckedListBoxTestForm.resx">
       <DependentUpon>CheckedListBoxTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\ComboBoxTestForm.resx">
       <DependentUpon>ComboBoxTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\ContextMenuTestForm.resx">
       <DependentUpon>ContextMenuTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\DialogWithNoHandlersForm.resx">
       <SubType>Designer</SubType>
@@ -295,27 +332,35 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\DynamicControlsTestForm.resx">
       <DependentUpon>DynamicControlsTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\LabelTestForm.resx">
       <DependentUpon>LabelTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\LinkLabelTestForm.resx">
       <DependentUpon>LinkLabelTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\ListBoxTestForm.resx">
       <DependentUpon>ListBoxTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\ListViewTestForm.resx">
       <DependentUpon>ListViewTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\MainMenuTestForm.resx">
       <DependentUpon>MainMenuTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\ModalMultiForm.resx">
       <DependentUpon>ModalMultiForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\MultiForm.resx">
       <DependentUpon>MultiForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\OpenFileDialogTestForm.resx">
       <SubType>Designer</SubType>
@@ -323,6 +368,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\RadioButtonTestForm.resx">
       <DependentUpon>RadioButtonTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\RichTextBoxDataSetBindingTestForm.resx">
       <SubType>Designer</SubType>
@@ -338,15 +384,19 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\ScriptDemoForm.resx">
       <DependentUpon>ScriptDemoForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\TabControlTestForm.resx">
       <DependentUpon>TabControlTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\TextBoxDataSetBindingTestForm.resx">
       <DependentUpon>TextBoxDataSetBindingTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\TextBoxTestForm.resx">
       <DependentUpon>TextBoxTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\ToborTestForm.resx">
       <SubType>Designer</SubType>
@@ -354,6 +404,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\ToolbarTestForm.resx">
       <DependentUpon>ToolbarTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\ToolStripButtonTestForm.resx">
       <SubType>Designer</SubType>
@@ -385,6 +436,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TestForms\TreeViewTestForm.resx">
       <DependentUpon>TreeViewTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -396,6 +448,28 @@
       <Project>{E579ACDA-8C4F-4E35-A18B-C001D9EECD2B}</Project>
       <Name>NUnitForms</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -40,6 +40,7 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// Test Fixture for the OpenFileDialogTester class.
     ///</summary>
     [TestFixture]
+    [Ignore("This dialog caused my tests to hang.")]
     public class OpenFileDialogTest : NUnitFormTest
     {
         ///<summary>

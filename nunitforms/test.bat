@@ -1,1 +1,1 @@
-lib\nant\nant test-nocover
+lib\nant\nant test
