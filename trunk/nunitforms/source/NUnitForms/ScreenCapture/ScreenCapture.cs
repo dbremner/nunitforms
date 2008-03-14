@@ -32,9 +32,8 @@ using System.Drawing.Imaging;
 using System.Drawing.Printing;
 using System.IO;
 using System.Windows.Forms;
-using ASFTBase;
 
-namespace NUnitForms.ScreenCapture
+namespace NUnit.Extensions.Forms
 {
     ///<summary>
     /// This delegate defines a method that takes a window handle

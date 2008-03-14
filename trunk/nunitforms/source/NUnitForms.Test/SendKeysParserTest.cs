@@ -30,10 +30,9 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.Util;
 using NUnit.Extensions.Forms.Win32Interop;
 using NUnit.Framework;
-
+using NUnit.Extensions.Forms.SendKey;
 
 namespace NUnit.Extensions.Forms.UnitTests
 {

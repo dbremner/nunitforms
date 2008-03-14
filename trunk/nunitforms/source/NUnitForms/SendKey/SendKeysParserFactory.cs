@@ -1,8 +1,8 @@
-#region Copyright (c) 2003-2007, Luke T. Maxon
+#region Copyright (c) 2003-2005, Luke T. Maxon
 
 /********************************************************************************************************************
 '
-' Copyright (c) 2003-2007, Luke T. Maxon
+' Copyright (c) 2003-2005, Luke T. Maxon
 ' All rights reserved.
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -29,12 +29,13 @@
 '*******************************************************************************************************************/
 
 #endregion
-
-
-namespace NUnit.Extensions.Forms.Util
+namespace NUnit.Extensions.Forms.SendKey
 {
-	public interface ISendKeysParser
+	public class SendKeysParserFactory : ISendKeysParserFactory
 	{
-		ISendKeysParserGroup[] Groups { get; }
+		public ISendKeysParser Create(string text)
+		{
+			return new SendKeysParser(text);
+		}
 	}
 }

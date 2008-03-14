@@ -30,7 +30,7 @@
 using System;
 using System.Drawing.Imaging;
 
-namespace NUnitForms.ScreenCapture
+namespace NUnit.Extensions.Forms
 {
     /// <summary>
     /// Supplies some helpers methods used for image processing (file selection dialog, 

@@ -32,8 +32,7 @@
 
 using System;
 
-
-namespace NUnit.Extensions.Forms.Exceptions
+namespace NUnit.Extensions.Forms
 {
 	public class KeyboardSequenceException : Exception
 	{

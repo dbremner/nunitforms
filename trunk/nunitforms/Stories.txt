@@ -1,5 +1,3 @@
-Run an application (one per test class.. this could really wait for 2.2 to allow ordering?)
-
 Databound control support made general (Have endcurrentedit method.  test it is being used by all property sets..)
 
 add packaging target to nant for a release
@@ -9,6 +7,8 @@ Check invokerequired before touching control properties or invoking methods.
 documentation in cvs.. add target to update website.
 
 fxcop on build
+
+code coverage back in
 
 Debugging information log to control finder.
 
@@ -36,9 +36,7 @@ Not just abstract classes, but any classes with subclasses.  (search for IsAbstr
 
 Generate tests with mocks (Constructor based dependency injection)
 
-Scripting - integrate speed with standard tests.  Make command pattern all over.  Add more scripting support.  Combine.
-
-Ability to capture screen image and compare to expected value in a file.
-
 Determine whether it is appropriate to set IsUserInteractive true when called from service like cruise control.
+
+Find out what went wrong with Mouse and keyboard tests. Fix with more robust automation apis in .net 3 ? (All this win32 api cruft is not fun)
 

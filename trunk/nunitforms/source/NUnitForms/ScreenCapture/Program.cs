@@ -30,7 +30,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace NUnitForms.ScreenCapture
+namespace NUnit.Extensions.Forms
 {
     internal static class Program
     {

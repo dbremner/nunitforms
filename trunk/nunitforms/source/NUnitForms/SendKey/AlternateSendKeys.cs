@@ -32,19 +32,17 @@
 
 using System;
 using System.Collections.Generic;
-using NUnit.Extensions.Forms.DotNet;
-using NUnit.Extensions.Forms.Exceptions;
+using NUnit.Extensions.Forms;
 using NUnit.Extensions.Forms.Win32Interop;
 
-
-namespace NUnit.Extensions.Forms.Util
+namespace NUnit.Extensions.Forms.SendKey
 {
     /// <summary>
     /// Alternative to the dot Net SendKeys class.
     /// 
     /// SendWait method emulates the dot Net class method.
     /// </summary>
-    public class SendKeys : ISendKeys, IDisposable
+    public class AlternateSendKeys : ISendKeys, IDisposable
     {
         private readonly ISendKeyboardInput keyboardInput;
         private readonly ISendKeysParserFactory parserFactory;
@@ -55,7 +53,7 @@ namespace NUnit.Extensions.Forms.Util
 
         private readonly Dictionary<char, VirtualKeyCodes> modifierKeyMap = new Dictionary<char, VirtualKeyCodes>();
 
-        public SendKeys(ISendKeyboardInput keyboardInput, ISendKeysParserFactory parserFactory, IntPtr window)
+        public AlternateSendKeys(ISendKeyboardInput keyboardInput, ISendKeysParserFactory parserFactory, IntPtr window)
         {
             this.keyboardInput = keyboardInput;
             this.parserFactory = parserFactory;

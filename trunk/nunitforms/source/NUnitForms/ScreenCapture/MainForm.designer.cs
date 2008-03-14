@@ -1,4 +1,4 @@
-﻿namespace NUnitForms.ScreenCapture
+﻿namespace NUnit.Extensions.Forms
 {
 	partial class MainForm
 	{

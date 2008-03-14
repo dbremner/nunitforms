@@ -31,7 +31,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace ASFTBase
+namespace NUnit.Extensions.Forms
 {
     /// <summary>
     /// Helper class which maps some WIN32 values

@@ -32,17 +32,16 @@
 
 using System;
 using NMock2;
-using NUnit.Extensions.Forms.Util;
 using NUnit.Extensions.Forms.Win32Interop;
 using NUnit.Framework;
-
+using NUnit.Extensions.Forms.SendKey;
 
 namespace NUnit.Extensions.Forms.UnitTests
 {
 	[TestFixture]
 	public class SendKeysTests : MockingTestFixture
 	{
-		private SendKeys keyboardSendKeys;
+        private AlternateSendKeys keyboardSendKeys;
 		private ISendKeyboardInput keyboardInput;
 		private ISendKeysParserFactory parserFactory;
 		private ISendKeysParser parser;
@@ -55,7 +54,7 @@ namespace NUnit.Extensions.Forms.UnitTests
 			parser = NewMock<ISendKeysParser>();
 
 	        window = new IntPtr(0x12345);
-	        keyboardSendKeys = new SendKeys(keyboardInput, parserFactory, window);
+            keyboardSendKeys = new AlternateSendKeys(keyboardInput, parserFactory, window);
 		}
 
 		protected override void TearDown()

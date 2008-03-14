@@ -30,11 +30,9 @@
 
 #endregion
 using System;
-using NUnit.Extensions.Forms.DotNet;
 using NUnit.Extensions.Forms.Win32Interop;
 
-
-namespace NUnit.Extensions.Forms.Util
+namespace NUnit.Extensions.Forms.SendKey
 {
     public class SendKeysFactory: ISendKeysFactory
     {
@@ -49,7 +47,7 @@ namespace NUnit.Extensions.Forms.Util
 
         public ISendKeys Create(IntPtr window)
         {
-            return new SendKeys(keyboardInput, parserFactory, window);
+            return new AlternateSendKeys(keyboardInput, parserFactory, window);
         }
     }
 }
