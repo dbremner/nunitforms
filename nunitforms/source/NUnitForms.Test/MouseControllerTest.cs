@@ -43,7 +43,7 @@ namespace NUnit.Extensions.Forms.TestApplications
     [TestFixture]
     [Category("DisplayHidden")]
     [Category("ControlsMouse")]
-    [Ignore]
+    [Ignore()]
     public class MouseControllerTest : NUnitFormTest
     {
         private Form CurrentForm;

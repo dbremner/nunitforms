@@ -39,7 +39,7 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// Part of work in progress in replacing the dot Net SendKeys class.
     /// </summary>
     [TestFixture]
-    [Ignore("Work in progress. Tests do fail as work is incomplete.")]
+  //  [Ignore("Work in progress. Tests do fail as work is incomplete.")]
     public class SimpleAPIKeyboardWithEmulateWindowSpecificEmulationTest : SimpleAPIKeyboardTest
     {
         public override void Setup()
