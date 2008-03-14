@@ -312,6 +312,11 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="T:NUnit.Extensions.Forms.UnitTests.KeyboardControllerTest">
+            <summary>
+            Test existing KeyboardController functionality.
+            </summary>
+        </member>
         <member name="F:NUnit.Extensions.Forms.TestApplications.ToolStripComboBoxTestForm.components">
             <summary>
             Required designer variable.
@@ -868,11 +873,6 @@
         <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.OpenTest">
             <summary>
              Tests opening a file.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.UnitTests.KeyboardControllerTest">
-            <summary>
-            Test existing KeyboardController functionality.
             </summary>
         </member>
     </members>

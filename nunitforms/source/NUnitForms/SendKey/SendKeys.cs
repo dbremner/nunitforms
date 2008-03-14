@@ -31,8 +31,7 @@
 #endregion
 
 using System;
-
-namespace NUnit.Extensions.Forms.DotNet
+namespace NUnit.Extensions.Forms.SendKey
 {
 	/// <summary>
 	/// Wrapper for the dot Net SendKeys class to allow reference by interface
@@ -52,7 +51,7 @@ namespace NUnit.Extensions.Forms.DotNet
 		}
 	}
 
-    public class SendKeysFactory : ISendKeysFactory
+    public class OldSendKeysFactory : ISendKeysFactory
     {
         public ISendKeys Create(IntPtr window)
         {

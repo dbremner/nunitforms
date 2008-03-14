@@ -30,15 +30,10 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.Util;
-
-namespace NUnit.Extensions.Forms.Util
+namespace NUnit.Extensions.Forms.SendKey
 {
-	public class SendKeysParserFactory : ISendKeysParserFactory
+	public interface ISendKeysParserFactory
 	{
-		public ISendKeysParser Create(string text)
-		{
-			return new SendKeysParser(text);
-		}
+		ISendKeysParser Create(string text);
 	}
 }

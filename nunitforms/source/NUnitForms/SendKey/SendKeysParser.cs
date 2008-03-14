@@ -32,11 +32,9 @@
 
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using NUnit.Extensions.Forms.Util;
 using NUnit.Extensions.Forms.Win32Interop;
 
-
-namespace NUnit.Extensions.Forms.Util
+namespace NUnit.Extensions.Forms.SendKey
 {
 	public class SendKeysParser : ISendKeysParser
 	{

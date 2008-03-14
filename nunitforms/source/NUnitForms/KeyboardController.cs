@@ -32,8 +32,7 @@
 
 using System;
 using System.Windows.Forms;
-using NUnit.Extensions.Forms.DotNet;
-using SendKeys=NUnit.Extensions.Forms.DotNet.SendKeys;
+using NUnit.Extensions.Forms.SendKey;
 
 namespace NUnit.Extensions.Forms
 {
@@ -69,7 +68,7 @@ namespace NUnit.Extensions.Forms
         /// </summary>
         /// <param name="controlTester">The ControlTester to use the keyboard
         /// on.</param>
-        public KeyboardController(ControlTester controlTester) : this(new SendKeysFactory())
+        public KeyboardController(ControlTester controlTester) : this(new OldSendKeysFactory())
         {
             UseOn(controlTester);
         }

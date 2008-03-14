@@ -34,11 +34,9 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
-using NUnit.Extensions.Forms.Util;
+using NUnit.Extensions.Forms.SendKey;
 using NUnit.Extensions.Forms.Win32Interop;
 using NUnit.Framework;
-using SendKeysFactory=NUnit.Extensions.Forms.DotNet.SendKeysFactory;
-
 
 namespace NUnit.Extensions.Forms
 {
@@ -155,7 +153,7 @@ namespace NUnit.Extensions.Forms
 
             modal = new ModalFormTester();
             mouse = new MouseController();
-            keyboard = new KeyboardController(new SendKeysFactory());
+            keyboard = new KeyboardController(new OldSendKeysFactory());
 
             Setup();
         }
@@ -171,7 +169,7 @@ namespace NUnit.Extensions.Forms
         protected void EmulateSendKeys()
         {
             keyboard =
-                new KeyboardController(new Util.SendKeysFactory(new SendKeysParserFactory(), new SendKeyboardInput()));
+                new KeyboardController(new SendKeysFactory(new SendKeysParserFactory(), new SendKeyboardInput()));
         }
 
         /// <summary>
@@ -186,7 +184,7 @@ namespace NUnit.Extensions.Forms
         {
             keyboard =
                 new KeyboardController(
-                    new Util.SendKeysFactory(new SendKeysParserFactory(), new WindowSpecificSendKeyboardInput()));
+                    new SendKeysFactory(new SendKeysParserFactory(), new WindowSpecificSendKeyboardInput()));
         }
 
         /// <summary>

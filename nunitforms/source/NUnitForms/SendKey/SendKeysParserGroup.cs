@@ -32,7 +32,7 @@
 
 using NUnit.Extensions.Forms.Win32Interop;
 
-namespace NUnit.Extensions.Forms.Util
+namespace NUnit.Extensions.Forms.SendKey
 {
 	public class SendKeysParserGroup : ISendKeysParserGroup
 	{

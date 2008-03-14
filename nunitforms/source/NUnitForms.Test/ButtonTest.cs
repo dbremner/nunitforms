@@ -31,7 +31,6 @@
 #endregion
 
 using System;
-using NUnit.Extensions.Forms.Exceptions;
 using NUnit.Framework;
 
 namespace NUnit.Extensions.Forms.TestApplications

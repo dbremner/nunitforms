@@ -72,9 +72,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DotNet\ISendKeys.cs" />
-    <Compile Include="DotNet\ISendKeysFactory.cs" />
-    <Compile Include="DotNet\SendKeys.cs" />
+    <Compile Include="SendKey\ISendKeys.cs" />
+    <Compile Include="SendKey\ISendKeysFactory.cs" />
+    <Compile Include="SendKey\SendKeys.cs" />
     <Compile Include="Exceptions\ControlNotEnabledException.cs" />
     <Compile Include="Exceptions\KeyboardSequenceException.cs" />
     <Compile Include="Generated Testers\ListBoxTester.cs" />
@@ -150,14 +150,14 @@
     <Compile Include="Testers\RadioButtonTester.cs" />
     <Compile Include="Testers\RichTextBoxTester.cs" />
     <Compile Include="Testers\SaveFileDialogTester.cs" />
-    <Compile Include="Util\ISendKeysParser.cs" />
-    <Compile Include="Util\ISendKeysParserFactory.cs" />
-    <Compile Include="Util\ISendKeysParserGroup.cs" />
-    <Compile Include="Util\SendKeys.cs" />
-    <Compile Include="Util\SendKeysFactory.cs" />
-    <Compile Include="Util\SendKeysParser.cs" />
-    <Compile Include="Util\SendKeysParserFactory.cs" />
-    <Compile Include="Util\SendKeysParserGroup.cs" />
+    <Compile Include="SendKey\ISendKeysParser.cs" />
+    <Compile Include="SendKey\ISendKeysParserFactory.cs" />
+    <Compile Include="SendKey\ISendKeysParserGroup.cs" />
+    <Compile Include="SendKey\AlternateSendKeys.cs" />
+    <Compile Include="SendKey\SendKeysFactory.cs" />
+    <Compile Include="SendKey\SendKeysParser.cs" />
+    <Compile Include="SendKey\SendKeysParserFactory.cs" />
+    <Compile Include="SendKey\SendKeysParserGroup.cs" />
     <Compile Include="Util\Strings.cs" />
     <Compile Include="Testers\TabControlTester.cs" />
     <Compile Include="Testers\TextBoxTester.cs" />

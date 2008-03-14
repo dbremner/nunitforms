@@ -1,6 +1,8 @@
+#region Copyright (c) 2003-2005, Luke T. Maxon
+
 /********************************************************************************************************************
 '
-' Copyright (c) 2003-2008, Luke T. Maxon
+' Copyright (c) 2003-2005, Luke T. Maxon
 ' All rights reserved.
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -25,3 +27,13 @@
 ' IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 '
 '*******************************************************************************************************************/
+
+#endregion
+
+namespace NUnit.Extensions.Forms.SendKey
+{
+    public interface ISendKeys
+    {
+        void SendWait(string text);
+    }
+}
