@@ -39,7 +39,6 @@ namespace NUnit.Extensions.Forms.TestApplications
 	[TestFixture]
 	[Category("DisplayHidden")]
 	[Category("ControlsKeyboard")]
-	[Ignore("This test fixture is not reliable. These tests use code that calls SendKeys.SendWait(...) which Microsoft documents as unrealiable. See: http://msdn2.microsoft.com/en-us/library/system.windows.forms.sendkeys.sendwait(VS.90).aspx")]
 	public class SimpleAPIKeyboardTest : NUnitFormTest
 	{
 		public override bool DisplayHidden
