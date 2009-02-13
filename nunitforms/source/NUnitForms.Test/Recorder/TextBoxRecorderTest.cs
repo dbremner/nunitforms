@@ -109,7 +109,6 @@ public void Test()
         /// Tests multiline text entry events.
         ///</summary>
         [Test]
-        [Ignore]
         public void TextBoxEnterMultiline()
         {
             Form form = new TextBoxTestForm();
@@ -120,7 +119,7 @@ public void Test()
             TextBoxTester textBox = new TextBoxTester("myTextBox", form);
             textBox.Properties.Multiline = true;
 
-            textBox.Enter("abc\nabcd\nabcde");
+            textBox.Enter("abc\r\nabcd\r\nabcde");
 
             Assert.AreEqual(
                 @"[Test]
@@ -129,7 +128,7 @@ public void Test()
 
 	TextBoxTester myTextBox = new TextBoxTester(""myTextBox"");
 
-	myTextBox.Enter(""abc\nabcd\nabcde"");
+	myTextBox.Enter(""abc\r\nabcd\r\nabcde"");
 
 }",
                 writer.Test);

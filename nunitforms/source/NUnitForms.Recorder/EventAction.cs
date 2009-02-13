@@ -31,7 +31,10 @@
 #endregion
 
 using System;
+using System.CodeDom;
+using System.IO;
 using System.Text;
+using Microsoft.CSharp;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
@@ -107,11 +110,12 @@ namespace NUnit.Extensions.Forms.Recorder
 
         private static string FormatArgument(object arg)
         {
-            if (arg is string)
+            using(StringWriter sw = new StringWriter())
             {
-                return string.Format("\"{0}\"", arg);
+                CSharpCodeProvider provider = new CSharpCodeProvider();
+                provider.GenerateCodeFromExpression(new CodePrimitiveExpression(arg), sw, null);
+                return sw.ToString();
             }
-            return arg.ToString();
         }
     }
 }
