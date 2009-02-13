@@ -64,19 +64,19 @@ public void Test()
 	ListBoxTester myListBox = new ListBoxTester(""myListBox"");
 
 	myListBox.ClearSelected();
-	myListBox.SetSelected(0, True); //Red
+	myListBox.SetSelected(0, true); //Red
 	myListBox.ClearSelected();
-	myListBox.SetSelected(0, True); //Red
-	myListBox.SetSelected(2, True); //Yellow
+	myListBox.SetSelected(0, true); //Red
+	myListBox.SetSelected(2, true); //Yellow
 	myListBox.ClearSelected();
-	myListBox.SetSelected(0, True); //Red
-	myListBox.SetSelected(2, True); //Yellow
-	myListBox.SetSelected(4, True); //Blue
+	myListBox.SetSelected(0, true); //Red
+	myListBox.SetSelected(2, true); //Yellow
+	myListBox.SetSelected(4, true); //Blue
 	myListBox.ClearSelected();
-	myListBox.SetSelected(0, True); //Red
-	myListBox.SetSelected(2, True); //Yellow
-	myListBox.SetSelected(4, True); //Blue
-	myListBox.SetSelected(6, True); //Violet
+	myListBox.SetSelected(0, true); //Red
+	myListBox.SetSelected(2, true); //Yellow
+	myListBox.SetSelected(4, true); //Blue
+	myListBox.SetSelected(6, true); //Violet
 
 }",
                 writer.Test);
@@ -102,7 +102,7 @@ public void Test()
 	ListBoxTester myListBox = new ListBoxTester(""myListBox"");
 
 	myListBox.ClearSelected();
-	myListBox.SetSelected(0, True); //Red
+	myListBox.SetSelected(0, true); //Red
 
 }",
                 writer.Test);
