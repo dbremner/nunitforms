@@ -1,8 +1,8 @@
-#region Copyright (c) 2003-2005, Luke T. Maxon
+﻿#region Copyright (c) 2006-2007, Luke T. Maxon (Authored by Anders Lillrank)
 
 /********************************************************************************************************************
 '
-' Copyright (c) 2003-2005, Luke T. Maxon
+' Copyright (c) 2006-2007, Luke T. Maxon
 ' All rights reserved.
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -30,65 +30,16 @@
 
 #endregion
 
-using NUnit.Extensions.Forms.TestApplications;
-using NUnit.Framework;
+using System;
+using System.Windows.Forms;
 
-namespace NUnit.Extensions.Forms.Recorder.Test
+namespace NUnit.Extensions.Forms.TestApplications
 {
-    [TestFixture]
-    [Category("Recorder")]
-    public class NameResolverTest : NUnitFormTest
+  public partial class UnderscoreNameForm : Form
+  {
+    public UnderscoreNameForm()
     {
-        [Test]
-        public void AmbiguousButton()
-        {
-            AmbiguousNameForm form = new AmbiguousNameForm();
-            form.Show();
-            Censor.Add("NunitFormsTestApplicationsCustomTesters");
-            TestWriter writer = new TestWriter(form);
-            Assert.AreEqual("", writer.Test);
-
-            ButtonTester button = new ButtonTester("myControl2.myButton", form);
-
-            button.Click();
-            Assert.AreEqual(
-                @"[Test]
-public void Test()
-{
-
-	ButtonTester myControl2_myButton = new ButtonTester(""myControl2.myButton"");
-
-	myControl2_myButton.Click();
-
-}",
-                writer.Test);
-
-            Censor.Remove("NunitFormsTestApplicationsCustomTesters");
-        }
-        
-        [Test]
-        public void UnderscoreButton()
-        {
-            UnderscoreNameForm form = new UnderscoreNameForm();
-            form.Show();
-            
-            TestWriter writer = new TestWriter(form);
-            Assert.AreEqual(string.Empty, writer.Test);
-            
-            ButtonTester button = new ButtonTester("_button", form);
-            
-            button.Click();
-            Assert.AreEqual(
-                @"[Test]
-public void Test()
-{
-
-	ButtonTester _button = new ButtonTester(""_button"");
-
-	_button.Click();
-
-}",
-                writer.Test);
-        }
+      InitializeComponent();
     }
+  }
 }

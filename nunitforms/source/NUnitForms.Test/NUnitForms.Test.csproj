@@ -75,6 +75,12 @@
     <Compile Include="SendKeysTests.cs" />
     <Compile Include="SimpleAPIKeyboardWithEmulateWindowSpecificEmulationTest.cs" />
     <Compile Include="SimpleAPIKeyboardWithEmulationTest.cs.cs" />
+    <Compile Include="TestForms\UnderscoreNameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestForms\UnderscoreNameForm.Designer.cs">
+      <DependentUpon>UnderscoreNameForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ToolStripContainerTest.cs" />
     <Compile Include="DialogWithNoHandlerTest.cs" />
     <Compile Include="ButtonTest.cs" />
@@ -437,6 +443,9 @@
     <EmbeddedResource Include="TestForms\TreeViewTestForm.resx">
       <DependentUpon>TreeViewTestForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestForms\UnderscoreNameForm.resx">
+      <DependentUpon>UnderscoreNameForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

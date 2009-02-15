@@ -86,9 +86,9 @@ namespace NUnit.Extensions.Forms.Recorder
             get
             {
                 if (FormName == null)
-                    return Name;
+                    return Name.Replace('.', '_');
                 else
-                    return FormName + "_" + Name;
+                    return (FormName + "_" + Name).Replace('.', '_');
             }
         }
 
@@ -121,7 +121,7 @@ namespace NUnit.Extensions.Forms.Recorder
                     "{0} {1} = new {0}(\"{2}\");",
                     TesterType.Name,
                     Strings.SafeRemoveSpaces(VarName),
-                    Name.Replace("_", "."));
+                    Name);
             }
             else
             {
@@ -129,7 +129,7 @@ namespace NUnit.Extensions.Forms.Recorder
                     "{0} {1} = new {0}(\"{2}\", \"{3}\");",
                     TesterType.Name,
                     Strings.SafeRemoveSpaces(VarName),
-                    Name.Replace("_", "."),
+                    Name,
                     FormName);
             }
         }

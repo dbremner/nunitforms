@@ -265,7 +265,7 @@ namespace NUnit.Extensions.Forms.Recorder
                     {
                         throw;
                     }
-                    name = finder.Name(parent) + "_" + name;
+                    name = finder.Name(parent) + "." + name;
                     parent = finder.Parent(parent);
                 }
             } while (!foundGoodName);
