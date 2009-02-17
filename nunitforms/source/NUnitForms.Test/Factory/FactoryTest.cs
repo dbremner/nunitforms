@@ -54,5 +54,26 @@ namespace NUnit.Extensions.Forms.TestApplications
         {
             new FormFactory().New(typeof (string));
         }
+        
+        [Test]
+        public void MultiConstructor()
+        {
+            Form form = new FormFactory().New(typeof(MultiConstructorForm));
+            Assert.IsNotNull(form);
+            Assert.AreEqual(typeof(MultiConstructorForm), form.GetType());
+        }
+        
+        private class MultiConstructorForm : Form
+        {
+            private MultiConstructorForm()
+            {
+                // nothing to do.
+            }
+            
+            public MultiConstructorForm(string message)
+            {
+                throw new InvalidOperationException(message);
+            }
+        }
     }
 }
