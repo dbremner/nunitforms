@@ -19,8 +19,6 @@
 	<property name="recorder.dll.path" value="${bin.dir}\NUnitForms.Recorder.dll" />
 	<property name="recorder.exe.path" value="${bin.dir}\NUnitForms.Recorder.exe" />
 
-	<property name="sdk.path" value="C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Bin" />
-	
 	<target name="build_dir">
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${bin.dir}" />
@@ -38,9 +36,9 @@
 	</target>
 
 	<target name="createKey">
-		<exec program="${sdk.path}\sn.exe" commandline="-q -k NUnitForms.snk" />
-		<exec program="${sdk.path}\sn.exe" commandline="-q -d NUnitForms" failonerror="false" />
-		<exec program="${sdk.path}\sn.exe" commandline="-q -i NUnitForms.snk NUnitForms" />
+		<exec program="${framework::get-tool-path('sn.exe')}" commandline="-q -k NUnitForms.snk" />
+		<exec program="${framework::get-tool-path('sn.exe')}" commandline="-q -d NUnitForms" failonerror="false" />
+		<exec program="${framework::get-tool-path('sn.exe')}" commandline="-q -i NUnitForms.snk NUnitForms" />
 	</target>
 
 	<target name="compile" depends="build_dir">
