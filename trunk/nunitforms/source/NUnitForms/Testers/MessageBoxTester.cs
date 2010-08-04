@@ -115,17 +115,19 @@ namespace NUnit.Extensions.Forms
         /// users probably won't use this directly.  Use the other constructor.
         /// </summary>
         /// <param name="handle">The handle of the MessageBox to test.</param>
-        public MessageBoxTester(IntPtr handle) : base(null)
+        public MessageBoxTester(IntPtr handle)
+            : base(null)
         {
             this.handle = handle;
         }
 
         /// <summary>
-        /// Creates a MessageBoxTester that finds MessageBoxes with the
-        /// specified name.
+        /// Deprecated in favor of the constructor taking the box's handle as argument.
         /// </summary>
         /// <param name="name">The name of the MessageBox to test.</param>
-        public MessageBoxTester(string name) : base(name)
+        [Obsolete]
+        public MessageBoxTester(string name)
+            : base(name)
         {
         }
 
@@ -152,7 +154,7 @@ namespace NUnit.Extensions.Forms
         public void SendCommand(Command cmd)
         {
             IntPtr box = FindMessageBox();
-            Win32.SendMessage(box, (int) Win32.WindowMessages.WM_COMMAND, (UIntPtr) ((uint) cmd), IntPtr.Zero);
+            Win32.SendMessage(box, (int)Win32.WindowMessages.WM_COMMAND, (UIntPtr)((uint)cmd), IntPtr.Zero);
         }
 
         /// <summary>
@@ -180,30 +182,27 @@ namespace NUnit.Extensions.Forms
                 return handle;
             }
 
-            lock (this)
-            {
-                IntPtr desktop = Win32.GetDesktopWindow();
-                Win32.EnumChildWindows(
-                    desktop,
-                    delegate(IntPtr hwnd, IntPtr lParam)
-                        {
-                            if (WindowHandle.IsDialog(hwnd))
-                            {
-                                if (name == null || WindowHandle.GetCaption(hwnd) == name)
-                                {
-                                    foundWindowHandle = hwnd;
-                                }
-                            }
-                            return 1;
-                        },
-                    IntPtr.Zero);
-
-                if (foundWindowHandle == IntPtr.Zero)
+            IntPtr desktop = Win32.GetDesktopWindow();
+            Win32.EnumChildWindows(
+                desktop,
+                delegate(IntPtr hwnd, IntPtr lParam)
                 {
-                    throw new ControlNotVisibleException("Message Box not visible");
-                }
-                return foundWindowHandle;
+                    if (WindowHandle.IsDialog(hwnd))
+                    {
+                        if (name == null || WindowHandle.GetCaption(hwnd) == name)
+                        {
+                            foundWindowHandle = hwnd;
+                        }
+                    }
+                    return 1;
+                },
+                IntPtr.Zero);
+
+            if (foundWindowHandle == IntPtr.Zero)
+            {
+                throw new ControlNotVisibleException("Message Box not visible");
             }
+            return foundWindowHandle;
         }
     }
 }

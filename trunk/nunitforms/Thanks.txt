@@ -36,4 +36,6 @@
 
 - The NUnitASP project gave me ideas about how the API could look for unit testing a user interface.  (nunitasp.sf.net)
 
+- Luc Habert and Amarile (http://www.amarile.fr) for work on modal forms handling.
+
 Many others for ideas / suggestions that ended up being implemented in the source.

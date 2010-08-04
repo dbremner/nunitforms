@@ -1,8 +1,8 @@
-#region Copyright (c) 2006-2007, Luke T. Maxon (Authored by Anders Lillrank)
+#region Copyright (c) 2003-2005, Luke T. Maxon
 
 /********************************************************************************************************************
 '
-' Copyright (c) 2006-2007, Luke T. Maxon
+' Copyright (c) 2003-2005, Luke T. Maxon
 ' All rights reserved.
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -30,46 +30,54 @@
 
 #endregion
 
-using System;
+using NUnit.Framework;
 
-namespace NUnit.Extensions.Forms
+namespace NUnit.Extensions.Forms.TestApplications
 {
-    /// <summary>
-    /// This class is used to test the built-in OpenFileDialog. This class is not meant to be
-    /// used directly. Instead you should use the ExpectOpenFileDialog and CancelOpenFileDialog functions
-    /// in the NUnitFormTest
-    /// class.
-    /// </summary>
-    public class SaveFileDialogTester : FileDialogTester
+    [TestFixture]
+    public class ModalFormsTestOld : NUnitFormTest
     {
-        /// <summary>
-        /// Constructs a new SaveFileDialogTester working on the dialog box having the given handle.
-        /// </summary>
-        public SaveFileDialogTester(IntPtr hWnd)
-            : base(hWnd)
+        public void ClickHandler()
         {
+            ButtonTester btnClose = new ButtonTester("btnClose", "Form-0");
+            btnClose.Click();
         }
 
-        /// <summary>
-        /// Unreliable, kept for compatibility. The title is not actually used.
-        /// </summary>
-        [Obsolete]
-        public SaveFileDialogTester(string title)
-            : base(title)
+        [Test]
+        [ExpectedException(typeof(FormsTestAssertionException),
+            ExpectedMessage = "Expected Modal Form did not show")]
+        public void ModalFormDoesntShow()
         {
+            new ModalMultiForm().Show();
+
+            ExpectModal("Form-0", "ClickHandler");
+
+            Verify();
         }
 
-        /// <summary>
-        /// Inputs the give file name into the dialog box, and clicks the save button.
-        /// </summary>
-        public void SaveFile(string file)
+        [Test]
+        public void TestModalForm()
         {
-            SetFileName(file);
+            ExpectModal("Form-0", new ModalFormActivated(ClickHandler));
+
+            ModalMultiForm form = new ModalMultiForm();
+            form.Show();
+
+            ButtonTester buttonOne = new ButtonTester("myButton", "Form");
+
+            buttonOne.Click();
         }
 
-        public void SaveFile()
+        [Test]
+        public void TestModalFormByString()
         {
-            ClickOpenSaveButton();
+            new ModalMultiForm().Show();
+
+            ExpectModal("Form-0", "ClickHandler");
+
+            ButtonTester buttonOne = new ButtonTester("myButton", "Form");
+
+            buttonOne.Click();
         }
     }
 }

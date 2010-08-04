@@ -37,30 +37,30 @@ namespace NUnit.Extensions.Forms.TestApplications
     [TestFixture]
     public class DatabindingTest : NUnitFormTest
     {
-        public void falsehandler()
+        public void falsehandler(string name, System.IntPtr hWnd, System.Windows.Forms.Form form)
         {
-            MessageBoxTester mb = new MessageBoxTester("False");
+            MessageBoxTester mb = new MessageBoxTester(hWnd);
             Assert.AreEqual("False", mb.Text);
             mb.ClickOk();
         }
 
-        public void truehandler()
+        public void truehandler(string name, System.IntPtr hWnd, System.Windows.Forms.Form form)
         {
-            MessageBoxTester mb = new MessageBoxTester("True");
+            MessageBoxTester mb = new MessageBoxTester(hWnd);
             Assert.AreEqual("True", mb.Text);
             mb.ClickOk();
         }
 
-        public void oldhandler()
+        public void oldhandler(string name, System.IntPtr hWnd, System.Windows.Forms.Form form)
         {
-            MessageBoxTester mb = new MessageBoxTester("Old");
+            MessageBoxTester mb = new MessageBoxTester(hWnd);
             Assert.AreEqual("Old", mb.Text);
             mb.ClickOk();
         }
 
-        public void newhandler()
+        public void newhandler(string name, System.IntPtr hWnd, System.Windows.Forms.Form form)
         {
-            MessageBoxTester mb = new MessageBoxTester("New");
+            MessageBoxTester mb = new MessageBoxTester(hWnd);
             Assert.AreEqual("New", mb.Text);
             mb.ClickOk();
         }
@@ -68,46 +68,49 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test]
         public void CheckBoxDataSetBinding()
         {
-            ExpectModal("False", "falsehandler");
-            ExpectModal("True", "truehandler");
-
-            new CheckBoxDataSetBindingTestForm().Show();
-
+            CheckBoxDataSetBindingTestForm f;
+            f = new CheckBoxDataSetBindingTestForm();
+            f.Show();
+            ModalFormHandler = falsehandler;
             new ButtonTester("btnView").Click();
 
             new CheckBoxTester("myCheckBox").Check();
 
+            ModalFormHandler = truehandler;
             new ButtonTester("btnView").Click();
+            f.Close();
         }
 
         [Test]
         public void DataSetBindingWithGenericPropertySetter()
         {
-            ExpectModal("Old", "oldhandler");
-            ExpectModal("New", "newhandler");
-
-            new TextBoxDataSetBindingTestForm().Show();
-
+            TextBoxDataSetBindingTestForm f;
+            f = new TextBoxDataSetBindingTestForm();
+            f.Show();
+            ModalFormHandler = oldhandler;
             new ButtonTester("btnView").Click();
 
             new TextBoxTester("myTextBox")["Text"] = "New";
 
+            ModalFormHandler = newhandler;
             new ButtonTester("btnView").Click();
+            f.Close();
         }
 
         [Test]
         public void TextBoxDataSetBinding()
         {
-            ExpectModal("Old", "oldhandler");
-            ExpectModal("New", "newhandler");
-
-            new TextBoxDataSetBindingTestForm().Show();
+            TextBoxDataSetBindingTestForm f;
+            f = new TextBoxDataSetBindingTestForm();
+            f.Show();
+            ModalFormHandler = oldhandler;
 
             new ButtonTester("btnView").Click();
 
             new TextBoxTester("myTextBox").Enter("New");
-
+            ModalFormHandler = newhandler;
             new ButtonTester("btnView").Click();
+            f.Close();
         }
     }
 }

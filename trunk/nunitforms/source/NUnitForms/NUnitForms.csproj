@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OuterTest.cs" />
     <Compile Include="SendKey\ISendKeys.cs" />
     <Compile Include="SendKey\ISendKeysFactory.cs" />
     <Compile Include="SendKey\SendKeys.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="SendKey\SendKeysParser.cs" />
     <Compile Include="SendKey\SendKeysParserFactory.cs" />
     <Compile Include="SendKey\SendKeysParserGroup.cs" />
+    <Compile Include="Util\GetMessageHook.cs" />
     <Compile Include="Util\Strings.cs" />
     <Compile Include="Testers\TabControlTester.cs" />
     <Compile Include="Testers\TextBoxTester.cs" />

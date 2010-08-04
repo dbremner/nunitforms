@@ -37,7 +37,15 @@ namespace NUnit.Extensions.Forms.TestApplications
     [TestFixture]
     public class ModalFormsTest : NUnitFormTest
     {
-        public void ModalFormHandler()
+        public override bool UseHidden
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public void handler(string name, System.IntPtr hWnd, System.Windows.Forms.Form form)
         {
             ButtonTester btnClose = new ButtonTester("btnClose", "Form-0");
             btnClose.Click();
@@ -45,39 +53,29 @@ namespace NUnit.Extensions.Forms.TestApplications
 
         [Test]
         [ExpectedException(typeof (FormsTestAssertionException),
-            ExpectedMessage="expected 1 invocations of modal, but was invoked 0 times (Form Caption = Form-0)")]
+            ExpectedMessage = "Expected Modal Form did not show")]
         public void ModalFormDoesntShow()
         {
-            new ModalMultiForm().Show();
-
-            ExpectModal("Form-0", "ModalFormHandler");
-
+            ModalMultiForm f = new ModalMultiForm();
+            f.Show();
+            ModalFormHandler = handler;
+            f.Close();
             Verify();
+
         }
 
         [Test]
         public void TestModalForm()
         {
-            ExpectModal("Form-0", new ModalFormActivated(ModalFormHandler));
-
             ModalMultiForm form = new ModalMultiForm();
             form.Show();
-
+            
             ButtonTester buttonOne = new ButtonTester("myButton", "Form");
-
+            ModalFormHandler = handler;
             buttonOne.Click();
-        }
+            form.Close();
+            Verify();
 
-        [Test]
-        public void TestModalFormByString()
-        {
-            new ModalMultiForm().Show();
-
-            ExpectModal("Form-0", "ModalFormHandler");
-
-            ButtonTester buttonOne = new ButtonTester("myButton", "Form");
-
-            buttonOne.Click();
         }
     }
 }

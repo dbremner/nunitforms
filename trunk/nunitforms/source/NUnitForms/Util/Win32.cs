@@ -157,15 +157,20 @@ namespace NUnit.Extensions.Forms
 		[DllImport("user32.dll")]
 		internal static extern int GetClassName(IntPtr handleToWindow, StringBuilder className, int maxClassNameLength);
 
-		[DllImport("user32.dll")]
-		internal static extern IntPtr SetWindowsHookEx(int code, CBTCallback callbackFunction, IntPtr handleToInstance,
-		                                               int threadID);
+        [DllImport("user32.dll")]
+        internal static extern IntPtr SetWindowsHookEx(int code, CBTCallback callbackFunction, IntPtr handleToInstance,
+                                                       int threadID);
+        [DllImport("user32.dll", EntryPoint="SetWindowsHookEx")]
+        internal static extern IntPtr SetMSGWindowsHookEx(int code, MSGCallback callbackFunction, IntPtr handleToInstance,
+                                                       int threadID);
 
 		[DllImport("user32.dll")]
 		internal static extern bool UnhookWindowsHookEx(IntPtr handleToHook);
 
 		[DllImport("user32.dll")]
 		internal static extern IntPtr CallNextHookEx(IntPtr handleToHook, int nCode, IntPtr wParam, IntPtr lParam);
+		[DllImport("user32.dll", EntryPoint="CallNextHookEx")]
+		internal static extern IntPtr CallNextMSGHookEx(IntPtr handleToHook, int nCode, IntPtr wParam, ref System.Windows.Forms.Message lParam);
 
 		[DllImport("user32.dll")]
 		internal static extern IntPtr SendMessage(IntPtr handleToWindow, uint Message, UIntPtr wParam, IntPtr lParam);
@@ -239,6 +244,9 @@ namespace NUnit.Extensions.Forms
 
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern bool SetDlgItemText(IntPtr hDlg, int nIDDlgItem, string lpString);
+        
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern bool SetWindowText(IntPtr hWnd, string lpString);
 
 		[DllImport("user32.dll")]
         internal static extern int GetDlgItemText(IntPtr hDlg, int nIDDlgItem, StringBuilder lpString, int maxCount);
@@ -252,6 +260,7 @@ namespace NUnit.Extensions.Forms
         #region Nested type: CBTCallback
 
         internal delegate IntPtr CBTCallback(int code, IntPtr wParam, IntPtr lParam);
+        internal delegate IntPtr MSGCallback(int code, IntPtr wParam, ref System.Windows.Forms.Message lParam);
 
         #endregion
 
@@ -420,7 +429,7 @@ namespace NUnit.Extensions.Forms
         [DllImport("user32.dll")]
         public static extern bool SetKeyboardState(byte[] lpKeyState);
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern bool PostThreadMessage(uint idThread, uint Msg, UIntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll", SetLastError = true)]
@@ -428,6 +437,13 @@ namespace NUnit.Extensions.Forms
 
         [DllImport("user32.dll")]
         public static extern bool AttachThreadInput(int idAttach, uint idAttachTo, bool fAttach);
+
+        [DllImport("user32.dll", EntryPoint = "DestroyWindow")] //
+        public static extern bool DestroyWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll", EntryPoint = "RegisterWindowMessage", SetLastError = true)] //
+        public static extern int RegisterWindowMessage(string lpstring);
+
 
 	}
 }

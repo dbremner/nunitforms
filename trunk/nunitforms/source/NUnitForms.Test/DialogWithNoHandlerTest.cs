@@ -14,34 +14,34 @@ namespace NUnit.Extensions.Forms.Test
         [Test]
         public void TestAcceptButton()
         {
-            ExpectModal(
-                "DialogWithNoHandlersForm",
-                delegate
-                    {
-                        acceptButton = new ButtonTester("button1");
-                        acceptButton.Click();
-                    });
+            ModalFormHandler =
+                delegate(string name, System.IntPtr hWnd, System.Windows.Forms.Form fform)
+                {
+                    acceptButton = new ButtonTester("button1");
+                    acceptButton.Click();
+                };
             DialogWithNoHandlersForm form = new DialogWithNoHandlersForm();
             DialogResult result = form.ShowDialog();
             Assert.AreEqual(DialogResult.OK, result, "Wrong dialog result.");
             Assert.IsFalse(form.Visible, "Form was still visible.");
+            form.Close();
         }
 
         [Test]
         public void TestRejectButton()
         {
-            ExpectModal(
-                "DialogWithNoHandlersForm",
-                delegate
+            ModalFormHandler =
+                delegate(string name, System.IntPtr hWnd, System.Windows.Forms.Form fform)
                     {
                         rejectButton = new ButtonTester("button2");
                         rejectButton.Click();
-                    });
+                    };
 
             DialogWithNoHandlersForm form = new DialogWithNoHandlersForm();
             DialogResult result = form.ShowDialog();
             Assert.AreEqual(DialogResult.Cancel, result, "Wrong dialog result.");
             Assert.IsFalse(form.Visible, "Form was still visible.");
+            form.Close();
         }
     }
 }

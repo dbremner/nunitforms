@@ -40,25 +40,24 @@ namespace NUnit.Extensions.Forms.TestApplications
     /// Test Fixture for the OpenFileDialogTester class.
     ///</summary>
     [TestFixture]
-    //[Ignore("This dialog caused my tests to hang.")]
-    public class OpenFileDialogTest : NUnitFormTest
+    [Ignore("This dialog caused my tests to hang.")]
+    public class OpenFileDialogTestOld : NUnitFormTest
     {
-
-        
         ///<summary>
         /// Sets up this test by showing a new OpenFileDialogTestForm form.
         ///</summary>
         public override void Setup()
         {
             base.Setup();
+            new OpenFileDialogTestForm().Show();
         }
 
         ///<summary>
         /// Modal handler to click the open button.
         ///</summary>
-        public void OpenFileHandler(string name, System.IntPtr hWnd, System.Windows.Forms.Form form)
+        public void OpenFileHandler()
         {
-            OpenFileDialogTester dlg_tester = new OpenFileDialogTester(hWnd);
+            OpenFileDialogTester dlg_tester = new OpenFileDialogTester("Open");
             string fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NUnitForms.dll");
             dlg_tester.OpenFile(fileName);
         }
@@ -66,9 +65,9 @@ namespace NUnit.Extensions.Forms.TestApplications
         ///<summary>
         /// Modal handler to click the cancel button.
         ///</summary>
-        public void CancelFileHandler(string name, System.IntPtr hWnd, System.Windows.Forms.Form form)
+        public void CancelFileHandler()
         {
-            OpenFileDialogTester dlg_tester = new OpenFileDialogTester(hWnd);
+            OpenFileDialogTester dlg_tester = new OpenFileDialogTester("Open");
             dlg_tester.ClickCancel();
         }
 
@@ -78,22 +77,11 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test, STAThread]
         public void CancelTest()
         {
-            OpenFileDialogTestForm f = new OpenFileDialogTestForm();
-            f.Show();
-
             LabelTester label1 = new LabelTester("lblFileName");
+            ExpectFileDialog("CancelFileHandler");
             ButtonTester open_btn = new ButtonTester("btOpenFile");
-            ModalFormHandler = CancelFileHandler;
-            System.Windows.Forms.Application.DoEvents();
             open_btn.Click();
-            System.Windows.Forms.Application.DoEvents();
-
-
             Assert.AreEqual(label1.Text, "cancel pressed");
-
-            f.Close();
-
-            Assert.Pass();
         }
 
         ///<summary>
@@ -102,25 +90,19 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test, STAThread]
         public void OpenTest()
         {
-            OpenFileDialogTestForm f = new OpenFileDialogTestForm();
-            f.Show();
             LabelTester label1 = new LabelTester("lblFileName");
-            ModalFormHandler = OpenFileHandler;
+            ExpectFileDialog("OpenFileHandler");
             string fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NUnitForms.dll");
             ButtonTester open_btn = new ButtonTester("btOpenFile");
             open_btn.Click();
 
             Assert.AreEqual(label1.Text.ToLower(), fileName.ToLower());
-            f.Close();
-            Assert.Pass();
         }
 
-        [Test,
+        [Test, STAThread,
          Ignore("This test is used for debug confidence, not to prove the functionality of the OpenFileDialogTester.")]
         public void OpenTest_ConfidenceOnManyOpens()
         {
-            OpenFileDialogTestForm f = new OpenFileDialogTestForm();
-            f.Show();
             for (int count = 0; count < 1000; count++)
             {
                 //PROBLEM
@@ -136,15 +118,13 @@ namespace NUnit.Extensions.Forms.TestApplications
                  */
 
                 LabelTester label1 = new LabelTester("lblFileName");
-                ModalFormHandler = OpenFileHandler;
+                ExpectFileDialog("OpenFileHandler");
                 string fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NUnitForms.dll");
                 ButtonTester open_btn = new ButtonTester("btOpenFile");
                 open_btn.Click();
 
                 Assert.AreEqual(label1.Text.ToLowerInvariant(), fileName.ToLowerInvariant());
             }
-            f.Close();
-            Assert.Pass();
         }
     }
 }

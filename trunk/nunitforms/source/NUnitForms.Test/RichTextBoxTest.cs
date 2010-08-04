@@ -40,16 +40,16 @@ namespace NUnit.Extensions.Forms.TestApplications
     [TestFixture]
     public class RichTextBoxTest : NUnitFormTest
     {
-        public void oldhandler()
+        public void oldhandler(string name, System.IntPtr hWnd, System.Windows.Forms.Form form)
         {
-            MessageBoxTester mb = new MessageBoxTester("Old");
+            MessageBoxTester mb = new MessageBoxTester(hWnd);
             Assert.AreEqual("Old", mb.Text);
             mb.ClickOk();
         }
 
-        public void newhandler()
+        public void newhandler(string name, System.IntPtr hWnd, System.Windows.Forms.Form form)
         {
-            MessageBoxTester mb = new MessageBoxTester("New");
+            MessageBoxTester mb = new MessageBoxTester(hWnd);
             Assert.AreEqual("New", mb.Text);
             mb.ClickOk();
         }
@@ -57,38 +57,42 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test]
         public void DataSetBinding()
         {
-            ExpectModal("Old", "oldhandler");
-            ExpectModal("New", "newhandler");
-
-            new RichTextBoxDataSetBindingTestForm().Show();
+            RichTextBoxDataSetBindingTestForm f = new RichTextBoxDataSetBindingTestForm();
+            f.Show();
+            ModalFormHandler = oldhandler;
             new ButtonTester("btnView").Click();
             new RichTextBoxTester("myRichTextBox").Enter("New");
+            ModalFormHandler = newhandler;
             new ButtonTester("btnView").Click();
+            f.Close();
         }
 
         [Test]
         public void DataSetBindingWithGenericPropertySetter()
         {
-            ExpectModal("Old", "oldhandler");
-            ExpectModal("New", "newhandler");
+            RichTextBoxDataSetBindingTestForm f = new RichTextBoxDataSetBindingTestForm();
+            f.Show();
 
-            new RichTextBoxDataSetBindingTestForm().Show();
-
+            ModalFormHandler = oldhandler;
             new ButtonTester("btnView").Click();
 
             new RichTextBoxTester("myRichTextBox")["Text"] = "New";
 
+            ModalFormHandler = newhandler;
             new ButtonTester("btnView").Click();
+            f.Close();
         }
 
         [Test]
         public void RichTextBox()
         {
-            new RichTextBoxTestForm().Show();
+            RichTextBoxTestForm f = new RichTextBoxTestForm();
+            f.Show();
             RichTextBoxTester box = new RichTextBoxTester("myTextBox");
             Assert.AreEqual("default", box.Text);
             box.Enter("Text");
             Assert.AreEqual("Text", box.Text);
+            f.Close();
         }
     }
 }

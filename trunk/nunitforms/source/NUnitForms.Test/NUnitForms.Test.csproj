@@ -69,8 +69,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GetMessageHookTest.cs" />
     <Compile Include="KeyboardControllerTest.cs" />
     <Compile Include="MockingTestFixture.cs" />
+    <Compile Include="OpenFileDialogTestOld.cs" />
+    <Compile Include="OuterTestTest.cs" />
+    <Compile Include="SaveFileDialogTestOld.cs" />
     <Compile Include="SendKeysParserTest.cs" />
     <Compile Include="SendKeysTests.cs" />
     <Compile Include="SimpleAPIKeyboardWithEmulateWindowSpecificEmulationTest.cs" />

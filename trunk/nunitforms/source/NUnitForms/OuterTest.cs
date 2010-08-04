@@ -1,8 +1,8 @@
-#region Copyright (c) 2006-2007, Luke T. Maxon (Authored by Anders Lillrank)
+﻿#region Copyright (c) 2003-2005, Luke T. Maxon
 
 /********************************************************************************************************************
 '
-' Copyright (c) 2006-2007, Luke T. Maxon
+' Copyright (c) 2003-2005, Luke T. Maxon
 ' All rights reserved.
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -30,46 +30,28 @@
 
 #endregion
 
+
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace NUnit.Extensions.Forms
 {
     /// <summary>
-    /// This class is used to test the built-in OpenFileDialog. This class is not meant to be
-    /// used directly. Instead you should use the ExpectOpenFileDialog and CancelOpenFileDialog functions
-    /// in the NUnitFormTest
-    /// class.
+    /// Meant to be used as a member in a test class not derived from NUnitFormTest.
+    /// The member should be created by setup, and disposed by teardown, or usinged
+    /// in the test function itself.
     /// </summary>
-    public class SaveFileDialogTester : FileDialogTester
+    public class OuterTest : NUnitFormTest, IDisposable
     {
-        /// <summary>
-        /// Constructs a new SaveFileDialogTester working on the dialog box having the given handle.
-        /// </summary>
-        public SaveFileDialogTester(IntPtr hWnd)
-            : base(hWnd)
+        public OuterTest()
         {
+            init();
         }
 
-        /// <summary>
-        /// Unreliable, kept for compatibility. The title is not actually used.
-        /// </summary>
-        [Obsolete]
-        public SaveFileDialogTester(string title)
-            : base(title)
+        public void Dispose()
         {
-        }
-
-        /// <summary>
-        /// Inputs the give file name into the dialog box, and clicks the save button.
-        /// </summary>
-        public void SaveFile(string file)
-        {
-            SetFileName(file);
-        }
-
-        public void SaveFile()
-        {
-            ClickOpenSaveButton();
+            Verify();
         }
     }
 }

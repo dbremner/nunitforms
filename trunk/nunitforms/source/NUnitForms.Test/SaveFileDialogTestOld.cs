@@ -36,7 +36,7 @@ using NUnit.Framework;
 namespace NUnit.Extensions.Forms.TestApplications
 {
     [TestFixture]
-    public class SaveFileDialogTest : NUnitFormTest
+    public class SaveFileDialogTestOld : NUnitFormTest
     {
         private LabelTester label1 = new LabelTester("lblFileName");
         private string _fileName = "";
@@ -50,36 +50,27 @@ namespace NUnit.Extensions.Forms.TestApplications
             form.Show();
         }
 
-        public override void TearDown()
-        {
-            form.Close();
-            base.TearDown();
-        }
-
-
         private void ClickSaveButton()
         {
             ButtonTester save_btn = new ButtonTester("btSave");
             save_btn.Click();
         }
 
-        public void SaveFileHandler(string name, System.IntPtr hWnd, System.Windows.Forms.Form form)
+        public void SaveFileHandler()
         {
-            SaveFileDialogTester dlg_tester = new SaveFileDialogTester(hWnd);
+            SaveFileDialogTester dlg_tester = new SaveFileDialogTester("Save As");
             dlg_tester.SaveFile(_fileName);
         }
 
-        public void CancelFileHandler(string name, System.IntPtr hWnd, System.Windows.Forms.Form form)
+        public void CancelFileHandler()
         {
-            SaveFileDialogTester dlg_tester = new SaveFileDialogTester(hWnd);
-
+            SaveFileDialogTester dlg_tester = new SaveFileDialogTester("Save As");
             dlg_tester.ClickCancel();
-
         }
 
-        public void SaveDefaultFileHandler(string name, System.IntPtr hWnd, System.Windows.Forms.Form form)
+        public void SaveDefaultFileHandler()
         {
-            SaveFileDialogTester dlg_tester = new SaveFileDialogTester(hWnd);
+            SaveFileDialogTester dlg_tester = new SaveFileDialogTester("Save As");
             dlg_tester.SaveFile();
         }
 
@@ -95,7 +86,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test, System.STAThread]
         public void CancelTest()
         {
-            ModalFormHandler = CancelFileHandler;
+            ExpectFileDialog("CancelFileHandler");
             ClickSaveButton();
             Assert.AreEqual(label1.Text, "cancel pressed");
         }
@@ -103,7 +94,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test, System.STAThread]
         public void SaveTest()
         {
-            ModalFormHandler = SaveFileHandler;
+            ExpectFileDialog("SaveFileHandler");
 
             // Generate a temporary file
             _fileName = Path.GetTempPath() + "NUnitFormsTestFile.tmp";
@@ -117,7 +108,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test, System.STAThread]
         public void SaveWithDefaultFile()
         {
-            ModalFormHandler = SaveDefaultFileHandler;
+            ExpectFileDialog("SaveDefaultFileHandler");
 
             _fileName = Path.GetTempPath() + "NUnitFormsDefaultTestFile.tmp";
             EnsureFileDoesntExist();

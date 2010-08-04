@@ -30,7 +30,7 @@
 
 #endregion
 
-using System.Threading;
+using System;
 
 namespace NUnit.Extensions.Forms
 {
@@ -43,22 +43,26 @@ namespace NUnit.Extensions.Forms
     public class OpenFileDialogTester : FileDialogTester
     {
         /// <summary>
-        /// Constructs a new OpenFileDialogTester with the given title.
+        /// Constructs a new OpenFileDialogTester working on the dialog box having the given handle.
         /// </summary>
-        public OpenFileDialogTester(string title) : base(title)
+        public OpenFileDialogTester(IntPtr hWnd) : base(hWnd)
+        {
+        }
+        /// <summary>
+        /// Unreliable, kept for compatibility. The title is not actually used.
+        /// </summary>
+        [Obsolete]
+        public OpenFileDialogTester(string title)
+            : base(title)
         {
         }
 
-
         ///<summary>
-        /// Opens the given file using this dialog, on a separate thread.
+        /// Inputs the give file name into the dialog box, and clicks the open button.
         ///</summary>
-        ///<param name="file"></param>
         public void OpenFile(string file)
         {
-            fileName = file;
-            Thread thr = new Thread(FileNameHandler);
-            thr.Start();
+            SetFileName(file);
         }
     }
 }
