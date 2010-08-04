@@ -38,33 +38,33 @@ namespace NUnit.Extensions.Forms.TestApplications
     [TestFixture]
     public class ModalDialogsTest : NUnitFormTest
     {
-        public void MessageBoxOkHandler()
+        public void MessageBoxOkHandler(string name, System.IntPtr hWnd)
         {
-            MessageBoxTester messageBox = new MessageBoxTester("caption");
+            MessageBoxTester messageBox = new MessageBoxTester(hWnd);
             Assert.AreEqual("test string", messageBox.Text);
             Assert.AreEqual("caption", messageBox.Title);
             messageBox.ClickOk();
         }
 
-        public void MessageBoxCancelHandler()
+        public void MessageBoxCancelHandler(string name, System.IntPtr hWnd)
         {
-            MessageBoxTester messageBox = new MessageBoxTester("caption");
+            MessageBoxTester messageBox = new MessageBoxTester(hWnd);
             Assert.AreEqual("test string", messageBox.Text);
             Assert.AreEqual("caption", messageBox.Title);
             messageBox.ClickCancel();
         }
 
-        public void SimpleOKHandler()
+        public void SimpleOKHandler(string name, System.IntPtr hWnd)
         {
-            MessageBoxTester messageBox = new MessageBoxTester("JustOK");
+            MessageBoxTester messageBox = new MessageBoxTester(hWnd);
             Assert.AreEqual("Just An OK Button", messageBox.Text);
             Assert.AreEqual("JustOK", messageBox.Title);
             messageBox.SendCommand(MessageBoxTester.Command.OK);
         }
 
-        public void OKAndCancelHandler()
+        public void OKAndCancelHandler(string name, System.IntPtr hWnd)
         {
-            MessageBoxTester messageBox = new MessageBoxTester("OKAndCancel");
+            MessageBoxTester messageBox = new MessageBoxTester(hWnd);
             messageBox.SendCommand(MessageBoxTester.Command.Cancel);
         }
 
@@ -79,21 +79,21 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test]
         public void TestMessageBoxCancel()
         {
-            ExpectModal("caption", "MessageBoxCancelHandler");
+            DialogBoxHandler = MessageBoxCancelHandler;
             MessageBox.Show("test string", "caption", MessageBoxButtons.OKCancel);
         }
 
         [Test]
         public void TestMessageBoxOK()
         {
-            ExpectModal("caption", "MessageBoxOkHandler");
+            DialogBoxHandler = MessageBoxOkHandler;
             MessageBox.Show("test string", "caption");
         }
 
         [Test]
         public void TestOKCancelMessageBox()
         {
-            ExpectModal("OKAndCancel", "OKAndCancelHandler");
+            DialogBoxHandler = OKAndCancelHandler;
             Assert.AreEqual(DialogResult.Cancel,
                             MessageBox.Show("Both OK and Cancel buttons", "OKAndCancel", MessageBoxButtons.OKCancel));
         }
@@ -101,13 +101,13 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test]
         public void TestSimpleMessageBox()
         {
-            ExpectModal("JustOK", "SimpleOKHandler");
+            DialogBoxHandler = SimpleOKHandler;
             Assert.AreEqual(DialogResult.OK, MessageBox.Show("Just An OK Button", "JustOK", MessageBoxButtons.OK));
         }
 
         [Test]
         [ExpectedException(typeof (FormsTestAssertionException),
-            ExpectedMessage = "expected 0 invocations of modal, but was invoked 1 times (Form Caption = blah)")]
+            ExpectedMessage = "Unexpected modals: blah, ")]
         public void UnexpectedModalIsClosedAndFails()
         {
             MessageBox.Show("I didn't expect this!", "blah");
@@ -116,34 +116,10 @@ namespace NUnit.Extensions.Forms.TestApplications
 
         [Test]
         [ExpectedException(typeof (FormsTestAssertionException),
-            ExpectedMessage = "expected 0 invocations of modal, but was invoked 1 times (Form Caption = Unnamed)")]
+            ExpectedMessage = "Unexpected modals: Unnamed, ")]
         public void UnexpectedModalIsClosedAndFailsNoTitle()
         {
             MessageBox.Show("I didn't expect this!"); // no title specified
-            Verify();
-        }
-
-        [Test]
-        [ExpectedException(typeof (FormsTestAssertionException),
-            ExpectedMessage =
-            "expected 0 invocations of modal, but was invoked 1 times (Form Caption = Error1)\r\nexpected 0 invocations of modal, but was invoked 1 times (Form Caption = Error2)\r\n"
-            )]
-        public void UnexpectedModalsEachReportErrors()
-        {
-            MessageBox.Show("I didn't expect this!", "Error1");
-            MessageBox.Show("I didn't expect this!", "Error2");
-            Verify();
-        }
-
-        [Test]
-        [ExpectedException(typeof (FormsTestAssertionException),
-            ExpectedMessage =
-            "expected 0 invocations of modal, but was invoked 2 times (Form Caption = Error1)"
-            )]
-        public void UnexpectedModalWithSameTitleReportsErrorCount()
-        {
-            MessageBox.Show("I didn't expect this!", "Error1");
-            MessageBox.Show("I didn't expect this!", "Error1");
             Verify();
         }
     }

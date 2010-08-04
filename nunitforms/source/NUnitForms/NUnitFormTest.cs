@@ -1,4 +1,4 @@
-#region Copyright (c) 2003-2005, Luke T. Maxon
+ #region Copyright (c) 2003-2005, Luke T. Maxon
 
 /********************************************************************************************************************
 '
@@ -89,24 +89,23 @@ namespace NUnit.Extensions.Forms
         }
 
         /// <summary>
-        /// This property controls whether a separate desktop is used at all.  I highly recommend that you
-        /// leave this as returning true.  Tests on the separate desktop are faster and safer.  (There is 
-        /// no danger of keyboard or mouse input going to your own separate running applications.)  However
-        /// I have heard report of operating systems or environments where the separate desktop does not work.
-        /// In that case there are 2 options.  You can override this method from your test class to return false.
-        /// Or you can set an environment variable called "UseHiddenDesktop" and set that to "false"  Either will
-        /// cause the tests to run on your original, standard desktop. 
+        /// This property controls whether a separate desktop is used at all. Tests on the separate desktop
+        /// are faster and safer (there is no danger of keyboard or mouse input going to your own separate 
+        /// running applications).  However, it fails on some systems; also, it is not possible to unlock 
+        /// by hand a blocked test (e.g. due to a modal form). In order to enable it, you can override
+        /// this method from your test class to return true. Or you can set an environment variable called
+        /// "UseHiddenDesktop" and set that to "true".
         /// </summary>
         public virtual bool UseHidden
         {
             get
             {
                 string useHiddenDesktop = Environment.GetEnvironmentVariable("UseHiddenDesktop");
-                if (useHiddenDesktop != null && useHiddenDesktop.ToUpper().Equals("FALSE"))
+                if (useHiddenDesktop != null && useHiddenDesktop.ToUpper().Equals("TRUE"))
                 {
-                    return false;
+                    return true;
                 }
-                return true;
+                return false;
             }
         }
 
@@ -133,6 +132,40 @@ namespace NUnit.Extensions.Forms
         }
 
         /// <summary>
+        /// Records a single shot modal form handler. The handler receives as arguments the title of the window,
+        /// its handle, and the corresponding form (null if it is not a form, i.e. a dialog box). The handler is
+        /// single shot: it is removed after being run; therefore, if it is expected to trigger a new modal form,
+        /// it should install a new handler before returning. The handler can work on dialog boxes by creating
+        /// a message box tester or file dialog tester, passing the handle of the box (its second argument) to the
+        /// tester's constructor. The tester constructors taking as argument the box title are unreliable and deprecated.
+        /// </summary>
+        public ModalFormHandler ModalFormHandler
+        {
+            get { return modal.FormHandler; }
+            set { modal.FormHandler = value; }
+        }
+
+        /// <summary>
+        /// Shorter version of ModalFormHandler without the form argument; meant for dialogs.
+        /// </summary>
+        public DialogBoxHandler DialogBoxHandler
+        {
+            set
+            {
+                if (value == null)
+                {
+                    ModalFormHandler = null;
+                    return;
+                }
+                ModalFormHandler = delegate(string name, IntPtr hWnd, Form form)
+                {
+                    value(name, hWnd);
+                };
+            }
+        }
+
+
+        /// <summary>
         /// This is the base classes setup method.  It will be called by NUnit before each test.
         /// You should not have anything to do with it.
         /// </summary>
@@ -140,6 +173,7 @@ namespace NUnit.Extensions.Forms
         public void init()
         {
             verified = false;
+
 
             if (!SystemInformation.UserInteractive)
             {
@@ -154,7 +188,7 @@ namespace NUnit.Extensions.Forms
             modal = new ModalFormTester();
             mouse = new MouseController();
             keyboard = new KeyboardController(new OldSendKeysFactory());
-
+            Util.GetMessageHook.InstallHook();
             Setup();
         }
 
@@ -187,95 +221,6 @@ namespace NUnit.Extensions.Forms
                     new SendKeysFactory(new SendKeysParserFactory(), new WindowSpecificSendKeyboardInput()));
         }
 
-        /// <summary>
-        /// This method is needed because the way the FileDialogs working are strange.
-        /// It seems that both open/save dialogs initial title is "Open". The handler
-        /// </summary>
-        protected void ExpectFileDialog(string modalHandler)
-        {
-            ExpectModal("Open", modalHandler);
-        }
-
-        /// <summary>
-        /// This method is needed because the way the FileDialogs working are strange.
-        /// It seems that both open/save dialogs initial title is "Open". The handler
-        /// </summary>
-        protected void ExpectFileDialog(string modalHandler, bool expected)
-        {
-            ExpectModal("Open", modalHandler, expected);
-        }
-
-        /// <summary>
-        /// This method is needed because the way the FileDialogs working are strange.
-        /// It seems that both open/save dialogs initial title is "Open". The handler
-        /// </summary>
-        protected void ExpectFileDialog(ModalFormActivated handler)
-        {
-            modal.ExpectModal("Open", handler, true);
-        }
-
-        /// <summary>
-        /// This method is needed because the way the FileDialogs working are strange.
-        /// It seems that both open/save dialogs initial title is "Open". The handler
-        /// </summary>
-        protected void ExpectFileDialog(ModalFormActivated handler, bool expected)
-        {
-            modal.ExpectModal("Open", handler, true);
-        }
-
-        /// <summary>
-        /// One of four overloaded methods to set up a modal dialog handler.  If you expect a modal
-        /// dialog to appear and can handle it during the test, use this method to set up the handler.
-        /// </summary>
-        /// <param name="name">The caption on the dialog you expect.</param>
-        /// <param name="handler">The method to call when that dialog appears.</param>
-        protected void ExpectModal(string name, ModalFormActivated handler)
-        {
-            modal.ExpectModal(name, handler, true);
-        }
-
-        /// <summary>
-        /// One of four overloaded methods to set up a modal dialog handler.  If you expect a modal
-        /// dialog to appear and can handle it during the test, use this method to set up the handler.
-        /// Because "expected" is usually (always) true if you are calling this, I don't expect it will
-        /// be used externally.
-        /// </summary>
-        /// <param name="name">The caption on the dialog you expect.</param>
-        /// <param name="handler">The method to call when that dialog appears.</param>
-        /// <param name="expected">A boolean to indicate whether you expect this modal dialog to appear.</param>
-        protected void ExpectModal(string name, ModalFormActivated handler, bool expected)
-        {
-            modal.ExpectModal(name, handler, expected);
-        }
-
-        /// <summary>
-        /// One of four overloaded methods to set up a modal dialog handler.  If you expect a modal
-        /// dialog to appear and can handle it during the test, use this method to set up the handler.
-        /// Because "expected" is usually (always) true if you are calling this, I don't expect it will
-        /// be used externally.
-        /// </summary>
-        /// <param name="name">The caption on the dialog you expect.</param>
-        /// <param name="handlerName">The name of the method to call when that dialog appears.</param>
-        /// <param name="expected">A boolean to indicate whether you expect this modal dialog to appear.</param>
-        protected void ExpectModal(string name, string handlerName, bool expected)
-        {
-            ExpectModal(name,
-                        (ModalFormActivated) Delegate.CreateDelegate(typeof (ModalFormActivated), this, handlerName),
-                        expected);
-        }
-
-        /// <summary>
-        /// One of four overloaded methods to set up a modal dialog handler.  If you are not sure which
-        /// to use, use this one.  If you expect a modal dialog to appear and can handle it during the
-        /// test, use this method to set up the handler. Because "expected" is usually (always) true 
-        /// if you are calling this, I don't expect it will be used externally.
-        /// </summary>
-        /// <param name="name">The caption on the dialog you expect.</param>
-        /// <param name="handlerName">The name of the method to call when that dialog appears.</param>
-        protected void ExpectModal(string name, string handlerName)
-        {
-            ExpectModal(name, handlerName, true);
-        }
 
         /// <summary>
         /// Override this Setup method if you have custom behavior to execute before each test
@@ -295,47 +240,64 @@ namespace NUnit.Extensions.Forms
         [TearDown]
         public void Verify()
         {
-            TearDown();
-
-            if (!verified)
+            try
             {
-                verified = true;
-                List<Form> allForms = new FormFinder().FindAll();
+                TearDown();
+                Util.GetMessageHook.RemoveHook();
 
-                foreach (Form form in allForms)
+                if (ModalFormHandler == null)
                 {
-                    if (!KeepAlive.ShouldKeepAlive(form))
+                    // Make an effort to ensure that no window message is left dangling
+                    // Such a message might cause an unexpected dialog box
+                    for (int i = 0; i < 10; ++i)
                     {
-                        form.Dispose();
-                        form.Hide();
+                        Application.DoEvents();
                     }
                 }
 
-                string[] errors = new string[0];
-                bool modalVerify = modal.Verify();
-                if (!modalVerify)
+                if (!verified)
                 {
-                    errors = modal.GetErrors();
+                    verified = true;
+                    List<Form> allForms = new FormFinder().FindAll();
+
+                    foreach (Form form in allForms)
+                    {
+                        if (!KeepAlive.ShouldKeepAlive(form))
+                        {
+                            form.Dispose();
+                            form.Hide();
+                        }
+                    }
+
+                    string[] errors = new string[0];
+                    ModalFormTester.Result modalResult = modal.Verify();
+                    if (!modalResult.AllModalsShown)
+                    {
+                        throw new FormsTestAssertionException("Expected Modal Form did not show");
+                    }
+                    if (modalResult.UnexpectedModalWasShown)
+                    {
+                        string msg = "Unexpected modals: ";
+                        foreach (string mod in modalResult.UnexpectedModals)
+                        {
+                            msg += mod + ", ";
+                        }
+                        throw new FormsTestAssertionException(msg);
+                    }
+
+                    modal.Dispose();
+
+                    if (UseHidden)
+                    {
+                        testDesktop.Dispose();
+                    }
                 }
+            }
+            finally
+            {
                 modal.Dispose();
-
-                if (UseHidden)
-                {
-                    testDesktop.Dispose();
-                }
-
                 mouse.Dispose();
                 keyboard.Dispose();
-
-                if (!modalVerify)
-                {
-                    string message = "";
-                    foreach (string m in errors)
-                    {
-                        message += m + ((errors.Length > 1) ? "\r\n" : "");
-                    }
-                    throw new FormsTestAssertionException(message);
-                }
             }
         }
 
@@ -345,6 +307,84 @@ namespace NUnit.Extensions.Forms
         /// </summary>
         public virtual void TearDown()
         {
+
         }
+
+        // Deprecated modal handling interface
+
+        /// <summary>
+        /// Unreliable. Deprecated in favor of ModalFormHandler/ModalDialogHandler.
+        /// </summary>
+        [Obsolete]
+        protected void ExpectFileDialog(string modalHandler)
+        {
+            ExpectModal(FileDialogTester.InitialFileDialogName, modalHandler);
+        }
+
+        /// <summary>
+        /// Unreliable. Deprecated in favor of ModalFormHandler/ModalDialogHandler.
+        /// </summary>
+        [Obsolete]
+        protected void ExpectFileDialog(string modalHandler, bool expected)
+        {
+            ExpectModal(FileDialogTester.InitialFileDialogName, modalHandler, expected);
+        }
+
+        /// <summary>
+        /// Unreliable. Deprecated in favor of ModalFormHandler/ModalDialogHandler.
+        /// </summary>
+        [Obsolete]
+        protected void ExpectFileDialog(ModalFormActivated handler)
+        {
+            modal.ExpectModal(FileDialogTester.InitialFileDialogName, handler, true);
+        }
+
+        /// <summary>
+        /// Unreliable. Deprecated in favor of ModalFormHandler/ModalDialogHandler.
+        /// </summary>
+        [Obsolete]
+        protected void ExpectFileDialog(ModalFormActivated handler, bool expected)
+        {
+            modal.ExpectModal(FileDialogTester.InitialFileDialogName, handler, true);
+        }
+
+        /// <summary>
+        /// Deprecated in favor of ModalFormHandler/ModalDialogHandler.
+        /// </summary>
+        [Obsolete]
+        protected void ExpectModal(string name, ModalFormActivated handler)
+        {
+            modal.ExpectModal(name, handler, true);
+        }
+
+        /// <summary>
+        /// Deprecated in favor of ModalFormHandler/ModalDialogHandler.
+        /// </summary>
+        [Obsolete]
+        protected void ExpectModal(string name, ModalFormActivated handler, bool expected)
+        {
+            modal.ExpectModal(name, handler, expected);
+        }
+
+        /// <summary>
+        /// Deprecated in favor of ModalFormHandler/ModalDialogHandler.
+        /// </summary>
+        [Obsolete]
+        protected void ExpectModal(string name, string handlerName, bool expected)
+        {
+            ExpectModal(name,
+                        (ModalFormActivated)Delegate.CreateDelegate(typeof(ModalFormActivated), this, handlerName),
+                        expected);
+        }
+
+        /// <summary>
+        /// Deprecated in favor of ModalFormHandler/ModalDialogHandler.
+        /// </summary>
+        [Obsolete]
+        protected void ExpectModal(string name, string handlerName)
+        {
+            ExpectModal(name, handlerName, true);
+        }
+
     }
 }

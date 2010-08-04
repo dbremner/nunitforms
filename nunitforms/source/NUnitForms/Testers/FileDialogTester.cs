@@ -42,8 +42,6 @@ namespace NUnit.Extensions.Forms
     ///</summary>
     public class FileDialogTester
     {
-        #region Private/Protected attributes.
-
         /// <summary>
         /// Control ID for the Cancel button.
         /// </summary>
@@ -59,70 +57,32 @@ namespace NUnit.Extensions.Forms
         /// </summary>
         protected const int OpenButton = 1;
 
-        /// <summary>
-        /// The filename to use when simulate an open file operation
-        /// </summary>
-        protected string fileName = "";
-
-
-        protected IntPtr handle = new IntPtr(0);
-
-        /// <summary>
-        /// Name/title of the OpenFileDialog 
-        /// </summary>
-        protected string name = "Open";
-
-        protected IntPtr wParam;
-
-        #endregion
-
-        /// <summary>
-        /// Default constructor...
-        /// </summary>
-        public FileDialogTester(string title)
+        IntPtr hWnd;
+        public IntPtr Handle
         {
-            name = title;
+            get { return hWnd; }
         }
 
-/*
-    public void OpenSaveFile(string file)
-    {
-      _fileName = file;
-      System.Threading.Thread thr = new System.Threading.Thread(new System.Threading.ThreadStart(OpenFileNameHandler));
-      thr.Start();
-    }
-    */
 
-        /// <summary>
-        /// This handler will be called when the OpenFileDialog is shown and the 
-        /// user have choose to open a file.
-        /// </summary>
-        protected void FileNameHandler()
+        public FileDialogTester(IntPtr hWnd)
         {
-            SetFileName(fileName);
+            this.hWnd = hWnd;
         }
 
-        /// <summary>
-        /// Simulates a click on  cancel.
-        /// For some reason we need to spawn a new thread because the FileDialog Caption
-        /// will not change to correct name if we just posts the message.
-        /// If we Calls the ClickCancelHandler directly we need to set the title
-        /// of the FileDialog to "Open". (Strange)
-        /// </summary>
-        public virtual void ClickCancel()
-        {
-            Thread thr = new Thread(ClickCancelHandler);
-            thr.Start();
-        }
-
+ 
         /// <summary>
         /// Clicks the cancel button of a OpenFiledialog.
         /// </summary>
-        public void ClickCancelHandler()
+        public void ClickCancel()
         {
-            IntPtr box = FindFileDialog();
-            IntPtr cancel_btn = Win32.GetDlgItem(box, CancelButton);
-            Win32.PostMessage(cancel_btn, Win32.BM_CLICK, (IntPtr) 0, IntPtr.Zero);
+            if (hWnd == IntPtr.Zero) hWnd = FindFileDialog();
+            Util.GetMessageHook.Record(ClickCancelCB);
+        }
+        bool ClickCancelCB()
+        {
+            IntPtr cancel_btn = Win32.GetDlgItem(hWnd, CancelButton);
+            Win32.PostMessage(cancel_btn, Win32.BM_CLICK, (IntPtr)0, IntPtr.Zero);
+            return true;
         }
 
         /// <summary>
@@ -130,71 +90,146 @@ namespace NUnit.Extensions.Forms
         /// </summary>
         protected void ClickOpenSaveButton()
         {
-            IntPtr box = FindFileDialog();
-            IntPtr open_btn = Win32.GetDlgItem(box, OpenButton);
-            Win32.PostMessage(open_btn, Win32.BM_CLICK, (IntPtr) 0, IntPtr.Zero);
+            if (hWnd == IntPtr.Zero) hWnd = FindFileDialog();
+            Util.GetMessageHook.Record(ClickOpenSaveButtonCB);
         }
+        bool ClickOpenSaveButtonCB()
+        {
+            IntPtr open_btn = Win32.GetDlgItem(hWnd, OpenButton);
+            Win32.PostMessage(open_btn, Win32.BM_CLICK, (IntPtr) 0, IntPtr.Zero);
+            return true;
+        }
+
 
         /// <summary>
         /// Sets the filename in the filename ComboBox and presses the OpenSave button.
         /// </summary>
-        /// <param name="file_name"></param>
-        protected void SetFileName(string file_name)
+        protected void SetFileName(string file)
         {
-            IntPtr box = FindFileDialog();
-            StringBuilder setFileName = new StringBuilder(file_name.Length);
-
-            int timeout = 1000000;
-
-            while (!Win32.IsWindowVisible(box) || timeout == 0)
+            if (hWnd == IntPtr.Zero) hWnd = FindFileDialog();
+            Util.GetMessageHook.Record(delegate() { return SetFileNameCB(file); });
+        }
+        bool SetFileNameCB(string file)
+        {
+            if (!Win32.IsWindowVisible(hWnd)) return false;
+            IntPtr fnh = Win32.GetDlgItem(hWnd, FileNameCheckBox);
+            if (fnh == IntPtr.Zero)
             {
-                --timeout;
+                // On Vista 64, it seems the combo box does not have an id. However, it contains a control with id 1001.
+                Win32.EnumChildWindows(hWnd,
+                    delegate(IntPtr wnd, IntPtr lparam)
+                    {
+                        if (Win32.GetDlgItem(wnd, 1001) == IntPtr.Zero) return 1;
+                        fnh = wnd;
+                        return 0;
+                    }, IntPtr.Zero);
+
+                if (fnh == IntPtr.Zero)
+                {
+                    throw new System.Exception("NUnitForms fatal error: cannot find filename box");
+                }
+
+                Util.GetMessageHook.Record(delegate()
+                {
+                    Win32.SetWindowText(fnh, file);
+                    StringBuilder sb = new StringBuilder(file.Length + 1);
+                    Win32.GetWindowText(fnh, sb, file.Length + 1);
+                    if (sb.ToString().ToLowerInvariant() != file.ToString().ToLowerInvariant())
+                    {
+                        return false;
+                    }
+
+                    IntPtr open_btn = Win32.GetDlgItem(hWnd, OpenButton);
+                    Win32.PostMessage(open_btn, Win32.BM_CLICK, (IntPtr)0, IntPtr.Zero);
+
+                    return true;
+                });
+            }
+            else
+            {
+                Win32.SetDlgItemText(hWnd, FileNameCheckBox, file);
+
+                StringBuilder sb = new StringBuilder(file.Length + 1);
+                Win32.GetDlgItemText(hWnd, FileNameCheckBox, sb, file.Length + 1);
+
+                if (sb.ToString().ToLowerInvariant() != file.ToString().ToLowerInvariant())
+                {
+                    return false;
+                }
+
+                IntPtr open_btn = Win32.GetDlgItem(hWnd, OpenButton);
+                Win32.PostMessage(open_btn, Win32.BM_CLICK, (IntPtr)0, IntPtr.Zero);
+                return true;
             }
 
-            while (setFileName.ToString() != file_name)
-            {
-                Win32.SetDlgItemText(box, FileNameCheckBox, file_name);
-                Win32.GetDlgItemText(box, FileNameCheckBox, setFileName, file_name.Length + 1);
-            }
+            return true;
+        }
 
-            IntPtr open_btn = Win32.GetDlgItem(box, OpenButton);
-            Win32.PostMessage(open_btn, Win32.BM_CLICK, (IntPtr) 0, IntPtr.Zero);
+        // Old interface
+
+        /// <summary>
+        /// Determines the initial name of the file dialog boxes, based on the locale.
+        /// Currently works for english and french only.
+        /// </summary>
+        static FileDialogTester()
+        {
+            // The initial name for the file dialogs depend on the locale.
+            // Add a case for your own system if you really want to use the obsoleted
+            // ExpectFileDialog functions
+            if (new System.Text.RegularExpressions.Regex("french|france",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase)
+                .IsMatch(System.Globalization.CultureInfo.CurrentCulture.EnglishName))
+            {
+                InitialFileDialogName = "Ouvrir";
+            }
+            else InitialFileDialogName = "Open";
+        }
+        /// <summary>
+        /// Initial name of the file dialog boxes. They seem to change name after their creation.
+        /// </summary>
+        public static string InitialFileDialogName
+        {
+            get;
+            private set;
+        }
+
+
+        [Obsolete]
+        public FileDialogTester(string title) 
+        {
+            // disregard the given title, since at the time it is called, it will always be InitialFileDialogName
+            hWnd = IntPtr.Zero;
         }
 
 
         /// <summary>
         /// Finds the OpenFileDialog.
         /// </summary>
-        /// <returns></returns>
-        protected IntPtr FindFileDialog()
+        protected static IntPtr FindFileDialog()
         {
-            if (handle != new IntPtr(0))
-            {
-                return handle;
-            }
-
-            lock (this)
-            {
-                IntPtr desktop = Win32.GetDesktopWindow();
-                Win32.EnumChildWindows(desktop, OnEnumWindow, IntPtr.Zero);
-                if (wParam == IntPtr.Zero)
+            IntPtr desktop = Win32.GetDesktopWindow();
+            IntPtr res = IntPtr.Zero;
+            Win32.EnumChildWindows(desktop,
+                delegate(IntPtr hwnd, IntPtr lParam)
                 {
-                    throw new ControlNotVisibleException("Open File Dialog is not visible");
-                }
-                return wParam;
-            }
-        }
-
-        private int OnEnumWindow(IntPtr hwnd, IntPtr lParam)
-        {
-            if (WindowHandle.IsDialog(hwnd))
+                    if (WindowHandle.IsDialog(hwnd))
+                    {
+                        string name = WindowHandle.GetCaption(hwnd);
+                        if (name == FileDialogTester.InitialFileDialogName
+                            // Vista 64 hack
+                            || name == "Save as" || name == "Enregistrer sous")
+                        {
+                            res = hwnd;
+                        }
+                    }
+                    return 1;
+                },
+                IntPtr.Zero);
+            if (res == IntPtr.Zero)
             {
-                if (name == null || WindowHandle.GetCaption(hwnd) == name)
-                {
-                    wParam = hwnd;
-                }
+                throw new ControlNotVisibleException("Open File Dialog is not visible");
             }
-            return 1;
+            return res;
         }
     }
 }

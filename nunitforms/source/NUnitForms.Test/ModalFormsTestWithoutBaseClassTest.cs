@@ -44,7 +44,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         {
             using (ModalFormTester tester = new ModalFormTester())
             {
-                tester.ExpectModal("Form-0", new ModalFormActivated(ModalFormHandler));
+                tester.FormHandler = ModalFormHandler;
 
                 //using (ModalMultiForm form = new ModalMultiForm())
                 //{
@@ -57,7 +57,7 @@ namespace NUnit.Extensions.Forms.TestApplications
             }
         }
 
-        public void ModalFormHandler()
+        public void ModalFormHandler(string name, System.IntPtr hWnd, System.Windows.Forms.Form form)
         {
             ButtonTester btnClose = new ButtonTester("btnClose", "Form-0");
             btnClose.Click();
@@ -72,8 +72,7 @@ namespace NUnit.Extensions.Forms.TestApplications
                 {
                     using (ModalFormTester modalTester = new ModalFormTester())
                     {
-                        modalTester.ExpectModal("Form-0", new ModalFormActivated(ModalFormHandler));
-
+                        modalTester.FormHandler = ModalFormHandler;
                         new ModalMultiForm().Show();
                         new ButtonTester("myButton", "Form").Click();
                     }

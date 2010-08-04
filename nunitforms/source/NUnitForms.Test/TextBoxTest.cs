@@ -31,22 +31,24 @@
 #endregion
 
 using NUnit.Framework;
+using System;
+using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.TestApplications
 {
     [TestFixture]
     public class TextBoxTest : NUnitFormTest
     {
-        public void oldhandler()
+        public void oldhandler(string name, IntPtr hWnd, Form form)
         {
-            MessageBoxTester mb = new MessageBoxTester("Old");
+            MessageBoxTester mb = new MessageBoxTester(hWnd);
             Assert.AreEqual("Old", mb.Text);
             mb.ClickOk();
         }
 
-        public void newhandler()
+        public void newhandler(string name, IntPtr hWnd, Form form)
         {
-            MessageBoxTester mb = new MessageBoxTester("New");
+            MessageBoxTester mb = new MessageBoxTester(hWnd);
             Assert.AreEqual("New", mb.Text);
             mb.ClickOk();
         }
@@ -54,41 +56,45 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test]
         public void DataSetBinding()
         {
-            ExpectModal("Old", "oldhandler");
-            ExpectModal("New", "newhandler");
+            TextBoxDataSetBindingTestForm f = new TextBoxDataSetBindingTestForm();
+            f.Show();
 
-            new TextBoxDataSetBindingTestForm().Show();
-
+            ModalFormHandler = oldhandler;
             new ButtonTester("btnView").Click();
 
             new TextBoxTester("myTextBox").Enter("New");
-
+            ModalFormHandler = newhandler;
             new ButtonTester("btnView").Click();
+
+            f.Close();
         }
 
         [Test]
         public void DataSetBindingWithGenericPropertySetter()
         {
-            ExpectModal("Old", "oldhandler");
-            ExpectModal("New", "newhandler");
+            TextBoxDataSetBindingTestForm f = new TextBoxDataSetBindingTestForm();
+            f.Show();
 
-            new TextBoxDataSetBindingTestForm().Show();
-
+            ModalFormHandler = oldhandler;
             new ButtonTester("btnView").Click();
 
             new TextBoxTester("myTextBox")["Text"] = "New";
 
+            ModalFormHandler = newhandler;
             new ButtonTester("btnView").Click();
+            f.Close();
         }
 
         [Test]
         public void TextBox()
         {
-            new TextBoxTestForm().Show();
+            TextBoxTestForm f = new TextBoxTestForm();
+            f.Show();
             TextBoxTester box = new TextBoxTester("myTextBox");
             Assert.AreEqual("default", box.Text);
             box.Enter("Text");
             Assert.AreEqual("Text", box.Text);
+            f.Close();
         }
     }
 }

@@ -1,8 +1,8 @@
-#region Copyright (c) 2006-2007, Luke T. Maxon (Authored by Anders Lillrank)
+﻿#region Copyright (c) 2003-2005, Luke T. Maxon
 
 /********************************************************************************************************************
 '
-' Copyright (c) 2006-2007, Luke T. Maxon
+' Copyright (c) 2003-2005, Luke T. Maxon
 ' All rights reserved.
 ' 
 ' Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -30,46 +30,36 @@
 
 #endregion
 
-using System;
+using NUnit.Framework;
+using System.Windows.Forms;
 
-namespace NUnit.Extensions.Forms
+namespace NUnit.Extensions.Forms.TestApplications
 {
-    /// <summary>
-    /// This class is used to test the built-in OpenFileDialog. This class is not meant to be
-    /// used directly. Instead you should use the ExpectOpenFileDialog and CancelOpenFileDialog functions
-    /// in the NUnitFormTest
-    /// class.
-    /// </summary>
-    public class SaveFileDialogTester : FileDialogTester
+    public class GetMessageHookTest
     {
-        /// <summary>
-        /// Constructs a new SaveFileDialogTester working on the dialog box having the given handle.
-        /// </summary>
-        public SaveFileDialogTester(IntPtr hWnd)
-            : base(hWnd)
+        [Test]
+        public void Test000()
         {
-        }
-
-        /// <summary>
-        /// Unreliable, kept for compatibility. The title is not actually used.
-        /// </summary>
-        [Obsolete]
-        public SaveFileDialogTester(string title)
-            : base(title)
-        {
-        }
-
-        /// <summary>
-        /// Inputs the give file name into the dialog box, and clicks the save button.
-        /// </summary>
-        public void SaveFile(string file)
-        {
-            SetFileName(file);
-        }
-
-        public void SaveFile()
-        {
-            ClickOpenSaveButton();
+            int i = 0;
+            try
+            {
+                Util.GetMessageHook.InstallHook();
+                Util.GetMessageHook.Record(delegate()
+                {
+                    ++i;
+                    return i == 2;
+                });
+                Assert.AreEqual(0, i);
+                Application.DoEvents();
+                Assert.AreEqual(2, i);
+                Application.DoEvents();
+                Assert.AreEqual(2, i);
+            }
+            finally
+            {
+                Util.GetMessageHook.RemoveHook();
+            }
+                        
         }
     }
 }

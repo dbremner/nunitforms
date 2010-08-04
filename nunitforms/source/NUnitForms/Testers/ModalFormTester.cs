@@ -41,8 +41,18 @@ namespace NUnit.Extensions.Forms
     /// <summary>
     /// Used to specify a handler for a Modal form that is displayed during testing.
     /// </summary>
-    public delegate void ModalFormActivated();
+    /// <param name="name">Title of the form. Note that the titles of the file dialog boxes are not reliable.</param>
+    /// <param name="hWnd">Handle of the modal form. Can be passed to the constructors of the dialog box testers.</param>
+    /// <param name="form">Reference to the modal form. Null if it is a dialog box.</param>
+    public delegate void ModalFormHandler(string name, IntPtr hWnd, Form form);
+    /// <summary>
+    /// Same as ModalFormHandler, without the form argument.
+    /// </summary>
+    public delegate void DialogBoxHandler(string name, IntPtr hWnd);
 
+    [Obsolete]
+    public delegate void ModalFormActivated();
+    [Obsolete]
     internal delegate void ModalFormActivatedHwnd(IntPtr hWnd);
 
     ///<summary>
@@ -56,10 +66,19 @@ namespace NUnit.Extensions.Forms
         private const int HCBT_MOVESIZE = 0;
         private const int HCBT_SETFOCUS = 9;
 
-        /// <summary>
-        /// The mapping of form titles to event handlers.
-        /// </summary>
-        private readonly Hashtable handlers = new Hashtable();
+
+        ModalFormHandler formHandler;
+        public ModalFormHandler FormHandler
+        {
+            get
+            {
+                return formHandler;
+            }
+            set
+            {
+                formHandler = value;
+            }
+        }
 
         private Win32.CBTCallback callback = null;
         private IntPtr handleToHook = IntPtr.Zero;
@@ -77,6 +96,7 @@ namespace NUnit.Extensions.Forms
         public ModalFormTester()
         {
             hwndList = new List<IntPtr>();
+            unexpectedModals = new System.Collections.Generic.List<string>();
             BeginListening();
         }
 
@@ -103,68 +123,56 @@ namespace NUnit.Extensions.Forms
             // when starting a new testcase.
             hwndList.Clear();
         }
-        /// <summary>
-        /// A <see cref="ModalFormActivatedHwnd"/> that tries to click the OK button of the modal form.
-        ///</summary>
-        public void UnexpectedModal(IntPtr hWnd)
-        {
-            MessageBoxTester messageBox = new MessageBoxTester(hWnd);
-            messageBox.ClickOk();
-        }
-
-        ///<summary>
-        /// Registers an expected handler for the given form caption.
-        ///</summary>
-        ///<param name="name">The caption of the form to handle.</param>
-        ///<param name="handler">The handler.</param>
-        public void ExpectModal(string name, ModalFormActivated handler)
-        {
-            ExpectModal(name, handler, true);
-        }
-
-        ///<summary>
-        /// Registers an expected or unexpected handler for the given form caption.
-        ///</summary>
-        ///<param name="name">The caption of the form to handle.</param>
-        ///<param name="handler">The handler.</param>
-        ///<param name="expected">True if this handler is expected; false if this handler is not expected.</param>
-        public void ExpectModal(string name, ModalFormActivated handler, bool expected)
-        {
-            handlers[name] = new Handler(handler, (expected ? 1 : 0), name);
-        }
-
-        ///<summary>
-        /// Registers an expected or unexpected handler for the given form caption.
-        ///</summary>
-        ///<param name="name">The caption of the form to handle.</param>
-        ///<param name="handler">The handler.</param>
-        ///<param name="expectedCount">number of times this handler is expected</param>
-        internal Handler Add(string name, ModalFormActivatedHwnd handler, int expectedCount)
-        {
-            Handler handlerObject = new Handler(handler, expectedCount, name);
-            handlers[name] = handlerObject;
-            return handlerObject;
-        }
 
         ~ModalFormTester()
         {
             Dispose();
         }
 
+
+        public class Result
+        {
+            bool allModalsShown;
+            public bool AllModalsShown
+            {
+                get { return allModalsShown; }
+            }
+            System.Collections.Generic.List<string> unexpectedModals;
+            public System.Collections.Generic.IEnumerable<string> UnexpectedModals
+            {
+                get { return unexpectedModals; }
+            }
+            public bool UnexpectedModalWasShown
+            {
+                get { return unexpectedModals.Count > 0; }
+            }
+            public Result(bool allShown, System.Collections.Generic.List<string> unexpected)
+            {
+                allModalsShown = allShown;
+                unexpectedModals = unexpected;
+            }
+        }
         /// <summary>
         /// Verifies that all expected handlers were invoked,
         /// and that no unexpected ones were.
         /// </summary>
-        public bool Verify()
+        public Result Verify()
         {
-            foreach (string name in handlers.Keys)
+            if (handlers.Count == 0)
             {
-                Handler h = (Handler) handlers[name];
-                if (!h.Verify())
-                    return false;
+                Result res = new Result(FormHandler == null, unexpectedModals);
+                unexpectedModals = new List<string>();
+                return res;
             }
-
-            return true;
+            else // the old interface was used
+            {
+                foreach (string name in handlers.Keys)
+                {
+                    Handler h = (Handler)handlers[name];
+                    if (!h.Verify()) return new Result(false, new List<string>());
+                }
+                return new Result(true, new List<string>());
+            }
         }
 
         private void BeginListening()
@@ -180,25 +188,33 @@ namespace NUnit.Extensions.Forms
             }
         }
 
-        private void Invoke(string name, IntPtr hWnd)
+        private void Invoke(string name, IntPtr hWnd, Form form)
         {
+
             if (name == null) return;
             if (name == string.Empty) name = "Unnamed";
+            ModalFormHandler h = formHandler;
+            formHandler = null;
 
-            Handler namedHandler = handlers[name] as Handler;
-            if (namedHandler == null)
-            {
-                namedHandler = Add(name, (ModalFormActivatedHwnd)
-                                         Delegate.CreateDelegate(typeof (ModalFormActivatedHwnd), this,
-                                                                 "UnexpectedModal"), 0);
-            }
-            namedHandler.Invoke(hWnd);
+            if (h == null) h = UnexpectedModal;
+
+            h(name, hWnd, form);
         }
+
+        System.Collections.Generic.List<string> unexpectedModals;
+
+        private void UnexpectedModal(string name, IntPtr hWnd, Form form)
+        {
+
+            Win32.DestroyWindow(hWnd);
+            unexpectedModals.Add(name);
+        }
+
+
 
         /// <summary>
         /// CBT callback called when a form is activated.
-        /// If the newly activated form is modal and matches any registered names,
-        /// invoke the appropriate hander.
+        /// If the newly activated form is modal, invoke the registered handler.
         /// </summary>
         private IntPtr Callback_ModalListener(int code, IntPtr wParam, IntPtr lParam)
         {
@@ -207,15 +223,23 @@ namespace NUnit.Extensions.Forms
                 // Some controls sends an HCBT_ACTIVATE when changed for example tabPages. We do not 
                 // want our handler to be called when a tabPage is changed. This is a problem in Modal
                 // modal windows.
-                if (!hwndList.Contains(wParam))
+                bool b = true;
+                if (hwndList.Contains(wParam))
+                {
+                    b = false;
+                }
+
+                if (b)
                 {
                     hwndList.Add(wParam);
                     FindWindowNameAndInvokeHandler(wParam);
                 }
+
             }
             if (code == HCBT_DESTROYWND)
             {
                 // Need to remove the handle when the window is destroyed.
+                
                 if (hwndList.Contains(wParam))
                 {
                     hwndList.Remove(wParam);
@@ -251,7 +275,9 @@ namespace NUnit.Extensions.Forms
             Form form = Form.FromHandle(hwnd) as Form;
             if (form != null && form.Modal)
             {
+
                 name = form.Name;
+
             }
             else if (WindowHandle.IsDialog(hwnd))
             {
@@ -260,26 +286,82 @@ namespace NUnit.Extensions.Forms
                 {
                     name = string.Empty;
                 }
+
             }
 
-            Invoke(name, hwnd);
+            Invoke(name, hwnd, form);
         }
 
-        public string[] GetErrors()
+        // Old interface compatibility
+        
+
+        ///<summary>
+        /// Registers an expected handler for the given form caption.
+        ///</summary>
+        ///<param name="name">The caption of the form to handle.</param>
+        ///<param name="handler">The handler.</param>
+        [Obsolete]
+        public void ExpectModal(string name, ModalFormActivated handler)
         {
-            ArrayList errors = new ArrayList();
-            foreach (string name in handlers.Keys)
-            {
-                Handler h = (Handler) handlers[name];
-                if (!h.Verify())
-                {
-                    errors.Add(h.GetError() + string.Format(" (Form Caption = {0})", h.Name));
-                }
-            }
-            return (string[]) errors.ToArray(typeof (string));
+            ExpectModal(name, handler, true);
         }
 
-        #region Nested type: Handler
+        ///<summary>
+        /// Registers an expected or unexpected handler for the given form caption.
+        ///</summary>
+        ///<param name="name">The caption of the form to handle.</param>
+        ///<param name="handler">The handler.</param>
+        ///<param name="expected">True if this handler is expected; false if this handler is not expected.</param>
+        [Obsolete]
+        public void ExpectModal(string name, ModalFormActivated handler, bool expected)
+        {
+            this.FormHandler = Adapter;
+            handlers[name] = new Handler(handler, (expected ? 1 : 0), name);
+        }
+
+        void Adapter(string name, IntPtr hWnd, Form f)
+        {
+            if (name == null) return;
+            if (name == string.Empty) name = "Unnamed";
+            // Vista 64 hack
+            if (name == "Save as" || name == "Enregistrer sous") name = FileDialogTester.InitialFileDialogName;
+            Handler namedHandler = handlers[name] as Handler;
+            if (namedHandler == null)
+            {
+                namedHandler = Add(name, (ModalFormActivatedHwnd)
+                                         Delegate.CreateDelegate(typeof(ModalFormActivatedHwnd), this,
+                                                                 "UnexpectedModal"), 0);
+            }
+            namedHandler.Invoke(hWnd);
+            this.FormHandler = Adapter;
+        }
+
+        ///<summary>
+        /// Registers an expected or unexpected handler for the given form caption.
+        ///</summary>
+        ///<param name="name">The caption of the form to handle.</param>
+        ///<param name="handler">The handler.</param>
+        ///<param name="expectedCount">number of times this handler is expected</param>
+        internal Handler Add(string name, ModalFormActivatedHwnd handler, int expectedCount)
+        {
+            Handler handlerObject = new Handler(handler, expectedCount, name);
+            handlers[name] = handlerObject;
+            return handlerObject;
+        }
+
+
+        /// <summary>
+        /// A <see cref="ModalFormActivatedHwnd"/> that tries to click the OK button of the modal form.
+        ///</summary>
+        public void UnexpectedModal(IntPtr hWnd)
+        {
+            MessageBoxTester messageBox = new MessageBoxTester(hWnd);
+            messageBox.ClickOk();
+        }
+
+
+
+        private readonly Hashtable handlers = new Hashtable();
 
         /// <summary>
         /// This class encapsulates a event handler
@@ -328,11 +410,11 @@ namespace NUnit.Extensions.Forms
                 {
                     if (handler is ModalFormActivated)
                     {
-                        handler.DynamicInvoke(new object[] {});
+                        handler.DynamicInvoke(new object[] { });
                     }
                     else if (handler is ModalFormActivatedHwnd)
                     {
-                        handler.DynamicInvoke(new object[] {hWnd});
+                        handler.DynamicInvoke(new object[] { hWnd });
                     }
                 }
                 catch (TargetInvocationException ex)
@@ -358,6 +440,6 @@ namespace NUnit.Extensions.Forms
             }
         }
 
-        #endregion
+
     }
 }
