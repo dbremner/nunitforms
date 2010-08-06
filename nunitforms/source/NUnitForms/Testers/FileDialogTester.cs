@@ -169,7 +169,7 @@ namespace NUnit.Extensions.Forms
 
         /// <summary>
         /// Determines the initial name of the file dialog boxes, based on the locale.
-        /// Currently works for english and french only.
+        /// Currently works for english, german and french only.
         /// </summary>
         static FileDialogTester()
         {
@@ -181,6 +181,12 @@ namespace NUnit.Extensions.Forms
                 .IsMatch(System.Globalization.CultureInfo.CurrentCulture.EnglishName))
             {
                 InitialFileDialogName = "Ouvrir";
+            } 
+            else if (new System.Text.RegularExpressions.Regex("german",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase)
+                .IsMatch(System.Globalization.CultureInfo.CurrentCulture.EnglishName))
+            {
+                InitialFileDialogName = "Öffnen";
             }
             else InitialFileDialogName = "Open";
         }
@@ -217,7 +223,7 @@ namespace NUnit.Extensions.Forms
                         string name = WindowHandle.GetCaption(hwnd);
                         if (name == FileDialogTester.InitialFileDialogName
                             // Vista 64 hack
-                            || name == "Save as" || name == "Enregistrer sous")
+                            || name == "Save as" || name == "Enregistrer sous" || name == "Speichern unter")
                         {
                             res = hwnd;
                         }
