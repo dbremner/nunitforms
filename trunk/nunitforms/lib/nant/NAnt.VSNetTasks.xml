@@ -4,9 +4,9 @@
         <name>NAnt.VSNetTasks</name>
     </assembly>
     <members>
-        <member name="T:NAnt.VSNet.Rainier.Solution">
+        <member name="T:NAnt.VSNet.Everett.Solution">
             <summary>
-            Analyses Microsoft Visual Studio .NET 2002 (Rainier) solution files.
+            Analyses Microsoft Visual Studio .NET 2003 (Everett) solution files.
             </summary>
         </member>
         <member name="M:NAnt.VSNet.SolutionBase.GetProjectFileFromGuid(System.String)">
@@ -83,11 +83,6 @@
             yet been built; otherwise, <see langword="false"/>.
             </returns>
         </member>
-        <member name="T:NAnt.VSNet.Everett.Solution">
-            <summary>
-            Analyses Microsoft Visual Studio .NET 2003 (Everett) solution files.
-            </summary>
-        </member>
         <member name="M:NAnt.VSNet.Extensibility.IProjectBuildProvider.IsSupported(System.String,System.Xml.XmlElement)">
             <summary>
             Returns a number representing how much this file fits this project type.
@@ -98,6 +93,11 @@
             <remarks>
             This enables the override in other providers. Do not return big numbers, mainly when compring only on filename.
             </remarks>
+        </member>
+        <member name="T:NAnt.VSNet.Rainier.Solution">
+            <summary>
+            Analyses Microsoft Visual Studio .NET 2002 (Rainier) solution files.
+            </summary>
         </member>
         <member name="T:NAnt.VSNet.Tasks.SolutionTask">
             <summary>
@@ -660,18 +660,6 @@
             The current element in the collection.
             </returns>
         </member>
-        <member name="M:NAnt.VSNet.ConfigurationMap.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:NAnt.VSNet.ConfigurationMap"/> class.
-            </summary>
-        </member>
-        <member name="M:NAnt.VSNet.ConfigurationMap.#ctor(System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:NAnt.VSNet.ConfigurationMap"/>
-            class with the specified initial capacity. 
-            </summary>
-            <param name="capacity">The appropriate number of entries that the <see cref="T:NAnt.VSNet.ConfigurationMap"/> can initially contain.</param>
-        </member>
         <member name="M:NAnt.VSNet.ReferenceBase.GetPrimaryOutputFile(NAnt.VSNet.Configuration)">
             <summary>
             Gets the output path of the reference, without taking the "copy local"
@@ -909,6 +897,155 @@
             <value>
             <see langword="true" /> if this reference represents a system 
             assembly; otherwise, <see langword="false" />.
+            </value>
+        </member>
+        <member name="M:NAnt.VSNet.ConfigurationBase.#ctor(NAnt.VSNet.ProjectBase)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NAnt.VSNet.ConfigurationBase"/> 
+            class with the given <see cref="T:NAnt.VSNet.ProjectBase"/>.
+            </summary>
+            <param name="project">The project of the configuration.</param>
+        </member>
+        <member name="M:NAnt.VSNet.ConfigurationBase.ExpandMacro(System.String)">
+            <summary>
+            Expands the given macro.
+            </summary>
+            <param name="macro">The macro to expand.</param>
+            <returns>
+            The expanded macro.
+            </returns>
+            <exception cref="T:NAnt.Core.BuildException">
+              <para>The macro is not supported.</para>
+              <para>-or-</para>
+              <para>The macro is not implemented.</para>
+              <para>-or-</para>
+              <para>The macro cannot be expanded.</para>
+            </exception>
+            <exception cref="T:System.NotImplementedException">
+              <para>Expansion of a given macro is not yet implemented.</para>
+            </exception>
+        </member>
+        <member name="M:NAnt.VSNet.ConfigurationBase.EvaluateMacro(System.Text.RegularExpressions.Match)">
+            <summary>
+            Is called each time a regular expression match is found during a 
+            <see cref="M:System.Text.RegularExpressions.Regex.Replace(System.String,System.Text.RegularExpressions.MatchEvaluator)"/> operation.
+            </summary>
+            <param name="m">The <see cref="T:System.Text.RegularExpressions.Match"/> resulting from a single regular expression match during a <see cref="M:System.Text.RegularExpressions.Regex.Replace(System.String,System.Text.RegularExpressions.MatchEvaluator)"/>.</param>
+            <returns>
+            The expanded <see cref="T:System.Text.RegularExpressions.Match"/>.
+            </returns>
+        </member>
+        <member name="P:NAnt.VSNet.ConfigurationBase.Project">
+            <summary>
+            Gets the project.
+            </summary>
+        </member>
+        <member name="P:NAnt.VSNet.ConfigurationBase.Name">
+            <summary>
+            Gets the name of the configuration.
+            </summary>
+        </member>
+        <member name="P:NAnt.VSNet.ConfigurationBase.ObjectDir">
+            <summary>
+            Get the directory in which intermediate build output will be stored 
+            for this configuration.
+            </summary>
+            <remarks>
+            <para>
+            This is a directory relative to the project directory named 
+            <c>obj\&lt;configuration name&gt;</c>.
+            </para>
+            <para>
+            <c>.resx</c> and <c>.licx</c> files will only be recompiled if the
+            compiled resource files in the <see cref="P:NAnt.VSNet.ConfigurationBase.ObjectDir"/> are not 
+            uptodate.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:NAnt.VSNet.ConfigurationBase.OutputDir">
+            <summary>
+            Gets the output directory.
+            </summary>
+        </member>
+        <member name="P:NAnt.VSNet.ConfigurationBase.OutputPath">
+            <summary>
+            Gets the path for the output file.
+            </summary>
+        </member>
+        <member name="P:NAnt.VSNet.ConfigurationBase.BuildPath">
+            <summary>
+            Gets the path in which the output file will be created before its
+            copied to the actual output path.
+            </summary>
+        </member>
+        <member name="P:NAnt.VSNet.ConfigurationBase.RelativeOutputDir">
+            <summary>
+            Get the path of the output directory relative to the project
+            directory.
+            </summary>
+        </member>
+        <member name="P:NAnt.VSNet.ConfigurationBase.PlatformName">
+            <summary>
+            Gets the platform that the configuration targets.
+            </summary>
+            <value>
+            The platform targeted by the configuration.
+            </value>
+        </member>
+        <member name="P:NAnt.VSNet.ConfigurationBase.ExtraOutputFiles">
+            <summary>
+            Gets the set of output files that is specific to the project
+            configuration.
+            </summary>
+            <value>
+            The set of output files that is specific to the project
+            configuration.
+            </value>
+            <remarks>
+            The key of the case-insensitive <see cref="T:System.Collections.Hashtable"/> is the 
+            full path of the output file and the value is the path relative to
+            the output directory.
+            </remarks>
+        </member>
+        <member name="M:NAnt.VSNet.ConfigurationDictionary.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NAnt.VSNet.ConfigurationDictionary"/> class.
+            </summary>
+        </member>
+        <member name="M:NAnt.VSNet.ConfigurationMap.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NAnt.VSNet.ConfigurationMap"/> class.
+            </summary>
+        </member>
+        <member name="M:NAnt.VSNet.ConfigurationMap.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NAnt.VSNet.ConfigurationMap"/>
+            class with the specified initial capacity. 
+            </summary>
+            <param name="capacity">The appropriate number of entries that the <see cref="T:NAnt.VSNet.ConfigurationMap"/> can initially contain.</param>
+        </member>
+        <member name="P:NAnt.VSNet.ConfigurationSettings.PlatformName">
+            <summary>
+            Gets the platform that the configuration targets.
+            </summary>
+            <value>
+            The platform targeted by the configuration.
+            </value>
+        </member>
+        <member name="P:NAnt.VSNet.ConfigurationSettings.BuildPath">
+            <summary>
+            Gets the path in which the output file will be created before its
+            copied to the actual output path.
+            </summary>
+        </member>
+        <member name="P:NAnt.VSNet.ConfigurationSettings.RegisterForComInterop">
+            <summary>
+            Gets a value indicating whether to register the project output for
+            use with COM components.
+            </summary>
+            <value>
+            <see langword="true" /> if the project output should be registered
+            for use with COM components; otherwise, <see langword="false" />.
             </value>
         </member>
         <member name="T:NAnt.VSNet.ProjectBase">
@@ -1491,324 +1628,6 @@
             </summary>
             <value>
             For C# projects, the default file extension is &quot;.cs&quot;.
-            </value>
-        </member>
-        <member name="M:NAnt.VSNet.ConfigurationDictionary.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:NAnt.VSNet.ConfigurationDictionary"/> class.
-            </summary>
-        </member>
-        <member name="M:NAnt.VSNet.ConfigurationBase.#ctor(NAnt.VSNet.ProjectBase)">
-            <summary>
-            Initializes a new instance of the <see cref="T:NAnt.VSNet.ConfigurationBase"/> 
-            class with the given <see cref="T:NAnt.VSNet.ProjectBase"/>.
-            </summary>
-            <param name="project">The project of the configuration.</param>
-        </member>
-        <member name="M:NAnt.VSNet.ConfigurationBase.ExpandMacro(System.String)">
-            <summary>
-            Expands the given macro.
-            </summary>
-            <param name="macro">The macro to expand.</param>
-            <returns>
-            The expanded macro.
-            </returns>
-            <exception cref="T:NAnt.Core.BuildException">
-              <para>The macro is not supported.</para>
-              <para>-or-</para>
-              <para>The macro is not implemented.</para>
-              <para>-or-</para>
-              <para>The macro cannot be expanded.</para>
-            </exception>
-            <exception cref="T:System.NotImplementedException">
-              <para>Expansion of a given macro is not yet implemented.</para>
-            </exception>
-        </member>
-        <member name="M:NAnt.VSNet.ConfigurationBase.EvaluateMacro(System.Text.RegularExpressions.Match)">
-            <summary>
-            Is called each time a regular expression match is found during a 
-            <see cref="M:System.Text.RegularExpressions.Regex.Replace(System.String,System.Text.RegularExpressions.MatchEvaluator)"/> operation.
-            </summary>
-            <param name="m">The <see cref="T:System.Text.RegularExpressions.Match"/> resulting from a single regular expression match during a <see cref="M:System.Text.RegularExpressions.Regex.Replace(System.String,System.Text.RegularExpressions.MatchEvaluator)"/>.</param>
-            <returns>
-            The expanded <see cref="T:System.Text.RegularExpressions.Match"/>.
-            </returns>
-        </member>
-        <member name="P:NAnt.VSNet.ConfigurationBase.Project">
-            <summary>
-            Gets the project.
-            </summary>
-        </member>
-        <member name="P:NAnt.VSNet.ConfigurationBase.Name">
-            <summary>
-            Gets the name of the configuration.
-            </summary>
-        </member>
-        <member name="P:NAnt.VSNet.ConfigurationBase.ObjectDir">
-            <summary>
-            Get the directory in which intermediate build output will be stored 
-            for this configuration.
-            </summary>
-            <remarks>
-            <para>
-            This is a directory relative to the project directory named 
-            <c>obj\&lt;configuration name&gt;</c>.
-            </para>
-            <para>
-            <c>.resx</c> and <c>.licx</c> files will only be recompiled if the
-            compiled resource files in the <see cref="P:NAnt.VSNet.ConfigurationBase.ObjectDir"/> are not 
-            uptodate.
-            </para>
-            </remarks>
-        </member>
-        <member name="P:NAnt.VSNet.ConfigurationBase.OutputDir">
-            <summary>
-            Gets the output directory.
-            </summary>
-        </member>
-        <member name="P:NAnt.VSNet.ConfigurationBase.OutputPath">
-            <summary>
-            Gets the path for the output file.
-            </summary>
-        </member>
-        <member name="P:NAnt.VSNet.ConfigurationBase.BuildPath">
-            <summary>
-            Gets the path in which the output file will be created before its
-            copied to the actual output path.
-            </summary>
-        </member>
-        <member name="P:NAnt.VSNet.ConfigurationBase.RelativeOutputDir">
-            <summary>
-            Get the path of the output directory relative to the project
-            directory.
-            </summary>
-        </member>
-        <member name="P:NAnt.VSNet.ConfigurationBase.PlatformName">
-            <summary>
-            Gets the platform that the configuration targets.
-            </summary>
-            <value>
-            The platform targeted by the configuration.
-            </value>
-        </member>
-        <member name="P:NAnt.VSNet.ConfigurationBase.ExtraOutputFiles">
-            <summary>
-            Gets the set of output files that is specific to the project
-            configuration.
-            </summary>
-            <value>
-            The set of output files that is specific to the project
-            configuration.
-            </value>
-            <remarks>
-            The key of the case-insensitive <see cref="T:System.Collections.Hashtable"/> is the 
-            full path of the output file and the value is the path relative to
-            the output directory.
-            </remarks>
-        </member>
-        <member name="P:NAnt.VSNet.ProjectEntry.Project">
-            <summary>
-            Gets or sets the in memory representation of the project.
-            </summary>
-            <value>
-            The in memory representation of the project, or <see langword="null" />
-            if the project is not (yet) loaded.
-            </value>
-            <remarks>
-            This property will always be <see langword="null" /> for
-            projects that are not supported.
-            </remarks>
-        </member>
-        <member name="P:NAnt.VSNet.ProjectEntry.BuildConfigurations">
-            <summary>
-            Return a mapping between the configurations defined in the
-            solution file and the project build configurations.
-            </summary>
-            <value>
-            Mapping between configurations defined in the solution file
-            and the project build configurations, or <see langword="null" />
-            if the project is not defined in a solution file.
-            </value>
-            <remarks>
-            This mapping only includes project build configurations that
-            are configured to be built for a given solution configuration.
-            </remarks>
-        </member>
-        <member name="T:NAnt.VSNet.ProjectEntryCollection">
-            <summary>
-            Contains a collection of <see cref="T:NAnt.VSNet.ProjectEntry"/> elements.
-            </summary>
-        </member>
-        <member name="M:NAnt.VSNet.ProjectEntryCollection.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:NAnt.VSNet.ProjectEntryCollection"/> class.
-            </summary>
-        </member>
-        <member name="M:NAnt.VSNet.ProjectEntryCollection.#ctor(NAnt.VSNet.ProjectEntryCollection)">
-            <summary>
-            Initializes a new instance of the <see cref="T:NAnt.VSNet.ProjectEntryCollection"/> class
-            with the specified <see cref="T:NAnt.VSNet.ProjectEntryCollection"/> instance.
-            </summary>
-        </member>
-        <member name="M:NAnt.VSNet.ProjectEntryCollection.#ctor(NAnt.VSNet.ProjectEntry[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:NAnt.VSNet.ProjectEntryCollection"/> class
-            with the specified array of <see cref="T:NAnt.VSNet.ProjectEntry"/> instances.
-            </summary>
-        </member>
-        <member name="M:NAnt.VSNet.ProjectEntryCollection.Add(NAnt.VSNet.ProjectEntry)">
-            <summary>
-            Adds a <see cref="T:NAnt.VSNet.ProjectEntry"/> to the end of the collection.
-            </summary>
-            <param name="item">The <see cref="T:NAnt.VSNet.ProjectEntry"/> to be added to the end of the collection.</param> 
-            <returns>
-            The position into which the new element was inserted.
-            </returns>
-        </member>
-        <member name="M:NAnt.VSNet.ProjectEntryCollection.AddRange(NAnt.VSNet.ProjectEntry[])">
-            <summary>
-            Adds the elements of a <see cref="T:NAnt.VSNet.ProjectEntry"/> array to the end of the collection.
-            </summary>
-            <param name="items">The array of <see cref="T:NAnt.VSNet.ProjectEntry"/> elements to be added to the end of the collection.</param> 
-        </member>
-        <member name="M:NAnt.VSNet.ProjectEntryCollection.AddRange(NAnt.VSNet.ProjectEntryCollection)">
-            <summary>
-            Adds the elements of a <see cref="T:NAnt.VSNet.ProjectEntryCollection"/> to the end of the collection.
-            </summary>
-            <param name="items">The <see cref="T:NAnt.VSNet.ProjectEntryCollection"/> to be added to the end of the collection.</param> 
-        </member>
-        <member name="M:NAnt.VSNet.ProjectEntryCollection.Contains(NAnt.VSNet.ProjectEntry)">
-            <summary>
-            Determines whether a <see cref="T:NAnt.VSNet.ProjectEntry"/> is in the collection.
-            </summary>
-            <param name="item">The <see cref="T:NAnt.VSNet.ProjectEntry"/> to locate in the collection.</param> 
-            <returns>
-            <see langword="true"/> if <paramref name="item"/> is found in the 
-            collection; otherwise, <see langword="false"/>.
-            </returns>
-        </member>
-        <member name="M:NAnt.VSNet.ProjectEntryCollection.Contains(System.String)">
-            <summary>
-            Determines whether a <see cref="T:NAnt.VSNet.ProjectEntry"/> with the specified
-            GUID is in the collection, using a case-insensitive lookup.
-            </summary>
-            <param name="value">The GUID to locate in the collection.</param> 
-            <returns>
-            <see langword="true"/> if a <see cref="T:NAnt.VSNet.ProjectEntry"/> with GUID 
-            <paramref name="value"/> is found in the collection; otherwise, 
-            <see langword="false"/>.
-            </returns>
-        </member>
-        <member name="M:NAnt.VSNet.ProjectEntryCollection.CopyTo(NAnt.VSNet.ProjectEntry[],System.Int32)">
-            <summary>
-            Copies the entire collection to a compatible one-dimensional array, starting at the specified index of the target array.        
-            </summary>
-            <param name="array">The one-dimensional array that is the destination of the elements copied from the collection. The array must have zero-based indexing.</param> 
-            <param name="index">The zero-based index in <paramref name="array"/> at which copying begins.</param>
-        </member>
-        <member name="M:NAnt.VSNet.ProjectEntryCollection.IndexOf(NAnt.VSNet.ProjectEntry)">
-            <summary>
-            Retrieves the index of a specified <see cref="T:NAnt.VSNet.ProjectEntry"/> object in the collection.
-            </summary>
-            <param name="item">The <see cref="T:NAnt.VSNet.ProjectEntry"/> object for which the index is returned.</param> 
-            <returns>
-            The index of the specified <see cref="T:NAnt.VSNet.ProjectEntry"/>. If the <see cref="T:NAnt.VSNet.ProjectEntry"/> is not currently a member of the collection, it returns -1.
-            </returns>
-        </member>
-        <member name="M:NAnt.VSNet.ProjectEntryCollection.Insert(System.Int32,NAnt.VSNet.ProjectEntry)">
-            <summary>
-            Inserts a <see cref="T:NAnt.VSNet.ProjectEntry"/> into the collection at the specified index.
-            </summary>
-            <param name="index">The zero-based index at which <paramref name="item"/> should be inserted.</param>
-            <param name="item">The <see cref="T:NAnt.VSNet.ProjectEntry"/> to insert.</param>
-        </member>
-        <member name="M:NAnt.VSNet.ProjectEntryCollection.GetEnumerator">
-            <summary>
-            Returns an enumerator that can iterate through the collection.
-            </summary>
-            <returns>
-            A <see cref="T:NAnt.VSNet.ProjectEntryEnumerator"/> for the entire collection.
-            </returns>
-        </member>
-        <member name="M:NAnt.VSNet.ProjectEntryCollection.Remove(NAnt.VSNet.ProjectEntry)">
-            <summary>
-            Removes a member from the collection.
-            </summary>
-            <param name="item">The <see cref="T:NAnt.VSNet.ProjectEntry"/> to remove from the collection.</param>
-        </member>
-        <member name="P:NAnt.VSNet.ProjectEntryCollection.Item(System.Int32)">
-            <summary>
-            Gets or sets the element at the specified index.
-            </summary>
-            <param name="index">The zero-based index of the element to get or set.</param>
-        </member>
-        <member name="P:NAnt.VSNet.ProjectEntryCollection.Item(System.String)">
-            <summary>
-            Gets the <see cref="T:NAnt.VSNet.ProjectEntry"/> with the specified GUID.
-            </summary>
-            <param name="guid">The GUID of the <see cref="T:NAnt.VSNet.ProjectEntry"/> to get.</param>
-            <remarks>
-            Performs a case-insensitive lookup.
-            </remarks>
-        </member>
-        <member name="T:NAnt.VSNet.ProjectEntryEnumerator">
-            <summary>
-            Enumerates the <see cref="T:NAnt.VSNet.ProjectEntry"/> elements of a <see cref="T:NAnt.VSNet.ProjectEntryCollection"/>.
-            </summary>
-        </member>
-        <member name="M:NAnt.VSNet.ProjectEntryEnumerator.#ctor(NAnt.VSNet.ProjectEntryCollection)">
-            <summary>
-            Initializes a new instance of the <see cref="T:NAnt.VSNet.ProjectEntryEnumerator"/> class
-            with the specified <see cref="T:NAnt.VSNet.ProjectEntryCollection"/>.
-            </summary>
-            <param name="arguments">The collection that should be enumerated.</param>
-        </member>
-        <member name="M:NAnt.VSNet.ProjectEntryEnumerator.MoveNext">
-            <summary>
-            Advances the enumerator to the next element of the collection.
-            </summary>
-            <returns>
-            <see langword="true" /> if the enumerator was successfully advanced 
-            to the next element; <see langword="false" /> if the enumerator has 
-            passed the end of the collection.
-            </returns>
-        </member>
-        <member name="M:NAnt.VSNet.ProjectEntryEnumerator.Reset">
-            <summary>
-            Sets the enumerator to its initial position, which is before the 
-            first element in the collection.
-            </summary>
-        </member>
-        <member name="P:NAnt.VSNet.ProjectEntryEnumerator.Current">
-            <summary>
-            Gets the current element in the collection.
-            </summary>
-            <returns>
-            The current element in the collection.
-            </returns>
-        </member>
-        <member name="P:NAnt.VSNet.ConfigurationSettings.PlatformName">
-            <summary>
-            Gets the platform that the configuration targets.
-            </summary>
-            <value>
-            The platform targeted by the configuration.
-            </value>
-        </member>
-        <member name="P:NAnt.VSNet.ConfigurationSettings.BuildPath">
-            <summary>
-            Gets the path in which the output file will be created before its
-            copied to the actual output path.
-            </summary>
-        </member>
-        <member name="P:NAnt.VSNet.ConfigurationSettings.RegisterForComInterop">
-            <summary>
-            Gets a value indicating whether to register the project output for
-            use with COM components.
-            </summary>
-            <value>
-            <see langword="true" /> if the project output should be registered
-            for use with COM components; otherwise, <see langword="false" />.
             </value>
         </member>
         <member name="T:NAnt.VSNet.GenericSolution">
@@ -2599,6 +2418,187 @@
             </summary>
         </member>
         <member name="P:NAnt.VSNet.ProjectBaseEnumerator.Current">
+            <summary>
+            Gets the current element in the collection.
+            </summary>
+            <returns>
+            The current element in the collection.
+            </returns>
+        </member>
+        <member name="P:NAnt.VSNet.ProjectEntry.Project">
+            <summary>
+            Gets or sets the in memory representation of the project.
+            </summary>
+            <value>
+            The in memory representation of the project, or <see langword="null" />
+            if the project is not (yet) loaded.
+            </value>
+            <remarks>
+            This property will always be <see langword="null" /> for
+            projects that are not supported.
+            </remarks>
+        </member>
+        <member name="P:NAnt.VSNet.ProjectEntry.BuildConfigurations">
+            <summary>
+            Return a mapping between the configurations defined in the
+            solution file and the project build configurations.
+            </summary>
+            <value>
+            Mapping between configurations defined in the solution file
+            and the project build configurations, or <see langword="null" />
+            if the project is not defined in a solution file.
+            </value>
+            <remarks>
+            This mapping only includes project build configurations that
+            are configured to be built for a given solution configuration.
+            </remarks>
+        </member>
+        <member name="T:NAnt.VSNet.ProjectEntryCollection">
+            <summary>
+            Contains a collection of <see cref="T:NAnt.VSNet.ProjectEntry"/> elements.
+            </summary>
+        </member>
+        <member name="M:NAnt.VSNet.ProjectEntryCollection.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NAnt.VSNet.ProjectEntryCollection"/> class.
+            </summary>
+        </member>
+        <member name="M:NAnt.VSNet.ProjectEntryCollection.#ctor(NAnt.VSNet.ProjectEntryCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NAnt.VSNet.ProjectEntryCollection"/> class
+            with the specified <see cref="T:NAnt.VSNet.ProjectEntryCollection"/> instance.
+            </summary>
+        </member>
+        <member name="M:NAnt.VSNet.ProjectEntryCollection.#ctor(NAnt.VSNet.ProjectEntry[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:NAnt.VSNet.ProjectEntryCollection"/> class
+            with the specified array of <see cref="T:NAnt.VSNet.ProjectEntry"/> instances.
+            </summary>
+        </member>
+        <member name="M:NAnt.VSNet.ProjectEntryCollection.Add(NAnt.VSNet.ProjectEntry)">
+            <summary>
+            Adds a <see cref="T:NAnt.VSNet.ProjectEntry"/> to the end of the collection.
+            </summary>
+            <param name="item">The <see cref="T:NAnt.VSNet.ProjectEntry"/> to be added to the end of the collection.</param> 
+            <returns>
+            The position into which the new element was inserted.
+            </returns>
+        </member>
+        <member name="M:NAnt.VSNet.ProjectEntryCollection.AddRange(NAnt.VSNet.ProjectEntry[])">
+            <summary>
+            Adds the elements of a <see cref="T:NAnt.VSNet.ProjectEntry"/> array to the end of the collection.
+            </summary>
+            <param name="items">The array of <see cref="T:NAnt.VSNet.ProjectEntry"/> elements to be added to the end of the collection.</param> 
+        </member>
+        <member name="M:NAnt.VSNet.ProjectEntryCollection.AddRange(NAnt.VSNet.ProjectEntryCollection)">
+            <summary>
+            Adds the elements of a <see cref="T:NAnt.VSNet.ProjectEntryCollection"/> to the end of the collection.
+            </summary>
+            <param name="items">The <see cref="T:NAnt.VSNet.ProjectEntryCollection"/> to be added to the end of the collection.</param> 
+        </member>
+        <member name="M:NAnt.VSNet.ProjectEntryCollection.Contains(NAnt.VSNet.ProjectEntry)">
+            <summary>
+            Determines whether a <see cref="T:NAnt.VSNet.ProjectEntry"/> is in the collection.
+            </summary>
+            <param name="item">The <see cref="T:NAnt.VSNet.ProjectEntry"/> to locate in the collection.</param> 
+            <returns>
+            <see langword="true"/> if <paramref name="item"/> is found in the 
+            collection; otherwise, <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="M:NAnt.VSNet.ProjectEntryCollection.Contains(System.String)">
+            <summary>
+            Determines whether a <see cref="T:NAnt.VSNet.ProjectEntry"/> with the specified
+            GUID is in the collection, using a case-insensitive lookup.
+            </summary>
+            <param name="value">The GUID to locate in the collection.</param> 
+            <returns>
+            <see langword="true"/> if a <see cref="T:NAnt.VSNet.ProjectEntry"/> with GUID 
+            <paramref name="value"/> is found in the collection; otherwise, 
+            <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="M:NAnt.VSNet.ProjectEntryCollection.CopyTo(NAnt.VSNet.ProjectEntry[],System.Int32)">
+            <summary>
+            Copies the entire collection to a compatible one-dimensional array, starting at the specified index of the target array.        
+            </summary>
+            <param name="array">The one-dimensional array that is the destination of the elements copied from the collection. The array must have zero-based indexing.</param> 
+            <param name="index">The zero-based index in <paramref name="array"/> at which copying begins.</param>
+        </member>
+        <member name="M:NAnt.VSNet.ProjectEntryCollection.IndexOf(NAnt.VSNet.ProjectEntry)">
+            <summary>
+            Retrieves the index of a specified <see cref="T:NAnt.VSNet.ProjectEntry"/> object in the collection.
+            </summary>
+            <param name="item">The <see cref="T:NAnt.VSNet.ProjectEntry"/> object for which the index is returned.</param> 
+            <returns>
+            The index of the specified <see cref="T:NAnt.VSNet.ProjectEntry"/>. If the <see cref="T:NAnt.VSNet.ProjectEntry"/> is not currently a member of the collection, it returns -1.
+            </returns>
+        </member>
+        <member name="M:NAnt.VSNet.ProjectEntryCollection.Insert(System.Int32,NAnt.VSNet.ProjectEntry)">
+            <summary>
+            Inserts a <see cref="T:NAnt.VSNet.ProjectEntry"/> into the collection at the specified index.
+            </summary>
+            <param name="index">The zero-based index at which <paramref name="item"/> should be inserted.</param>
+            <param name="item">The <see cref="T:NAnt.VSNet.ProjectEntry"/> to insert.</param>
+        </member>
+        <member name="M:NAnt.VSNet.ProjectEntryCollection.GetEnumerator">
+            <summary>
+            Returns an enumerator that can iterate through the collection.
+            </summary>
+            <returns>
+            A <see cref="T:NAnt.VSNet.ProjectEntryEnumerator"/> for the entire collection.
+            </returns>
+        </member>
+        <member name="M:NAnt.VSNet.ProjectEntryCollection.Remove(NAnt.VSNet.ProjectEntry)">
+            <summary>
+            Removes a member from the collection.
+            </summary>
+            <param name="item">The <see cref="T:NAnt.VSNet.ProjectEntry"/> to remove from the collection.</param>
+        </member>
+        <member name="P:NAnt.VSNet.ProjectEntryCollection.Item(System.Int32)">
+            <summary>
+            Gets or sets the element at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the element to get or set.</param>
+        </member>
+        <member name="P:NAnt.VSNet.ProjectEntryCollection.Item(System.String)">
+            <summary>
+            Gets the <see cref="T:NAnt.VSNet.ProjectEntry"/> with the specified GUID.
+            </summary>
+            <param name="guid">The GUID of the <see cref="T:NAnt.VSNet.ProjectEntry"/> to get.</param>
+            <remarks>
+            Performs a case-insensitive lookup.
+            </remarks>
+        </member>
+        <member name="T:NAnt.VSNet.ProjectEntryEnumerator">
+            <summary>
+            Enumerates the <see cref="T:NAnt.VSNet.ProjectEntry"/> elements of a <see cref="T:NAnt.VSNet.ProjectEntryCollection"/>.
+            </summary>
+        </member>
+        <member name="M:NAnt.VSNet.ProjectEntryEnumerator.#ctor(NAnt.VSNet.ProjectEntryCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NAnt.VSNet.ProjectEntryEnumerator"/> class
+            with the specified <see cref="T:NAnt.VSNet.ProjectEntryCollection"/>.
+            </summary>
+            <param name="arguments">The collection that should be enumerated.</param>
+        </member>
+        <member name="M:NAnt.VSNet.ProjectEntryEnumerator.MoveNext">
+            <summary>
+            Advances the enumerator to the next element of the collection.
+            </summary>
+            <returns>
+            <see langword="true" /> if the enumerator was successfully advanced 
+            to the next element; <see langword="false" /> if the enumerator has 
+            passed the end of the collection.
+            </returns>
+        </member>
+        <member name="M:NAnt.VSNet.ProjectEntryEnumerator.Reset">
+            <summary>
+            Sets the enumerator to its initial position, which is before the 
+            first element in the collection.
+            </summary>
+        </member>
+        <member name="P:NAnt.VSNet.ProjectEntryEnumerator.Current">
             <summary>
             Gets the current element in the collection.
             </summary>
@@ -3421,6 +3421,227 @@
             should scanned.
             </value>
         </member>
+        <member name="T:NAnt.VSNet.VcProject">
+            <summary>
+            Visual C++ project.
+            </summary>
+        </member>
+        <member name="M:NAnt.VSNet.VcProject.IsManaged(NAnt.VSNet.Configuration)">
+            <summary>
+            Gets a value indicating whether building the project for the specified
+            build configuration results in managed output.
+            </summary>
+            <param name="solutionConfiguration">The solution configuration that is built.</param>
+            <returns>
+            <see langword="true" /> if the project output for the specified build
+            configuration is either a Dynamic Library (dll) or an Application
+            (exe), and Managed Extensions are enabled; otherwise, 
+            <see langword="false" />.
+            </returns>
+        </member>
+        <member name="M:NAnt.VSNet.VcProject.VerifyProjectXml(System.Xml.XmlElement)">
+            <summary>
+            Verifies whether the specified XML fragment represents a valid project
+            that is supported by this <see cref="T:NAnt.VSNet.ProjectBase"/>.
+            </summary>
+            <param name="docElement">XML fragment representing the project file.</param>
+            <exception cref="T:NAnt.Core.BuildException">
+              <para>The XML fragment is not supported by this <see cref="T:NAnt.VSNet.ProjectBase"/>.</para>
+              <para>-or-</para>
+              <para>The XML fragment does not represent a valid project (for this <see cref="T:NAnt.VSNet.ProjectBase"/>).</para>
+            </exception>
+        </member>
+        <member name="M:NAnt.VSNet.VcProject.DetermineProductVersion(System.Xml.XmlElement)">
+            <summary>
+            Returns the Visual Studio product version of the specified project
+            XML fragment.
+            </summary>
+            <param name="docElement">The document element of the project.</param>
+            <returns>
+            The Visual Studio product version of the specified project XML 
+            fragment.
+            </returns>
+            <exception cref="T:NAnt.Core.BuildException">
+              <para>The product version could not be determined.</para>
+              <para>-or-</para>
+              <para>The product version is not supported.</para>
+            </exception>
+        </member>
+        <member name="M:NAnt.VSNet.VcProject.ExpandMacro(System.String)">
+            <summary>
+            Expands the given macro.
+            </summary>
+            <param name="macro">The macro to expand.</param>
+            <returns>
+            The expanded macro or <see langword="null" /> if the macro is not
+            supported.
+            </returns>
+        </member>
+        <member name="M:NAnt.VSNet.VcProject.BuildResourceFiles(System.Collections.ArrayList,NAnt.VSNet.VcProjectConfiguration,NAnt.VSNet.VcConfigurationBase)">
+            <summary>
+            Build resource files for the given configuration.
+            </summary>
+            <param name="fileNames">The resource files to build.</param>
+            <param name="projectConfig">The project configuration.</param>
+            <param name="fileConfig">The build configuration.</param>
+            <remarks>
+            TODO: refactor this as we should always get only one element in the
+            <paramref name="fileNames" /> list. Each res file should be built
+            with its own file configuration.
+            </remarks>
+        </member>
+        <member name="M:NAnt.VSNet.VcProject.BuildIDLFiles(System.Collections.ArrayList,NAnt.VSNet.VcProjectConfiguration,NAnt.VSNet.VcConfigurationBase)">
+            <summary>
+            Build Interface Definition Language files for the given
+            configuration.
+            </summary>
+            <param name="fileNames">The IDL files to build.</param>
+            <param name="projectConfig">The project configuration.</param>
+            <param name="fileConfig">The build configuration.</param>
+            <remarks>
+            TODO: refactor this as we should always get only one element in the
+            <paramref name="fileNames" /> list. Each IDL file should be built
+            with its own file configuration.
+            </remarks>
+        </member>
+        <member name="M:NAnt.VSNet.VcProject.MergeToolSetting(NAnt.VSNet.VcProjectConfiguration,NAnt.VSNet.VcConfigurationBase,System.String,System.String)">
+            <summary>
+            Merges the specified tool setting of <paramref name="projectConfig" /> 
+            with <paramref name="fileConfig" />.
+            </summary>
+            <remarks>
+            The merge is suppressed when the flag $(noinherit) is defined in
+            <paramref name="fileConfig" />.
+            </remarks>
+        </member>
+        <member name="M:NAnt.VSNet.VcProject.GetObjectFile(NAnt.VSNet.VcConfigurationBase)">
+            <summary>
+            Gets the absolute path to the object file or directory.
+            </summary>
+            <param name="fileConfig">The build configuration</param>
+            <returns>
+            The absolute path to the object file or directory, or 
+            </returns>
+            <remarks>
+            We use an absolute path for the object file, otherwise 
+            <c>&lt;cl&gt;</c> assumes a location relative to the output 
+            directory - not the project directory.
+            </remarks>
+        </member>
+        <member name="M:NAnt.VSNet.VcProject.IsSupported(System.Xml.XmlElement)">
+            <summary>
+            Returns a value indicating whether the project represented by the
+            specified XML fragment is supported by <see cref="T:NAnt.VSNet.VcProject"/>.
+            </summary>
+            <param name="docElement">XML fragment representing the project to check.</param>
+            <returns>
+            <see langword="true"/> if <see cref="T:NAnt.VSNet.VcProject"/> supports the 
+            specified project; otherwise, <see langword="false"/>.
+            </returns>
+            <remarks>
+            <para>
+            A project is identified as as Visual C++ project, if the XML 
+            fragment at least has the following information:
+            </para>
+            <code>
+              <![CDATA[
+            <VisualStudioProject
+                ProjectType="Visual C++"
+                Version="..."
+                ...
+                >
+            </VisualStudioProject>
+              ]]>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:NAnt.VSNet.VcProject.CleanPath(System.String)">
+            <summary>
+            Removes leading and trailing quotes from the specified path.
+            </summary>
+            <param name="path">The path to clean.</param>
+        </member>
+        <member name="M:NAnt.VSNet.VcProject.GetProductVersion(System.Xml.XmlElement)">
+            <summary>
+            Returns the Visual Studio product version of the specified project
+            XML fragment.
+            </summary>
+            <param name="docElement">XML fragment representing the project to check.</param>
+            <returns>
+            The Visual Studio product version of the specified project XML 
+            fragment.
+            </returns>
+            <exception cref="T:NAnt.Core.BuildException">
+              <para>The product version could not be determined.</para>
+              <para>-or-</para>
+              <para>The product version is not supported.</para>
+            </exception>
+        </member>
+        <member name="F:NAnt.VSNet.VcProject._projectFiles">
+            <summary>
+            Holds the files included in the project.
+            </summary>
+            <remarks>
+              <para>
+              For project files with no specific file configuration, the relative
+              path is added to the list.
+              </para>
+              <para>
+              For project files that have a specific file configuration, a
+              <see cref="T:System.Collections.Hashtable"/> containing the <see cref="T:NAnt.VSNet.VcFileConfiguration"/>
+              instance representing the file configurations is added.
+              </para>
+            </remarks>
+        </member>
+        <member name="P:NAnt.VSNet.VcProject.Name">
+            <summary>
+            Gets the name of the Visual C++ project.
+            </summary>
+        </member>
+        <member name="P:NAnt.VSNet.VcProject.Type">
+            <summary>
+            Gets the type of the project.
+            </summary>
+            <value>
+            The type of the project.
+            </value>
+        </member>
+        <member name="P:NAnt.VSNet.VcProject.ProjectPath">
+            <summary>
+            Gets the path of the Visual C++ project.
+            </summary>
+        </member>
+        <member name="P:NAnt.VSNet.VcProject.ProjectDirectory">
+            <summary>
+            Gets the directory containing the VS.NET project.
+            </summary>
+        </member>
+        <member name="P:NAnt.VSNet.VcProject.ProjectLocation">
+            <summary>
+            Get the location of the project.
+            </summary>
+            <value>
+            <see cref="F:NAnt.VSNet.ProjectLocation.Local"/>.
+            </value>
+            <remarks>
+            For now, we only support local Visual C++ projects.
+            </remarks>
+        </member>
+        <member name="P:NAnt.VSNet.VcProject.ObjectDir">
+            <summary>
+            Get the directory in which intermediate build output that is not 
+            specific to the build configuration will be stored.
+            </summary>
+            <remarks>
+            This is a directory relative to the project directory, 
+            named <c>temp\</c>.
+            </remarks>
+        </member>
+        <member name="P:NAnt.VSNet.VcProject.Guid">
+            <summary>
+            Gets or sets the unique identifier of the Visual C++ project.
+            </summary>
+        </member>
         <member name="T:NAnt.VSNet.VcProjectConfiguration">
             <summary>
             Represents a Visual C++ project configuration.
@@ -3735,227 +3956,6 @@
             <value>
             The locale of the type library.
             </value>
-        </member>
-        <member name="T:NAnt.VSNet.VcProject">
-            <summary>
-            Visual C++ project.
-            </summary>
-        </member>
-        <member name="M:NAnt.VSNet.VcProject.IsManaged(NAnt.VSNet.Configuration)">
-            <summary>
-            Gets a value indicating whether building the project for the specified
-            build configuration results in managed output.
-            </summary>
-            <param name="solutionConfiguration">The solution configuration that is built.</param>
-            <returns>
-            <see langword="true" /> if the project output for the specified build
-            configuration is either a Dynamic Library (dll) or an Application
-            (exe), and Managed Extensions are enabled; otherwise, 
-            <see langword="false" />.
-            </returns>
-        </member>
-        <member name="M:NAnt.VSNet.VcProject.VerifyProjectXml(System.Xml.XmlElement)">
-            <summary>
-            Verifies whether the specified XML fragment represents a valid project
-            that is supported by this <see cref="T:NAnt.VSNet.ProjectBase"/>.
-            </summary>
-            <param name="docElement">XML fragment representing the project file.</param>
-            <exception cref="T:NAnt.Core.BuildException">
-              <para>The XML fragment is not supported by this <see cref="T:NAnt.VSNet.ProjectBase"/>.</para>
-              <para>-or-</para>
-              <para>The XML fragment does not represent a valid project (for this <see cref="T:NAnt.VSNet.ProjectBase"/>).</para>
-            </exception>
-        </member>
-        <member name="M:NAnt.VSNet.VcProject.DetermineProductVersion(System.Xml.XmlElement)">
-            <summary>
-            Returns the Visual Studio product version of the specified project
-            XML fragment.
-            </summary>
-            <param name="docElement">The document element of the project.</param>
-            <returns>
-            The Visual Studio product version of the specified project XML 
-            fragment.
-            </returns>
-            <exception cref="T:NAnt.Core.BuildException">
-              <para>The product version could not be determined.</para>
-              <para>-or-</para>
-              <para>The product version is not supported.</para>
-            </exception>
-        </member>
-        <member name="M:NAnt.VSNet.VcProject.ExpandMacro(System.String)">
-            <summary>
-            Expands the given macro.
-            </summary>
-            <param name="macro">The macro to expand.</param>
-            <returns>
-            The expanded macro or <see langword="null" /> if the macro is not
-            supported.
-            </returns>
-        </member>
-        <member name="M:NAnt.VSNet.VcProject.BuildResourceFiles(System.Collections.ArrayList,NAnt.VSNet.VcProjectConfiguration,NAnt.VSNet.VcConfigurationBase)">
-            <summary>
-            Build resource files for the given configuration.
-            </summary>
-            <param name="fileNames">The resource files to build.</param>
-            <param name="projectConfig">The project configuration.</param>
-            <param name="fileConfig">The build configuration.</param>
-            <remarks>
-            TODO: refactor this as we should always get only one element in the
-            <paramref name="fileNames" /> list. Each res file should be built
-            with its own file configuration.
-            </remarks>
-        </member>
-        <member name="M:NAnt.VSNet.VcProject.BuildIDLFiles(System.Collections.ArrayList,NAnt.VSNet.VcProjectConfiguration,NAnt.VSNet.VcConfigurationBase)">
-            <summary>
-            Build Interface Definition Language files for the given
-            configuration.
-            </summary>
-            <param name="fileNames">The IDL files to build.</param>
-            <param name="projectConfig">The project configuration.</param>
-            <param name="fileConfig">The build configuration.</param>
-            <remarks>
-            TODO: refactor this as we should always get only one element in the
-            <paramref name="fileNames" /> list. Each IDL file should be built
-            with its own file configuration.
-            </remarks>
-        </member>
-        <member name="M:NAnt.VSNet.VcProject.MergeToolSetting(NAnt.VSNet.VcProjectConfiguration,NAnt.VSNet.VcConfigurationBase,System.String,System.String)">
-            <summary>
-            Merges the specified tool setting of <paramref name="projectConfig" /> 
-            with <paramref name="fileConfig" />.
-            </summary>
-            <remarks>
-            The merge is suppressed when the flag $(noinherit) is defined in
-            <paramref name="fileConfig" />.
-            </remarks>
-        </member>
-        <member name="M:NAnt.VSNet.VcProject.GetObjectFile(NAnt.VSNet.VcConfigurationBase)">
-            <summary>
-            Gets the absolute path to the object file or directory.
-            </summary>
-            <param name="fileConfig">The build configuration</param>
-            <returns>
-            The absolute path to the object file or directory, or 
-            </returns>
-            <remarks>
-            We use an absolute path for the object file, otherwise 
-            <c>&lt;cl&gt;</c> assumes a location relative to the output 
-            directory - not the project directory.
-            </remarks>
-        </member>
-        <member name="M:NAnt.VSNet.VcProject.IsSupported(System.Xml.XmlElement)">
-            <summary>
-            Returns a value indicating whether the project represented by the
-            specified XML fragment is supported by <see cref="T:NAnt.VSNet.VcProject"/>.
-            </summary>
-            <param name="docElement">XML fragment representing the project to check.</param>
-            <returns>
-            <see langword="true"/> if <see cref="T:NAnt.VSNet.VcProject"/> supports the 
-            specified project; otherwise, <see langword="false"/>.
-            </returns>
-            <remarks>
-            <para>
-            A project is identified as as Visual C++ project, if the XML 
-            fragment at least has the following information:
-            </para>
-            <code>
-              <![CDATA[
-            <VisualStudioProject
-                ProjectType="Visual C++"
-                Version="..."
-                ...
-                >
-            </VisualStudioProject>
-              ]]>
-            </code>
-            </remarks>
-        </member>
-        <member name="M:NAnt.VSNet.VcProject.CleanPath(System.String)">
-            <summary>
-            Removes leading and trailing quotes from the specified path.
-            </summary>
-            <param name="path">The path to clean.</param>
-        </member>
-        <member name="M:NAnt.VSNet.VcProject.GetProductVersion(System.Xml.XmlElement)">
-            <summary>
-            Returns the Visual Studio product version of the specified project
-            XML fragment.
-            </summary>
-            <param name="docElement">XML fragment representing the project to check.</param>
-            <returns>
-            The Visual Studio product version of the specified project XML 
-            fragment.
-            </returns>
-            <exception cref="T:NAnt.Core.BuildException">
-              <para>The product version could not be determined.</para>
-              <para>-or-</para>
-              <para>The product version is not supported.</para>
-            </exception>
-        </member>
-        <member name="F:NAnt.VSNet.VcProject._projectFiles">
-            <summary>
-            Holds the files included in the project.
-            </summary>
-            <remarks>
-              <para>
-              For project files with no specific file configuration, the relative
-              path is added to the list.
-              </para>
-              <para>
-              For project files that have a specific file configuration, a
-              <see cref="T:System.Collections.Hashtable"/> containing the <see cref="T:NAnt.VSNet.VcFileConfiguration"/>
-              instance representing the file configurations is added.
-              </para>
-            </remarks>
-        </member>
-        <member name="P:NAnt.VSNet.VcProject.Name">
-            <summary>
-            Gets the name of the Visual C++ project.
-            </summary>
-        </member>
-        <member name="P:NAnt.VSNet.VcProject.Type">
-            <summary>
-            Gets the type of the project.
-            </summary>
-            <value>
-            The type of the project.
-            </value>
-        </member>
-        <member name="P:NAnt.VSNet.VcProject.ProjectPath">
-            <summary>
-            Gets the path of the Visual C++ project.
-            </summary>
-        </member>
-        <member name="P:NAnt.VSNet.VcProject.ProjectDirectory">
-            <summary>
-            Gets the directory containing the VS.NET project.
-            </summary>
-        </member>
-        <member name="P:NAnt.VSNet.VcProject.ProjectLocation">
-            <summary>
-            Get the location of the project.
-            </summary>
-            <value>
-            <see cref="F:NAnt.VSNet.ProjectLocation.Local"/>.
-            </value>
-            <remarks>
-            For now, we only support local Visual C++ projects.
-            </remarks>
-        </member>
-        <member name="P:NAnt.VSNet.VcProject.ObjectDir">
-            <summary>
-            Get the directory in which intermediate build output that is not 
-            specific to the build configuration will be stored.
-            </summary>
-            <remarks>
-            This is a directory relative to the project directory, 
-            named <c>temp\</c>.
-            </remarks>
-        </member>
-        <member name="P:NAnt.VSNet.VcProject.Guid">
-            <summary>
-            Gets or sets the unique identifier of the Visual C++ project.
-            </summary>
         </member>
     </members>
 </doc>
