@@ -4,6 +4,105 @@
         <name>NUnitForms.Test</name>
     </assembly>
     <members>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.ToolStripButtonTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripButtonTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripButtonTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxForm">
+            <summary>
+             Form for testing ToolStripTextBoxTester.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxForm.#ctor">
+            <summary>
+             Constructs a new ToolStripTextBoxForm.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.TextBoxTestForm">
+            <summary>
+            Summary description for TextBoxTestForm.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.TextBoxTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.TextBoxTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.TextBoxTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.ToolStripSplitButtonTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripSplitButtonTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripSplitButtonTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.SaveFileDialogTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.SaveFileDialogTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.SaveFileDialogTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
         <member name="T:NUnit.Extensions.Forms.TestApplications.MainMenuTestForm">
             <summary>
             Summary description for MainMenuTestForm.
@@ -20,23 +119,6 @@
             </summary>
         </member>
         <member name="M:NUnit.Extensions.Forms.TestApplications.MainMenuTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.UnderscoreNameForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.UnderscoreNameForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.UnderscoreNameForm.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
@@ -63,20 +145,30 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxTest">
+        <member name="T:NUnit.Extensions.Forms.TestApplications.MultiForm">
             <summary>
-             Test Fixture for ToolStripTextBoxTester.
+            Summary description for MultiForm.
             </summary>
         </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxTest.Setup">
+        <member name="F:NUnit.Extensions.Forms.TestApplications.MultiForm.components">
             <summary>
-             Sets up this test.
+            Required designer variable.
             </summary>
         </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxTest.ToolStripTextBoxOnToolBar">
+        <member name="M:NUnit.Extensions.Forms.TestApplications.MultiForm.Dispose(System.Boolean)">
             <summary>
-            This testcase presses a ToolStripButton which will put the string clicked into the ToolStripTextBox. 
-            Test is ok if the ToolStripTextBox text is clicked.
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.MultiForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.MouseControllerTest">
+            <summary>
+              Tests the <see cref="T:NUnit.Extensions.Forms.MouseController"/>.
             </summary>
         </member>
         <member name="T:NUnit.Extensions.Forms.TestApplications.ScriptDemoForm">
@@ -100,56 +192,60 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.RichTextBoxTestForm.components">
+        <member name="T:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestForm">
+            <summary>
+             Test form for the OpenFileDialogTester
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestForm.#ctor">
+            <summary>
+            Constructes a new OpenFileDialogTestForm.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestForm.components">
             <summary>
             Required designer variable.
             </summary>
         </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.RichTextBoxTestForm.Dispose(System.Boolean)">
+        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestForm.Dispose(System.Boolean)">
             <summary>
             Clean up any resources being used.
             </summary>
             <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.RichTextBoxTestForm.InitializeComponent">
+        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestForm.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.DialogWithNoHandlersForm.components">
+        <member name="T:NUnit.Extensions.Forms.Recorder.Test.TextBoxRecorderTest">
+            <summary>
+             Test Fixture for the <see cref="T:NUnit.Extensions.Forms.Recorder.TextBoxRecorder"/>.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.Recorder.Test.TextBoxRecorderTest.TextBoxEnter">
+            <summary>
+             Tests text entry events.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.Recorder.Test.TextBoxRecorderTest.TextBoxEnterMultiline">
+            <summary>
+             Tests multiline text entry events.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.UnderscoreNameForm.components">
             <summary>
             Required designer variable.
             </summary>
         </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.DialogWithNoHandlersForm.Dispose(System.Boolean)">
+        <member name="M:NUnit.Extensions.Forms.TestApplications.UnderscoreNameForm.Dispose(System.Boolean)">
             <summary>
             Clean up any resources being used.
             </summary>
             <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.DialogWithNoHandlersForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.CheckBoxDataSetBindingTestForm">
-            <summary>
-            Summary description for CheckBoxDataSetBindingTestForm.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.CheckBoxDataSetBindingTestForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.CheckBoxDataSetBindingTestForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.CheckBoxDataSetBindingTestForm.InitializeComponent">
+        <member name="M:NUnit.Extensions.Forms.TestApplications.UnderscoreNameForm.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
@@ -193,126 +289,116 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.SupportsAssertionExtensionTest">
-            <summary>
-            A note about this class: it only tests that those methods exist on the
-            base class and not that they are completely implemented correctly.  I think
-            that it works, tell me if it does not.  It may be marked obsolete shortly
-            because that is what the next version of nunit does.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxForm">
-            <summary>
-             Form for testing ToolStripTextBoxTester.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxForm.#ctor">
-            <summary>
-             Constructs a new ToolStripTextBoxForm.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.ToolStripDropDownButtonTestForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripDropDownButtonTestForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripDropDownButtonTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.AmbiguousNameForm">
-            <summary>
-            Form for use in testing <see cref="T:NUnit.Extensions.Forms.AmbiguousNameException"/>.
-            </summary>
-            <summary>
-            Form for use in testing <see cref="T:NUnit.Extensions.Forms.AmbiguousNameException"/>.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.AmbiguousNameForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.AmbiguousNameForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.AmbiguousNameForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.AmbiguousNameForm.#ctor">
-            <summary>
-            Constructs a new <see cref="T:NUnit.Extensions.Forms.TestApplications.AmbiguousNameForm"/>.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.ToolStripSplitButtonTestForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripSplitButtonTestForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripSplitButtonTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
         <member name="M:NUnit.Extensions.Forms.TestApplications.ToolbarTestForm.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.TabControlTestForm">
+        <member name="T:NUnit.Extensions.Forms.Test.TestForms.ToborTestForm">
             <summary>
-            Summary description for TabControlForm.
+             Form to test <see cref="T:NUnit.Extensions.Forms.Tobor"/>,
+             the NUnitForms simplifier.
             </summary>
         </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.TabControlTestForm.components">
+        <member name="F:NUnit.Extensions.Forms.Test.TestForms.ToborTestForm.components">
             <summary>
             Required designer variable.
             </summary>
         </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.TabControlTestForm.Dispose(System.Boolean)">
+        <member name="M:NUnit.Extensions.Forms.Test.TestForms.ToborTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.Test.TestForms.ToborTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.Test.TestForms.ToborTestForm.#ctor">
+            <summary>
+             Constructs a new <see cref="T:NUnit.Extensions.Forms.Test.TestForms.ToborTestForm"/>.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.RichTextBoxTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.RichTextBoxTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.RichTextBoxTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.RadioButtonTestForm">
+            <summary>
+            Summary description for RadioButtonTestForm.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.RadioButtonTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.RadioButtonTestForm.Dispose(System.Boolean)">
             <summary>
             Clean up any resources being used.
             </summary>
         </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.TabControlTestForm.InitializeComponent">
+        <member name="M:NUnit.Extensions.Forms.TestApplications.RadioButtonTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.DynamicControlsTestForm">
+            <summary>
+            Summary description for DynamicControlsTestForm.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.DynamicControlsTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.DynamicControlsTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.DynamicControlsTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.RichTextBoxTest">
+            <summary>
+             Test Fixture for the <see cref="T:NUnit.Extensions.Forms.RichTextBoxTester"/> class.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.ToolStripMenuTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripMenuTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripMenuTestForm.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
@@ -334,112 +420,6 @@
             </summary>
         </member>
         <member name="M:NUnit.Extensions.Forms.TestApplications.ModalMultiForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestOld">
-            <summary>
-             Test Fixture for the OpenFileDialogTester class.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestOld.Setup">
-            <summary>
-             Sets up this test by showing a new OpenFileDialogTestForm form.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestOld.OpenFileHandler">
-            <summary>
-             Modal handler to click the open button.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestOld.CancelFileHandler">
-            <summary>
-             Modal handler to click the cancel button.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestOld.CancelTest">
-            <summary>
-             Tests cancelling.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestOld.OpenTest">
-            <summary>
-             Tests opening a file.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.ToolStripMenuTestForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripMenuTestForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripMenuTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.ToolStripButtonTestForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripButtonTestForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripButtonTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.LinkLabelTestForm">
-            <summary>
-            Summary description for ButtonTestForm.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.LinkLabelTestForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.LinkLabelTestForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.LinkLabelTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.ContextMenuTestForm">
-            <summary>
-            Summary description for ContextMenuTestForm.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.ContextMenuTestForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ContextMenuTestForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ContextMenuTestForm.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
@@ -480,28 +460,74 @@
             This method wouldn't be needed if our tester used reflection.
             </summary>
         </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestForm">
-            <summary>
-             Test form for the OpenFileDialogTester
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestForm.#ctor">
-            <summary>
-            Constructes a new OpenFileDialogTestForm.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestForm.components">
+        <member name="F:NUnit.Extensions.Forms.TestApplications.DialogWithNoHandlersForm.components">
             <summary>
             Required designer variable.
             </summary>
         </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestForm.Dispose(System.Boolean)">
+        <member name="M:NUnit.Extensions.Forms.TestApplications.DialogWithNoHandlersForm.Dispose(System.Boolean)">
             <summary>
             Clean up any resources being used.
             </summary>
             <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestForm.InitializeComponent">
+        <member name="M:NUnit.Extensions.Forms.TestApplications.DialogWithNoHandlersForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.Recorder.Test.MenuItemRecorderTest">
+            <summary>
+             Test fixture for the <see cref="T:NUnit.Extensions.Forms.Recorder.MenuItemRecorder"/>.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.ToolStripDropDownButtonTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripDropDownButtonTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripDropDownButtonTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.ToolStripComboBoxTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripComboBoxTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripComboBoxTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.RichTextBoxDataSetBindingTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.RichTextBoxDataSetBindingTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.RichTextBoxDataSetBindingTestForm.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
@@ -517,26 +543,81 @@
              Tests that closing the form tester closes the underlying form.
             </summary>
         </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.ButtonControlTester">
+            <summary>
+             A custom ControlTester for use in unit tests.
+            </summary>
+        </member>
         <member name="T:NUnit.Extensions.Forms.UnitTests.KeyboardControllerTest">
             <summary>
             Test existing KeyboardController functionality.
             </summary>
         </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.SaveFileDialogTestForm.components">
+        <member name="T:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxTest">
+            <summary>
+             Test Fixture for ToolStripTextBoxTester.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxTest.Setup">
+            <summary>
+             Sets up this test.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripTextBoxTest.ToolStripTextBoxOnToolBar">
+            <summary>
+            This testcase presses a ToolStripButton which will put the string clicked into the ToolStripTextBox. 
+            Test is ok if the ToolStripTextBox text is clicked.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.LinkLabelTestForm">
+            <summary>
+            Summary description for ButtonTestForm.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.LinkLabelTestForm.components">
             <summary>
             Required designer variable.
             </summary>
         </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.SaveFileDialogTestForm.Dispose(System.Boolean)">
+        <member name="M:NUnit.Extensions.Forms.TestApplications.LinkLabelTestForm.Dispose(System.Boolean)">
             <summary>
             Clean up any resources being used.
             </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.SaveFileDialogTestForm.InitializeComponent">
+        <member name="M:NUnit.Extensions.Forms.TestApplications.LinkLabelTestForm.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestOld">
+            <summary>
+             Test Fixture for the OpenFileDialogTester class.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestOld.Setup">
+            <summary>
+             Sets up this test by showing a new OpenFileDialogTestForm form.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestOld.OpenFileHandler">
+            <summary>
+             Modal handler to click the open button.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestOld.CancelFileHandler">
+            <summary>
+             Modal handler to click the cancel button.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestOld.CancelTest">
+            <summary>
+             Tests cancelling.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTestOld.OpenTest">
+            <summary>
+             Tests opening a file.
             </summary>
         </member>
         <member name="T:NUnit.Extensions.Forms.TestApplications.CheckBoxTestForm">
@@ -555,6 +636,236 @@
             </summary>
         </member>
         <member name="M:NUnit.Extensions.Forms.TestApplications.CheckBoxTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.CheckedListBoxTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.TextBoxDataSetBindingTestForm">
+            <summary>
+            Summary description for TextBoxDataSetBindingTestForm.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.TextBoxDataSetBindingTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.TextBoxDataSetBindingTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.TextBoxDataSetBindingTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.TabControlTestForm">
+            <summary>
+            Summary description for TabControlForm.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.TabControlTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.TabControlTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.TabControlTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.CheckBoxDataSetBindingTestForm">
+            <summary>
+            Summary description for CheckBoxDataSetBindingTestForm.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.CheckBoxDataSetBindingTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.CheckBoxDataSetBindingTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.CheckBoxDataSetBindingTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.SimpleAPIKeyboardWithEmulationTest">
+            <summary>
+            Repeat existing SimpleAPIKeyboardTest tests using emulated SendKeys.
+            Part of work in progress in replacing the dot Net SendKeys class.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.SimpleAPIKeyboardWithEmulateWindowSpecificEmulationTest">
+            <summary>
+            Repeat existing SimpleAPIKeyboardTest tests using emulated SendKeys.
+            Part of work in progress in replacing the dot Net SendKeys class.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.ButtonTestForm">
+            <summary>
+            Summary description for ButtonTestForm.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.ButtonTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ButtonTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ButtonTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.ModalFormsInServiceTest">
+            <summary>
+            Simulates Windows Service envinronment by running the entire test
+            fixture in a service WindowStation. If these tests pass we can show
+            modal forms from test cases running inside the Cruise Control .NET
+            Windows Service as well.
+            </summary>
+            <remarks>
+            While running these tests NUnit GUI won't repaint itself (e.i. update
+            the progress bar and etc.). This is a normal side effect of temporary
+            assigning a service (hidden) WindowStation to the process.
+            </remarks>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ListViewTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.AmbiguousNameForm">
+            <summary>
+            Form for use in testing <see cref="T:NUnit.Extensions.Forms.AmbiguousNameException"/>.
+            </summary>
+            <summary>
+            Form for use in testing <see cref="T:NUnit.Extensions.Forms.AmbiguousNameException"/>.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.AmbiguousNameForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.AmbiguousNameForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.AmbiguousNameForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.AmbiguousNameForm.#ctor">
+            <summary>
+            Constructs a new <see cref="T:NUnit.Extensions.Forms.TestApplications.AmbiguousNameForm"/>.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.SupportsAssertionExtensionTest">
+            <summary>
+            A note about this class: it only tests that those methods exist on the
+            base class and not that they are completely implemented correctly.  I think
+            that it works, tell me if it does not.  It may be marked obsolete shortly
+            because that is what the next version of nunit does.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest">
+            <summary>
+             Test Fixture for the OpenFileDialogTester class.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.Setup">
+            <summary>
+             Sets up this test by showing a new OpenFileDialogTestForm form.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.OpenFileHandler(System.String,System.IntPtr,System.Windows.Forms.Form)">
+            <summary>
+             Modal handler to click the open button.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.CancelFileHandler(System.String,System.IntPtr,System.Windows.Forms.Form)">
+            <summary>
+             Modal handler to click the cancel button.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.CancelTest">
+            <summary>
+             Tests cancelling.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.OpenTest">
+            <summary>
+             Tests opening a file.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.LabelTestForm">
+            <summary>
+            Summary description for LabelTestForm.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.LabelTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.LabelTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.LabelTestForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extensions.Forms.TestApplications.ContextMenuTestForm">
+            <summary>
+            Summary description for ContextMenuTestForm.
+            </summary>
+        </member>
+        <member name="F:NUnit.Extensions.Forms.TestApplications.ContextMenuTestForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ContextMenuTestForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extensions.Forms.TestApplications.ContextMenuTestForm.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
@@ -590,200 +901,6 @@
              </para>
              </remarks>
         </member>
-        <member name="T:NUnit.Extensions.Forms.Test.TestForms.ToborTestForm">
-            <summary>
-             Form to test <see cref="T:NUnit.Extensions.Forms.Tobor"/>,
-             the NUnitForms simplifier.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.Test.TestForms.ToborTestForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.Test.TestForms.ToborTestForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.Test.TestForms.ToborTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.Test.TestForms.ToborTestForm.#ctor">
-            <summary>
-             Constructs a new <see cref="T:NUnit.Extensions.Forms.Test.TestForms.ToborTestForm"/>.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.DynamicControlsTestForm">
-            <summary>
-            Summary description for DynamicControlsTestForm.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.DynamicControlsTestForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.DynamicControlsTestForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.DynamicControlsTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest">
-            <summary>
-             Test Fixture for the OpenFileDialogTester class.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.Setup">
-            <summary>
-             Sets up this test by showing a new OpenFileDialogTestForm form.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.OpenFileHandler(System.String,System.IntPtr,System.Windows.Forms.Form)">
-            <summary>
-             Modal handler to click the open button.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.CancelFileHandler(System.String,System.IntPtr,System.Windows.Forms.Form)">
-            <summary>
-             Modal handler to click the cancel button.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.CancelTest">
-            <summary>
-             Tests cancelling.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.OpenFileDialogTest.OpenTest">
-            <summary>
-             Tests opening a file.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.SimpleAPIKeyboardWithEmulationTest">
-            <summary>
-            Repeat existing SimpleAPIKeyboardTest tests using emulated SendKeys.
-            Part of work in progress in replacing the dot Net SendKeys class.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.RichTextBoxTest">
-            <summary>
-             Test Fixture for the <see cref="T:NUnit.Extensions.Forms.RichTextBoxTester"/> class.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.ToolStripComboBoxTestForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripComboBoxTestForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ToolStripComboBoxTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.ButtonTestForm">
-            <summary>
-            Summary description for ButtonTestForm.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.ButtonTestForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ButtonTestForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ButtonTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.Recorder.Test.TextBoxRecorderTest">
-            <summary>
-             Test Fixture for the <see cref="T:NUnit.Extensions.Forms.Recorder.TextBoxRecorder"/>.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.Recorder.Test.TextBoxRecorderTest.TextBoxEnter">
-            <summary>
-             Tests text entry events.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.Recorder.Test.TextBoxRecorderTest.TextBoxEnterMultiline">
-            <summary>
-             Tests multiline text entry events.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.ModalFormsInServiceTest">
-            <summary>
-            Simulates Windows Service envinronment by running the entire test
-            fixture in a service WindowStation. If these tests pass we can show
-            modal forms from test cases running inside the Cruise Control .NET
-            Windows Service as well.
-            </summary>
-            <remarks>
-            While running these tests NUnit GUI won't repaint itself (e.i. update
-            the progress bar and etc.). This is a normal side effect of temporary
-            assigning a service (hidden) WindowStation to the process.
-            </remarks>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.ButtonControlTester">
-            <summary>
-             A custom ControlTester for use in unit tests.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.ListViewTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.SimpleAPIKeyboardWithEmulateWindowSpecificEmulationTest">
-            <summary>
-            Repeat existing SimpleAPIKeyboardTest tests using emulated SendKeys.
-            Part of work in progress in replacing the dot Net SendKeys class.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.RadioButtonTestForm">
-            <summary>
-            Summary description for RadioButtonTestForm.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.RadioButtonTestForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.RadioButtonTestForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.RadioButtonTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
         <member name="T:NUnit.Extensions.Forms.TestApplications.ComboBoxTestForm">
             <summary>
             Summary description for ComboBoxTestForm.
@@ -800,123 +917,6 @@
             </summary>
         </member>
         <member name="M:NUnit.Extensions.Forms.TestApplications.ComboBoxTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.TextBoxDataSetBindingTestForm">
-            <summary>
-            Summary description for TextBoxDataSetBindingTestForm.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.TextBoxDataSetBindingTestForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.TextBoxDataSetBindingTestForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.TextBoxDataSetBindingTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.MultiForm">
-            <summary>
-            Summary description for MultiForm.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.MultiForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.MultiForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.MultiForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.LabelTestForm">
-            <summary>
-            Summary description for LabelTestForm.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.LabelTestForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.LabelTestForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.LabelTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.CheckedListBoxTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.Recorder.Test.MenuItemRecorderTest">
-            <summary>
-             Test fixture for the <see cref="T:NUnit.Extensions.Forms.Recorder.MenuItemRecorder"/>.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.MouseControllerTest">
-            <summary>
-              Tests the <see cref="T:NUnit.Extensions.Forms.MouseController"/>.
-            </summary>
-        </member>
-        <member name="T:NUnit.Extensions.Forms.TestApplications.TextBoxTestForm">
-            <summary>
-            Summary description for TextBoxTestForm.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.TextBoxTestForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.TextBoxTestForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.TextBoxTestForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="F:NUnit.Extensions.Forms.TestApplications.RichTextBoxDataSetBindingTestForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.RichTextBoxDataSetBindingTestForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:NUnit.Extensions.Forms.TestApplications.RichTextBoxDataSetBindingTestForm.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
