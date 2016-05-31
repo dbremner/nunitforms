@@ -70,8 +70,8 @@ namespace NUnit.Extensions.Forms.TestApplications
         public void CanClickMultipleControls()
         {
             new TextBoxTestForm().Show();
-            new TextBoxTester("myTextBox").Properties.Click += new EventHandler(OnClick);
-            new TextBoxTester("anotherTextBox").Properties.Click += new EventHandler(OnClick2);
+            new TextBoxTester("myTextBox").Properties.Click += OnClick;
+            new TextBoxTester("anotherTextBox").Properties.Click += OnClick2;
 
             click = 0;
             click2 = 0;
@@ -96,7 +96,7 @@ namespace NUnit.Extensions.Forms.TestApplications
 
             TextBoxTester textBox = new TextBoxTester("myTextBox");
 
-            textBox.Properties.Click += new EventHandler(OnClick);
+            textBox.Properties.Click += OnClick;
 
             click = 0;
 

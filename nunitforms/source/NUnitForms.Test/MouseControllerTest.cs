@@ -133,8 +133,8 @@ namespace NUnit.Extensions.Forms.TestApplications
         public void ButtonEvents()
         {
             FormTester formTester = new FormTester(CurrentForm.Name);
-            CurrentForm.MouseDown += new MouseEventHandler(OnMouseDown);
-            CurrentForm.MouseUp += new MouseEventHandler(OnMouseUp);
+            CurrentForm.MouseDown += OnMouseDown;
+            CurrentForm.MouseUp += OnMouseUp;
 
             down = 0;
             up = 0;
@@ -176,9 +176,9 @@ namespace NUnit.Extensions.Forms.TestApplications
         public void Clicking()
         {
             TextBoxTester textBox = new TextBoxTester("myTextBox", CurrentForm);
-            textBox.Properties.Click += new EventHandler(OnClick);
-            textBox.Properties.MouseDown += new MouseEventHandler(OnMouseDown);
-            textBox.Properties.MouseUp += new MouseEventHandler(OnMouseUp);
+            textBox.Properties.Click += OnClick;
+            textBox.Properties.MouseDown += OnMouseDown;
+            textBox.Properties.MouseUp += OnMouseUp;
             Mouse.UseOn(textBox);
             down = 0;
             up = 0;
@@ -211,7 +211,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         public void DoubleClicking()
         {
             TextBoxTester textBox = new TextBoxTester("myTextBox", CurrentForm);
-            textBox.Properties.DoubleClick += new EventHandler(OnDoubleClick);
+            textBox.Properties.DoubleClick += OnDoubleClick;
             doubleClick = 0;
             Mouse.UseOn(textBox);
             Mouse.DoubleClick(1, 3);
@@ -231,7 +231,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         public void Dragging()
         {
             FormTester formTester = new FormTester(CurrentForm.Name);
-            CurrentForm.MouseMove += new MouseEventHandler(OnDrag);
+            CurrentForm.MouseMove += OnDrag;
 
             drag = 0;
             lastX = -1;
@@ -340,9 +340,9 @@ namespace NUnit.Extensions.Forms.TestApplications
         public void PositioningEvents()
         {
             TextBoxTester textBox = new TextBoxTester("myTextBox", CurrentForm);
-            textBox.Properties.MouseEnter += new EventHandler(OnMouseEnter);
-            textBox.Properties.MouseLeave += new EventHandler(OnMouseLeave);
-            textBox.Properties.MouseMove += new MouseEventHandler(OnMouseMove);
+            textBox.Properties.MouseEnter += OnMouseEnter;
+            textBox.Properties.MouseLeave += OnMouseLeave;
+            textBox.Properties.MouseMove += OnMouseMove;
 
             enter = 0;
             leave = 0;
@@ -440,8 +440,8 @@ namespace NUnit.Extensions.Forms.TestApplications
         public void XButtonEvents()
         {
             FormTester formTester = new FormTester(CurrentForm.Name);
-            CurrentForm.MouseDown += new MouseEventHandler(OnMouseDown);
-            CurrentForm.MouseUp += new MouseEventHandler(OnMouseUp);
+            CurrentForm.MouseDown += OnMouseDown;
+            CurrentForm.MouseUp += OnMouseUp;
             Mouse.UseOn(formTester);
             down = 0;
             up = 0;

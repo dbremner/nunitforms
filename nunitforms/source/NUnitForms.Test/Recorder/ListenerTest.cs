@@ -57,7 +57,7 @@ namespace NUnit.Extensions.Forms.Recorder.Test
             Listener listener = new Listener();
             listener.ListenTo(form);
 
-            listener.Event += new EventHappened(EventListener);
+            listener.Event += EventListener;
 
             ButtonTester button = new ButtonTester("myButton", form);
             button.Click();

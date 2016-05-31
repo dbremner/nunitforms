@@ -134,7 +134,7 @@ namespace NUnit.Extensions.Forms
         protected void InitFromTester(Tester<T, TThis> tester, int controlIndex)
         {
             if (controlIndex < 0)
-                throw new ArgumentOutOfRangeException("controlIndex", controlIndex, "Should not have index < 0");
+                throw new ArgumentOutOfRangeException(nameof(controlIndex), controlIndex, "Should not have index < 0");
             index = controlIndex;
             form = tester.form;
             formName = tester.formName;

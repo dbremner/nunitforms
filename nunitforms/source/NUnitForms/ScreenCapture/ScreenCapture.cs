@@ -109,7 +109,7 @@ namespace NUnit.Extensions.Forms
         /// </summary>
         public ScreenCapture()
         {
-            doc.PrintPage += new PrintPageEventHandler(printPage);
+            doc.PrintPage += printPage;
             formatHandler = new ImageFormatHandler();
         }
 
@@ -119,7 +119,7 @@ namespace NUnit.Extensions.Forms
         /// <param name="formatHandler">The format handler instance</param>
         public ScreenCapture(ImageFormatHandler formatHandler)
         {
-            doc.PrintPage += new PrintPageEventHandler(printPage);
+            doc.PrintPage += printPage;
 
             this.formatHandler = formatHandler;
         }
@@ -359,7 +359,7 @@ namespace NUnit.Extensions.Forms
             //	Move the window to capture to the top of the Z order.
             NativeMethods.BringWindowToTop(handle);
 
-            CaptureHandleDelegateHandler dlg = new CaptureHandleDelegateHandler(CaptureHandle);
+            CaptureHandleDelegateHandler dlg = CaptureHandle;
 
             //	Do an asynchronous call of the capturing method, this is necessary to allow the captured
             //	window to come up in front of the Z-order of the displayed screens.

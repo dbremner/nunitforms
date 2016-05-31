@@ -119,7 +119,7 @@ namespace NUnit.Extensions.Forms.Recorder
             {
                 AddPropertyAssertListeners(control);
             }
-            control.ControlAdded += new ControlEventHandler(ControlAdded);
+            control.ControlAdded += ControlAdded;
 
 
             foreach (Control c in control.Controls)

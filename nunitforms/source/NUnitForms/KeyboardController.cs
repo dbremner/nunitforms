@@ -107,7 +107,7 @@ namespace NUnit.Extensions.Forms
         {
             if (control == null)
             {
-                throw new ArgumentNullException("control");
+                throw new ArgumentNullException(nameof(control));
             }
 
             Control c = control.TheObject as Control;

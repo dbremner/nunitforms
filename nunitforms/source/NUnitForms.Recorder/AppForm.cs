@@ -71,7 +71,7 @@ namespace NUnit.Extensions.Forms.Recorder
                 {
                     Assembly.LoadFrom(new FileInfo(fileName).ToString());
 
-                    combo.SelectedIndexChanged -= new EventHandler(combo_SelectedIndexChanged);
+                    combo.SelectedIndexChanged -= combo_SelectedIndexChanged;
 
                     combo.Items.Clear();
                     foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
@@ -85,7 +85,7 @@ namespace NUnit.Extensions.Forms.Recorder
                         }
                     }
                     combo.SelectedIndex = 0;
-                    combo.SelectedIndexChanged += new EventHandler(combo_SelectedIndexChanged);
+                    combo.SelectedIndexChanged += combo_SelectedIndexChanged;
                 }
             }
         }
@@ -101,7 +101,7 @@ namespace NUnit.Extensions.Forms.Recorder
         {
             if (handler == null)
             {
-                handler = new EventHandler(UpdateTests);
+                handler = UpdateTests;
             }
             if (writer != null)
             {

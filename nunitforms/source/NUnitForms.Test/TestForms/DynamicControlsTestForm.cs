@@ -87,7 +87,7 @@ namespace NUnit.Extensions.Forms.TestApplications
             b.Name = "button" + i.ToString();
             b.Location = new Point(250, 25*i + 20);
             Controls.Add(b);
-            b.Click += new EventHandler(b_Click);
+            b.Click += b_Click;
             i++;
         }
 
@@ -104,7 +104,7 @@ namespace NUnit.Extensions.Forms.TestApplications
             b.Name = "duplicate";
             b.Location = new Point(250, 25*i + 20);
             Controls.Add(b);
-            b.Click += new EventHandler(b_Click);
+            b.Click += b_Click;
             i++;
         }
 

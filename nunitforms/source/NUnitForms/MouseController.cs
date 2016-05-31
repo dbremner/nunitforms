@@ -152,7 +152,7 @@ namespace NUnit.Extensions.Forms
 
             if (control == null)
             {
-                throw new ArgumentNullException("control");
+                throw new ArgumentNullException(nameof(control));
             }
 
             mouseControl = new MouseControl(control);
@@ -337,7 +337,7 @@ namespace NUnit.Extensions.Forms
                             throw new NotSupportedException("World units not supported.");
 
                         default:
-                            throw new InvalidEnumArgumentException("value", (int) value, typeof (GraphicsUnit));
+                            throw new InvalidEnumArgumentException(nameof(value), (int) value, typeof (GraphicsUnit));
                     }
                 }
                 positionUnit = value;
@@ -680,7 +680,7 @@ namespace NUnit.Extensions.Forms
         {
             if ((keys & ~(Keys.Alt | Keys.Shift | Keys.Control)) != 0)
             {
-                throw new ArgumentOutOfRangeException("keys", "Only Alt, Shift and Control is allowed.");
+                throw new ArgumentOutOfRangeException(nameof(keys), "Only Alt, Shift and Control is allowed.");
             }
 
             Win32.KEYBDINPUT ki = new Win32.KEYBDINPUT();
@@ -883,7 +883,7 @@ namespace NUnit.Extensions.Forms
         {
             if ((keys & ~(Keys.Alt | Keys.Shift | Keys.Control)) != 0)
             {
-                throw new ArgumentOutOfRangeException("keys", "Only Alt, Shift and Control is allowed.");
+                throw new ArgumentOutOfRangeException(nameof(keys), "Only Alt, Shift and Control is allowed.");
             }
 
             Win32.KEYBDINPUT ki = new Win32.KEYBDINPUT();
@@ -955,11 +955,11 @@ namespace NUnit.Extensions.Forms
         {
             if (points == null)
             {
-                throw new ArgumentNullException("points");
+                throw new ArgumentNullException(nameof(points));
             }
             if (points.Length < 1)
             {
-                throw new ArgumentException("At lease one point must be specified.", "points");
+                throw new ArgumentException("At lease one point must be specified.", nameof(points));
             }
 
             Press(MouseButtons.Left, startPoint);
@@ -1008,15 +1008,15 @@ namespace NUnit.Extensions.Forms
         {
             if (points == null)
             {
-                throw new ArgumentNullException("points");
+                throw new ArgumentNullException(nameof(points));
             }
             if (points.Length < 2)
             {
-                throw new ArgumentException("At lease one point must be specified.", "points");
+                throw new ArgumentException("At lease one point must be specified.", nameof(points));
             }
             if ((points.Length & 1) != 0)
             {
-                throw new ArgumentException("Missing the final y-coordinate.", "points");
+                throw new ArgumentException("Missing the final y-coordinate.", nameof(points));
             }
 
             Press(MouseButtons.Left, new PointF(startX, startY));

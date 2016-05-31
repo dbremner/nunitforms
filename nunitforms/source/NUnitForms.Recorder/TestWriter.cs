@@ -64,7 +64,7 @@ namespace NUnit.Extensions.Forms.Recorder
             {
                 Listener listener = new Listener();
                 listener.ListenTo(form);
-                listener.Event += new EventHappened(eventHappened);
+                listener.Event += eventHappened;
             }
             else
             {
