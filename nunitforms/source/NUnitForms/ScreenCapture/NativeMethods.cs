@@ -38,12 +38,8 @@ namespace NUnit.Extensions.Forms
     /// </summary>
     [SuppressUnmanagedCodeSecurity()]
     [ComVisible(false)]
-    internal sealed class NativeMethods
+    internal static class NativeMethods
     {
-        private NativeMethods()
-        {
-        }
-
         #region RECT structure
 
         [StructLayout(LayoutKind.Sequential)]
