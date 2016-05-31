@@ -6,7 +6,8 @@
 	
 	<property name="source.dir" value="source" />
 	
-	<property name="nunit.dir" value="lib\NUnit" />
+	<property name="nunit.dir" value="source\packages\NUnit.2.6.4\lib" />
+	<property name="nunit-runner.dir" value="source\packages\NUnit.Runners.2.6.4\tools" />
 	<property name="nmock.dir" value="lib\NMock" />
 	<property name="ncover.dir" value="lib\NCover" />
 	
@@ -99,7 +100,7 @@
 	</target>
 	
 	<target name="test" depends="build" description="Test project.">
-		<exec program="${nunit.dir}\nunit-console.exe" commandline="${bin.dir}\NUnitForms.Test.dll /nologo"/>
+		<exec program="${nunit-runner.dir}\nunit-console.exe" commandline="${bin.dir}\NUnitForms.Test.dll /nologo"/>
 	</target>
 	
 	<target name="clean" description="Deletes all build files">
