@@ -32,6 +32,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms.Recorder
@@ -55,7 +56,7 @@ namespace NUnit.Extensions.Forms.Recorder
         public void AfterSelect(object sender, TreeViewEventArgs e)
         {
             TreeNode node = e.Node;
-            ArrayList list = new ArrayList();
+            var list = new List<object>();
             while (node.Parent != null)
             {
                 list.Add(node.Parent.Nodes.IndexOf(node));
@@ -64,7 +65,7 @@ namespace NUnit.Extensions.Forms.Recorder
             list.Add(((TreeView) sender).Nodes.IndexOf(node));
             list.Reverse();
 
-            Listener.FireEvent(TesterType, sender, new EventAction("SelectNode", list.ToArray(typeof (object))));
+            Listener.FireEvent(TesterType, sender, new EventAction("SelectNode", list.ToArray()));
         }
     }
 }

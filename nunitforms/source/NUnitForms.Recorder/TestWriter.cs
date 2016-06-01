@@ -45,7 +45,7 @@ namespace NUnit.Extensions.Forms.Recorder
     public class TestWriter
     {
         private List<Action> actions = new List<Action>();
-        private ArrayList definitions = new ArrayList();
+        private List<Definition> definitions = new List<Definition>();
         private string test = "";
         public EventHandler TestChanged;
 

@@ -37,6 +37,7 @@
 //nobody cares and the code is simple enough to write (or borrow) yourself.
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -99,7 +100,7 @@ namespace NUnit.Extensions.Forms.Recorder
 
         private object NewInterface(Type type)
         {
-            ArrayList candidates = new ArrayList();
+            var candidates = new List<Type>();
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 foreach (Type t in assembly.GetTypes())
@@ -114,7 +115,7 @@ namespace NUnit.Extensions.Forms.Recorder
             {
                 throw new Exception("Implementing type not found or ambiguous");
             }
-            return NewType((Type) candidates[0]);
+            return NewType(candidates[0]);
         }
 
         private object NewType(Type type)

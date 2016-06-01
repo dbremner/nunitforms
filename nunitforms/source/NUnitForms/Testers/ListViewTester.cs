@@ -33,6 +33,7 @@
 //Contributed by: Ian Cooper
 
 using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
@@ -114,7 +115,7 @@ namespace NUnit.Extensions.Forms
         /// <param name="matches"></param>
         public bool SelectedItemsMatch(string[] matches)
         {
-            ArrayList matchList = new ArrayList(matches);
+            List<string> matchList = new List<string>(matches);
 
             if (matchList.Count != Properties.SelectedItems.Count)
             {

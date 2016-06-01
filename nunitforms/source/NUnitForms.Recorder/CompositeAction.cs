@@ -31,13 +31,14 @@
 #endregion
 
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 
 namespace NUnit.Extensions.Forms.Recorder
 {
     public class CompositeAction : EventAction
     {
-        private ArrayList actions = new ArrayList();
+        private List<Action> actions = new List<Action>();
 
         public CompositeAction(string name) : base(name)
         {
