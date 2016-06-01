@@ -32,6 +32,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Extensions.Forms;
 using NUnit.Extensions.Forms.Win32Interop;
 
@@ -80,13 +81,9 @@ namespace NUnit.Extensions.Forms.SendKey
 
             foreach (ISendKeysParserGroup group in parser.Groups)
             {
-                List<VirtualKeyCodes> modifierKeys = new List<VirtualKeyCodes>();
-
                 string modifierCharacters = group.ModifierCharacters;
-                foreach (char modifierCharacter in modifierCharacters)
-                {
-                    modifierKeys.Add(modifierKeyMap[modifierCharacter]);
-                }
+                //TODO examine other uses of modifierKeys, can I use .ToArray instead and avoid the copies?
+                var modifierKeys = modifierCharacters.Select(modChar => modifierKeyMap[modChar]).ToList();
 
                 PressKeysDown(modifierKeys.ToArray());
 

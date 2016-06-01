@@ -32,6 +32,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace NUnit.Extensions.Forms
@@ -59,12 +60,7 @@ namespace NUnit.Extensions.Forms
         ///<returns></returns>
         public static ICollection<string> GetEventNames(Type type)
         {
-            List<string> list = new List<string>();
-            foreach (EventInfo info in type.GetEvents())
-            {
-                list.Add(info.Name);
-            }
-            return list;
+            return type.GetEvents().Select(info => info.Name).ToList();
         }
     }
 }

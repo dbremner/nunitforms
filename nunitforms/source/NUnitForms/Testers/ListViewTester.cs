@@ -34,6 +34,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace NUnit.Extensions.Forms
@@ -115,22 +116,14 @@ namespace NUnit.Extensions.Forms
         /// <param name="matches"></param>
         public bool SelectedItemsMatch(string[] matches)
         {
-            List<string> matchList = new List<string>(matches);
+            var matchList = new List<string>(matches);
 
             if (matchList.Count != Properties.SelectedItems.Count)
             {
                 return false;
             }
-
-            foreach (ListViewItem item in Properties.SelectedItems)
-            {
-                if (!matchList.Contains(item.Text))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            var listViewItems = Properties.SelectedItems.Cast<ListViewItem>();
+            return listViewItems.All(item => matchList.Contains(item.Text));
         }
 
         private int FindItemByString(string text)

@@ -31,6 +31,7 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using NUnit.Extensions.Forms.Win32Interop;
 
@@ -54,13 +55,9 @@ namespace NUnit.Extensions.Forms.SendKey
 
 			Regex regex = new Regex(groupsPattern, RegexOptions.IgnorePatternWhitespace);
 			MatchCollection matches = regex.Matches(sendKeysFormattedText);
-			List<string> groupsList = new List<string>();
-			foreach (Match match in matches)
-			{
-				groupsList.Add(match.Value);
-			}
+		    var groupsList = matches.Cast<Match>().Select(match => match.Value).ToArray();
 
-			foreach (string group in groupsList)
+		    foreach (string group in groupsList)
 			{
 				ParseGroupElements(group);
 			}
