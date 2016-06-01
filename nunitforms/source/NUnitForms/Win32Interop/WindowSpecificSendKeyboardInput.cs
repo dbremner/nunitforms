@@ -76,7 +76,7 @@ namespace NUnit.Extensions.Forms.Win32Interop
             uint message = (altPressed ? Win32.WM_SYSKEYDOWN : Win32.WM_KEYDOWN);
             uint lParam = 0x00000001 + (code << 16);
             if (altPressed) lParam |= 0x20000000;
-            Win32.PostMessage(hWnd, message, (int) key, lParam);
+            Win32.PostMessage(hWnd, message, (IntPtr) key, (IntPtr) lParam);
         }
 
         private void PostKeyUp(IntPtr hWnd, VirtualKeyCodes key)
@@ -85,7 +85,7 @@ namespace NUnit.Extensions.Forms.Win32Interop
             uint message = (altPressed && key != VirtualKeyCodes.MENU ? Win32.WM_SYSKEYUP : Win32.WM_KEYUP);
             uint lParam = 0xC0000001 + (code << 16);
             if (altPressed) lParam |= 0xF0000000;
-            Win32.PostMessage(hWnd, message, (int) key, lParam);
+            Win32.PostMessage(hWnd, message, (IntPtr) key, (IntPtr) lParam);
         }
     }
 }

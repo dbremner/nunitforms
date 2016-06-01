@@ -417,9 +417,6 @@ namespace NUnit.Extensions.Forms
         [DllImport("user32.dll")]
         public static extern uint MapVirtualKeyEx(uint uCode, uint uMapType, IntPtr dwhkl);
 
-        [DllImport("user32.dll", EntryPoint = "PostMessage")] //
-        public static extern bool PostMessage(IntPtr hWnd, uint Msg, int wParam, uint lParam);
-
         [DllImport("user32.dll")]
         public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
 
