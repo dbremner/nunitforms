@@ -68,8 +68,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test]
         public void CheckBoxDataSetBinding()
         {
-            CheckBoxDataSetBindingTestForm f;
-            f = new CheckBoxDataSetBindingTestForm();
+            var f = new CheckBoxDataSetBindingTestForm();
             f.Show();
             ModalFormHandler = falsehandler;
             new ButtonTester("btnView").Click();
@@ -84,8 +83,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test]
         public void DataSetBindingWithGenericPropertySetter()
         {
-            TextBoxDataSetBindingTestForm f;
-            f = new TextBoxDataSetBindingTestForm();
+            var f = new TextBoxDataSetBindingTestForm();
             f.Show();
             ModalFormHandler = oldhandler;
             new ButtonTester("btnView").Click();
@@ -100,8 +98,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         [Test]
         public void TextBoxDataSetBinding()
         {
-            TextBoxDataSetBindingTestForm f;
-            f = new TextBoxDataSetBindingTestForm();
+            var f = new TextBoxDataSetBindingTestForm();
             f.Show();
             ModalFormHandler = oldhandler;
 

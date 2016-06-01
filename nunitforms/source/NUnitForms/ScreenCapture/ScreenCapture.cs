@@ -541,9 +541,7 @@ namespace NUnit.Extensions.Forms
         {
             String directory = Path.GetDirectoryName(filename);
             String name = Path.GetFileNameWithoutExtension(filename);
-            String ext;
-
-            ext = formatHandler.GetDefaultFilenameExtension(format);
+            String ext = formatHandler.GetDefaultFilenameExtension(format);
 
             if (ext.Length == 0)
             {
