@@ -62,7 +62,7 @@ namespace NUnit.Extensions.Forms.TestApplications
         [DllImport("user32.dll")]
         private static extern bool SetProcessWindowStation(IntPtr handle);
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         private static extern IntPtr CreateWindowStation(string name, int flags, int access, IntPtr security);
 
         [DllImport("user32.dll")]

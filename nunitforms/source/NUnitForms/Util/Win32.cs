@@ -82,7 +82,7 @@ namespace NUnit.Extensions.Forms
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern IntPtr OpenInputDesktop(uint dwFlags, bool fInherit, uint dwDesiredAccess);
 
-		[DllImport("user32.dll")]
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 		public static extern IntPtr OpenDesktop(string lpszDesktop, uint dwFlags, bool fInherit, uint dwDesiredAccess);
 
 
@@ -97,10 +97,10 @@ namespace NUnit.Extensions.Forms
 		[DllImport("user32.dll", SetLastError = true)]
 		public static extern IntPtr GetProcessWindowStation();
 
-		[DllImport("user32.dll")]
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 		public static extern IntPtr OpenWindowStation(string lpszWinSta, bool fInherit, uint dwDesiredAccess);
 
-		[DllImport("user32.dll")]
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 		public static extern IntPtr CreateWindowStation(string pwinsta, uint dwReserved, uint dwDesiredAccess,
 		                                                IntPtr lpsa);
 
@@ -148,16 +148,16 @@ namespace NUnit.Extensions.Forms
 		internal static extern bool EnumDesktopWindows(IntPtr hDesktop, EnumDelegate lpEnumCallbackFunction,
 		                                               IntPtr lParam);
 
-		[DllImport("user32.dll")]
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 		internal static extern int GetWindowText(IntPtr handleToWindow, StringBuilder windowText, int maxTextLength);
 
 		[DllImport("user32.dll")]
 		internal static extern IntPtr GetDlgItem(IntPtr handleToWindow, int ControlId);
 
-		[DllImport("user32.dll")]
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 		internal static extern int GetClassName(IntPtr handleToWindow, StringBuilder className, int maxClassNameLength);
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         internal static extern IntPtr SetWindowsHookEx(int code, CBTCallback callbackFunction, IntPtr handleToInstance,
                                                        int threadID);
         [DllImport("user32.dll", EntryPoint="SetWindowsHookEx")]
@@ -172,10 +172,10 @@ namespace NUnit.Extensions.Forms
 		[DllImport("user32.dll", EntryPoint="CallNextHookEx")]
 		internal static extern IntPtr CallNextMSGHookEx(IntPtr handleToHook, int nCode, IntPtr wParam, ref System.Windows.Forms.Message lParam);
 
-		[DllImport("user32.dll")]
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 		internal static extern IntPtr SendMessage(IntPtr handleToWindow, uint Message, UIntPtr wParam, IntPtr lParam);
 
-		[DllImport("user32.Dll")]
+		[DllImport("user32.Dll", CharSet = CharSet.Unicode)]
 		internal static extern IntPtr SendDlgItemMessage(IntPtr handleToWindow, int dlgItem, uint message,
 		                                                 UIntPtr wParam, IntPtr lParam);
 
@@ -191,7 +191,7 @@ namespace NUnit.Extensions.Forms
 		[DllImport("user32.dll")]
 		internal static extern int GetSystemMetrics(int nIndex);
 
-		[DllImport("user32.dll")]
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 		public static extern int SystemParametersInfo(int uAction, int uParam, out int lpvParam, int fuWinIni);
 
 		/// <summary>
@@ -225,7 +225,7 @@ namespace NUnit.Extensions.Forms
         [DllImport("user32.dll")]
         internal static extern IntPtr GetMessageExtraInfo();
 
-        [DllImport("user32", EntryPoint = "CreateDesktopW", CharSet = CharSet.Unicode, SetLastError = true)]
+        [DllImport("user32", CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern IntPtr CreateDesktop(string lpszDesktop, IntPtr lpszDevice, IntPtr pDevmode, int dwFlags,
                                                   int dwDesiredAccess, IntPtr lpsa);
 
@@ -242,13 +242,13 @@ namespace NUnit.Extensions.Forms
         [DllImport("user32", SetLastError = true)]
         public static extern int SwitchDesktop(IntPtr hDesktop);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern bool SetDlgItemText(IntPtr hDlg, int nIDDlgItem, string lpString);
         
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern bool SetWindowText(IntPtr hWnd, string lpString);
 
-		[DllImport("user32.dll")]
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
         internal static extern int GetDlgItemText(IntPtr hDlg, int nIDDlgItem, StringBuilder lpString, int maxCount);
 
         [DllImport("user32.dll")]
@@ -411,8 +411,8 @@ namespace NUnit.Extensions.Forms
         [DllImport("user32.dll")]
         public static extern IntPtr GetKeyboardLayout(int idThread);
 
-        [DllImport("user32.dll", EntryPoint = "SendMessage")] //
-        public static extern bool SendMessage(IntPtr hWnd, uint Msg, int wParam, uint lParam);
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)] //
+        public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll")]
         public static extern uint MapVirtualKeyEx(uint uCode, uint uMapType, IntPtr dwhkl);
@@ -441,7 +441,7 @@ namespace NUnit.Extensions.Forms
         [DllImport("user32.dll", EntryPoint = "DestroyWindow")] //
         public static extern bool DestroyWindow(IntPtr hWnd);
 
-        [DllImport("user32.dll", EntryPoint = "RegisterWindowMessage", SetLastError = true)] //
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)] //
         public static extern int RegisterWindowMessage(string lpstring);
 
 
